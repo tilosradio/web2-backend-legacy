@@ -18,18 +18,27 @@ How to run
 2. Set your webserver, use the www subdirectory as the content root
 3. Set the rewrite definitions
 
-For lighttpd:
+For lighttpd (version 2):
 ```
-# make sure the mod_rewrute is enabled
+# make sure the mod_rewrite is enabled
 server.modules = (
-        "mod_access",
-        "mod_alias",
-        "mod_compress",
-        "mod_redirect",
-        "mod_rewrite",
+  "mod_access",
+  "mod_alias",
+  "mod compress",
+  "mod_redirect",
+  "mod_rewrite",
 )
 
-url.rewrite-once = (".*\.(js|ico|gif|jpg|png|css)$" => "$0", "" => "/api.php")
+if !physical.exists {
+  if request.path =^ "/api/" {
+    rewrite "/api/index.php";
+    docroot var.vhosts_dir + var.my_docroot;
+  } else {
+    rewrite "/index.html";
+    docroot var.vhosts_dir + var.my_docroot;
+  }
+}
+
 
 ```
 
@@ -43,3 +52,4 @@ Development tools
 Contributors:
 =============
 László Károlyi laszlo@karolyi.hu
+Márton Elek elek@anzix.net
