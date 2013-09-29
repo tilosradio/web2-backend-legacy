@@ -51,5 +51,5 @@ Development tools
 
 Contributors:
 =============
-László Károlyi laszlo@karolyi.hu
-Márton Elek elek@anzix.net
+- László Károlyi laszlo@karolyi.hu
+- Márton Elek elek@anzix.net
