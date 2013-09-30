@@ -14,9 +14,18 @@ Directories and files in the repo
 How to run
 ----------
 
-1. run ```php composer.phar install``` to populate the vendor directory with the libraries (Zend Framework 2, etc.)
+1. run ```php composer.phar install``` (first time ) or ```php composer.phar update``` (next times) to populate the vendor directory
+ with the libraries (Zend Framework 2, etc.)
+
 2. Set your webserver, use the www subdirectory as the content root
-3. Set the rewrite definitions
+
+3. Create the database schema
+
+  a.) first time: run ```php vendor/bin/phinx init``` and endit the mysql connection details in phinx.yml
+
+  b.) run ```php vendor/bin/phinx init``` to upgrade the db schema
+
+4. Set the rewrite definitions
 
 For lighttpd (version 2):
 ```
