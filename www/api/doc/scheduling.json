@@ -1,0 +1,44 @@
+{
+    "basePath": "http://api.wordnik.com/v4",
+    "apiVersion": "4.0",
+    "swaggerVersion": "1.2",
+    "resourcePath": "/scheduling",
+    "apis": [
+        {
+            "path": "/scheduling",
+            "operations": [
+                {
+                    "method": "GET",
+                    "summary": "Get the current radio program timetable",
+                    "notes": "All the scheduled episodes for the current and next week.",
+                    "nickname": "getScheduling",
+                    "responseClass": "Scheduling",
+                    "parameters": [],
+                    "errorResponses": []
+                }
+            ]
+        }
+    ],
+    "models": {
+        "Scheduling": {
+            "id": "Scheduling",
+            "properties": {
+                "date": {
+                    "type": "date",
+                    "required": true
+                },
+                "startTime": {
+                    "type": "string",
+                    "required": true
+                },
+                "endTime": {
+                    "type": "string",
+                    "required": true
+                }
+
+            }
+
+        }
+
+    }
+}

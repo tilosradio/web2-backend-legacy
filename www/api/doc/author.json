@@ -1,0 +1,108 @@
+{
+    "basePath": "http://tilos.hu/api/v1",
+    "apiVersion": "4.0",
+    "swaggerVersion": "1.2",
+    "resourcePath": "/author",
+    "apis": [
+        {
+            "path": "/author/{id}",
+            "operations": [
+                {
+                    "method": "GET",
+                    "summary": "Get information about a specific author",
+                    "nickname": "getAuthor",
+                    "responseClass": "Author",
+                    "parameters": [
+                        {
+                            "id": "id",
+                            "description": "Internal numeric id of the author",
+                            "required": true,
+                            "dataType": "long",
+                            "allowMultiple": false,
+                            "paramType": "path"
+                        }
+                    ],
+                    "errorResponses": [
+                        {
+                            "reason": "Author is not found.",
+                            "code": 404
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "path": "/author",
+            "httpMethod": "GET",
+            "operations": [
+                {
+                    "summary": "List all of the active authors.",
+                    "notes": "Author is active if there is an active program owned by the author.",
+                    "nickname": "listAuthor",
+                    "responseClass": "AuthorArray",
+                    "type": "array",
+                    "items": {
+                        "$ref": "Author"
+                    },
+                    "method": "GET",
+                    "parameters": [],
+                    "errorResponses": [
+                    ]
+                }
+            ]
+        }
+    ],
+    "models": {
+        "ShortShow": {
+            "id": "ShortShow",
+            "properties": {
+                "id": {
+                    "type": "long",
+                    "required": true
+                },
+                "name": {
+                    "type": "string",
+                    "required": true
+                },
+                "slug": {
+                    "type": "string",
+                    "required": true
+                }
+            }
+        },
+        "Author": {
+            "id": "Author",
+            "properties": {
+                "id": {
+                    "type": "long",
+                    "required": true
+                },
+                "name": {
+                    "type": "string",
+                    "required": true
+                },
+                "nick": {
+                    "type": "string",
+                    "required": true
+                },
+                "shows": {
+                    "type": "array",
+                    "required": true,
+                    "items": {
+                        "$ref": "ShortShow"
+                    }
+                },
+                "iconUrl": {
+                    "type": "string"
+                },
+                "urls": {
+                    "type": "array",
+                    "items": "UrlItem"
+                }
+
+            }
+
+        }
+
+    }
+}
