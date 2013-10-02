@@ -3,11 +3,14 @@ namespace Radio\Controller;
 use Zend\Mvc\Controller\AbstractRestfulController;
 use Zend\View\Model\JsonModel;
 class Program extends AbstractRestfulController {
+    protected $programTable;
     public function getList() {
-        return new JsonModel(array('data' => "empty",));
+        return new JsonModel(array('data' => "Tűrő",));
     }
     public function get($id) {
-        return new JsonModel(array('data' => "empty",));
+        $result = $this->getProgramTable()->getProgram($id);
+        print_r(\Zend\Json\Json::encode($result));die();
+        return new JsonModel(array('data' => $result,));
     }
     public function create($data) {
     }
@@ -16,5 +19,14 @@ class Program extends AbstractRestfulController {
     public function delete($id) {
     }
     public function getAlbumTable() {
+    }
+
+    public function getProgramTable()
+    {
+        if (!$this->programTable) {
+            $sm = $this->getServiceLocator();
+            $this->programTable = $sm->get('Radio\Model\ProgramTable');
+        }
+        return $this->programTable;
     }
 }

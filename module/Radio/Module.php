@@ -1,5 +1,11 @@
 <?php
 namespace Radio;
+
+use Zend\Db\ResultSet\ResultSet;
+use Radio\Model\Program;
+use Zend\Db\TableGateway\TableGateway;
+use Radio\Model\ProgramTable;
+
 class Module {
     public function onBootstrap($e) {
         //TODO define a clean error handling
@@ -22,5 +28,22 @@ class Module {
     }
     public function getConfig() {
         return include __DIR__ . '/config/module.config.php';
+    }
+    public function getServiceConfig() {
+        return array(
+            'factories' => array(
+                'Radio\Model\ProgramTable' =>  function($sm) {
+                    $tableGateway = $sm->get('ProgramTableGateway');
+                    $table = new ProgramTable($tableGateway);
+                    return $table;
+                },
+                'ProgramTableGateway' => function ($sm) {
+                    $dbAdapter = $sm->get('Zend\Db\Adapter\Adapter');
+                    $resultSetPrototype = new ResultSet();
+                    $resultSetPrototype->setArrayObjectPrototype(new Program());
+                    return new TableGateway('program', $dbAdapter, null, $resultSetPrototype);
+                },)
+           );
+
     }
 }
