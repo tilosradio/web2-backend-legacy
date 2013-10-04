@@ -3,7 +3,7 @@ namespace Radio\Model;
 
 use Zend\Db\TableGateway\TableGateway;
 
-class ProgramTable
+class ShowTable
 {
     protected $tableGateway;
 
@@ -18,7 +18,7 @@ class ProgramTable
         return $resultSet;
     }
 
-    public function getProgram($id)
+    public function getShow($id)
     {
         $id  = (int) $id;
         $rowset = $this->tableGateway->select(array('id' => $id));

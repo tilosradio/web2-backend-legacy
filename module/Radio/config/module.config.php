@@ -2,16 +2,16 @@
 return array(
     'controllers' => array(
         'invokables' => 
-            array('Radio\Controller\Program' => 'Radio\Controller\Program',),
+            array('Radio\Controller\Show' => 'Radio\Controller\Show',),
     ),
     'router' => array(
         'routes' => array(
             'album-rest' => array(
                 'type' => 'Segment', 
 		'options' => array(
-		    'route' => '/program[/:id]', 
+		    'route' => '/show[/:id]', 
 		    'constraints' => array('id' => '[0-9]+',), 
-		    'defaults' => array('controller' => 'Radio\Controller\Program',)
+		    'defaults' => array('controller' => 'Radio\Controller\Show',)
 		,)
 	    ,)
         ,)
@@ -24,16 +24,16 @@ return array(
 	'strategies' => array('ViewJsonStrategy',),
     ),
     'factories' => array(
-        'Radio\Model\ProgramTable' =>  function($sm) {
-            $tableGateway = $sm->get('ProgramTableGateway');
-            $table = new ProgramTable($tableGateway);
+        'Radio\Model\ShowTable' =>  function($sm) {
+            $tableGateway = $sm->get('ShowTableGateway');
+            $table = new ShowTable($tableGateway);
             return $table;
         },
         'ProgramTableGateway' => function ($sm) {
             $dbAdapter = $sm->get('Zend\Db\Adapter\Adapter');
             $resultSetPrototype = new ResultSet();
-            $resultSetPrototype->setArrayObjectPrototype(new Program());
-            return new TableGateway('program', $dbAdapter, null, $resultSetPrototype);
+            $resultSetPrototype->setArrayObjectPrototype(new Show());
+            return new TableGateway('show', $dbAdapter, null, $resultSetPrototype);
         },
     ),
 );

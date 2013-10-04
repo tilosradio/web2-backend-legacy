@@ -2,9 +2,9 @@
 namespace Radio;
 
 use Zend\Db\ResultSet\ResultSet;
-use Radio\Model\Program;
+use Radio\Model\Show;
 use Zend\Db\TableGateway\TableGateway;
-use Radio\Model\ProgramTable;
+use Radio\Model\ShowTable;
 
 class Module {
     public function onBootstrap($e) {
@@ -32,16 +32,16 @@ class Module {
     public function getServiceConfig() {
         return array(
             'factories' => array(
-                'Radio\Model\ProgramTable' =>  function($sm) {
-                    $tableGateway = $sm->get('ProgramTableGateway');
-                    $table = new ProgramTable($tableGateway);
+                'Radio\Model\ShowTable' =>  function($sm) {
+                    $tableGateway = $sm->get('ShowTableGateway');
+                    $table = new ShowTable($tableGateway);
                     return $table;
                 },
-                'ProgramTableGateway' => function ($sm) {
+                'ShowTableGateway' => function ($sm) {
                     $dbAdapter = $sm->get('Zend\Db\Adapter\Adapter');
                     $resultSetPrototype = new ResultSet();
-                    $resultSetPrototype->setArrayObjectPrototype(new Program());
-                    return new TableGateway('program', $dbAdapter, null, $resultSetPrototype);
+                    $resultSetPrototype->setArrayObjectPrototype(new Show());
+                    return new TableGateway('show', $dbAdapter, null, $resultSetPrototype);
                 },)
            );
 
