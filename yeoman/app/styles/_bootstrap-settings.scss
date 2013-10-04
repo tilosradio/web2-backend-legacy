@@ -1,0 +1,18 @@
+//  global
+
+$border-radius-base: 0;
+
+// body
+
+$body-bg: $background-color;
+$text-color:  $primary-color;
+
+
+// navgation
+$navbar-default-bg: $navbar-color;
+$navbar-default-link-color: white;
+$navbar-default-link-hover-color: darken(white, 10%);
+$navbar-height: 60px;
+
+$navbar-default-link-active-color: $secondary-color;
+$navbar-default-link-active-bg: transparent;
