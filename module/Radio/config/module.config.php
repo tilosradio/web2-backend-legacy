@@ -6,11 +6,11 @@ return array(
     ),
     'router' => array(
         'routes' => array(
-            'album-rest' => array(
+            'show-rest' => array(
                 'type' => 'Segment', 
 		'options' => array(
 		    'route' => '/show[/:id]', 
-		    'constraints' => array('id' => '[0-9]+',), 
+		    'constraints' => array('id' => '[0-9]*',), 
 		    'defaults' => array('controller' => 'Radio\Controller\Show',)
 		,)
 	    ,)
@@ -21,19 +21,6 @@ return array(
         'exception_template' => 'error/index', 
 	'template_map' => array('error/index' => __DIR__ . '/../view/error/index.phtml',), 
 	'template_path_stack' => array(__DIR__ . '/../view',), 
-	'strategies' => array('ViewJsonStrategy',),
-    ),
-    'factories' => array(
-        'Radio\Model\ShowTable' =>  function($sm) {
-            $tableGateway = $sm->get('ShowTableGateway');
-            $table = new ShowTable($tableGateway);
-            return $table;
-        },
-        'ProgramTableGateway' => function ($sm) {
-            $dbAdapter = $sm->get('Zend\Db\Adapter\Adapter');
-            $resultSetPrototype = new ResultSet();
-            $resultSetPrototype->setArrayObjectPrototype(new Show());
-            return new TableGateway('show', $dbAdapter, null, $resultSetPrototype);
-        },
+	'strategies' => array('ViewJsonStrategy'),
     ),
 );
