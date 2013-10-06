@@ -62,3 +62,4 @@ Contributors:
 =============
 - László Károlyi laszlo@karolyi.hu
 - Márton Elek elek@anzix.net
+- Dávid Barkóczi david.barkoczi@gmail.com
