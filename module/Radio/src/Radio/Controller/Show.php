@@ -4,23 +4,30 @@ namespace Radio\Controller;
 
 use Zend\Mvc\Controller\AbstractRestfulController;
 use Zend\View\Model\JsonModel;
+use Doctrine\ORM\EntityManager;
 
 class Show extends AbstractRestfulController {
 
-    protected $showTable;
+    protected $em;
+
+    public function getEntityManager() {
+        if (null === $this->em) {
+            $this->em = $this->getServiceLocator()->get('doctrine.entitymanager.orm_default');
+        }
+        return $this->em;
+    }
 
     public function getList() {
-        
         try {
-            
-            $resultSet = $this->getShowTable()->fetchAll();
+            $resultSet = $this->getEntityManager()->getRepository("\Radio\Entity\Show")->findAll();
             $return = [];
-            foreach ($resultSet as $row) {
-                $rec = (array) $row;
-                unset($rec['description']);
-                $return[] = $rec;
-                
-            }            
+            foreach ($resultSet as $result) {
+                $a = $result->toArray();
+                foreach ($result->getAuthors() as $author) {
+                    $a['authors'][] = array('id' => $author->getId(), 'nick' => $author->getNick());
+                }
+                $return[] = $a;
+            }
             return new JsonModel($return);
         } catch (Exception $ex) {
             $this->getResponse()->setStatusCode(500);
@@ -29,42 +36,24 @@ class Show extends AbstractRestfulController {
     }
 
     public function get($id) {
-        try {
-            $result = $this->getShowTable()->getShow($id);
-            if ($result == null) {
-                $this->getResponse()->setStatusCode(404);
-                return new JsonModel(array("error" => "Not found"));
-            } else {
-                return new JsonModel(array($result));
+        //try {
+        $result = $this->getEntityManager()->find("\Radio\Entity\Show", $id);
+        if ($result == null) {
+            $this->getResponse()->setStatusCode(404);
+            return new JsonModel(array("error" => "Not found"));
+        } else {
+            $a = $result->toArray();
+            foreach ($result->getAuthors() as $author) {
+                $a['authors'][] = array('id' => $author->getId(), 'nick' => $author->getNick());
             }
-        } catch (\Exception $ex) {
-            $this->getResponse()->setStatusCode(500);
-            return new JsonModel(array("error" => $ex->getMessage()));
+
+            return new JsonModel($a);
         }
-    }
-
-    public function create($data) {
-        
-    }
-
-    public function update($id, $data) {
-        
-    }
-
-    public function delete($id) {
-        
-    }
-
-    public function getAlbumTable() {
-        
-    }
-
-    public function getShowTable() {
-        if (!$this->showTable) {
-            $sm = $this->getServiceLocator();
-            $this->showTable = $sm->get('Radio\Model\ShowTable');
-        }
-        return $this->showTable;
+        /* } catch (\Exception $ex) {
+          $this->getResponse()->setStatusCode(500);
+          return new JsonModel(array("error" => $ex->getMessage()));
+          } */
     }
 
 }
+

@@ -24,31 +24,7 @@ class Module {
     }
 
     public function getServiceConfig() {
-        return array(
-            'factories' => array(
-                'Radio\Model\ShowTable' => function($sm) {
-                    $tableGateway = $sm->get('ShowTableGateway');
-                    $table = new ShowTable($tableGateway);
-                    return $table;
-                },
-                'Radio\Model\AuthorTable' => function($sm) {
-                    $tableGateway = $sm->get('AuthorTableGateway');
-                    $table = new AuthorTable($tableGateway);
-                    return $table;
-                },
-                'AuthorTableGateway' => function ($sm) {
-                    $dbAdapter = $sm->get('Zend\Db\Adapter\Adapter');
-                    $resultSetPrototype = new ResultSet();
-                    $resultSetPrototype->setArrayObjectPrototype(new Author());
-                    return new TableGateway('author', $dbAdapter, null, $resultSetPrototype);
-                },
-                'ShowTableGateway' => function ($sm) {
-                    $dbAdapter = $sm->get('Zend\Db\Adapter\Adapter');
-                    $resultSetPrototype = new ResultSet();
-                    $resultSetPrototype->setArrayObjectPrototype(new Show());
-                    return new TableGateway('radioshow', $dbAdapter, null, $resultSetPrototype);
-                },)
-        );
+        return array();
     }
 
 }
