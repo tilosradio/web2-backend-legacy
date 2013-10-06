@@ -3,6 +3,7 @@ $icon-font-path: "/bower_components/sass-bootstrap/fonts/";
 @import "color";
 @import "bootstrap-settings";
 @import 'sass-bootstrap/lib/bootstrap';
+@import "mixin";
 @import "fonts";
 
 
@@ -131,4 +132,18 @@ $icon-font-path: "/bower_components/sass-bootstrap/fonts/";
             text-decoration: none;
         }
     }
+}
+
+.radio-icon{
+    float: left;
+    color: rgba(white, 0.2);
+    margin-left: 5px;
+}
+.online-icon{
+    color: $placeholder-color;
+    float: right;
+    margin-right: 5px;
+    // &.active:before{
+    //     @include rotate-animation();
+    // }
 }
