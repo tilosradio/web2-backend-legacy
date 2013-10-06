@@ -72,11 +72,21 @@ $icon-font-path: "/bower_components/sass-bootstrap/fonts/";
         font-weight: 300;
         margin:  0;
     }
-    .radio{
+    .radio-player{
         background: white;
         background: rgba(white, 0.1);
+        padding-top: 10px;
         width: 100%;
+        h3{
+            margin-top: 0;
+            text-align: center;
+        }
     }
+}
+
+.brand-holder{
+    padding-top: 10px;
+    @include clearfix();
 }
 
 .logo{
@@ -85,5 +95,40 @@ $icon-font-path: "/bower_components/sass-bootstrap/fonts/";
 }
 
 .stream-chooser{
-
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    @include clearfix();
+    li{
+        border-top: 3px solid $link-color;
+        border-right: 1px solid $primary-color;
+        float: left;
+        text-align: center;
+        width: 25%;
+        &:nth-child(2){
+            border-top-color: $green-color;
+        }
+        &:nth-child(3){
+            border-top-color: $placeholder-color;
+        }
+        &:nth-child(4){
+            border-top-color: $heiglight-color;
+        }
+        &:hover, .active{
+            background: rgba(white, 0.1);
+        }
+    }
+    a{
+        color: white;
+        display: block;
+        font-size: 10px;
+        padding: 10px;
+        span{
+            font-size: 22px;
+            display: block;
+        }
+        &:hover{
+            text-decoration: none;
+        }
+    }
 }
