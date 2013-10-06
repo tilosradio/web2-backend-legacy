@@ -1,7 +1,7 @@
 @mixin rotate-animation() {
-	-webkit-animation: rotateAnimaton 3s infinite;
-	-moz-animation: rotateAnimaton 3s infinite;
-	-o-animation: rotateAnimaton 3s infinite;	
+	-webkit-animation: rotateAnimaton 3s linear infinite;
+	-moz-animation: rotateAnimaton 3s linear infinite;
+	-o-animation: rotateAnimaton 3s linear infinite;	
 }
 
 
