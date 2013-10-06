@@ -3,10 +3,56 @@ $icon-font-path: "/bower_components/sass-bootstrap/fonts/";
 @import "color";
 @import "bootstrap-settings";
 @import 'sass-bootstrap/lib/bootstrap';
+@import "fonts";
+
+
 
 .browsehappy {
     margin: 0 0 0.2em 0;
     background: #ccc;
     color: #000;
     padding: 0.2em 0;
+}
+
+
+
+.navbar-nav {
+    > li{
+        font-size: 19px;
+        border-left: 1px solid rgba(white, 0.6);
+        &:first-child{
+            border-left: none;
+        }
+    }
+}
+
+.navbar-form{
+    padding: 0;
+    position: relative;
+    input[type='search']{
+        background: rgba(white, 0.1);
+        color: white;
+        border: 1px solid rgba(white, 0.1);
+         outline: none;
+        width: 100%;
+        @include placeholder($placeholder-color);
+        @include box-shadow($placeholder-color);
+        @include form-control-focus(rgba($placeholder-color,0.6));
+    }
+    button[type='submit']{
+        font-size: 0;
+        margin: 0;
+        border: 0;
+        height: 0;
+        padding: 0;
+        width: 0;
+        span{
+            color: $placeholder-color;
+            font-size: 21px;
+            position: absolute;
+            top: 5px;
+            right: 5px;
+            display: block;
+        }
+    }
 }
