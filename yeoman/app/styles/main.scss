@@ -31,9 +31,9 @@ $icon-font-path: "/bower_components/sass-bootstrap/fonts/";
     position: relative;
     input[type='search']{
         background: rgba(white, 0.1);
-        color: white;
         border: 1px solid rgba(white, 0.1);
-         outline: none;
+        color: white;
+        padding-right: 20px;
         width: 100%;
         @include placeholder($placeholder-color);
         @include box-shadow($placeholder-color);
@@ -55,4 +55,35 @@ $icon-font-path: "/bower_components/sass-bootstrap/fonts/";
             display: block;
         }
     }
+}
+
+
+.main-header{
+    background: $primary-color;
+    color: white;
+    padding: 22px 0;
+    h1{
+        // font-size: 36px;
+        font-weight: 300;
+        margin: 10px 0;
+    }
+    h2{
+        font-size: 20px;
+        font-weight: 300;
+        margin:  0;
+    }
+    .radio{
+        background: white;
+        background: rgba(white, 0.1);
+        width: 100%;
+    }
+}
+
+.logo{
+    float: left;
+    margin-right: 20px;
+}
+
+.stream-chooser{
+
 }

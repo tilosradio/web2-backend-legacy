@@ -18,7 +18,7 @@
         <!-- endbuild -->
     </head>
     <body>
-        <!--[if lt IE 10]>
+        <!--[if lt IE 8]>
             <div class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</div>
         <![endif]-->
 
@@ -48,12 +48,35 @@
             </ul>
             <form class="navbar-form navbar-right" role="search">
               <div class="form-group">
-                <input type="search" class="form-control" placeholder="keresés">
+              <label for="search" class="sr-only">keresés a Tilos Rádió oldalán</label>
+                <input type="search" id="search" class="form-control" name="search" placeholder="keresés">
               </div>
              <button type="submit"><span data-icon="&#xe000;"></span></button>
             </form>
           </div><!-- /.navbar-collapse -->
         </nav>
+        <header class="main-header">
+            <div class="container">
+                <div class="row">
+                    <div class="logo-holder col-md-6">
+                        <img src="/images/logo.png" alt="Tilos Rádió" class="logo">
+                        <h1>Tilos rádió</h1>
+                        <h2>fm 90.3 www.tilos.hu</h2>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="radio">
+                            <h3>Hallgasd online</h3>
+                            <ul class="stream-chooser">
+                                <li><a href="http://stream.tilos.hu/tilos.m3u"><span>256</span> mp3</a></li>
+                                <li><a href="http://stream.tilos.hu/tilos_128.mp3.m3u"><span>128</span> mp3</a></li>
+                                <li><a href="http://stream.tilos.hu/tilosi_high.ogg.m3u"><span>96</span> ogg</a></li>
+                                <li><a href="http://stream.tilos.hu/tilosi_low.ogg.m3u"><span>24</span> ogg</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div> <!-- row -->
+            </div> <!--container -->
+        </header>
         <div class="container">
             <div class="row">
               <div class="col-md-6">
