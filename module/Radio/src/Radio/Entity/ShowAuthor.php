@@ -18,7 +18,7 @@ class ShowAuthor {
     protected $id;
 
     /**
-     * @ORM\Column(type="string") 
+     * @ORM\Column(type="string",length=100) 
      * */
     protected $nick;
 

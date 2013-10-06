@@ -42,3 +42,4 @@ dist
 app/components
 vendor
 phinx.yml
+data/DoctrineORMModule/

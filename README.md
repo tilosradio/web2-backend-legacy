@@ -19,13 +19,11 @@ How to run
 
 2. Set your webserver, use the www subdirectory as the content root
 
-3. Create the database schema
+3. Create the database schema with ```vendor/bin/doctrine-module orm:schema-tool:update --force --dump-sql```
 
-  a.) first time: run ```php vendor/bin/phinx init``` and endit the mysql connection details in phinx.yml
+4. copy and edit config/autoload/local.php.dist to local.php
 
-  b.) run ```php vendor/bin/phinx init``` to upgrade the db schema
-
-4. Set the rewrite definitions
+5. Set the rewrite definitions
 
 For lighttpd (version 2):
 ```

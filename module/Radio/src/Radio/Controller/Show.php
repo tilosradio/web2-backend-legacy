@@ -26,6 +26,10 @@ class Show extends AbstractRestfulController {
                 foreach ($result->getAuthors() as $author) {
                     $a['authors'][] = array('id' => $author->getId(), 'nick' => $author->getNick());
                 }
+                $a['schedulings'] = array();
+                foreach ($result->getSchedulings() as $scheduling) {
+                    $a['schedulings'][] = $scheduling->toArray();
+                }
                 $return[] = $a;
             }
             return new JsonModel($return);
@@ -45,6 +49,10 @@ class Show extends AbstractRestfulController {
             $a = $result->toArray();
             foreach ($result->getAuthors() as $author) {
                 $a['authors'][] = array('id' => $author->getId(), 'nick' => $author->getNick());
+            }
+            $a['schedulings'] = array();
+            foreach ($result->getSchedulings() as $scheduling) {
+                $a['schedulings'][] = $scheduling->toArray();
             }
 
             return new JsonModel($a);

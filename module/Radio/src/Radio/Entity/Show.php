@@ -18,7 +18,7 @@ class Show {
     protected $id;
 
     /**
-     * @ORM\Column(type="string") 
+     * @ORM\Column(type="string", length=100) 
      * */
     protected $name;
 
@@ -28,22 +28,27 @@ class Show {
     protected $authors;
 
     /**
-     * @ORM\Column(type="string") 
+     * @ORM\OneToMany(targetEntity="Scheduling", mappedBy="show")
+     */
+    protected $schedulings;
+
+    /**
+     * @ORM\Column(type="string", length=255) 
      * */
     protected $definition;
 
     /**
-     * @ORM\Column(type="string") 
+     * @ORM\Column(type="string", length=25) 
      * */
     protected $slug;
 
     /**
-     * @ORM\Column(type="string") 
+     * @ORM\Column(type="string", length=50) 
      * */
     protected $banner;
 
     /**
-     * @ORM\Column(type="string") 
+     * @ORM\Column(type="text") 
      * */
     protected $description;
 
@@ -73,6 +78,10 @@ class Show {
 
     public function getDescription() {
         return $this->description;
+    }
+
+    public function getSchedulings() {
+        return $this->schedulings;
     }
 
     public function toArray() {
