@@ -267,4 +267,14 @@ time{
     }
 }
 
+.facebook-share{
+    &:hover{
+        background: $facebook;
+    }
+}
+.google-share{
+    &:hover{
+        background: $google-plus;
+    }
+}
 
