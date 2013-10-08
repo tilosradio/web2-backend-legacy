@@ -243,3 +243,28 @@ time{
     }
 }
 
+.facebook-share, .google-share{
+    background: $social-backgronud;
+    color: white;
+    display: inline-block;
+    font-size: 16px;
+    font-weight: 300;
+    height: 30px;
+    line-height: 30px;
+    &:hover{
+        color: white;
+        text-decoration: none;
+    }
+    span{
+        display: inline-block;
+    }
+    span[data-icon]{
+        border-right: 1px solid rgba(white, 0.6);
+        @include box-shadow(1px 0 0 rgba(black, 0.4));
+        margin-right: 5px;
+        text-align: center;
+        width: 34px;
+    }
+}
+
+
