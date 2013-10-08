@@ -1,5 +1,4 @@
 // $icon-font-path: "/bower_components/sass-bootstrap/fonts/";
-@charset "utf-8"
 
 @import "color";
 @import "bootstrap-settings";
@@ -8,6 +7,10 @@
 @import "fonts";
 
 
+
+body{
+    padding-top: $navbar-height; //need for a fix navbar
+}
 
 h2{
     font-size: 22px;
@@ -62,6 +65,22 @@ blockquote{
     }
 }
 
+article{
+    padding-bottom: 27px;
+    a{
+        font-weight: bold;
+    }
+    .main &{
+       border-bottom: 5px solid $gray-light;
+    }
+}
+
+time{
+    color: $gray-light;
+}
+
+
+// old browser warning
 
 .browsehappy {
     margin: 0 0 0.2em 0;
@@ -73,7 +92,7 @@ blockquote{
 
 
 
-
+// header navigation
 
 .navbar-nav {
     > li{
@@ -115,6 +134,9 @@ blockquote{
         }
     }
 }
+
+// header navigation end
+// Header
 
 
 .main-header{
@@ -166,7 +188,7 @@ blockquote{
         text-align: center;
         width: 25%;
         &:nth-child(2){
-            border-top-color: $green-color;
+            border-top-color: $brand-success;
         }
         &:nth-child(3){
             border-top-color: $placeholder-color;
@@ -206,3 +228,18 @@ blockquote{
     //     @include rotate-animation();
     // }
 }
+
+// header end
+// Article style
+
+.article-info{
+    padding: 40px 0;
+}
+
+.author{
+    color: $brand-info;
+    &:hover{
+        color: darken($brand-info, 10%);
+    }
+}
+

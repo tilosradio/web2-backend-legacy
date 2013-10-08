@@ -31,7 +31,7 @@ Instead of a list of all class selectors,
 you can use the generic selector below, but it's slower:
 [class*="icon-"] {
 */
-// .icon-search, .icon-cassette, .icon-refresh {
+// .icon-search, .icon-cassette, .icon-refresh, .icon-google-plus, .icon-facebook, .icon-chat, .icon-twitter, .icon-envelope, .icon-chat-2, .icon-calendar, .icon-arrow-down, .icon-newspaper, .icon-box-add, .icon-pencil, .icon-rss, .icon-plus, .icon-volume-high {
 // 	font-family: 'tilos';
 // 	speak: none;
 // 	font-style: normal;
@@ -49,4 +49,46 @@ you can use the generic selector below, but it's slower:
 // }
 // .icon-refresh:before {
 // 	content: "\e002";
+// }
+// .icon-google-plus:before {
+// 	content: "\f0d5";
+// }
+// .icon-facebook:before {
+// 	content: "\f09a";
+// }
+// .icon-chat:before {
+// 	content: "\e003";
+// }
+// .icon-twitter:before {
+// 	content: "\f099";
+// }
+// .icon-envelope:before {
+// 	content: "\f003";
+// }
+// .icon-chat-2:before {
+// 	content: "\e004";
+// }
+// .icon-calendar:before {
+// 	content: "\e005";
+// }
+// .icon-arrow-down:before {
+// 	content: "\e007";
+// }
+// .icon-newspaper:before {
+// 	content: "\e006";
+// }
+// .icon-box-add:before {
+// 	content: "\e008";
+// }
+// .icon-pencil:before {
+// 	content: "\e009";
+// }
+// .icon-rss:before {
+// 	content: "\f17b";
+// }
+// .icon-plus:before {
+// 	content: "\e00a";
+// }
+// .icon-volume-high:before {
+// 	content: "\e00b";
 // }

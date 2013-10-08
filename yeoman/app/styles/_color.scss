@@ -1,12 +1,21 @@
-// text color
-$primary-color: #201f1f;
-$secondary-color: #6ad0f8;
-$link-color: #dd4c3b;
-$placeholder-color: #fcb150;
-$heiglight-color: #30acb4;
-$green-color: #7ff64f;
 
+// bootstrap
+$brand-primary:         #428bca;
+$brand-success:         #7ff64f;
+$brand-warning:         #fcb150;
+$brand-danger:          #dd4c3b;
+$brand-info:           	#35aadc;
+$gray-light: 			#a6a3a3;
+
+
+// text color
+$primary-color: 		#201f1f;
+$secondary-color: 		#6ad0f8;
+$link-color: 			$brand-danger;
+$placeholder-color: 	$brand-warning;
+$heiglight-color: 		#30acb4;
+$social-color: 			#3e454d;
 
 // page color
-$background-color: #ededeb;
-$navbar-color:  #2a2929;
+$background-color: 		#ededeb;
+$navbar-color:  		#2a2929;

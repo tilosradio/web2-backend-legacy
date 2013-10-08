@@ -24,7 +24,7 @@
 
 
 
-        <nav class="navbar navbar-default" role="navigation">
+        <nav class="navbar navbar-default navbar-fixed-top" role="navigation">
             <!-- Brand and toggle get grouped for better mobile display -->
           <div class="navbar-header">
             <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
@@ -79,7 +79,7 @@
         </header>
         <div class="container">
             <div class="row">
-              <section class="col-md-6">
+              <section class="col-md-6 main" role="main">
                  <article>
                      <h1>Sikeresen elindúlt megújult honlapunk</h1>
                      <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Voluptas, tempore, repellat, doloribus, beatae minima ad soluta deleniti dolorum iste praesentium modi accusantium iure voluptates laboriosam ab aspernatur non officiis optio!</p>
@@ -102,8 +102,16 @@
                         </ol>
                         <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolore, error, odio aperiam quisquam consequuntur porro aspernatur natus. Fuga, dolore, inventore sed voluptas atque est nam rerum quidem doloremque debitis alias.</p>
                         <footer>
-                            <a href="#0">Arthur Dent</a>
-                            <time datetime="2013-11-06">2013. november 6.</time>
+                          <div class="article-info">
+                              <a href="#0" class="author">Arthur Dent</a>
+                              <time datetime="2013-11-06">2013. november 6.</time>
+                          </div>
+                          <div class="social">
+                            <a href="#" class="facebook-share">Megosztom <span>5k</span></a>
+                            <a href="#" class="google-share">Megosztom <span>5k</span></a>
+                            <a href="#" class="edit-this"></a>
+                            <a href="#" class="archive-this"></a>
+                          </div>
                         </footer>
                  </article>
               </section> <!-- col-md-6 -->
