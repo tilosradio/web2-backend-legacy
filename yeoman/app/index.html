@@ -1,4 +1,5 @@
 <!doctype html>
+<html ng-app="tilos">
 <!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
 <!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
 <!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
@@ -16,8 +17,11 @@
         <!-- build:js scripts/vendor/modernizr.js -->
         <script src="bower_components/modernizr/modernizr.js"></script>
         <!-- endbuild -->
+	<script src="bower_components/angular/angular.js"></script>
+	<script src="bower_components/angular-route/angular-route.js"></script>
+	<script src="scripts/app.js"></script>
     </head>
-    <body>
+    <body ng-controller="IndexCtrl">
         <!--[if lt IE 8]>
             <div class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</div>
         <![endif]-->
@@ -39,9 +43,9 @@
           <!-- Collect the nav links, forms, and other content for toggling -->
           <div class="collapse navbar-collapse navbar-ex1-collapse container">
             <ul class="nav navbar-nav">
-              <li class="active"><a href="/">Főoldal</a></li>
+              <li class="active"><a href="/#index">Főoldal</a></li>
               <li><a href="#0">Infó</a></li>
-              <li><a href="#0">Műsorok</a></li>
+              <li><a href="#/program">Műsorok</a></li>
               <li data-number="5"><a href="#0">Hírek</a></li>
               <li><a href="#0">Archívum</a></li>
               <li><a href="#0">Kontakt</a></li>
@@ -79,7 +83,7 @@
         </header>
         <div class="container">
             <div class="row">
-              <section class="col-md-6 main" role="main">
+              <section class="col-md-6 main" role="main" ng-view>
                  <article>
                      <h1>Sikeresen elindúlt megújult honlapunk</h1>
                      <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Voluptas, tempore, repellat, doloribus, beatae minima ad soluta deleniti dolorum iste praesentium modi accusantium iure voluptates laboriosam ab aspernatur non officiis optio!</p>
@@ -148,8 +152,5 @@
             ga('create','UA-XXXXX-X');ga('send','pageview');
         </script>
 
-        <!-- build:js scripts/main.js -->
-        <script data-main="scripts/main" src="bower_components/requirejs/require.js"></script>
-        <!-- endbuild -->
 </body>
 </html>
