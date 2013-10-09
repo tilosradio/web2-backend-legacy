@@ -8,7 +8,8 @@ return array(
         array(
             'Radio\Controller\Show' => 'Radio\Controller\Show',
             'Radio\Controller\Index' => 'Radio\Controller\Index',
-            'Radio\Controller\Author' => 'Radio\Controller\Author'
+            'Radio\Controller\Author' => 'Radio\Controller\Author',
+            'Radio\Controller\Episode' => 'Radio\Controller\Episode'
         ),
     ),
     'router' => array(
@@ -38,9 +39,17 @@ return array(
                     'constraints' => array('id' => '[0-9]*',),
                     'defaults' => array('controller' => 'Radio\Controller\Author',)
                 )
+            ),
+            'episode-rest' => array(
+                'type' => 'Segment',
+                'options' => array(
+                    'route' => '/episode[/:id]',
+                    'constraints' => array('id' => '[0-9]*',),
+                    'defaults' => array('controller' => 'Radio\Controller\Episode',)
+                )
             )
-        ,)
-    ,),
+        )
+    ),
     'view_manager' => array(
         'display_exceptions' => true,
         'exception_template' => 'error/index',
