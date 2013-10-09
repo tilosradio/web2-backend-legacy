@@ -261,7 +261,7 @@ time{
     span[data-icon]{
         border-right: 1px solid rgba(white, 0.6);
         @include box-shadow(1px 0 0 rgba(black, 0.4));
-        margin-right: 5px;
+        margin-right: 18px;
         text-align: center;
         width: 34px;
     }
@@ -269,12 +269,54 @@ time{
 
 .facebook-share{
     &:hover{
-        background: $facebook;
+        span[data-icon]{
+            background: $facebook;
+        }
     }
 }
 .google-share{
     &:hover{
-        background: $google-plus;
+        span[data-icon]{
+            background: $google-plus;
+        }
     }
 }
 
+.share-numb{
+    background: $gray-light;
+    display: inline-block;
+    margin-left: 18px;
+    position: relative;
+    text-align: center;
+    width: 34px;
+    &:before{
+       content: "";
+       border-right: 5px solid $gray-light;
+       border-top: 5px solid transparent;
+       border-bottom: 5px solid transparent;
+       height: 0;
+       left: -5px;
+       top: 10px;
+       position: absolute;
+       width: 0;
+    }
+}
+
+.edit-this, .archive-this{
+    color: $gray-light;
+    font-size: 30px;
+    &:hover{
+        color: darken($gray-light, 10%);
+        text-decoration: none;
+    }
+}
+
+
+
+// Footer
+
+.footer-holder{
+    background: $primary-color;
+    color: white;
+    margin-top: 45px;
+}
