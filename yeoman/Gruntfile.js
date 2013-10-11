@@ -17,7 +17,7 @@ module.exports = function (grunt) {
         // configurable paths
         yeoman: {
             app: 'app',
-            dist: 'dist'
+            dist: '../www/'
         },
         watch: {
             compass: {
@@ -262,7 +262,8 @@ module.exports = function (grunt) {
                         '.htaccess',
                         'images/{,*/}*.{webp,gif}',
                         'styles/fonts/{,*/}*.*',
-                        'bower_components/sass-bootstrap/fonts/*.*'
+                        'bower_components/sass-bootstrap/fonts/*.*',
+			'partials/*'
                     ]
                 }]
             },
@@ -341,7 +342,8 @@ module.exports = function (grunt) {
         'concat',
         'cssmin',
         'uglify',
-        'modernizr',
+// TODO fix the run of this tool
+//        'modernizr',
         'copy:dist',
         'rev',
         'usemin'

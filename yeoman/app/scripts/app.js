@@ -1,5 +1,7 @@
 'use strict';
 
+//TODO make it configurable
+var server = "http://tilos.anzix.net"
 var tilos = angular.module('tilos', ['ngRoute']);
 
 tilos.config(['$routeProvider', function($routeProvider) {
@@ -25,19 +27,19 @@ tilos.controller('IndexCtrl', ['$scope', '$routeParams', function($scope, $route
     }]);
 
 tilos.controller('AuthorCtrl', ['$scope', '$routeParams', '$http', function($scope, $routeParams, $http) {
-        $http.get('http://localhost/api/author/' + $routeParams.id).success(function(data) {
+        $http.get(server + '/api/author/' + $routeParams.id).success(function(data) {
             $scope.author = data;
         });
     }]);
 
 tilos.controller('ShowCtrl', ['$scope', '$routeParams', '$http', function($scope, $routeParams, $http) {
-        $http.get('http://localhost/api/show/' + $routeParams.id).success(function(data) {
+        $http.get(server + '/api/show/' + $routeParams.id).success(function(data) {
             $scope.show = data;
         });
     }]);
 
 tilos.controller('ProgramCtrl', ['$scope', '$routeParams', '$http', function($scope, $routeParams, $http) {
-        $http.get('http://localhost/api/episode').success(function(data) {
+        $http.get(server + '/api/episode').success(function(data) {
             $scope.episodes = data;
         });
     }]);
