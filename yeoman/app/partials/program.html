@@ -2,7 +2,7 @@ Program:
 
 <ul>
 <li ng-repeat="episode in episodes">
-{{episode.from}} {{episode.show.name}}
+{{episode.from}} <a href="#/show/{{episode.show.id}}">{{episode.show.name}}</a>
 </li>
 </ul>
 
