@@ -61,7 +61,7 @@ if !physical.exists {
 Development tools
 -----------------
 
-* [EditorConfig][http://editorconfig.org/]: basic code style definition
+* [EditorConfig](http://editorconfig.org/): basic code style definition
 * Zend Framework 2.2: backend framework
 * TODO
 
