@@ -14,7 +14,7 @@ class Episode extends BaseController {
             $query->setParameter("type",date("W")%2 + 1);
             $resultSet = $query->getResult();
 
-            $return = [];
+            $return = array();
 
             $weekstart = getdate(strtotime('this week', time()));
 
@@ -22,7 +22,7 @@ class Episode extends BaseController {
 
             foreach ($resultSet as $result) {
                 $a = $result->toArray();
-                $epi = [];
+                $epi = array();
                 //$epi->setShow($result->getShow());
                 $epi['show'] = $result->getShow()->toArrayShort();
 

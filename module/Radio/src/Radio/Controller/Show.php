@@ -20,7 +20,7 @@ class Show extends AbstractRestfulController {
     public function getList() {
         try {
             $resultSet = $this->getEntityManager()->getRepository("\Radio\Entity\Show")->findAll();
-            $return = [];
+            $return = array();
             foreach ($resultSet as $result) {
                 $a = $result->toArray();
                 foreach ($result->getAuthors() as $author) {
