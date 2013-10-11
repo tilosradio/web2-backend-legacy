@@ -17,6 +17,15 @@ How to run
 1. run ```php composer.phar install``` (first time ) or ```php composer.phar update``` (next times) to populate the vendor directory
  with the libraries (Zend Framework 2, etc.)
 
+ Running the script sometimes results in an error similar to the following:
+ ```
+ Fatal error: Call to undefined function Composer\Json\json_decode()
+ ```
+ Don't panic, just install the JSON support package for your distro. On Debian it would be:
+ ```
+ sudo apt-get install php5-json
+ ```
+
 2. Set your webserver, use the www subdirectory as the content root
 
 3. Create the database schema with ```vendor/bin/doctrine-module orm:schema-tool:update --force --dump-sql```
