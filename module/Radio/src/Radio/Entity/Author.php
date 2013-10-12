@@ -21,11 +21,37 @@ class Author {
      * @ORM\Column(type="string") 
      * */
     protected $name;
+    
+    /**
+     * @ORM\Column(type="string",length=20) 
+     * */
+    protected $photo;
+    
+    /**
+     * @ORM\Column(type="string",length=20) 
+     * */
+    protected $avatar;
+    
+    /**
+     * @ORM\Column(type="string") 
+     * */
+    protected $introduction;
 
     /**
      * @ORM\OneToMany(targetEntity="ShowAuthor",mappedBy="author", fetch="EAGER")
      */
     protected $shows;
+    
+    /**
+     * @ORM\OneToOne(targetEntity="User")
+     * @ORM\JoinColumn(name="user_id", referencedColumnName="id")
+     */
+    protected $author;
+    
+    /**
+     * @ORM\OneToMany(targetEntity="AuthorUrl", mappedBy="author")
+     **/
+    protected $urls;
 
     public function getId() {
         return $this->id;
