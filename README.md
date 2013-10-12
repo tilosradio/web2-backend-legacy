@@ -67,6 +67,8 @@ Development tools
 
 Contributors:
 =============
+
 - László Károlyi laszlo@karolyi.hu
 - Márton Elek elek@anzix.net
 - Dávid Barkóczi david.barkoczi@gmail.com
+- Károly Kiripolszky karcsi@ekezet.com
