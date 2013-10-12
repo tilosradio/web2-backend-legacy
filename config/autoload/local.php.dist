@@ -22,6 +22,9 @@ return array(
                     'user' => '',
                     'password' => '',
                     'dbname' => '',
+		    'driverOptions' => array(
+                        1002=>'SET NAMES utf8'
+		    )
                 )
             )
         )
