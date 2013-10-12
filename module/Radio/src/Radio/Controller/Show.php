@@ -24,7 +24,10 @@ class Show extends AbstractRestfulController {
             foreach ($resultSet as $result) {
                 $a = $result->toArray();
                 foreach ($result->getAuthors() as $author) {
-                    $a['authors'][] = array('id' => $author->getId(), 'nick' => $author->getNick());
+                    //$a = ShowAuthor record, $a->getAuthor = author record
+                    $a = $author->getAuthor()->toArrayShort();
+                    $a['nick'] = $author->getNick();
+                    $a['authors'][] = $a;
                 }
                 $a['schedulings'] = array();
                 foreach ($result->getSchedulings() as $scheduling) {
@@ -48,7 +51,10 @@ class Show extends AbstractRestfulController {
         } else {
             $a = $result->toArray();
             foreach ($result->getAuthors() as $author) {
-                $a['authors'][] = array('id' => $author->getId(), 'nick' => $author->getNick());
+                    //$a = ShowAuthor record, $a->getAuthor = author record
+                    $a = $author->getAuthor()->toArrayShort();
+                    $a['nick'] = $author->getNick();
+                    $a['authors'][] = $a;
             }
             $a['schedulings'] = array();
             foreach ($result->getSchedulings() as $scheduling) {

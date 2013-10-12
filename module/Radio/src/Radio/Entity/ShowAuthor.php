@@ -45,6 +45,10 @@ class ShowAuthor {
     public function getNick() {
         return $this->nick;
     }
+    public function getAuthor() {
+        return $this->author;
+    }
+
 
 }
 
