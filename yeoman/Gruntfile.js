@@ -17,7 +17,7 @@ module.exports = function (grunt) {
         // configurable paths
         yeoman: {
             app: 'app',
-            dist: '../www/'
+            dist: '../dist'
         },
         watch: {
             compass: {
@@ -267,6 +267,15 @@ module.exports = function (grunt) {
                     ]
                 }]
             },
+            php: {
+                files: [{
+                    expand: true,
+                    dot: true,
+                    cwd: '../www',
+                    dest: '<%= yeoman.dist %>',
+                    src: ['api/**']
+                }]
+            },
             styles: {
                 expand: true,
                 dot: true,
@@ -338,12 +347,14 @@ module.exports = function (grunt) {
         'useminPrepare',
         'concurrent:dist',
         'autoprefixer',
-        'requirejs',
+//TODO fix the parameters
+//        'requirejs',
         'concat',
         'cssmin',
         'uglify',
 // TODO fix the run of this tool
 //        'modernizr',
+	'copy:php',
         'copy:dist',
         'rev',
         'usemin'
