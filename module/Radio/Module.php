@@ -2,13 +2,6 @@
 
 namespace Radio;
 
-use Zend\Db\ResultSet\ResultSet;
-use Radio\Model\Show;
-use Radio\Model\Author;
-use Zend\Db\TableGateway\TableGateway;
-use Radio\Model\ShowTable;
-use Radio\Model\AuthorTable;
-
 class Module {
 
     public function onBootstrap($e) {
