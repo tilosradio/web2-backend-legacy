@@ -1,9 +1,16 @@
 {
+   "repositories": [
+        {
+            "type": "vcs",
+            "url": "https://github.com/thadudexx/SwaggerModule"
+        }
+    ],
     "require": {
         "php": ">=5.3.3",
         "zendframework/zendframework": "2.2.*",
         "zendframework/zend-developer-tools": "dev-master",
-        "doctrine/doctrine-orm-module": "*"
-
+        "doctrine/doctrine-orm-module": "*",
+	"thadudexx/swagger-module": "dev-master",
+	"zircote/swagger-php": "0.8.*@dev"
     }
 }

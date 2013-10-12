@@ -6,6 +6,9 @@ use Zend\Mvc\Controller\AbstractRestfulController;
 use Zend\View\Model\JsonModel;
 use Radio\Provider\EntityManager;
 
+/**
+ * @SWG\Resource(resourcePath="/show")
+ */
 class Show extends AbstractRestfulController {
     
     use EntityManager;
@@ -25,6 +28,16 @@ class Show extends AbstractRestfulController {
         return $a;
     }
 
+    /**
+     *      @SWG\Api(path="/show",
+     *          description="Get all of the active radio shows.",
+     *              @SWG\Operation(
+     *                  method="GET", 
+     *                  summary="List all active radioshow"
+     *      )
+     * )
+     * 
+     */
     public function getList() {
         try {
             $resultSet = $this->getEntityManager()->getRepository("\Radio\Entity\Show")->findAll();
@@ -47,7 +60,7 @@ class Show extends AbstractRestfulController {
         if ($result == null) {
             $this->getResponse()->setStatusCode(404);
             return new JsonModel(array("error" => "Not found"));
-        } else {            
+        } else {
             return new JsonModel($this->convertData($result));
         }
         /* } catch (\Exception $ex) {
