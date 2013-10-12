@@ -28,6 +28,8 @@ class Show extends AbstractRestfulController {
     public function getList() {
         try {
             $resultSet = $this->getEntityManager()->getRepository("\Radio\Entity\Show")->findAll();
+            if (empty($resultSet))
+                return new JsonModel(array());
             $return = array();
             foreach ($resultSet as $result) {
                 $return[] = $this->convertData($result);
