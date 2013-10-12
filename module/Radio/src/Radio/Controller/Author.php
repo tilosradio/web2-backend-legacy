@@ -13,6 +13,8 @@ class Author extends AbstractRestfulController {
     public function getList() {
         try {
             $resultSet = $this->getEntityManager()->getRepository("\Radio\Entity\Author")->findAll();
+            if (empty($resultSet))
+                return new JsonModel(array());
             $return = array();
             foreach ($resultSet as $result) {
                 $a = $result->toArray();

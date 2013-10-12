@@ -15,6 +15,8 @@ class Episode extends BaseController {
             $query = $this->getEntityManager()->createQuery('SELECT e FROM Radio\Entity\Scheduling e WHERE e.weekType = :type OR e.weekType = 0 ORDER BY e.weekDay,e.hourFrom,e.minFrom');
             $query->setParameter("type",date("W")%2 + 1);
             $resultSet = $query->getResult();
+            if (empty($resultSet))
+                return new JsonModel(array());
 
             $return = array();
 
