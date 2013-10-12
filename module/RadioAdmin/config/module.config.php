@@ -1,4 +1,6 @@
 <?php
+namespace RadioAdmin;
+
 return array(
     'controllers' => array(
         'invokables' => array(
