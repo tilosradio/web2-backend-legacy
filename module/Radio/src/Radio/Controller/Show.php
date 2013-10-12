@@ -17,23 +17,27 @@ class Show extends AbstractRestfulController {
         return $this->em;
     }
 
+    public function convertData($result) {
+        $a = $result->toArray();
+        foreach ($result->getAuthors() as $author) {
+            //$a = ShowAuthor record, $a->getAuthor = author record
+            $tmp = $author->getAuthor()->toArrayShort();
+            $tmp['nick'] = $author->getNick();
+            $a['authors'][] = $tmp;
+        }
+        $a['schedulings'] = array();
+        foreach ($result->getSchedulings() as $scheduling) {
+            $a['schedulings'][] = $scheduling->toArray();
+        }
+        return $a;
+    }
+
     public function getList() {
         try {
             $resultSet = $this->getEntityManager()->getRepository("\Radio\Entity\Show")->findAll();
             $return = array();
             foreach ($resultSet as $result) {
-                $a = $result->toArray();
-                foreach ($result->getAuthors() as $author) {
-                    //$a = ShowAuthor record, $a->getAuthor = author record
-                    $a = $author->getAuthor()->toArrayShort();
-                    $a['nick'] = $author->getNick();
-                    $a['authors'][] = $a;
-                }
-                $a['schedulings'] = array();
-                foreach ($result->getSchedulings() as $scheduling) {
-                    $a['schedulings'][] = $scheduling->toArray();
-                }
-                $return[] = $a;
+                $return[] = $this->converData($result);
             }
             return new JsonModel($return);
         } catch (Exception $ex) {
@@ -48,20 +52,8 @@ class Show extends AbstractRestfulController {
         if ($result == null) {
             $this->getResponse()->setStatusCode(404);
             return new JsonModel(array("error" => "Not found"));
-        } else {
-            $a = $result->toArray();
-            foreach ($result->getAuthors() as $author) {
-                    //$a = ShowAuthor record, $a->getAuthor = author record
-                    $a = $author->getAuthor()->toArrayShort();
-                    $a['nick'] = $author->getNick();
-                    $a['authors'][] = $a;
-            }
-            $a['schedulings'] = array();
-            foreach ($result->getSchedulings() as $scheduling) {
-                $a['schedulings'][] = $scheduling->toArray();
-            }
-
-            return new JsonModel($a);
+        } else {            
+            return new JsonModel($this->convertData($result));
         }
         /* } catch (\Exception $ex) {
           $this->getResponse()->setStatusCode(500);
