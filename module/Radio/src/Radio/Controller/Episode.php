@@ -2,11 +2,13 @@
 
 namespace Radio\Controller;
 
-use Zend\Mvc\Controller\AbstractRestfulController;
 use Zend\View\Model\JsonModel;
+use Radio\Provider\EntityManager;
 
 class Episode extends BaseController {
-
+    
+    use EntityManager;
+    
     public function getList() {
         try {
 

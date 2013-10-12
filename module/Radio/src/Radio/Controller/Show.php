@@ -4,19 +4,12 @@ namespace Radio\Controller;
 
 use Zend\Mvc\Controller\AbstractRestfulController;
 use Zend\View\Model\JsonModel;
-use Doctrine\ORM\EntityManager;
+use Radio\Provider\EntityManager;
 
 class Show extends AbstractRestfulController {
-
-    protected $em;
-
-    public function getEntityManager() {
-        if (null === $this->em) {
-            $this->em = $this->getServiceLocator()->get('doctrine.entitymanager.orm_default');
-        }
-        return $this->em;
-    }
-
+    
+    use EntityManager;
+    
     public function convertData($result) {
         $a = $result->toArray();
         foreach ($result->getAuthors() as $author) {
@@ -37,7 +30,7 @@ class Show extends AbstractRestfulController {
             $resultSet = $this->getEntityManager()->getRepository("\Radio\Entity\Show")->findAll();
             $return = array();
             foreach ($resultSet as $result) {
-                $return[] = $this->converData($result);
+                $return[] = $this->convertData($result);
             }
             return new JsonModel($return);
         } catch (Exception $ex) {

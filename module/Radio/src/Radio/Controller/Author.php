@@ -4,18 +4,12 @@ namespace Radio\Controller;
 
 use Zend\Mvc\Controller\AbstractRestfulController;
 use Zend\View\Model\JsonModel;
+use Radio\Provider\EntityManager;
 
 class Author extends AbstractRestfulController {
-
-    protected $em;
-
-    public function getEntityManager() {
-        if (null === $this->em) {
-            $this->em = $this->getServiceLocator()->get('doctrine.entitymanager.orm_default');
-        }
-        return $this->em;
-    }
-
+    
+    use EntityManager;
+  
     public function getList() {
         try {
             $resultSet = $this->getEntityManager()->getRepository("\Radio\Entity\Author")->findAll();
