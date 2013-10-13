@@ -1,5 +1,5 @@
 'use strict';
-
+var dbg;
 var tilos = angular.module('tilos', ['ngRoute','configuration']);
 
 tilos.config(['$routeProvider', function($routeProvider) {
@@ -37,7 +37,44 @@ tilos.controller('ShowCtrl', ['$scope', '$routeParams', 'API_SERVER_ENDPOINT', '
     }]);
 
 tilos.controller('ProgramCtrl', ['$scope', '$routeParams', 'API_SERVER_ENDPOINT', '$http', function($scope, $routeParams, $server, $http) {
+        var currentDay = 3;
         $http.get($server + '/api/episode').success(function(data) {
-            $scope.episodes = data;
+                     
+            var refDate = new Date()
+            refDate.setHours(0);
+            
+            refDate.setSeconds(0);
+            refDate.setMinutes(0);
+            refDate.setMilliseconds(0);
+            var refDate = refDate.getTime() / 1000;
+             
+            var result = {}
+            //index episodes by day
+            for (var i=0;i<data.length;i++){
+               var idx = Math.floor((data[i].from - refDate) / (60 * 60 * 24))
+               data[i]['datestr'] = new Date(data[i].from * 1000).toString();
+               data[i]['idx'] = idx
+               if (!result[idx]){
+                 result[idx] = {'episodes':[]}
+               }
+               result[idx].episodes.push(data[i])
+            }
+            
+            //sort every day
+            for (var key in result){
+              result[key].episodes.sort(function(a,b){return a.from - b.from}) 
+              result[key].date = result[key].episodes[0].from
+            }
+            $scope.currentDay = currentDay;
+            $scope.program = result;
+            $scope.prev = function(){
+                $scope.currentDay--;
+            }
+            $scope.next = function(){
+                $scope.currentDay++;
+            }
+            dbg = $scope.program
+            
+            
         });
     }]);
