@@ -5,7 +5,7 @@ use Zend\Mvc\Controller\AbstractActionController;
 use Zend\Authentication\Adapter\DbTable as AuthAdapter;
 use Zend\View\Model\ViewModel;
 
-class AuthController extends AbstractActionController
+class AuthController extends BaseController
 {
     const LOGIN_REDIRECTS_TO = 'success';
     const LOGOUT_REDIRECTS_TO = 'login';
@@ -15,39 +15,24 @@ class AuthController extends AbstractActionController
         if ($this->getAuthService()->hasIdentity())
             // user has already logged in
             return $this->redirect()->toRoute(self::LOGIN_REDIRECTS_TO);
-        $adapter = $this->getAuthAdapter();
         return new ViewModel();
     }
     
     public function authenticateAction()
     {
-        $request = $this->getRequest();
-        if (!$request->isPost())
+        if (!$this->getRequest()->isPost())
             return $this->redirect()->toRoute(self::LOGOUT_REDIRECTS_TO);
+        $as = $this->getAuthService();
+        $as->getAdapter()->setIdentityValue($this->params()->fromPost('username'));
+        $as->getAdapter()->setCredentialValue($this->params()->fromPost('password'));
+        $result = $as->authenticate();
+        var_dump($result);
+        die();
     }
     
     public function logoutAction()
     {
         $this->getAuthService()->clearIdentity();
         return $this->redirect()->toRoute(self::LOGOUT_REDIRECTS_TO);
-    }
-    
-    private function getAuthAdapter()
-    {
-        static $adapter = null;
-        if (null === $adapter)
-            $adapter = $this->getServiceManager()->get('doctrine.authentication.ormdefault');
-        return $adapter;
-    }        
-    
-    /**
-     * @return AuthService
-     */
-    private function getAuthService()
-    {
-        static $as = null;
-        if (null === $as)
-            $as = $this->getServiceLocator()->get('AuthService');
-        return $as;
-    }
+    }    
 }
