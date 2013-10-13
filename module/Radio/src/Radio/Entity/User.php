@@ -68,6 +68,12 @@ class User
     
     public function toArray()
     {
-        return get_object_vars($this);
+        return array(
+            'id'        => $this->id,
+            'username'  => $this->username,
+            'email'     => $this->email,
+            'password'  => $this->password,
+            'salt'      => $this->salt,
+        );
     }
  }

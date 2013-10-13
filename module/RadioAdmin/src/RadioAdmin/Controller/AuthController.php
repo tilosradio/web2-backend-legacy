@@ -1,15 +1,11 @@
 <?php
 namespace RadioAdmin\Controller;
 
-use Zend\Mvc\Controller\AbstractActionController;
-use Zend\Authentication\Adapter\DbTable as AuthAdapter;
+use Zend\Authentication\Result;
 use Zend\View\Model\ViewModel;
 
 class AuthController extends BaseController
 {
-    const LOGIN_REDIRECTS_TO = 'success';
-    const LOGOUT_REDIRECTS_TO = 'login';
-    
     public function loginAction()
     {
         if ($this->getAuthService()->hasIdentity())
@@ -26,8 +22,8 @@ class AuthController extends BaseController
         $as->getAdapter()->setIdentityValue($this->params()->fromPost('username'));
         $as->getAdapter()->setCredentialValue($this->params()->fromPost('password'));
         $result = $as->authenticate();
-        var_dump($result);
-        die();
+        $okay = $result->getCode() === Result::SUCCESS;
+        return $this->redirect()->toRoute($okay ? self::LOGIN_REDIRECTS_TO : self::LOGOUT_REDIRECTS_TO);
     }
     
     public function logoutAction()

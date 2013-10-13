@@ -5,7 +5,8 @@ namespace RadioAdmin;
 return array(
     'controllers' => array(
         'invokables' => array(
-            'RadioAdmin\Controller\Auth' => 'RadioAdmin\Controller\AuthController'
+            'RadioAdmin\Controller\Auth' => 'RadioAdmin\Controller\AuthController',
+            'RadioAdmin\Controller\Index' => 'RadioAdmin\Controller\IndexController',
         ),
     ),
     'router' => array(
@@ -27,6 +28,16 @@ return array(
                     'defaults' => array(
                         'controller' => 'RadioAdmin\Controller\Auth',
                         'action' => 'authenticate'
+                    )
+                )
+            ),
+            'home' => array(
+                'type' => 'Literal',
+                'options' => array(
+                    'route' => '/',
+                    'defaults' => array(
+                        'controller' => 'RadioAdmin\Controller\Index',
+                        'action' => 'home'
                     )
                 )
             ),
