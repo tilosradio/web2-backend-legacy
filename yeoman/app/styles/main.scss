@@ -79,6 +79,10 @@ time{
     color: $gray-light;
 }
 
+label{
+  color: $gray-light;
+  font-weight: normal;
+}
 
 .btn-lg{
   font-weight: bold;
@@ -329,6 +333,9 @@ aside{
   h2{
     font-size: 18px;
     text-transform: uppercase;
+    .sub-title{
+      color: $gray-light;
+    }
   }
   h3{
     color: $gray;
@@ -398,6 +405,14 @@ aside{
       display: block;
     }
   } 
+}
+
+.backing{
+  .form-inline{
+   .btn{
+      margin-top: 27px;
+    }
+  }
 }
 
 // Footer
