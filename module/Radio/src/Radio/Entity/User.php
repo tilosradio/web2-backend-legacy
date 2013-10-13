@@ -35,4 +35,39 @@ class User
      * @ORM\Column(length=40)
      */
     private $salt;
-}
+    
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    public function getUsername()
+    {
+        return $this->username;
+    }
+    
+    public function getPassword()
+    {
+        return $this->password;
+    }
+    
+    public function getEmail()
+    {
+        return $this->email;
+    }
+    
+    public function getSalt()
+    {
+        return $this->salt;
+    }
+    
+    public function testPassword(User $user, $passwordGiven)
+    {
+        return sha1($passwordGiven . $user->getSalt()) === $user->getPassword();
+    }
+    
+    public function toArray()
+    {
+        return get_object_vars($this);
+    }
+ }
