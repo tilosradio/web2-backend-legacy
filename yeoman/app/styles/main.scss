@@ -415,6 +415,19 @@ aside{
   }
 }
 
+.actual-shows{
+  font-size: 16px;
+  td{
+    line-height: 2.5em !important;
+  }
+  .actual{
+    color: $actual-color;
+    font-weight: bold;
+    td{
+      background: $gray-lighten;
+    }
+  }
+}
 // Footer
 
 .footer-holder{

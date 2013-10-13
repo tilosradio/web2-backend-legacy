@@ -212,6 +212,21 @@
                       </div>
                   </form>
                 </div> <!-- box -->
+                <div class="box-simple">
+                  <h2>2013. 11. 15. szombat</h2>
+                  <table class="table actual-shows" ng-init="actualShows = [
+                      {name:'Bádogdob', time:'14:30', link:'#0'},
+                      {name:'Csonkamagyarország', time:'15:30', link:'#0'},
+                      {name:'Haza és haladás', time:'17:00', link:'#0'},
+                      {name:'Szőke rádiózik', time:'17:30', link:'#0'},
+                      {name:'Planet Error', time:'18:00', link:'#0'},
+                      {name:'Japan grooves', time:'18:30', link:'#0'}
+                    ]">
+                    <tr ng-repeat="actialShow in actualShows" class="{{($index == 1) && 'actual' || ''}}" >
+                      <td>{{actialShow.name}}</td><td>{{actialShow.time}}</td><td><a href="#">fav</a></td>
+                    </tr>
+                  </table>
+                </div>
               </aside>
             </div> <!-- col-md-3 -->
         </div><!-- /container -->
