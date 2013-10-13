@@ -45,4 +45,3 @@ phinx.yml
 data/DoctrineORMModule/
 .vagrant
 vagrant_ansible_inventory_default
-www/components

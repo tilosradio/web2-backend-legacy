@@ -10,6 +10,10 @@
     {
       "path": "/author.json",
       "description": "Operations about program authors"
+    },
+    {
+      "path": "/auth.json",
+      "description": "User authentication"
     }
   ]
 }

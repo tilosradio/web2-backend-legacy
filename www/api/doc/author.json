@@ -24,7 +24,7 @@
                     ],
                     "errorResponses": [
                         {
-                            "reason": "Author is not found.",
+                            "message": "Author is not found.",
                             "code": 404
                         }
                     ]
