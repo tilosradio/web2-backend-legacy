@@ -40,8 +40,8 @@ class Episode extends BaseController {
                 $to->setTime($result->getHourTo(), $result->getMinTo(), 0);
                 $to->add(new \DateInterval("P" . $result->getWeekDay() . "D"));
 
-                $epi['from'] = $from->format('Y-m-d H:i:s');
-                $epi['to'] = $to->format('Y-m-d H:i:s');
+                $epi['from'] = $from->getTimestamp();
+                $epi['to'] = $to->getTimestamp();
                 $return[] = (array) $epi;
             }
             return new JsonModel($return);
