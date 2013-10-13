@@ -138,8 +138,22 @@
                   <h2>Szólj hozzá</h2>
                   <h3>Adástelefon</h3>
                   <a href="tel:+3612153773" class="tel">(+36 1) 215 37 73</a>
-                  <a href="#" class="btn btn-danger btn-block btn-lg"><span data-icon="&#xe003;"></span>Belépés a chatre</a>
+                  <a href="#" class="btn btn-danger btn-block btn-lg" role="button"><span data-icon="&#xe003;"></span>Belépés a chatre</a>
                  </div> <!-- box -->
+                 <div class="box-simple"  ng-init="showAuthors = [
+                      {name:'Minek',image:'http://lorempixel.com/200/200/people/7', link:'#0'},
+                      {name:'Naga', image:'http://lorempixel.com/200/200/people/1', link:'#0'},
+                      {name:'Papo', image:'http://lorempixel.com/200/200/people/3', link:'#0'}
+                    ]">
+                   <h2>Másorvezetők</h2>
+                   <div class="row">
+                    <figure  ng-repeat="showAuthor in showAuthors" class="show-author">
+                       <a href="{{showAuthor.link}}"><img src="{{showAuthor.image}}" alt="{{showAuthor.name}}" class="show-author-image"></a>
+                      <figcaption><a href="{{showAuthor.link}}">{{showAuthor.name}}</a></figcaption>
+                    </figure>
+                    </div>
+                    <a href="#0" class="btn-default btn btn-lg btn-block"><span data-icon="&#xe00a;"></span>Kövesd!</a>
+                 </div> <!-- box-simple -->
               </aside> <!-- col-md-3 -->
               <aside class="col-md-3">
                   <h2>Támogass</h2>
