@@ -1,16 +1,8 @@
 <div>
-    <h2>Login</h2>
-    <form action="<?= $this->url('auth') ?>" method="POST">
-        <label>
-            Név:<br />
-            <input name="username" type="text" value="" />
-        </label>
-        <br />
-        <label>
-            Jelszó:<br />
-            <input name="password" type="password" value="" />
-        </label>
-        <br />
-        <input type="submit" value="Belépés" />
+    <form action="<?= $this->url('auth') ?>" method="POST" class="form-signin">
+        <h2>Belépés</h2>
+        <input name="username" type="text" class="form-control" placeholder="Név" autofocus />
+        <input name="password" type="password"  class="form-control" placeholder="Jelszó" />
+        <input type="submit" value="Elküldés" class="btn" />
     </form>
 </div>

@@ -1,0 +1,12 @@
+.form-signin {
+    max-width: 20%;
+    margin: 3em auto;
+}
+
+.form-control {
+    margin-bottom: 1ex;
+}
+
+.form-signin h2 {
+    margin-bottom: 1em;
+}
