@@ -46,7 +46,7 @@ class Author {
      * @ORM\OneToOne(targetEntity="User")
      * @ORM\JoinColumn(name="user_id", referencedColumnName="id")
      */
-    protected $author;
+    protected $user;
     
     /**
      * @ORM\OneToMany(targetEntity="AuthorUrl", mappedBy="author")
@@ -72,8 +72,9 @@ class Author {
         return $this->shows;
     }
 
-        public function toArray() {
+    public function toArray() {
         $a = $this->toArrayShort();
+	$a['introduction'] = $this->getIntroduction();
         return $a;
     }
 
@@ -83,6 +84,24 @@ class Author {
         $a['name'] = $this->getName();
         return $a;
     }
+    
+    public function getPhoto() {
+        return $this->photo;
+    }
+
+    public function getAvatar() {
+        return $this->avatar;
+    }
+
+    public function getIntroduction() {
+        return $this->introduction;
+    }
+
+    public function getUrls() {
+        return $this->urls;
+    }
+
+
 
 }
 

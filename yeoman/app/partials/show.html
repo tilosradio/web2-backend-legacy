@@ -1,9 +1,10 @@
 <h1>{{show.name}}</h1>
 
-{{show.definition}}
+<p><i>{{show.definition}}</i></p>
 
-<span ng-bind-html-unsafe="show.description"></span>
+{{show.description}}
 
+<h2>Műsorkészítők</h2>
 <ul ng-repeat="author in show.authors">
     <li><a href="#/author/{{author.id}}">{{author.nick}}</a></li>
 </ul>
