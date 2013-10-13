@@ -41,6 +41,14 @@ class Episode {
      * @ORM\JoinColumn(name = "radioshow_id", referencedColumnName = "id")
      */
     protected $show;
+    
+    /**
+     * So called 'Adadnaplo'
+     * 
+     * @ORM\OneToOne(targetEntity="TextContent")
+     * @ORM\JoinColumn(name="textcontent_id", referencedColumnName="id")
+     */
+    protected $text;
 
     public function getId() {
         return $this->id;
@@ -83,6 +91,14 @@ class Episode {
 
     public function setShow($show) {
         $this->show = $show;
+    }
+
+    public function getText() {
+        return $this->text;
+    }
+
+    public function setText($text) {
+        $this->text = $text;
     }
 
 

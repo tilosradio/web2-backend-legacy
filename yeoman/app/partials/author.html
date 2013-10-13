@@ -1,1 +1,8 @@
 <h1>{{author.name}}</h1>
+
+{{author.introduction}}
+
+<h2>Műsorok</h2>
+<ul ng-repeat="show in author.shows">
+    <li><a href="#/show/{{show.id}}">{{show.name}}</a></li>
+</ul>

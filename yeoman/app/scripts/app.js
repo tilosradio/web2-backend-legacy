@@ -1,8 +1,6 @@
 'use strict';
 
-//TODO make it configurable
-var server = "http://tilos.anzix.net"
-var tilos = angular.module('tilos', ['ngRoute']);
+var tilos = angular.module('tilos', ['ngRoute','configuration']);
 
 tilos.config(['$routeProvider', function($routeProvider) {
         $routeProvider.when('/index', {
@@ -26,20 +24,20 @@ tilos.controller('IndexCtrl', ['$scope', '$routeParams', function($scope, $route
         $scope.test = "test";
     }]);
 
-tilos.controller('AuthorCtrl', ['$scope', '$routeParams', '$http', function($scope, $routeParams, $http) {
-        $http.get(server + '/api/author/' + $routeParams.id).success(function(data) {
+tilos.controller('AuthorCtrl', ['$scope', '$routeParams', 'API_SERVER_ENDPOINT', '$http', function($scope, $routeParams, $server, $http) {
+        $http.get($server + '/api/author/' + $routeParams.id).success(function(data) {
             $scope.author = data;
         });
     }]);
 
-tilos.controller('ShowCtrl', ['$scope', '$routeParams', '$http', function($scope, $routeParams, $http) {
-        $http.get(server + '/api/show/' + $routeParams.id).success(function(data) {
+tilos.controller('ShowCtrl', ['$scope', '$routeParams', 'API_SERVER_ENDPOINT', '$http', function($scope, $routeParams, $server, $http) {
+        $http.get($server + '/api/show/' + $routeParams.id).success(function(data) {
             $scope.show = data;
         });
     }]);
 
-tilos.controller('ProgramCtrl', ['$scope', '$routeParams', '$http', function($scope, $routeParams, $http) {
-        $http.get(server + '/api/episode').success(function(data) {
+tilos.controller('ProgramCtrl', ['$scope', '$routeParams', 'API_SERVER_ENDPOINT', '$http', function($scope, $routeParams, $server, $http) {
+        $http.get($server + '/api/episode').success(function(data) {
             $scope.episodes = data;
         });
     }]);
