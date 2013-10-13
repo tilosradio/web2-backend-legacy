@@ -80,6 +80,12 @@ time{
 }
 
 
+.btn-lg{
+  font-weight: bold;
+  text-transform: uppercase;
+}
+
+
 // old browser warning
 
 .browsehappy {
@@ -312,6 +318,41 @@ time{
 }
 
 
+
+// sidebar
+
+aside{
+  h2{
+    font-size: 18px;
+    text-transform: uppercase;
+  }
+  h3{
+    color: $gray;
+    font-size: 18px;
+    text-transform: uppercase;
+  }
+  .box{
+    border-bottom: 1px solid $primary-color;
+    padding-bottom: 1em;
+    h2{
+       border-bottom: 1px solid $primary-color;
+       margin-bottom: 2em;
+       padding-bottom: 1em;
+    }
+  }
+}
+
+.tel{
+  color: $primary-color;
+  cursor: default;
+  font-size: 31px;
+  display: inline-block;
+  margin-bottom: 1em;
+  &:hover{
+    color: $primary-color;
+    text-decoration: none;
+  }
+}
 
 // Footer
 
