@@ -1,4 +1,5 @@
 <?php
+
 namespace RadioAdmin;
 
 return array(
@@ -6,33 +7,33 @@ return array(
         'invokables' => array(
             'RadioAdmin\Controller\Auth' => 'RadioAdmin\Controller\AuthController'
         ),
-    ),    
+    ),
     'router' => array(
         'routes' => array(
-            'home' => array(
+            'sign_in' => array(
                 'type' => 'Literal',
                 'options' => array(
-                    'route' => '/admin/sign_in',
+                    'route' => '/sign_in',
                     'defaults' => array(
                         'controller' => 'RadioAdmin\Controller\Auth',
                         'action' => 'login'
                     )
                 )
             ),
-            'sign_in' => array(
+            'auth' => array(
                 'type' => 'Literal',
                 'options' => array(
-                    'route' => '/admin/sign_in',
+                    'route' => '/authenticate',
                     'defaults' => array(
                         'controller' => 'RadioAdmin\Controller\Auth',
-                        'action' => 'login'
+                        'action' => 'authenticate'
                     )
                 )
             ),
             'sign_out' => array(
                 'type' => 'Literal',
                 'options' => array(
-                    'route' => '/admin/sign_out',
+                    'route' => '/sign_out',
                     'defaults' => array(
                         'controller' => 'RadioAdmin\Controller\Auth',
                         'action' => 'logout'
@@ -58,6 +59,15 @@ return array(
                     __NAMESPACE__ . '\Entity' => __NAMESPACE__ . '_driver'
                 )
             )
-        )
-    )
+        ),
+        'authentication' => array(
+            'orm_default' => array(
+                'objectManager' => 'doctrine.documentmanager.odm_default',
+                'identityClass' => 'Radio\Entity\User',
+                'identityProperty' => 'username',
+                'credentialProperty' => 'password',
+                'credentialCallable' => 'Radio\Entity\User::testPassword'
+            ),
+        ),
+    ),
 );
