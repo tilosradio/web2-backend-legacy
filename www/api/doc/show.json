@@ -25,7 +25,7 @@
                     ],
                     "errorResponses": [
                         {
-                            "reason": "Show is not found.",
+                            "message": "Show is not found.",
                             "code": 404
                         }
                     ]
@@ -83,7 +83,7 @@
                     ],
                     "errorResponses": [
                         {
-                            "reason": "Show or episode is not found.",
+                            "message": "Show or episode is not found.",
                             "code": 404
                         }
                     ]
