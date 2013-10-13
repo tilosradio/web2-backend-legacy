@@ -83,6 +83,10 @@ time{
 .btn-lg{
   font-weight: bold;
   text-transform: uppercase;
+  [data-icon]{
+    display: inline-block;
+    margin-right: 10px;
+  }
 }
 
 
@@ -383,6 +387,17 @@ aside{
       box-shadow: 0 0 0 3px white, 0 0 3px 5px  rgba($primary-color, 0.5);
     }
   }
+}
+
+.archive-little{
+  .row{
+    margin-bottom: 10px;
+  }
+  .table{
+    a{
+      display: block;
+    }
+  } 
 }
 
 // Footer
