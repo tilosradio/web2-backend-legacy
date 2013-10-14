@@ -44,11 +44,7 @@ class Auth extends AbstractActionController
         $identity = $this->getAuthService()->getIdentity();
         // identity shall never be null on success
         if (null !== $identity)
-        {
-            $identity = $identity->toArray();
-            unset($identity['password']);
-            unset($identity['salt']);
-        }
+            $identity = $identity->toArraySafe();
         return new JsonModel(array('success' => true, 'identity' => $identity));
     }
     

@@ -76,4 +76,13 @@ class User
             'salt'      => $this->salt,
         );
     }
+    
+    public function toArraySafe()
+    {
+        return array(
+            'id'        => $this->id,
+            'username'  => $this->username,
+            'email'     => $this->email,
+        );
+    }
  }
