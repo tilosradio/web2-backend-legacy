@@ -40,6 +40,7 @@ class Show extends AbstractRestfulController {
      */
     public function getList() {
         try {
+            // TODO: paging (limit/offset)
             $resultSet = $this->getEntityManager()->getRepository("\Radio\Entity\Show")->findAll();
             if (empty($resultSet))
                 return new JsonModel(array());
