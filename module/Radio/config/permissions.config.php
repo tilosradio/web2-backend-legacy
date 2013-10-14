@@ -11,7 +11,7 @@ return array(
         'resources' => array(
             'allow' => array(
                 'Radio\Controller\Auth' => array(
-                    'all'   => 'guest'
+                    ':all'      => 'guest'
                 ),
                 'Radio\Controller\Author' => array(
                     'get'       => 'guest',

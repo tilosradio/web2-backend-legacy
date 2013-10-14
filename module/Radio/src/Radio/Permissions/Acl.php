@@ -28,12 +28,12 @@ class Acl extends ZendAcl {
         // load resources
         foreach ($config['acl']['resources'] as $permission => $controllers) {
             foreach ($controllers as $controller => $actions) {
-                if ($controller == 'all')
+                if ($controller == ':all')
                     $controller = null;
                 else if (!$this->hasResource($controller))
                     $this->addResource(new Resource($controller));
                 foreach ($actions as $action => $role) {
-                    if ($action == 'all')
+                    if ($action == ':all')
                         $action = null;
                     if ($permission == 'allow')
                         $this->allow($role, $controller, $action);
