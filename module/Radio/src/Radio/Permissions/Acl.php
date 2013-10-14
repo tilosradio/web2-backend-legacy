@@ -5,12 +5,13 @@ namespace Radio\Permissions;
 use Zend\Permissions\Acl\Acl as ZendAcl,
     Zend\Permissions\Acl\Role\GenericRole as Role,
     Zend\Permissions\Acl\Resource\GenericResource as Resource,
+    Radio\Permissions\RoleAssertion,
     Radio\Permissions\PermissionException as Exception;
 
 class Acl extends ZendAcl {
     const DEFAULT_ROLE = 'guest';
 
-    public function __construct($config) {
+    public function __construct($config, $recordId=0) {
         // validate config
         if (!isset($config['acl']['roles']) || !isset($config['acl']['resources']))
             throw new Exception('Invalid ACL config found');
@@ -36,7 +37,7 @@ class Acl extends ZendAcl {
                     if ($action == ':all')
                         $action = null;
                     if ($permission == 'allow')
-                        $this->allow($role, $controller, $action);
+                        $this->allow($role, $controller, $action, new RoleAssertion($recordId));
                     elseif ($permission == 'deny')
                         $this->deny($role, $controller, $action);
                     else

@@ -3,8 +3,7 @@
 namespace Radio;
 
 use Zend\Mvc\MvcEvent,
-    Radio\Permissions\Acl,
-    Radio\Permissions\PermissionException;
+    Radio\Permissions\Acl;
 
 class Module {
     public function onBootstrap(MvcEvent $event) {
@@ -28,7 +27,12 @@ class Module {
     }
     
     public function getServiceConfig() {
-        return array();
+        return array(
+            'serviceManager' => function(ServiceManager $sm)
+            {
+            
+            }
+        );
     }
     
     /**
@@ -38,9 +42,6 @@ class Module {
      */
     public function preDispatch(MvcEvent $event)
     {
-        // initialize permission check
-        $acl = new Acl($this->getPermissionsConfig());
-        
         /* 
          * TODO: get role associated with the user (implement association mechanism)
         $as = $event->getApplication()
@@ -54,7 +55,10 @@ class Module {
         $rm = $event->getRouteMatch();
         $controller = $rm->getParam('controller');
         $action = $rm->getParam('action');
+        $recordId = $rm->getParam('id');
         
+        // initialize permission check
+        $acl = new Acl($this->getPermissionsConfig(), $recordId);
         // check user permissions
         if (!$acl->hasResource($controller) || !$acl->isAllowed($role, $controller, $action))
         {

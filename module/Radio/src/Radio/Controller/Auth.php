@@ -1,8 +1,7 @@
 <?php
 namespace Radio\Controller;
 
-use Zend\Authentication\Result,
-    Zend\Mvc\Controller\AbstractActionController,
+use Zend\Mvc\Controller\AbstractActionController,
     Zend\View\Model\JsonModel,
     Radio\Provider\AuthService;
 
