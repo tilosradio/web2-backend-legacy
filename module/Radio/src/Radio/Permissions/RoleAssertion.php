@@ -14,16 +14,16 @@ class RoleAssertion implements AssertionInterface, ServiceLocatorAwareInterface 
     use ServiceLocator;
     use EntityManager;
     
-    private $id;
+    private $recordId;
     
     /**
      * Id of the record in the database (if any)
      * 
      * @param int $id 
      */
-    public function __construct($id=0)
+    public function __construct($recordId=0)
     {
-        $this->id = $id;
+        $this->recordId = $recordId;
     }
     
     /**
@@ -36,7 +36,7 @@ class RoleAssertion implements AssertionInterface, ServiceLocatorAwareInterface 
      */
     public function assert(Acl $acl, RoleInterface $role = null, ResourceInterface $resource = null, $action = null) {
         // check if the author belongs to this show
-        if ($role->getRoleId('author'))
+        if ($role->getRoleId() == 'author')
         {
             /*
              * if (this show doesn't belong to this author) 

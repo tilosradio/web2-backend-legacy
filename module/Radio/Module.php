@@ -27,12 +27,7 @@ class Module {
     }
     
     public function getServiceConfig() {
-        return array(
-            'serviceManager' => function(ServiceManager $sm)
-            {
-            
-            }
-        );
+        return array();
     }
     
     /**
