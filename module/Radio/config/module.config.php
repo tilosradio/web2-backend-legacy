@@ -9,6 +9,7 @@ return array(
             'Radio\Controller\Author' => 'Radio\Controller\Author',
             'Radio\Controller\Episode' => 'Radio\Controller\Episode',
             'Radio\Controller\Auth' => 'Radio\Controller\Auth',
+            'Radio\Controller\Text' => 'Radio\Controller\Text'
         ),
     ),
     'router' => array(
@@ -65,6 +66,14 @@ return array(
                     'route' => '/episode[/:id]',
                     'constraints' => array('id' => '[0-9]*',),
                     'defaults' => array('controller' => 'Radio\Controller\Episode',)
+                )
+            ),
+            'episode-text' => array(
+                'type' => 'Segment',
+                'options' => array(
+                    'route' => '/text[/:id]',
+                    'constraints' => array('id' => '[0-9]*',),
+                    'defaults' => array('controller' => 'Radio\Controller\Text',)
                 )
             )
         )
