@@ -52,4 +52,18 @@ class Author extends AbstractRestfulController {
         }
     }
 
+    public function create($data)
+    {
+        // TODO: implementation
+    }
+    
+    public function update($id, $data)
+    {
+        // TODO: implementation
+    }
+    
+    public function delete($id)
+    {
+        // TODO: implementation
+    }
 }

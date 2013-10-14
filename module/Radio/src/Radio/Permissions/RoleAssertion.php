@@ -36,7 +36,7 @@ class RoleAssertion implements AssertionInterface, ServiceLocatorAwareInterface 
      */
     public function assert(Acl $acl, RoleInterface $role = null, ResourceInterface $resource = null, $action = null) {
         // check if the author belongs to this show
-        if ($role->getRoleId() == 'author')
+        if ($role->getRoleId() == 'author' && in_array($action, array('create', 'delete')))
         {
             /*
              * if (this show doesn't belong to this author) 

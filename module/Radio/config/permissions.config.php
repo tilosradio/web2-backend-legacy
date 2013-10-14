@@ -25,6 +25,23 @@ return array(
                     'get'       => 'guest',
                     'getList'   => 'guest'
                 ),
+            ),
+            'deny' => array(
+                'Radio\Controller\Author' => array(
+                    'create'   => 'user',
+                    'update'   => 'user',
+                    'delete'   => 'user',
+                ),
+                'Radio\Controller\Show' => array(
+                    'create'   => 'user',
+                    'update'   => 'user',
+                    'delete'   => 'user',
+                ),
+                'Radio\Controller\Episode' => array(
+                    'create'   => 'user',
+                    'update'   => 'user',
+                    'delete'   => 'user',
+                ),
             )
         )
     )
