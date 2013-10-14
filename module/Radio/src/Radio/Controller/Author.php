@@ -12,6 +12,7 @@ class Author extends AbstractRestfulController {
   
     public function getList() {
         try {
+            // TODO: paging (limit/offset)
             $resultSet = $this->getEntityManager()->getRepository("\Radio\Entity\Author")->findAll();
             if (empty($resultSet))
                 return new JsonModel(array());
