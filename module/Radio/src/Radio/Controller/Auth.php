@@ -1,12 +1,15 @@
 <?php
 namespace Radio\Controller;
 
-use Zend\Authentication\Result;
-use Zend\Mvc\Controller\AbstractActionController;
-use Zend\View\Model\JsonModel;
+use Zend\Authentication\Result,
+    Zend\Mvc\Controller\AbstractActionController,
+    Zend\View\Model\JsonModel,
+    Radio\Provider\AuthService;
 
 class Auth extends AbstractActionController
 {
+    use AuthService;
+    
     public function loginAction()
     {
         if (!$this->getRequest()->isPost())
@@ -36,17 +39,10 @@ class Auth extends AbstractActionController
         return $this->success();
     }
     
-    private function getAuthService()
-    {
-        static $as = null;
-        if (null === $as)
-            $as = $this->getServiceLocator()->get('doctrine.authenticationservice.orm_default');
-        return $as;
-    }
-    
     private function success()
     {
         $identity = $this->getAuthService()->getIdentity();
+        // identity shall never be null on success
         if (null !== $identity)
         {
             $identity = $identity->toArray();
