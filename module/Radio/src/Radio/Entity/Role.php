@@ -38,7 +38,7 @@ class Role
     }
     
     /**
-     * @return Radio\Entity\Role;
+     * @return Radio\Entity\Role
      */
     public function getParent()
     {
