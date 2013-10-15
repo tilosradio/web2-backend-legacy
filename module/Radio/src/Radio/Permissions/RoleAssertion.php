@@ -8,21 +8,25 @@ use Zend\ServiceManager\ServiceLocatorAwareInterface,
     Zend\Permissions\Acl\Role\RoleInterface,
     Zend\Permissions\Acl\Resource\ResourceInterface,
     Radio\Provider\ServiceLocator,
-    Radio\Provider\EntityManager;
+    Radio\Provider\EntityManager,
+    Radio\Entity\User;
 
 class RoleAssertion implements AssertionInterface, ServiceLocatorAwareInterface {
     use ServiceLocator;
     use EntityManager;
     
+    private $user;
     private $recordId;
     
     /**
-     * Id of the record in the database (if any)
+     * Construct role validation object
      * 
-     * @param int $id 
+     * @param \Radio\Entity\User $user User whos permission is being tested
+     * @param type $recordId I of the database record the permission will be tested against
      */
-    public function __construct($recordId=0)
+    public function __construct(User $user, $recordId)
     {
+        $this->user = $user;
         $this->recordId = $recordId;
     }
     
@@ -35,13 +39,30 @@ class RoleAssertion implements AssertionInterface, ServiceLocatorAwareInterface 
      * @param type $privilege
      */
     public function assert(Acl $acl, RoleInterface $role = null, ResourceInterface $resource = null, $action = null) {
-        // check if the author belongs to this show
-        if ($role->getRoleId() == 'author' && in_array($action, array('create', 'delete')))
+        if (empty($this->user))
+            // unauthorizued user, permission check not possible (role level permissions apply)
+            return true;
+        
+        // check author permissions
+        if ($role->getRoleId() == 'author')
         {
-            /*
-             * if (this show doesn't belong to this author) 
-             *     return false;
-             */
+            // user wants to gain access to a show
+            if ($resource->getResourceId('Radio\Controller\Show'))
+            {
+                // check if the user want's to call the 'update' or 'delete' methods
+                // note: only admins can access 'create'
+                if (in_array($action, array('update', 'delete')))
+                {
+                    // check if the author belongs to this show
+                    $record = $this->getEntityManager()->find("\Radio\Entity\Show", $this->recordId);
+                    var_dump($record);
+                    die();
+                    /*
+                     * if (this show doesn't belong to this author) 
+                     *     return false;
+                     */
+                }
+            }
         }
         /*
         var_dump($role->getRoleId());

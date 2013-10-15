@@ -1,7 +1,8 @@
 <?php
 namespace Radio\Entity;
 
-use Doctrine\ORM\Mapping as ORM;
+use Doctrine\ORM\Mapping as ORM,
+    Radio\Permissions\Acl;
 
 /**
  * @ORM\Entity 
@@ -36,6 +37,12 @@ class User
      */
     private $salt;
     
+    /**
+     * @ORM\OneToOne(targetEntity="Role")
+     * @ORM\JoinColumn(name="role_id", referencedColumnName="id")
+     */
+    private $role;
+    
     public function getId()
     {
         return $this->id;
@@ -61,7 +68,23 @@ class User
         return $this->salt;
     }
     
-    public function testPassword(User $user, $passwordGiven)
+    public function createSalt()
+    {
+        // do not regenerate existing salt
+        if (empty($this->salt))
+            $this->salt = sha1(date('YmdHis') . str(mt_rand()));
+        return $this->salt;
+    }
+    
+    /**
+     * @return Radio\Entity\Role
+     */
+    public function getRole()
+    {
+        return empty($this->role) ? Acl::DEFAULT_ROLE : $this->role;
+    }
+    
+    public static function testPassword(User $user, $passwordGiven)
     {
         return sha1($passwordGiven . $user->getSalt()) === $user->getPassword();
     }

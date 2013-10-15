@@ -1,5 +1,6 @@
 <?php
 
+// TODO: load roles from database (in Module::getPermissionsConfig())
 return array(
     'acl' => array(
         'roles' => array(
@@ -14,35 +15,27 @@ return array(
                     ':all'      => 'guest'
                 ),
                 'Radio\Controller\Author' => array(
-                    'get'       => 'guest',
-                    'getList'   => 'guest'
+                    'get'      => 'guest',
+                    'getList'  => 'guest',
+                    'create'   => 'admin',
+                    'update'   => 'author',
+                    'delete'   => 'admin',
                 ),
                 'Radio\Controller\Show' => array(
-                    'get'       => 'guest',
-                    'getList'   => 'guest'
+                    'get'      => 'guest',
+                    'getList'  => 'guest',
+                    'create'   => 'admin',
+                    'update'   => 'author',
+                    'delete'   => 'admin',
                 ),
                 'Radio\Controller\Episode' => array(
-                    'get'       => 'guest',
-                    'getList'   => 'guest'
+                    'get'      => 'guest',
+                    'getList'  => 'guest',
+                    'create'   => 'admin',
+                    'update'   => 'author',
+                    'delete'   => 'admin',
                 ),
             ),
-            'deny' => array(
-                'Radio\Controller\Author' => array(
-                    'create'   => 'user',
-                    'update'   => 'user',
-                    'delete'   => 'user',
-                ),
-                'Radio\Controller\Show' => array(
-                    'create'   => 'user',
-                    'update'   => 'user',
-                    'delete'   => 'user',
-                ),
-                'Radio\Controller\Episode' => array(
-                    'create'   => 'user',
-                    'update'   => 'user',
-                    'delete'   => 'user',
-                ),
-            )
         )
     )
 );
