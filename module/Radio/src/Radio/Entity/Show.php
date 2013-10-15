@@ -40,7 +40,7 @@ class Show {
     /**
      * @ORM\Column(type="string", length=25) 
      * */
-    protected $slug;
+    protected $alias;
 
     /**
      * @ORM\Column(type="string", length=50) 
@@ -84,6 +84,10 @@ class Show {
         return $this->schedulings;
     }
 
+    public function getAlias() {
+        return $this->alias;
+    }
+
     public function toArray() {
         $a = $this->toArrayShort();
         $a['description'] = $this->getDescription();
@@ -94,11 +98,12 @@ class Show {
         $a = array();
         $a['id'] = $this->getId();
         $a['name'] = $this->getName();
-        $a['slug'] = $this->getSlug();
+        $a['alias'] = $this->getAlias();
         $a['banner'] = $this->getBanner();
         $a['definition'] = $this->getDefinition();
         return $a;
     }
 
 }
+
 ?>

@@ -45,7 +45,8 @@ module.exports = function (grunt) {
                 port: 9000,
                 livereload: 35729,
                 // change this to '0.0.0.0' to access the server from outside
-                hostname: '0.0.0.0'
+                // hostname: '0.0.0.0'
+                hostname: 'localhost'
             },
             livereload: {
                 options: {
@@ -348,7 +349,7 @@ module.exports = function (grunt) {
         'concurrent:dist',
         'autoprefixer',
 //TODO fix the parameters
-//        'requirejs',
+       // 'requirejs',
         'concat',
         'cssmin',
         'uglify',
