@@ -39,7 +39,7 @@ class Module {
      */
     public function preDispatch(MvcEvent $event) {
         $serviceManager = $event->getApplication()
-                    ->getServiceManager();
+                                ->getServiceManager();
         $authService = $serviceManager->get('doctrine.authenticationservice.orm_default');
         if ($authService->hasIdentity())
         {

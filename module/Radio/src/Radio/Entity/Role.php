@@ -36,4 +36,12 @@ class Role
     {
         return $this->name;
     }
+    
+    /**
+     * @return Radio\Entity\Role;
+     */
+    public function getParent()
+    {
+        return $this->parent;
+    }
 }

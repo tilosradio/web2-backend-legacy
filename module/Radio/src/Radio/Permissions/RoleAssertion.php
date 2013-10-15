@@ -64,10 +64,6 @@ class RoleAssertion implements AssertionInterface, ServiceLocatorAwareInterface 
                 }
             }
         }
-        /*
-        var_dump($role->getRoleId());
-        var_dump($resource->getResourceId());
-        */
         return true;
     }
 }
