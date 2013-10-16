@@ -10,6 +10,7 @@ return array(
             'Radio\Controller\Episode' => 'Radio\Controller\Episode',
             'Radio\Controller\Auth' => 'Radio\Controller\Auth',
             'Radio\Controller\Text' => 'Radio\Controller\Text'
+
         ),
     ),
     'router' => array(

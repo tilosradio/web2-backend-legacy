@@ -5,24 +5,28 @@ namespace Radio\Controller;
 use Zend\View\Model\JsonModel;
 use Radio\Provider\EntityManager;
 
+/**
+ * @SWG\Resource(resourcePath="/episode",basePath="/api")
+ */
 class Episode extends BaseController {
-    
+
     use EntityManager;
-    
+
     public function getList() {
         try {
             // TODO: paging (limit/offset)
+            $start = $this->params()->fromQuery("start", time());
+            $end = $this->params()->fromQuery("start", time() + 60 * 60 * 5);
+            //retrieve valid scheduling rules
             $query = $this->getEntityManager()->createQuery('SELECT e FROM Radio\Entity\Scheduling e WHERE e.weekType = :type OR e.weekType = 0 ORDER BY e.weekDay,e.hourFrom,e.minFrom');
-            $query->setParameter("type",date("W")%2 + 1);
+            $query->setParameter("type", date("W", $start) % 2 + 1);
             $resultSet = $query->getResult();
             if (empty($resultSet))
                 return new JsonModel(array());
 
             $return = array();
 
-            $weekstart = getdate(strtotime('this week', time()));
-
-
+            $weekstart = getdate(strtotime('this week', $start));
 
             foreach ($resultSet as $result) {
                 $a = $result->toArray();
@@ -30,11 +34,13 @@ class Episode extends BaseController {
                 //$epi->setShow($result->getShow());
                 $epi['show'] = $result->getShow()->toArrayShort();
 
+                //calculate actual date from
                 $from = new \DateTime();
                 $from->setDate($weekstart['year'], $weekstart['mon'], $weekstart['mday']);
                 $from->setTime($result->getHourFrom(), $result->getMinFrom(), 0);
                 $from->add(new \DateInterval("P" . $result->getWeekDay() . "D"));
-                
+
+                //calculate actual date to
                 $to = new \DateTime();
                 $to->setDate($weekstart['year'], $weekstart['mon'], $weekstart['mday']);
                 $to->setTime($result->getHourTo(), $result->getMinTo(), 0);
@@ -42,7 +48,9 @@ class Episode extends BaseController {
 
                 $epi['from'] = $from->getTimestamp();
                 $epi['to'] = $to->getTimestamp();
-                $return[] = (array) $epi;
+                if($from->getTimestamp()>=$start && $to->getTimestamp()<=$end){
+                    $return[] = (array) $epi;
+                }
             }
             return new JsonModel($return);
         } catch (Exception $ex) {
@@ -71,18 +79,16 @@ class Episode extends BaseController {
         }
     }
 
-    public function create($data)
-    {
+    public function create($data) {
         // TODO: implementation
     }
-    
-    public function update($id, $data)
-    {
+
+    public function update($id, $data) {
         // TODO: implementation
     }
-    
-    public function delete($id)
-    {
+
+    public function delete($id) {
         // TODO: implementation
     }
+
 }

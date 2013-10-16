@@ -25,6 +25,10 @@ tilos.config(['$routeProvider', function($routeProvider) {
 
 tilos.controller('IndexCtrl', ['$scope', '$routeParams', function($scope, $routeParams) {
         $scope.test = "test";
+        var start = Math.round(d.getTime()/1000)
+        $http.get($server + '/api/author/' + $routeParams.id).success(function(data) {
+            $scope.author = data;
+        });
     }]);
 
 tilos.controller('AuthorCtrl', ['$scope', '$routeParams', 'API_SERVER_ENDPOINT', '$http', function($scope, $routeParams, $server, $http) {
