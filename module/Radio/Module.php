@@ -12,7 +12,7 @@ class Module {
 
     public function onBootstrap(MvcEvent $event) {
         $em = $event->getApplication()->getEventManager();
-        $em->attach(MvcEvent::EVENT_DISPATCH, array($this, 'preDispatch'));
+	//        $em->attach(MvcEvent::EVENT_DISPATCH, array($this, 'preDispatch'));
     }
 
     public function getAutoloaderConfig() {

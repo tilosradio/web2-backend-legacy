@@ -4,7 +4,7 @@ namespace Radio\Permissions;
 
 use Zend\ServiceManager\ServiceLocatorAwareInterface,
     Zend\Permissions\Acl\Assertion\AssertionInterface,
-    Zend\Permissions\Acl\Acl,
+    Zend\Permissions\Acl\Acl as ZendAcl,
     Zend\Permissions\Acl\Role\RoleInterface,
     Zend\Permissions\Acl\Resource\ResourceInterface,
     Radio\Provider\ServiceLocator,
@@ -38,7 +38,7 @@ class RoleAssertion implements AssertionInterface, ServiceLocatorAwareInterface 
      * @param \Zend\Permissions\Acl\Resource\ResourceInterface $resource
      * @param type $privilege
      */
-    public function assert(Acl $acl, RoleInterface $role = null, ResourceInterface $resource = null, $action = null) {
+    public function assert(ZendAcl $acl, RoleInterface $role = null, ResourceInterface $resource = null, $action = null) {
         if (empty($this->user))
             // unauthorizued user, permission check not possible (role level permissions apply)
             return true;
