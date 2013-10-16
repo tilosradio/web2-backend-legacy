@@ -4,7 +4,7 @@
 
 <ul>       
 <li ng-repeat="episode in program[currentDay].episodes">
-{{episode.from * 1000| date: 'HH:mm'}} <a href="#/show/{{episode.show.id}}">{{episode.show.name}}</a>
+{{episode.from * 1000 | date: 'HH:mm'}} <a href="#/show/{{episode.show.id}}">{{episode.show.name}}</a>
 <i>{{episode.show.definition}}</i>
 </li>
 </ul>

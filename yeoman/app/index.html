@@ -32,7 +32,7 @@
         <!-- endbuild -->
 
     </head>
-    <body ng-controller="IndexCtrl">
+    <body>
         <!--[if lt IE 8]>
             <div class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</div>
         <![endif]-->
@@ -55,12 +55,12 @@
           <!-- Collect the nav links, forms, and other content for toggling -->
           <div class="collapse navbar-collapse navbar-ex1-collapse container">
             <ul class="nav navbar-nav">
-              <li class="active"><a href="/#index">Főoldal</a></li>
-              <li><a href="#0">Infó</a></li>
-              <li><a href="#/program">Műsorok</a></li>
+              <li active-link="active"><a href="/#index">Főoldal</a></li>
+              <li active-link="active"><a href="#0">Infó</a></li>
+              <li active-link="active"><a href="#/archive">Műsorok</a></li>
               <li data-number="5"><a href="#0">Hírek</a></li>
-              <li><a href="#0">Archívum</a></li>
-              <li><a href="#/page/73">Kontakt</a></li>
+              <li active-link="active"><a href="#/program">Archívum</a></li>
+              <li active-link="active"><a href="#/page/73">Kontakt</a></li>
             </ul>
             <form class="navbar-form navbar-right" role="search">
               <div class="form-group">
@@ -95,7 +95,7 @@
         </header>
       </div> <!-- navbar-fixed-top -->
         <div class="container">
-            <div class="row">
+            <div class="row" ng-controller="SideCtrl">
               <section class="col-md-6 main" role="main" ng-view>
               
               </section> <!-- col-md-6 -->
@@ -111,7 +111,7 @@
                       {name:'Naga', image:'http://lorempixel.com/200/200/people/1', link:'#0'},
                       {name:'Papo', image:'http://lorempixel.com/200/200/people/3', link:'#0'}
                     ]">
-                   <h2>Másorvezetők</h2>
+                   <h2>Műsorvezetők</h2>
                    <div class="row">
                     <figure  ng-repeat="showAuthor in showAuthors" class="show-author">
                        <a href="{{showAuthor.link}}"><img src="{{showAuthor.image}}" alt="{{showAuthor.name}}" class="show-author-image"></a>
@@ -180,16 +180,9 @@
                 </div> <!-- box -->
                 <div class="box-simple">
                   <h2>2013. 11. 15. szombat</h2>
-                  <table class="table actual-shows" ng-init="actualShows = [
-                      {name:'Bádogdob', time:'14:30', link:'#0'},
-                      {name:'Csonkamagyarország', time:'15:30', link:'#0'},
-                      {name:'Haza és haladás', time:'17:00', link:'#0'},
-                      {name:'Szőke rádiózik', time:'17:30', link:'#0'},
-                      {name:'Planet Error', time:'18:00', link:'#0'},
-                      {name:'Japan grooves', time:'18:30', link:'#0'}
-                    ]">
-                    <tr ng-repeat="actialShow in actualShows" class="{{($index == 1) && 'actual' || ''}}" >
-                      <td>{{actialShow.name}}</td><td>{{actialShow.time}}</td><td><a href="#">fav</a></td>
+                  <table class="table actual-shows" >
+                    <tr ng-repeat="episode in episodes" class="{{($index == 1) && 'actual' || ''}}" >
+                      <td><a href="#/show/{{episode.show.id}}">{{episode.show.name}}<a></td><td>{{episode.from * 1000 | date: 'HH:mm'}}</td><td><a href="#">fav</a></td>
                     </tr>
                   </table>
                 </div>

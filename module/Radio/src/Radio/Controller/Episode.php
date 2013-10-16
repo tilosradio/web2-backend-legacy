@@ -14,16 +14,14 @@ class Episode extends BaseController {
 
     public function getList() {
         try {
-            // TODO: paging (limit/offset)
             $start = $this->params()->fromQuery("start", time());
-            $end = $this->params()->fromQuery("start", time() + 60 * 60 * 5);
+            $end = $this->params()->fromQuery("end", $start + 60 * 60 * 5);
             //retrieve valid scheduling rules
             $query = $this->getEntityManager()->createQuery('SELECT e FROM Radio\Entity\Scheduling e WHERE e.weekType = :type OR e.weekType = 0 ORDER BY e.weekDay,e.hourFrom,e.minFrom');
             $query->setParameter("type", date("W", $start) % 2 + 1);
             $resultSet = $query->getResult();
             if (empty($resultSet))
                 return new JsonModel(array());
-
             $return = array();
 
             $weekstart = getdate(strtotime('this week', $start));
