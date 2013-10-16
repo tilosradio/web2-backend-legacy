@@ -56,10 +56,10 @@
           <div class="collapse navbar-collapse navbar-ex1-collapse container">
             <ul class="nav navbar-nav">
               <li active-link="active"><a href="/#index">Főoldal</a></li>
-              <li active-link="active"><a href="#0">Infó</a></li>
-              <li active-link="active"><a href="#/archive">Műsorok</a></li>
-              <li data-number="5"><a href="#0">Hírek</a></li>
-              <li active-link="active"><a href="#/program">Archívum</a></li>
+              <li active-link="active"><a href="#/page/17">Infó</a></li>
+              <li active-link="active"><a href="#/shows">Műsorok</a></li>
+              <li active-link="active"><a href="#/page/172">Hírek</a></li>
+              <li active-link="active"><a href="#/archive">Archívum</a></li>
               <li active-link="active"><a href="#/page/73">Kontakt</a></li>
             </ul>
             <form class="navbar-form navbar-right" role="search">
@@ -179,10 +179,11 @@
                   </form>
                 </div> <!-- box -->
                 <div class="box-simple">
-                  <h2>2013. 11. 15. szombat</h2>
+                  <h2>{{now| date: "yyyy.MM.dd"}}</h2>
                   <table class="table actual-shows" >
-                    <tr ng-repeat="episode in episodes" class="{{($index == 1) && 'actual' || ''}}" >
-                      <td><a href="#/show/{{episode.show.id}}">{{episode.show.name}}<a></td><td>{{episode.from * 1000 | date: 'HH:mm'}}</td><td><a href="#">fav</a></td>
+                    <tr ng-repeat="episode in episodes" class="{{(current.show.id == episode.show.id) && 'actual' || ''}}" >
+                        
+                        <td><a href="#/show/{{episode.show.id}}">{{episode.show.name}}<a></td><td>{{episode.from * 1000 | date: 'HH:mm'}}</td><td><a href="#">fav</a></td>
                     </tr>
                   </table>
                 </div>

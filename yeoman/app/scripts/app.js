@@ -14,7 +14,7 @@ tilos.config(['$routeProvider', function($routeProvider) {
         $routeProvider.when('/index', {
             templateUrl: 'partials/index.html',
             controller: 'IndexCtrl'
-        }).when('/program', {
+        }).when('/archive', {
             templateUrl: 'partials/program.html',
             controller: 'ProgramCtrl'
         }).when('/show/:id', {
@@ -26,17 +26,21 @@ tilos.config(['$routeProvider', function($routeProvider) {
         }).when('/page/:id', {
             templateUrl: 'partials/page.html',
             controller: 'PageCtrl'
+        }).when('/shows', {
+            templateUrl: 'partials/shows.html',
+            controller: 'AllShowCtrl'
         }).otherwise({
             redirectTo: '/index'
         });
     }]);
 
 tilos.controller('SideCtrl', ['$scope', '$routeParams', 'API_SERVER_ENDPOINT', '$http', function($scope, $routeParams, $server, $http) {
-        var start = (new Date() / 1000 - 60 * 60 * 2)
+        var start = (new Date() / 1000 - 60 * 60 * 3)
         var now = new Date().getTime() / 1000
+        $scope.now = new Date();
         $http.get($server + '/api/episode?start=' + start + '&end=' + (start + 12 * 60 * 60)).success(function(data) {
             for (var i = 0; i < data.length; i++) {
-                if (data[i].from <= now && data[i].to > now) {
+                if (data[i].from <= now && data[i].to > now) {                    
                     $scope.current = data[i]
                 }
             }
@@ -57,6 +61,12 @@ tilos.controller('AuthorCtrl', ['$scope', '$routeParams', 'API_SERVER_ENDPOINT',
 tilos.controller('PageCtrl', ['$scope', '$routeParams', 'API_SERVER_ENDPOINT', '$http', function($scope, $routeParams, $server, $http) {
         $http.get($server + '/api/text/' + $routeParams.id).success(function(data) {
             $scope.page = data;
+        });
+    }]);
+
+tilos.controller('AllShowCtrl', ['$scope', '$routeParams', 'API_SERVER_ENDPOINT', '$http', function($scope, $routeParams, $server, $http) {
+        $http.get($server + '/api/show').success(function(data) {
+            $scope.shows = data;
         });
     }]);
 
@@ -82,7 +92,7 @@ tilos.controller('ProgramCtrl', ['$scope', '$routeParams', 'API_SERVER_ENDPOINT'
             //index episodes by day
             for (var i = 0; i < data.length; i++) {
                 var idx = Math.floor((data[i].from - refDate) / (60 * 60 * 24))
-                data[i]['idx'] = idx    
+                data[i]['idx'] = idx
                 if (!result[idx]) {
                     result[idx] = {'episodes': []}
                 }
@@ -108,7 +118,7 @@ tilos.controller('ProgramCtrl', ['$scope', '$routeParams', 'API_SERVER_ENDPOINT'
                 from = from - 7 * 24 * 60 * 60;
                 $http.get($server + '/api/episode?start=' + from + '&end=' + oldfrom).success(function(data) {
                     $scope.currentDay--;
-                    processResult(data)                    
+                    processResult(data)
                 });
             }
         }
@@ -120,7 +130,7 @@ tilos.controller('ProgramCtrl', ['$scope', '$routeParams', 'API_SERVER_ENDPOINT'
                 to = to + 7 * 24 * 60 * 60;
                 $http.get($server + '/api/episode?start=' + oldto + '&end=' + to).success(function(data) {
                     $scope.currentDay++;
-                    processResult(data)                    
+                    processResult(data)
                 });
             }
         }

@@ -1,10 +1,5 @@
-<h1>{{show.name}}</h1>
+<h1>Összes műsor</h1>
 
-<p><i>{{show.definition}}</i></p>
-
-<span ng-bind-html-unsage="{{show.description}}"></span>
-
-<h2>Műsorkészítők</h2>
-<ul ng-repeat="author in show.authors">
-    <li><a href="#/author/{{author.id}}">{{author.nick}}</a></li>
-</ul>
+<span ng-repeat="show in shows">
+    {{show.name}}<br/>
+</span>

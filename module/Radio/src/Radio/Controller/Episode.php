@@ -43,6 +43,9 @@ class Episode extends BaseController {
                 $to->setDate($weekstart['year'], $weekstart['mon'], $weekstart['mday']);
                 $to->setTime($result->getHourTo(), $result->getMinTo(), 0);
                 $to->add(new \DateInterval("P" . $result->getWeekDay() . "D"));
+                if ($result->getHourTo() == 0 && $result->getMinTo(0) == 0) {
+                    $to->add(new \DateInterval("P1D"));
+                }
 
                 $epi['from'] = $from->getTimestamp();
                 $epi['to'] = $to->getTimestamp();
