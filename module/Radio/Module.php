@@ -3,6 +3,7 @@
 namespace Radio;
 
 use Zend\Mvc\MvcEvent,
+    Readio\Entity\Role,
     Radio\Permissions\Acl,
     Radio\Permissions\RoleAssertion,
     Radio\Permissions\PermissionException;
@@ -51,7 +52,7 @@ class Module {
         {
             // unauthenticated users have the default role ('guest')
             $user = null;
-            $role = Acl::DEFAULT_ROLE;
+            $role = Role::getDefault();
         }
 
         // get requested resource
@@ -64,15 +65,15 @@ class Module {
         $assertion = new RoleAssertion($user, $recordId);
         $assertion->setServiceLocator($serviceManager);
         try {
-        $acl = new Acl($this->getPermissionsConfig(), $assertion);
-        // check user permissions
-        if (!$acl->hasResource($controller) || !$acl->isAllowed($role, $controller, $action)) {
-            // respond with 401 Unauthorized
-            $event->getResponse()
-                  ->setStatusCode(401)
-                  ->sendHeaders();
-            die();
-        }
+            $acl = new Acl($this->getPermissionsConfig(), $assertion);
+            // check user permissions
+            if (!$acl->hasResource($controller) || !$acl->isAllowed($role->getName(), $controller, $action)) {
+                // respond with 401 Unauthorized
+                $event->getResponse()
+                      ->setStatusCode(401)
+                      ->sendHeaders();
+                die();
+            }
         } catch (PermissionException $pe)
         {
             // configuration error
