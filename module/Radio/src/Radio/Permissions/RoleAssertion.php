@@ -24,7 +24,7 @@ class RoleAssertion implements AssertionInterface, ServiceLocatorAwareInterface 
      * @param User $user The user whos rights are going to be tested
      * @param type $recordId Id of the database record against which the permission will be tested
      */
-    public function __construct(User $user, $recordId)
+    public function __construct($user, $recordId)
     {
         $this->user = $user;
         $this->recordId = $recordId;

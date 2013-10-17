@@ -3,7 +3,7 @@
 namespace Radio;
 
 use Zend\Mvc\MvcEvent,
-    Readio\Entity\Role,
+    Radio\Entity\Role,
     Radio\Permissions\Acl,
     Radio\Permissions\RoleAssertion,
     Radio\Permissions\PermissionException;
