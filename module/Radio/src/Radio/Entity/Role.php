@@ -1,7 +1,8 @@
 <?php
 namespace Radio\Entity;
 
-use Doctrine\ORM\Mapping as ORM;
+use Doctrine\ORM\Mapping as ORM,
+    Radio\Permissions\Acl;
 
 /**
  * @ORM\Entity 
@@ -43,5 +44,21 @@ class Role
     public function getParent()
     {
         return $this->parent;
+    }
+    
+    /**
+     * @return \Radio\Entity\Role
+     */
+    public static function getDefault()
+    {
+        static $def = null;
+        if (null === $def)
+        {
+            $def = new Role();
+            $def->id = 1;
+            $def->name = Acl::DEFAULT_ROLE;
+            $def->parent = null;
+        }
+        return $def;
     }
 }

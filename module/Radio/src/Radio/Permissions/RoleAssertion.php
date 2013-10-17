@@ -21,8 +21,8 @@ class RoleAssertion implements AssertionInterface, ServiceLocatorAwareInterface 
     /**
      * Construct role validation object
      * 
-     * @param \Radio\Entity\User $user User whos permission is being tested
-     * @param type $recordId I of the database record the permission will be tested against
+     * @param User $user The user whos rights are going to be tested
+     * @param type $recordId Id of the database record against which the permission will be tested
      */
     public function __construct(User $user, $recordId)
     {

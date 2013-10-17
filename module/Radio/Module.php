@@ -4,7 +4,8 @@ namespace Radio;
 
 use Zend\Mvc\MvcEvent,
     Radio\Permissions\Acl,
-    Radio\Permissions\RoleAssertion;
+    Radio\Permissions\RoleAssertion,
+    Radio\Permissions\PermissionException;
 
 class Module {
 
@@ -62,14 +63,23 @@ class Module {
         // initialize permission check
         $assertion = new RoleAssertion($user, $recordId);
         $assertion->setServiceLocator($serviceManager);
+        try {
         $acl = new Acl($this->getPermissionsConfig(), $assertion);
         // check user permissions
         if (!$acl->hasResource($controller) || !$acl->isAllowed($role, $controller, $action)) {
             // respond with 401 Unauthorized
             $event->getResponse()
-                ->setStatusCode(401)
-                ->sendHeaders();
+                  ->setStatusCode(401)
+                  ->sendHeaders();
             die();
+        }
+        } catch (PermissionException $pe)
+        {
+            // configuration error
+            $event->getResponse()
+                  ->setStatusCode(500)
+                  ->sendHeaders();
+            die($pe->getMessage());
         }
     }
 

@@ -2,7 +2,8 @@
 namespace Radio\Entity;
 
 use Doctrine\ORM\Mapping as ORM,
-    Radio\Permissions\Acl;
+    Radio\Permissions\Acl,
+    Radio\Entity\Role;
 
 /**
  * @ORM\Entity 
@@ -81,7 +82,7 @@ class User
      */
     public function getRole()
     {
-        return empty($this->role) ? Acl::DEFAULT_ROLE : $this->role;
+        return empty($this->role) ? Role::getDefault() : $this->role;
     }
     
     public static function testPassword(User $user, $passwordGiven)

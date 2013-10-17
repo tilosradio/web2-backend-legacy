@@ -19,7 +19,7 @@ class Acl extends ZendAcl {
         // load roles
         $roles = $config['acl']['roles'];
         if (!isset($roles[self::DEFAULT_ROLE]))
-            $roles[self::DEFAULT_ROLE] = '';
+            $roles[self::DEFAULT_ROLE] = null;
         foreach ($roles as $name => $parent)
             if (!$this->hasRole($name)) {
                 $parent = empty($parent) ? array() : explode(',', $parent);
