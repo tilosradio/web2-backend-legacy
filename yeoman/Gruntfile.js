@@ -75,6 +75,9 @@ module.exports = function (grunt) {
         },
         clean: {
             dist: {
+               options: {
+                  force: true
+               },
                 files: [{
                     dot: true,
                     src: [
@@ -264,6 +267,8 @@ module.exports = function (grunt) {
                         'images/{,*/}*.{webp,gif}',
                         'styles/fonts/{,*/}*.*',
                         'bower_components/sass-bootstrap/fonts/*.*',
+			'bower_components/angular/*.*',
+			'bower_components/angular-route/*.*',
 			'partials/*'
                     ]
                 }]
