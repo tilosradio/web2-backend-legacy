@@ -8,3 +8,8 @@
 <ul ng-repeat="author in show.authors">
     <li><a href="#/author/{{author.id}}">{{author.nick}}</a></li>
 </ul>
+
+<h2>Legutóbbi adások</h2>
+<ul ng-repeat="episode in show.episodes">
+    <li>{{episode * 1000 | date: 'yyyy.MM.dd HH:mm'}}</li>
+</ul>
