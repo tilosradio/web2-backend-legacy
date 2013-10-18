@@ -46,13 +46,8 @@ server.modules = (
 )
 
 if !physical.exists {
-  if request.path =^ "/api/" {
-    rewrite "/api/index.php";
-    docroot var.vhosts_dir + var.my_docroot;
-  } else {
-    rewrite "/index.html";
-    docroot var.vhosts_dir + var.my_docroot;
-  }
+   rewrite "/backend.php";
+   docroot var.vhosts_dir + var.my_docroot;
 }
 
 
