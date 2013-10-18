@@ -17,7 +17,7 @@ class Text extends AbstractRestfulController {
                 $this->getResponse()->setStatusCode(404);
                 return new JsonModel(array("error" => "Not found"));
             } else {
-                $a = $result->toArray();                
+                $a = $result->toArray();
                 return new JsonModel($a);
             }
         } catch (\Exception $ex) {

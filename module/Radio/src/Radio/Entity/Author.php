@@ -33,7 +33,7 @@ class Author {
     protected $avatar;
     
     /**
-     * @ORM\Column(type="string") 
+     * @ORM\Column(type="text") 
      * */
     protected $introduction;
 
