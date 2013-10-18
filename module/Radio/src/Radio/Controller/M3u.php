@@ -22,7 +22,7 @@ class M3u extends AbstractActionController {
         while ($curr <= $to) {
             $out.=sprintf("#EXTINF:1805,Tilos %s.%s.%s %04u\n",$year,$month,$day,$curr);
             $out.=sprintf("http://archive.tilos.hu/online/%s/%s/%s/tilosradio-%s%s%s-%04u.mp3\n",$year,$month,$day,$year,$month,$day,$curr);
-            if ($curr / 100 < 25) {
+            if ($curr % 100 < 25) {                
                 $curr += 30;
             } else {
                 $curr += 70;
