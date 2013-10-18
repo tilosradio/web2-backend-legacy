@@ -9,7 +9,9 @@ return array(
             'Radio\Controller\Author' => 'Radio\Controller\Author',
             'Radio\Controller\Episode' => 'Radio\Controller\Episode',
             'Radio\Controller\Auth' => 'Radio\Controller\Auth',
-            'Radio\Controller\Text' => 'Radio\Controller\Text'
+            'Radio\Controller\Text' => 'Radio\Controller\Text',
+            'Radio\Controller\M3u' => 'Radio\Controller\M3u'
+
 
         ),
     ),
@@ -28,7 +30,7 @@ return array(
             'sign_in' => array(
                 'type' => 'Literal',
                 'options' => array(
-                    'route' => '/auth/sign_in',
+                    'route' => '/api/auth/sign_in',
                     'defaults' => array(
                         'controller' => 'Radio\Controller\Auth',
                         'action' => 'login'
@@ -38,7 +40,7 @@ return array(
             'sign_out' => array(
                 'type' => 'Literal',
                 'options' => array(
-                    'route' => '/auth/sign_out',
+                    'route' => '/api/auth/sign_out',
                     'defaults' => array(
                         'controller' => 'Radio\Controller\Auth',
                         'action' => 'logout'
@@ -48,7 +50,7 @@ return array(
             'show-rest' => array(
                 'type' => 'Segment',
                 'options' => array(
-                    'route' => '/show[/:id]',
+                    'route' => '/api/show[/:id]',
                     'constraints' => array('id' => '[0-9]*',),
                     'defaults' => array('controller' => 'Radio\Controller\Show',)
                 )
@@ -56,7 +58,7 @@ return array(
             'author-rest' => array(
                 'type' => 'Segment',
                 'options' => array(
-                    'route' => '/author[/:id]',
+                    'route' => '/api/author[/:id]',
                     'constraints' => array('id' => '[0-9]*',),
                     'defaults' => array('controller' => 'Radio\Controller\Author',)
                 )
@@ -64,7 +66,7 @@ return array(
             'episode-rest' => array(
                 'type' => 'Segment',
                 'options' => array(
-                    'route' => '/episode[/:id]',
+                    'route' => '/api/episode[/:id]',
                     'constraints' => array('id' => '[0-9]*',),
                     'defaults' => array('controller' => 'Radio\Controller\Episode',)
                 )
@@ -72,9 +74,19 @@ return array(
             'episode-text' => array(
                 'type' => 'Segment',
                 'options' => array(
-                    'route' => '/text[/:id]',
+                    'route' => '/api/text[/:id]',
                     'constraints' => array('id' => '[0-9]*',),
                     'defaults' => array('controller' => 'Radio\Controller\Text',)
+                )
+            ),
+            'm3u-creator' => array(
+                'type' => 'Segment',
+                'options' => array(
+                    'route' => '/m3u/[:year]/[:month]/[:day]/[:from]/[:to].m3u',
+                    'defaults' => array(
+                        'controller' => 'Radio\Controller\M3u',
+                        'action' => 'download'),
+
                 )
             )
         )
