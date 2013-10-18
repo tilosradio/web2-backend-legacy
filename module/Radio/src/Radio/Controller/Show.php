@@ -13,7 +13,7 @@ class Show extends BaseController {
 
     use EntityManager;
 
-    public function createConverter() {
+    public function createShortConverter($long) {
         $res = function($result) {
                     $a = $result->toArray();
                     foreach ($result->getAuthors() as $author) {
@@ -26,6 +26,29 @@ class Show extends BaseController {
                     foreach ($result->getSchedulings() as $scheduling) {
                         $a['schedulings'][] = $scheduling->toArray();
                     }
+
+                    return $a;
+                };
+        return $res;
+    }
+
+    public function createLongConverter() {
+        $res = function($result) {
+                    $a = $result->toArray();
+                    foreach ($result->getAuthors() as $author) {
+                        //$a = ShowAuthor record, $a->getAuthor = author record
+                        $tmp = $author->getAuthor()->toArrayShort();
+                        $tmp['nick'] = $author->getNick();
+                        $a['authors'][] = $tmp;
+                    }
+                    $a['schedulings'] = array();
+                    foreach ($result->getSchedulings() as $scheduling) {
+                        $a['schedulings'][] = $scheduling->toArray();
+                    }
+
+                    $now = time();
+                    $a['episodes'] = EpisodeUtil::getEpisodeTimes($this->getEntityManager(), $a['id'], $now - 60 * 60 * 24 * 30, $now);
+
                     return $a;
                 };
         return $res;
@@ -42,7 +65,7 @@ class Show extends BaseController {
      * )
      */
     public function getList() {
-        return $this->getEntityList("\Radio\Entity\Show", $this->createConverter());
+        return $this->getEntityList("\Radio\Entity\Show", $this->createShortConverter());
     }
 
     /**
@@ -63,7 +86,7 @@ class Show extends BaseController {
      * )
      */
     public function get($id) {
-        return $this->getEntity("\Radio\Entity\Show", $id, $this->createConverter());
+        return $this->getEntity("\Radio\Entity\Show", $id, $this->createLongConverter(true));
     }
 
     public function create($data) {
