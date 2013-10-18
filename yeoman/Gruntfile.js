@@ -354,7 +354,7 @@ module.exports = function (grunt) {
         'concurrent:dist',
         'autoprefixer',
 //TODO fix the parameters
-       // 'requirejs',
+        'requirejs',
         'concat',
         'cssmin',
         'uglify',
