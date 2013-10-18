@@ -14,6 +14,13 @@ return array(
                 'Radio\Controller\Auth' => array(
                     ':all'      => 'guest'
                 ),
+                'Radio\Controller\M3u' => array(
+                    ':all'      => 'guest'
+                ),
+                'Radio\Controller\Text' => array(
+                    ':all'      => 'guest'
+                ),
+
                 'Radio\Controller\Author' => array(
                     'get'      => 'guest',
                     'getList'  => 'guest',
