@@ -97,6 +97,13 @@ img{
   }
 }
 
+.collapse-row{
+  margin: 0;
+  *[class*="col-"]{
+    padding: 0;
+  }
+}
+
 
 // old browser warning
 
@@ -454,6 +461,95 @@ aside{
           top: 0;
           width: 0;
         }
+      }
+    }
+  }
+}
+a.icon-star, a.icon-star2{
+  &:hover{
+    text-decoration: none;
+  }
+}
+
+
+.social-box{
+  .collapse-row {
+     .col-xs-3{
+      &:first-child{
+       a{
+         border-radius: 5px 0 0 5px;
+         .social-numb{
+           border-radius: 0 0 0 5px;
+         }
+       }
+     }
+     &:last-child{
+         a{
+         border-radius: 0 5px 5px 0;
+         .social-numb{
+           border-radius: 0 5px 5px 0;
+         }
+       }
+     }
+   }
+  }
+  a{
+    color: white;
+    display: inline-block;
+    height: 110px;
+    width: 100%;
+    span{
+      display: inline-block;
+       text-align: center;
+      width: 100%;
+      &[class*="icon-"]{
+        font-size: 25px;
+        height: 80px;
+        line-height: 80px;
+      }
+      &.social-numb{
+        height: 30px;
+        line-height: 30px;
+      }
+    }
+    &:hover{
+      color: darken(white, 5%);
+      text-decoration: none;
+    }
+    &.facebook{
+      background: lighten($facebook, 10%);
+      &:hover{
+        background: lighten($facebook, 5%);
+      }
+      .social-numb{
+        background: $facebook;
+      }
+    }
+    &.twitter{
+      background: lighten($twitter, 10%);
+       &:hover{
+        background: lighten($twitter, 5%);
+      }
+      .social-numb{
+        background: $twitter;
+      }
+    }
+    &.google-plus{
+      background: lighten($google-plus, 10%);
+       &:hover{
+        background: lighten($google-plus, 5%);
+      }
+      .social-numb{
+        background: $google-plus;
+      }
+    }
+    &.email-social{
+      background: lighten($primary-color, 10%);
+       &:hover{
+        background: lighten($primary-color, 5%);
+      }
+      .social-numb{
+        background: $primary-color;
       }
     }
   }
