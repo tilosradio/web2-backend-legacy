@@ -91,7 +91,7 @@ img{
 .btn-lg{
   font-weight: bold;
   text-transform: uppercase;
-  [data-icon]{
+  [class*="icon-"]{
     display: inline-block;
     margin-right: 10px;
   }
@@ -144,10 +144,10 @@ img{
         width: 0;
         span{
             color: $placeholder-color;
-            font-size: 21px;
+            font-size: 16px;
             position: absolute;
-            top: 5px;
-            right: 5px;
+            top: 8px;
+            right: 10px;
             display: block;
         }
     }
@@ -240,12 +240,13 @@ img{
     }
 }
 
-.radio-icon{
+.icon-cassette{
     float: left;
     color: rgba(white, 0.2);
 }
-.online-icon{
+.icon-loop{
     color: $placeholder-color;
+    font-size: 20px;
     float: right;
     height: 27px;
     width: 27px;
@@ -283,9 +284,10 @@ img{
     span{
         display: inline-block;
     }
-    span[data-icon]{
+    span[class*="icon-"]{
         border-right: 1px solid rgba(white, 0.6);
         @include box-shadow(1px 0 0 rgba(black, 0.4));
+        line-height: 30px;
         margin-right: 18px;
         text-align: center;
         width: 34px;
@@ -294,14 +296,14 @@ img{
 
 .facebook-share{
     &:hover{
-        span[data-icon]{
+        span[class*="icon-"]{
             background: $facebook;
         }
     }
 }
 .google-share{
     &:hover{
-        span[data-icon]{
+        span[class*="icon-"]{
             background: $google-plus;
         }
     }
@@ -309,8 +311,9 @@ img{
 
 .share-numb{
     background: $gray-light;
-    display: inline-block;
+    line-height: 30px;
     margin-left: 18px;
+    margin-top: -1px;
     position: relative;
     text-align: center;
     width: 34px;
