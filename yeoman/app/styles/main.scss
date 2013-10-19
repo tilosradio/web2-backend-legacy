@@ -427,13 +427,31 @@ aside{
 .actual-shows{
   font-size: 15px;
   td{
-    padding: 0.5em 0 0.5em 0.5em;
+    padding: 0.5em 0 0.5em 0.7em !important;
   }
   .actual{
     color: $actual-color;
     font-weight: bold;
     td{
       background: $gray-lighten;
+      border-color: $gray-lighten-border;
+      border-bottom: 1px solid $gray-lighten-border;
+      &:first-child{
+        position: relative;
+        &:before{
+          content: "";
+          border-left: 5px solid white;
+          border-top: 10px solid transparent;
+          border-bottom: 10px solid transparent;
+          bottom: 0;
+          height: 0;
+          left: 0;
+          margin: auto;
+          position: absolute;
+          top: 0;
+          width: 0;
+        }
+      }
     }
   }
 }
