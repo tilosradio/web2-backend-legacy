@@ -183,6 +183,13 @@ label{
 .brand-holder{
     padding-top: 10px;
     @include clearfix();
+    a{
+      color: white;
+      &:hover{
+        color: white;
+        text-decoration: none;
+      }
+    }
 }
 
 .logo{
