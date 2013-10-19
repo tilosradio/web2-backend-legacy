@@ -84,6 +84,10 @@ label{
   font-weight: normal;
 }
 
+img{
+  max-width: 100%;
+}
+
 .btn-lg{
   font-weight: bold;
   text-transform: uppercase;
@@ -379,18 +383,16 @@ aside{
 .show-author-image{
   box-shadow: 0 0 0 3px white, 0 0 0 5px  $primary-color;
   @extend .img-circle;
-  @extend .img-responsive;
 }
 
 .show-author{
-  float: left;
   margin-bottom: 1em;
   padding: 0 15px;
   text-align: center;
   @extend .col-xs-6;
   a{
     color: $primary-color;
-    display: inline-block;
+    display: block;
     padding: 0.2em 0;
     &:hover{
       color: darken($primary-color, 5%);
@@ -423,9 +425,9 @@ aside{
 }
 
 .actual-shows{
-  font-size: 16px;
+  font-size: 15px;
   td{
-    line-height: 2.5em !important;
+    padding: 0.5em 0;
   }
   .actual{
     color: $actual-color;
