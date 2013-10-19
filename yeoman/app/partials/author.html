@@ -1,6 +1,7 @@
 <h1>{{author.name}}</h1>
 
-{{author.introduction}}
+<img src="upload/bio/{{author.photo}}"/>
+<span ng-bind-html="author.introduction"></span>
 
 <h2>Műsorok</h2>
 <ul ng-repeat="show in author.shows">

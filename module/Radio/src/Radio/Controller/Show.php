@@ -13,7 +13,7 @@ class Show extends BaseController {
 
     use EntityManager;
 
-    public function createShortConverter($long) {
+    public function createShortConverter() {
         $res = function($result) {
                     $a = $result->toArray();
                     foreach ($result->getAuthors() as $author) {

@@ -33,24 +33,29 @@ class Show {
     protected $schedulings;
 
     /**
-     * @ORM\Column(type="string", length=255) 
+     * @ORM\Column(type="string", length=255, nullable=true) 
      * */
     protected $definition;
 
     /**
-     * @ORM\Column(type="string", length=25) 
+     * @ORM\Column(type="string", length=25,nullable=true) 
      * */
     protected $alias;
 
     /**
-     * @ORM\Column(type="string", length=50) 
+     * @ORM\Column(type="string", length=50,nullable=true) 
      * */
     protected $banner;
 
     /**
-     * @ORM\Column(type="text") 
+     * @ORM\Column(type="text",nullable=true) 
      * */
     protected $description;
+
+    /**
+     * @ORM\Column(type="integer") 
+     * */
+    protected $type;
 
     public function getId() {
         return $this->id;
@@ -101,7 +106,16 @@ class Show {
         $a['alias'] = $this->getAlias();
         $a['banner'] = $this->getBanner();
         $a['definition'] = $this->getDefinition();
+        $a['type'] = $this->getType();
         return $a;
+    }
+
+    public function getType() {
+        return $this->type;
+    }
+
+    public function setType($type) {
+        $this->type = $type;
     }
 
 }

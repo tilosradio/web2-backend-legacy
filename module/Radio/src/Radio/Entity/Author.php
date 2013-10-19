@@ -75,6 +75,7 @@ class Author {
     public function toArray() {
         $a = $this->toArrayShort();
 	$a['introduction'] = $this->getIntroduction();
+        $a['photo'] = $this->getPhoto();
         return $a;
     }
 
@@ -82,6 +83,7 @@ class Author {
         $a = array();
         $a['id'] = $this->getId();
         $a['name'] = $this->getName();
+        $a['avatar'] = $this->getAvatar();
         return $a;
     }
     

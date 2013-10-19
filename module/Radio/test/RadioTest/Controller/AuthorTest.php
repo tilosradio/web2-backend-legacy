@@ -11,7 +11,7 @@ use Zend\Mvc\MvcEvent;
 use Zend\Mvc\Router\RouteMatch;
 use PHPUnit_Framework_TestCase;
 
-class ShowTest extends \PHPUnit_Framework_TestCase {
+class AuthorTest extends \PHPUnit_Framework_TestCase {
 
     protected $controller;
     protected $request;
@@ -21,9 +21,9 @@ class ShowTest extends \PHPUnit_Framework_TestCase {
 
     protected function setUp() {
         $serviceManager = Bootstrap::getServiceManager();
-        $this->controller = new \Radio\Controller\Show();
+        $this->controller = new \Radio\Controller\Author();
         $this->request = new Request();
-        $this->routeMatch = new RouteMatch(array('controller' => 'M3u'));
+        $this->routeMatch = new RouteMatch(array('controller' => 'Author'));
         $this->event = new MvcEvent();
         $config = $serviceManager->get('Config');
         $routerConfig = isset($config['router']) ? $config['router'] : array();
@@ -37,14 +37,17 @@ class ShowTest extends \PHPUnit_Framework_TestCase {
 
     public function testGet() {
         //when        
-        $this->routeMatch->setParam('id', '557');
+        $this->routeMatch->setParam('id', '936');
 
         $result = $this->controller->dispatch($this->request);
         $response = $this->controller->getResponse();
         //then
 
-        $show = $result->getVariables();
-        $this->assertEquals($show['alias'], "haza-es-haladas");
+        $author = $result->getVariables();
+        
+        $this->assertContains("aktivista",$author['introduction']);
+        $this->assertNotEmpty($author['photo']);
+        
     }
 
 }

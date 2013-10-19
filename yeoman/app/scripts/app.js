@@ -45,7 +45,11 @@ tilos.controller('SideCtrl', ['$scope', '$routeParams', 'API_SERVER_ENDPOINT', '
                 }
             }
             $scope.episodes = data;
+            $http.get($server + '/api/show/' + $scope.current.show.id).success(function(data) {
+                $scope.current.show = data;
+            });
         });
+        
     }]);
 
 tilos.controller('IndexCtrl', ['$scope', '$routeParams', 'API_SERVER_ENDPOINT', '$http', function($scope, $routeParams, $server, $http) {

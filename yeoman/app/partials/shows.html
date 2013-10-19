@@ -1,5 +1,7 @@
 <h1>Összes műsor</h1>
 
-<span ng-repeat="show in shows">
-    {{show.name}}<br/>
-</span>
+<table class="table">
+<tr ng-repeat="show in shows">
+    <td><a href="#/show/{{show.id}}">{{show.name}}</a></td>
+    <td>{{show.definition}}</td>
+</tr>
