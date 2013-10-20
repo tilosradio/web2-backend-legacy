@@ -270,6 +270,7 @@ module.exports = function (grunt) {
                         'bower_components/sass-bootstrap/fonts/*.*',
 			'bower_components/angular/*.*',
 			'bower_components/angular-route/*.*',
+			'bower_components/angular-sanitize/*.*',
 			'partials/*'
                     ]
                 }]
@@ -280,7 +281,7 @@ module.exports = function (grunt) {
                     dot: true,
                     cwd: '../www',
                     dest: '<%= yeoman.dist %>',
-                    src: ['api/**']
+                    src: ['*.php']
                 }]
             },
             styles: {
