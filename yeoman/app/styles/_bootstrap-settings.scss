@@ -1,25 +1,26 @@
 //  global
 
-$border-radius-base: 0;
-$font-family-sans-serif:  'Open Sans', sans-serif;
+$border-radius-base: 								0;
+$font-family-sans-serif:  					'Open Sans', sans-serif;
 // body
 
-$body-bg: $background-color;
-$text-color:  $primary-color;
+$body-bg: 													$background-color;
+$text-color:  											$primary-color;
 
 
 // navgation
-$navbar-default-bg: $navbar-color;
-$navbar-default-link-color: white;
-$navbar-default-link-hover-color: darken(white, 10%);
-$navbar-height: 60px;
-$navbar-margin-bottom: 0;
+$navbar-default-bg: 								$navbar-color;
+$navbar-default-link-color: 				white;
+$navbar-default-link-hover-color: 	lighten($secondary-color, 15%);
+$navbar-height: 										60px;
+$navbar-margin-bottom: 							0;
+$nav-link-padding: 									10px 27px;
 
-$navbar-default-link-active-color: $secondary-color;
-$navbar-default-link-active-bg: transparent;
+$navbar-default-link-active-color: 	$secondary-color;
+$navbar-default-link-active-bg: 		transparent;
 
 // button
 
-$btn-default-color:              #fff;
-$btn-default-bg:                 $primary-color;
-$btn-default-border:             $primary-color;
+$btn-default-color:              		#fff;
+$btn-default-bg:                 		$primary-color;
+$btn-default-border:             		$primary-color;

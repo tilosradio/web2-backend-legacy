@@ -105,6 +105,24 @@ img{
 }
 
 
+[data-number]{
+  position: relative;
+  &:before{
+    content: attr(data-number);
+    background: $secondary-color;
+    border-radius: 100%;
+    color: white;
+    font-size: 11px;
+    height: 20px;
+    line-height: 20px;
+    position: absolute;
+    right: 0.4em;
+    text-align: center;
+    top: 0.2em;
+    width:20px;
+  }
+}
+
 // old browser warning
 
 .browsehappy {
@@ -560,4 +578,5 @@ a.icon-star, a.icon-star2{
     background: $primary-color;
     color: white;
     margin-top: 45px;
+    padding-top: 100px;
 }
