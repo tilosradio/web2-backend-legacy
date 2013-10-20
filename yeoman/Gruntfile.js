@@ -271,7 +271,8 @@ module.exports = function (grunt) {
 			'bower_components/angular/*.*',
 			'bower_components/angular-route/*.*',
 			'bower_components/angular-sanitize/*.*',
-			'partials/*'
+			'partials/*',
+			'doc/{,*/}*.*'
                     ]
                 }]
             },
