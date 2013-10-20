@@ -12,6 +12,15 @@ class Episode extends BaseController {
 
     use EntityManager;
 
+     /**
+     * @SWG\Api(
+     *   path="/episode",
+     *   description="List of the exact episodes for a specific time range",
+     *   @SWG\Operation(
+     *     method="GET"
+     *   )
+     * )
+     */
     public function getList() {
         try {
             $start = $this->params()->fromQuery("start", time());

@@ -72,7 +72,7 @@ class Module {
                 $event->getResponse()
                       ->setStatusCode(401)
                       ->sendHeaders();
-                die();
+                die("ERROR: no permission rule for $controller");
             }
         } catch (PermissionException $pe)
         {

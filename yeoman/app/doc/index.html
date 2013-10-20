@@ -19,7 +19,7 @@
   <script type="text/javascript">
     $(function () {
       window.swaggerUi = new SwaggerUi({
-      url: "api/doc/api-docs.json",
+      url: "api/docs",
       dom_id: "swagger-ui-container",
       supportedSubmitMethods: ['get', 'post', 'put', 'delete'],
       onComplete: function(swaggerApi, swaggerUi){
@@ -54,8 +54,7 @@
 <body>
 <div id='header'>
   <div class="swagger-ui-wrap">
-    <a id="logo" href="/api/doc/index.html">Tilos API</a>
-
+    <a id="logo" href="/doc/index.html">Tilos API</a>
     <form id='api_selector'>
       <div class='input'><input placeholder="http://example.com/api" id="input_baseUrl" name="baseUrl" type="text"/></div>
       <div class='input'><input placeholder="api_key" id="input_apiKey" name="apiKey" type="text"/></div>

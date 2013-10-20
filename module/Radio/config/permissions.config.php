@@ -11,6 +11,9 @@ return array(
         ),
         'resources' => array(
             'allow' => array(
+  	        'SwaggerModule\Controller\Documentation' => array(
+                    ':all'      => 'guest'
+                 ),
                 'Radio\Controller\Auth' => array(
                     ':all'      => 'guest'
                 ),
