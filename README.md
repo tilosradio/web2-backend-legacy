@@ -25,6 +25,10 @@ How to run
  ```
  sudo apt-get install php5-json
  ```
+ For backend development you'll also gonna need the internationalization extension for PHP:
+ ```
+ sudo apt-get install php5-intl
+ ```
 
 2. Set your webserver, use the www subdirectory as the content root
 
