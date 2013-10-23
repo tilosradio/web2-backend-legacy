@@ -170,3 +170,6 @@ tilos.directive('activeLink', ['$location', function(location) {
         }
 
     }]);
+var server = window.location.protocol + "//" + window.location.hostname
+if (window.location.port && window.location.port != "9000") server = server +":" + window.location.port
+angular.module('configuration',[]).constant('API_SERVER_ENDPOINT', server)
