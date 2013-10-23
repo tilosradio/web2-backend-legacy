@@ -10,5 +10,8 @@
     "angular-route": "latest",
     "angular-sanitize": "latest"
   },
-  "devDependencies": {}
+  "devDependencies": {},
+  "resolutions": {
+    "angular": "1.2.0-rc.3"
+  }
 }
