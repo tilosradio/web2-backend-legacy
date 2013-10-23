@@ -40,7 +40,7 @@ class Author extends BaseController {
 
     /**
      * @SWG\Api(
-     *   path="/show/{id}",
+     *   path="/author/{id}",
      *   @SWG\Operation(
      *     method="GET", 
      *     summary="Return information about a specific author",
