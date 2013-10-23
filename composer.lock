@@ -179,7 +179,7 @@
             ],
             "authors": [
                 {
-                    "name": "Jonathan H. Wage",
+                    "name": "Jonathan Wage",
                     "email": "jonwage@gmail.com",
                     "homepage": "http://www.jwage.com/"
                 },
@@ -807,12 +807,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/zendframework/ZendDeveloperTools.git",
-                "reference": "081ea12e59e8a0ffe84b032e8e804d26d3b1d404"
+                "reference": "c70bf9e0072fc5868449d2776819cb27495946a9"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/zendframework/ZendDeveloperTools/zipball/081ea12e59e8a0ffe84b032e8e804d26d3b1d404",
-                "reference": "081ea12e59e8a0ffe84b032e8e804d26d3b1d404",
+                "url": "https://api.github.com/repos/zendframework/ZendDeveloperTools/zipball/c70bf9e0072fc5868449d2776819cb27495946a9",
+                "reference": "c70bf9e0072fc5868449d2776819cb27495946a9",
                 "shasum": ""
             },
             "require": {
@@ -860,7 +860,7 @@
                 "module",
                 "zf2"
             ],
-            "time": "2013-10-17 08:56:09"
+            "time": "2013-10-22 22:27:05"
         },
         {
             "name": "zendframework/zendframework",

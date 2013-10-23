@@ -17,11 +17,11 @@ return array(
             'orm_default' => array(
                 'driverClass' => 'Doctrine\DBAL\Driver\PDOMySql\Driver',
                 'params' => array(
-                    'host' => 'localhost',
-                    'port' => '3306',
-                    'user' => '',
-                    'password' => '',
-                    'dbname' => '',
+                    'host' => '[MYSQL_HOST]',
+                    'port' => '[MYSQL_PORT]',
+                    'user' => '[MYSQL_USER]',
+                    'password' => '[MYSQL_PASS]',
+                    'dbname' => '[MYSQL_DBNAME]',
                     'charset' => 'utf8',
                 )
             )
