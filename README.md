@@ -14,29 +14,9 @@ Directories and files in the repo
 How to run
 ----------
 
-1. run ```php composer.phar install``` (first time ) or ```php composer.phar update``` (next times) to populate the vendor directory
- with the libraries (Zend Framework 2, etc.)
+1. run the update.sh, this installs frontend and backend dependencies
 
- Running the script sometimes results in an error similar to the following:
- ```
- Fatal error: Call to undefined function Composer\Json\json_decode()
- ```
- Don't panic, just install the JSON support package for your distro. On Debian it would be:
- ```
- sudo apt-get install php5-json
- ```
- For backend development you'll also gonna need the internationalization extension for PHP:
- ```
- sudo apt-get install php5-intl
- ```
-
-2. Set your webserver, use the www subdirectory as the content root
-
-3. Create the database schema with ```vendor/bin/doctrine-module orm:schema-tool:update --force --dump-sql```
-
-4. copy and edit config/autoload/local.php.dist to local.php
-
-5. Set the rewrite definitions
+2. Set the rewrite definitions (already done in the VM)
 
 For lighttpd (version 2):
 ```
