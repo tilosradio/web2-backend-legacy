@@ -74,8 +74,8 @@ fi
 vendor/bin/doctrine-module orm:schema-tool:update --force --dump-sql
 echo "=== Updating frontend dependencies"
 cd yeoman
-. ../tools/add-node-paths.sh
 mkdir -p node_modules/.bin
+. ../tools/add-node-paths.sh
 if [[ -e /usr/bin/nodejs && ! -e node_modules/.bin/node ]]; then
   ln -s /usr/bin/nodejs node_modules/.bin/node
 fi
@@ -84,6 +84,3 @@ npm install npm
 hash -r
 npm install
 bower install
-echo "==="
-echo "If you're using bash, please relogin now, as your PATH variable is changed."
-echo "==="
