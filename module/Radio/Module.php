@@ -78,7 +78,6 @@ class Module {
     }
 
     private function getPermissionsConfig() {
-        // TODO: load roles from database
         return include __DIR__ . '/config/permissions.config.php';
     }
 }

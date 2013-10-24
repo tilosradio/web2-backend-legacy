@@ -1,6 +1,5 @@
 <?php
 
-// TODO: load roles from database (in Module::getPermissionsConfig())
 return array(
     'acl' => array(
         'roles' => array(
