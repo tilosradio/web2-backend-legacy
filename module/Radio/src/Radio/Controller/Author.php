@@ -17,8 +17,8 @@ class Author extends BaseController {
         return function($result) {
                     $a = $result->toArray();
                     $a['shows'] = array();
-                    foreach ($result->getShows() as $show) {
-                        $a['shows'][] = $show->getShow()->toArrayShort();
+                    foreach ($result->getShowAuthors() as $showAuthor) {
+                        $a['shows'][] = $showAuthor->getShow()->toArrayShort();
                     }
                     return $a;
                 };
