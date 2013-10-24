@@ -14,9 +14,9 @@ Directories and files in the repo
 How to run
 ----------
 
-1. run the update.sh, this installs frontend and backend dependencies
+1. run the `tools/update.sh`, this installs frontend and backend dependencies, and modifies your PATH to reflect your locally installed tools for development.
 
-2. Set the rewrite definitions (already done in the VM)
+2. Set the rewrite definitions (already done in the Virtualmachine)
 
 For lighttpd (version 2):
 ```
