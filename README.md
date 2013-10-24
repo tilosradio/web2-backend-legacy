@@ -11,6 +11,7 @@ Directories and files in the repo
 * __module__: The code of the backend
 * __vendor__: directories for the php libraries managed by the composer dependency manager (see below to create it)
 
+
 How to run
 ----------
 
@@ -33,9 +34,13 @@ if !physical.exists {
    rewrite "/backend.php";
    docroot var.vhosts_dir + var.my_docroot;
 }
-
-
 ```
+
+3. Compass/Ruby is needed for development.
+
+- If you're on an Ubuntu Box:`sudo apt-get install ruby-compass`
+- on a mac: `sudo gem install compass` (Ruby is preinstalled on Macs)
+
 
 Development tools
 -----------------
