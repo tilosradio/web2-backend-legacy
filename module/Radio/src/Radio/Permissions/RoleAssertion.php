@@ -40,30 +40,31 @@ class RoleAssertion implements AssertionInterface, ServiceLocatorAwareInterface 
      */
     public function assert(ZendAcl $acl, RoleInterface $role = null, ResourceInterface $resource = null, $action = null) {
         if (empty($this->user))
-            // unauthorizued user, permission check not possible (role level permissions apply)
+            // unauthorized user, permission check not possible (role level permissions apply)
             return true;
-        
-        // check author permissions
         if ($role->getRoleId() == 'author')
         {
-            // user wants to gain access to a show
             if ($resource->getResourceId('Radio\Controller\Show'))
             {
-                // check if the user want's to call the 'update' or 'delete' methods
-                // note: only admins can access 'create'
-                if (in_array($action, array('update', 'delete')))
+                if ($action == 'update')
                 {
-                    // check if the author belongs to this show
-                    $record = $this->getEntityManager()->find("\Radio\Entity\Show", $this->recordId);
-                    var_dump($record);
-                    die();
-                    /*
-                     * if (this show doesn't belong to this author) 
-                     *     return false;
-                     */
+                    $author = $this->getEntityManager()
+                                   ->getRepository('Radio\Entity\Author')
+                                   ->findOneBy(array('user' => $this->user));
+                    if (empty($author))
+                        // no such author, permission denied
+                        return false;
+                    $showAuthors = $author->getShowAuthors();
+                    foreach ($showAuthors as $showAuthor)
+                        if ($showAuthor->getShow()->getId() == $this->recordId)
+                            // author want's to update her own show, yay!
+                            return true;
+                    // this author doesn't belong to this show, permission denied
+                    return false;
                 }
             }
         }
+        // again, role level permissions apply
         return true;
     }
 }

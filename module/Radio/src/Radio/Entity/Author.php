@@ -40,7 +40,7 @@ class Author {
     /**
      * @ORM\OneToMany(targetEntity="ShowAuthor",mappedBy="author", fetch="EAGER")
      */
-    protected $shows;
+    protected $showAuthors;
     
     /**
      * @ORM\OneToOne(targetEntity="User")
@@ -68,8 +68,8 @@ class Author {
     public function setName($name) {
         $this->name = $name;
     }
-    public function getShows() {
-        return $this->shows;
+    public function getShowAuthors() {
+        return $this->showAuthors;
     }
 
     public function toArray() {

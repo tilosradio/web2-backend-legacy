@@ -43,7 +43,7 @@ class ShowAuthor {
     }
 
     public function getNick() {
-        return $this->nick;
+        return empty($this->nick) ? $this->getAuthor()->getName() : $this->nick;
     }
     public function getAuthor() {
         return $this->author;

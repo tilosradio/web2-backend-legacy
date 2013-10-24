@@ -43,24 +43,14 @@ class Module {
         $serviceManager = $event->getApplication()
                                 ->getServiceManager();
         $authService = $serviceManager->get('doctrine.authenticationservice.orm_default');
-        if ($authService->hasIdentity())
-        {
-            // get the role of the authenticated user
-            $user = $authService->getIdentity();
-            $role = $user->getRole();
-        } else
-        {
-            // unauthenticated users have the default role ('guest')
-            $user = null;
-            $role = Role::getDefault();
-        }
-
+        // identify the user
+        $user = $authService->hasIdentity() ? $authService->getIdentity() : null;
+        $role = empty($user) ? Role::getDefault() : $user->getRole();
         // get requested resource
         $routeMatch = $event->getRouteMatch();
         $controller = $routeMatch->getParam('controller');
         $action = $routeMatch->getParam('action');
         $recordId = $routeMatch->getParam('id');
-
         // initialize permission check
         $assertion = new RoleAssertion($user, $recordId);
         $assertion->setServiceLocator($serviceManager);
@@ -72,7 +62,10 @@ class Module {
                 $event->getResponse()
                       ->setStatusCode(401)
                       ->sendHeaders();
-                die("ERROR: no permission rule for $controller");
+                if (!$acl->hasResource($controller))
+                    die("ERROR: No permission rule for $controller");
+                else if (!$acl->isAllowed($role->getName(), $controller, $action))
+                    die('ERROR: Unauthorized');
             }
         } catch (PermissionException $pe)
         {
