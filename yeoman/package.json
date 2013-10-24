@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "dependencies": {},
   "devDependencies": {
+    "npm": "latest",
     "grunt": "latest",
     "grunt-cli": "latest",
     "yo": "latest",

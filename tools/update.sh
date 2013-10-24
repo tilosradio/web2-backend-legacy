@@ -1,10 +1,5 @@
 #!/bin/bash
 
-MYDIR=$(cd $(dirname $0);pwd)
-cd $MYDIR
-
-echo "=== Updating php dependencies"
-php composer.phar update
 
 function mysql_create {
   # user pass dbname
@@ -35,6 +30,12 @@ function mysql_available {
   fi
   return $?
 }
+
+PROJECT_DIR=$(cd $(dirname ${BASH_SOURCE[0]});cd ..;pwd)
+cd $PROJECT_DIR
+
+echo "=== Updating php dependencies"
+php composer.phar update
 
 if [ ! -f config/autoload/local.php ]; then
   echo "=== Creating your initial mysql configuration ..."
@@ -73,6 +74,16 @@ fi
 vendor/bin/doctrine-module orm:schema-tool:update --force --dump-sql
 echo "=== Updating frontend dependencies"
 cd yeoman
+. ../tools/add-node-paths.sh
+mkdir -p node_modules/.bin
+if [[ -e /usr/bin/nodejs && ! -e node_modules/.bin/node ]]; then
+  ln -s /usr/bin/nodejs node_modules/.bin/node
+fi
+# install npm locally, having the latest version is always a good idea
+npm install npm
+hash -r
 npm install
 bower install
-cd ..
+echo "==="
+echo "If you're using bash, please relogin now, as your PATH variable is changed."
+echo "==="
