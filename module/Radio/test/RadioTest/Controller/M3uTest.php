@@ -10,6 +10,7 @@ use Zend\Http\Response;
 use Zend\Mvc\MvcEvent;
 use Zend\Mvc\Router\RouteMatch;
 use PHPUnit_Framework_TestCase;
+use Radio\Controller\M3u;
 
 class ControllerTest extends \PHPUnit_Framework_TestCase
 {
@@ -36,15 +37,20 @@ class ControllerTest extends \PHPUnit_Framework_TestCase
         $this->controller->setServiceLocator($serviceManager);
     }
     
-    public function testDownloadActionCanBeAccessed()
+    public function testgetPrevHalfHour() {
+        $start  = new \DateTime("2013-10-25 10:22:00");
+        $res = M3u::getPrevHalfHour($start->getTimestamp());
+        $expected_end = new \DateTime("2013-10-25 10:00:00");
+        $expected = $expected_end->getTimestamp();
+        $this->assertEquals($expected,$res);
+    }
+    
+    public function testDownloadAction()
     {
         //given
         $this->routeMatch->setParam('action', 'download');
-        $this->routeMatch->setParam('year', '2013');
-        $this->routeMatch->setParam('month', '10');
-        $this->routeMatch->setParam('day', '18');
-        $this->routeMatch->setParam('from', '1800');
-        $this->routeMatch->setParam('to', '1900');
+        $this->routeMatch->setParam('from', '1360000000');
+        $this->routeMatch->setParam('duration', '90');
         //when
         $result   = $this->controller->dispatch($this->request);
         $response = $this->controller->getResponse();        
@@ -55,7 +61,7 @@ class ControllerTest extends \PHPUnit_Framework_TestCase
         
         $body = preg_split("/\n/",$response->getContent());
         $this->assertEquals(8, sizeof($body));
-        $this->assertContains("20131018-1830",$body[4]);               
+        $this->assertContains("20130204-1900",$body[4]);               
     }
 }
 ?>

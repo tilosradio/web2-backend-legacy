@@ -40,13 +40,7 @@ class Scheduling {
     /**
      * @ORM\Column(type="smallint") 
      * */
-    protected $hourTo;
-
-    /**
-     * @ORM\Column(type="smallint") 
-     * */
-    protected $minTo;
-
+    protected $duration;   
     /**
      * @ORM\Column(type="date") 
      * */
@@ -102,23 +96,7 @@ class Scheduling {
     public function setMinFrom($minFrom) {
         $this->minFrom = $minFrom;
     }
-
-    public function getHourTo() {
-        return $this->hourTo;
-    }
-
-    public function setHourTo($hourTo) {
-        $this->hourTo = $hourTo;
-    }
-
-    public function getMinTo() {
-        return $this->minTo;
-    }
-
-    public function setMinTo($minTo) {
-        $this->minTo = $minTo;
-    }
-
+  
     public function getValidFrom() {
         return $this->validFrom;
     }
@@ -138,6 +116,13 @@ class Scheduling {
     public function getShow() {
         return $this->show;
     }
+    public function getDuration() {
+        return $this->duration;
+    }
+
+    public function setDuration($duration) {
+        $this->duration = $duration;
+    }
 
     public function toArray() {
         $a = array();
@@ -145,8 +130,7 @@ class Scheduling {
         $a['weekDay'] = $this->getWeekDay();
         $a['hourFrom'] = $this->getHourFrom();
         $a['minFrom'] = $this->getMinFrom();
-        $a['hourTo'] = $this->getHourTo();
-        $a['minto'] = $this->getMinTo();
+        $a['duration'] = $this->getDuration();    
         return $a;
     }
 

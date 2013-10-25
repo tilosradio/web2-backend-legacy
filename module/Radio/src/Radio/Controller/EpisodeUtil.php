@@ -21,7 +21,12 @@ class EpisodeUtil {
             while ($current < $to) {
                 $real = EpisodeUtil::timeInWeek($current, $scheduling);
                 if ($real >= $from && $real < $to) {
-                    $episodes[] = $real;
+                    $e = new \Radio\Entity\Episode();
+                    $realEnd = $real + $scheduling['duration'] * 60;
+                    $e->setPlannedFrom($real);
+                    $e->setPlannedTo($realEnd);
+                    $e->setM3uUrl(sprintf('m3u/%d/%d.m3u', $real, $scheduling['duration']));
+                    $episodes[] = $e;
                 }
                 $current += 60 * 60 * 24 * 7;
             }

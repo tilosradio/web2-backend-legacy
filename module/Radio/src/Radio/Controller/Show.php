@@ -46,8 +46,15 @@ class Show extends BaseController {
                         $a['schedulings'][] = $scheduling->toArray();
                     }
 
+                    
+                    $a['episodes'] = array();
+                            
                     $now = time();
-                    $a['episodes'] = EpisodeUtil::getEpisodeTimes($this->getEntityManager(), $a['id'], $now - 60 * 60 * 24 * 30, $now);
+                    $episodes = EpisodeUtil::getEpisodeTimes($this->getEntityManager(), $a['id'], $now - 60 * 60 * 24 * 30, $now);
+                    foreach ($episodes as $epi) {
+                        $a['episodes'][] = $epi->toArray();
+                    }
+                    
 
                     return $a;
                 };

@@ -26,6 +26,7 @@ class Episode {
      * @ORM\Column(type="datetime") 
      * */
     protected $plannedTo;
+
     /**
      * @ORM\Column(type="datetime") 
      * */
@@ -41,7 +42,7 @@ class Episode {
      * @ORM\JoinColumn(name = "radioshow_id", referencedColumnName = "id")
      */
     protected $show;
-    
+
     /**
      * So called 'Adadnaplo'
      * 
@@ -49,10 +50,12 @@ class Episode {
      * @ORM\JoinColumn(name="textcontent_id", referencedColumnName="id")
      */
     protected $text;
+    protected $m3uUrl;
 
     public function getId() {
         return $this->id;
     }
+
     public function getPlannedFrom() {
         return $this->plannedFrom;
     }
@@ -61,7 +64,6 @@ class Episode {
         return $this->plannedTo;
     }
 
-    
     public function getRealFrom() {
         return $this->realFrom;
     }
@@ -73,6 +75,7 @@ class Episode {
     public function getShow() {
         return $this->show;
     }
+
     public function setPlannedFrom($plannedFrom) {
         $this->plannedFrom = $plannedFrom;
     }
@@ -101,10 +104,20 @@ class Episode {
         $this->text = $text;
     }
 
-
-
+    public function getM3uUrl() {
+        return $this->m3uUrl;
+    }
+    public function setM3uUrl($m3uUrl) {
+        $this->m3uUrl = $m3uUrl;
+    }
 
     
+    public function toArray() {
+        $a['plannedFrom'] = $this->getPlannedFrom();
+        $a['plannedTo'] = $this->getPlannedTo();
+        $a['m3u'] = $this->getM3uUrl();
+        return $a;
+    }
 
 }
 

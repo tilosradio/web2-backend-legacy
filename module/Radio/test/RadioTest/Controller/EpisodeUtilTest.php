@@ -11,10 +11,11 @@ class EpisodeUtilTest extends \PHPUnit_Framework_TestCase {
         $this->assertNotNull($em);
         $result = EpisodeUtil::getEpisodeTimes($em, 557, mktime(0, 0, 0, 10, 1, 2013), mktime(23, 59, 59, 10, 30, 2013));
         $this->assertEquals(4, sizeof($result));
-        $this->assertEquals(mktime(8, 0, 0, 10, 4, 2013), $result[0]);
-        $this->assertEquals(mktime(8, 0, 0, 10, 11, 2013), $result[1]);
-        $this->assertEquals(mktime(8, 0, 0, 10, 18, 2013), $result[2]);
-        $this->assertEquals(mktime(8, 0, 0, 10, 25, 2013), $result[3]);
+        $this->assertEquals(mktime(8, 0, 0, 10, 4, 2013), $result[0]->getPlannedFrom());
+        $this->assertEquals(mktime(10, 0, 0, 10, 4, 2013), $result[0]->getPlannedTo());
+        $this->assertEquals(mktime(8, 0, 0, 10, 11, 2013), $result[1]->getPlannedFrom());
+        $this->assertEquals(mktime(8, 0, 0, 10, 18, 2013), $result[2]->getPlannedFrom());
+        $this->assertEquals(mktime(8, 0, 0, 10, 25, 2013), $result[3]->getPlannedFrom());
     }
 
     public function testWeekStart() {

@@ -35,7 +35,7 @@ class ShowTest extends \PHPUnit_Framework_TestCase {
         $this->controller->setServiceLocator($serviceManager);
     }
 
-    public function testGet() {
+    public function testShowGet() {
         //when        
         $this->routeMatch->setParam('id', '557');
 
@@ -44,6 +44,7 @@ class ShowTest extends \PHPUnit_Framework_TestCase {
         //then
 
         $show = $result->getVariables();
+        var_dump($show);
         $this->assertEquals($show['alias'], "haza-es-haladas");
     }
 
