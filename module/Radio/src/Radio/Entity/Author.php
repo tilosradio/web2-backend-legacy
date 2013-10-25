@@ -68,13 +68,46 @@ class Author {
     public function setName($name) {
         $this->name = $name;
     }
+
+    public function getPhoto() {
+        return $this->photo;
+    }
+    
+    public function setPhoto($photo) {
+        $this->photo = $photo;
+    }
+    
+    public function getAvatar() {
+        return $this->avatar;
+    }
+    
+    public function setAvatar($avatar) {
+        $this->avatar = $avatar;
+    }
+    
+    public function getIntroduction() {
+        return $this->introduction;
+    }
+    
+    public function setIntroduction($introduction) {
+        $this->introduction = $introduction;
+    }
+    
+    public function getUser() {
+        return $this->user;
+    }
+    
+    public function setUser($user) {
+        $this->user = $user;
+    } 
+    
     public function getShowAuthors() {
         return $this->showAuthors;
     }
 
     public function toArray() {
         $a = $this->toArrayShort();
-	$a['introduction'] = $this->getIntroduction();
+        $a['introduction'] = $this->getIntroduction();
         $a['photo'] = $this->getPhoto();
         return $a;
     }
@@ -87,18 +120,6 @@ class Author {
         return $a;
     }
     
-    public function getPhoto() {
-        return $this->photo;
-    }
-
-    public function getAvatar() {
-        return $this->avatar;
-    }
-
-    public function getIntroduction() {
-        return $this->introduction;
-    }
-
     public function getUrls() {
         return $this->urls;
     }
