@@ -11,7 +11,7 @@ use Zend\Mvc\MvcEvent;
 use Zend\Mvc\Router\RouteMatch;
 use PHPUnit_Framework_TestCase;
 
-class ShowTest extends \PHPUnit_Framework_TestCase {
+class EpisodeTest extends \PHPUnit_Framework_TestCase {
 
     protected $controller;
     protected $request;
@@ -21,9 +21,9 @@ class ShowTest extends \PHPUnit_Framework_TestCase {
 
     protected function setUp() {
         $serviceManager = Bootstrap::getServiceManager();
-        $this->controller = new \Radio\Controller\Show();
+        $this->controller = new \Radio\Controller\Episode();
         $this->request = new Request();
-        $this->routeMatch = new RouteMatch(array('controller' => 'M3u'));
+        $this->routeMatch = new RouteMatch(array('controller' => 'Episode'));
         $this->event = new MvcEvent();
         $config = $serviceManager->get('Config');
         $routerConfig = isset($config['router']) ? $config['router'] : array();
@@ -35,17 +35,16 @@ class ShowTest extends \PHPUnit_Framework_TestCase {
         $this->controller->setServiceLocator($serviceManager);
     }
 
-    public function testShowGet() {
+    public function testEpisodeList() {
         //when        
-        $this->routeMatch->setParam('id', '557');
-
+        $this->request->setUri("/api/episode");
+        
         $result = $this->controller->dispatch($this->request);
         $response = $this->controller->getResponse();
         //then
-
-        $show = $result->getVariables();
-        //var_dump($show);
-        $this->assertEquals($show['alias'], "haza-es-haladas");
+        $episodes = $result->getVariables();
+        //var_dump($episodes);
+        $this->assertTrue(count($episodes) > 0);
     }
 
 }
