@@ -1,6 +1,6 @@
 'use strict';
 var dbg;
-var tilos = angular.module('tilos', ['ngRoute', 'ngSanitize', 'configuration']);
+var tilos = angular.module('tilos', ['ngRoute', 'ngSanitize', 'configuration','ui.bootstrap']);
 
 tilos.weekStart = function(date) {
     var first = date.getDate() - date.getDay() + 1;
