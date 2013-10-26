@@ -24,8 +24,19 @@ class TextContent {
 
     /**
      * @ORM\Column(type="string",length=15) 
+     * 
+     * type: eg.: blog, episode (=adásnapló), news
+     * 
      * */
     protected $type;
+
+    /**
+     * @ORM\Column(type="string",length=15) 
+     * 
+     * format: eg.: html, markdown, old
+     * 
+     * */
+    protected $format;
 
     /**
      * @ORM\Column(type="text") 
@@ -114,6 +125,14 @@ class TextContent {
 
     public function setAlias($alias) {
         $this->alias = $alias;
+    }
+
+    public function getFormat() {
+        return $this->format;
+    }
+
+    public function setFormat($format) {
+        $this->format = $format;
     }
 
     public function toArray() {

@@ -53,7 +53,9 @@ tilos.controller('SideCtrl', ['$scope', '$routeParams', 'API_SERVER_ENDPOINT', '
     }]);
 
 tilos.controller('IndexCtrl', ['$scope', '$routeParams', 'API_SERVER_ENDPOINT', '$http', function($scope, $routeParams, $server, $http) {
-        $scope.test = "test";
+        $http.get($server + '/api/text/news/list').success(function(data) {
+            $scope.news = data;
+        });
     }]);
 
 tilos.controller('AuthorCtrl', ['$scope', '$routeParams', 'API_SERVER_ENDPOINT', '$http', function($scope, $routeParams, $server, $http) {
@@ -70,13 +72,14 @@ tilos.controller('PageCtrl', ['$scope', '$routeParams', 'API_SERVER_ENDPOINT', '
 
 tilos.controller('AllShowCtrl', ['$scope', '$routeParams', 'API_SERVER_ENDPOINT', '$http', function($scope, $routeParams, $server, $http) {
         $http.get($server + '/api/show').success(function(data) {
-            $scope.shows = data;
+            $scope.shows = data;            
         });
     }]);
 
 tilos.controller('ShowCtrl', ['$scope', '$routeParams', 'API_SERVER_ENDPOINT', '$http', function($scope, $routeParams, $server, $http) {
         $http.get($server + '/api/show/' + $routeParams.id).success(function(data) {
             $scope.show = data;
+            $scope.server = $server;
         });
     }]);
 

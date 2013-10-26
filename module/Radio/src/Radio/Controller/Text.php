@@ -10,6 +10,18 @@ class Text extends AbstractRestfulController {
     
     use EntityManager;      
 
+    public function listOfTypeAction(){
+        $query = $this->getEntityManager()->createQuery('SELECT t FROM \Radio\Entity\TextContent t where t.type = :type ORDER BY t.created');
+        $query->setParameter("type", 'news');
+        $resultSet = $query->getResult();
+        if (empty($resultSet))
+                return new JsonModel(array());
+        $return = array();        
+        foreach ($resultSet as $result) {
+            $return[] = $result->toArray();
+        }
+        return new JsonModel($return);
+    }
     public function get($id) {
         try {
             $result = $this->getEntityManager()->find("\Radio\Entity\TextContent", $id);

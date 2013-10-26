@@ -79,6 +79,16 @@ return array(
                     'defaults' => array('controller' => 'Radio\Controller\Text',)
                 )
             ),
+            'episode-list' => array(
+                'type' => 'Segment',
+                'options' => array(
+                    'route' => '/api/text/[:type]/list',
+                    'defaults' => array(
+                        'controller' => 'Radio\Controller\Text',
+                        'action' => 'listOfType'
+                     )
+                )
+            ),
             'm3u-creator' => array(
                 'type' => 'Segment',
                 'options' => array(
