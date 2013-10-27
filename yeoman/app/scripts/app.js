@@ -52,6 +52,13 @@ tilos.controller('SideCtrl', ['$scope', '$routeParams', 'API_SERVER_ENDPOINT', '
         
     }]);
 
+
+
+tilos.controller('Collapse', ['$scope', function($scope) {
+         $scope.isCollapsed = false;
+    }]);
+
+
 tilos.controller('IndexCtrl', ['$scope', '$routeParams', 'API_SERVER_ENDPOINT', '$http', function($scope, $routeParams, $server, $http) {
         $http.get($server + '/api/text/news/list').success(function(data) {
             $scope.news = data;
