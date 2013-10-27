@@ -137,6 +137,11 @@ img{
 
 // header navigation
 
+.navbar-collapse.ng-hide{
+   @media (min-width: $screen-sm){ 
+    display: block !important;
+  }
+}
 .navbar-nav {
     > li{
         font-size: 19px;
