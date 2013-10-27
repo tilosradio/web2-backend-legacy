@@ -10,7 +10,7 @@ tilos.weekStart = function(date) {
     return new Date(date.setDate(first))
 }
 
-tilos.config(['$routeProvider', function($routeProvider) {
+tilos.config(['$routeProvider', function($routeProvider, $provide) {
         $routeProvider.when('/index', {
             templateUrl: 'partials/index.html',
             controller: 'IndexCtrl'
@@ -53,15 +53,14 @@ tilos.controller('SideCtrl', ['$scope', '$routeParams', 'API_SERVER_ENDPOINT', '
     }]);
 
 
-
 tilos.controller('Collapse', ['$scope', function($scope) {
          $scope.isCollapsed = false;
     }]);
 
 
-tilos.controller('IndexCtrl', ['$scope', '$routeParams', 'API_SERVER_ENDPOINT', '$http', function($scope, $routeParams, $server, $http) {
-        $http.get($server + '/api/text/news/list').success(function(data) {
-            $scope.news = data;
+tilos.controller('IndexCtrl', ['$scope', '$routeParams', 'tilosData',function($scope, $routeParams, $td) {
+        $td.getNews(function(data){
+           $scope.news = data;
         });
     }]);
 
@@ -71,9 +70,9 @@ tilos.controller('AuthorCtrl', ['$scope', '$routeParams', 'API_SERVER_ENDPOINT',
         });
     }]);
 
-tilos.controller('PageCtrl', ['$scope', '$routeParams', 'API_SERVER_ENDPOINT', '$http', function($scope, $routeParams, $server, $http) {
-        $http.get($server + '/api/text/' + $routeParams.id).success(function(data) {
-            $scope.page = data;
+tilos.controller('PageCtrl', ['$scope', '$routeParams', 'tilosData', function($scope, $routeParams, $td) {
+        $td.getText($routeParams['id'], function(data){
+          $scope.page = data;
         });
     }]);
 
@@ -180,6 +179,36 @@ tilos.directive('activeLink', ['$location', function(location) {
         }
 
     }]);
+
+tilos.factory('tilosData', ['$rootScope','$http', 'API_SERVER_ENDPOINT', function($root, $http, $server) {
+  return {
+      name : 'anonymous',
+      getNews: function(callback) {
+        if ($root.news) {
+          callback($root.news);
+        } else {
+          $http.get($server + '/api/text/news/list').success(function(data) {
+              $root.news = data;
+              callback(data);
+          });
+        }
+      },
+      getText: function(id, callback) {
+        if ($root.text && $root.text[id]){
+           callback($root.text[id]);
+        } else {
+          if (!$root.text){
+              $root.text = {}
+          }
+          $http.get($server + '/api/text/' + id).success(function(data) {
+              $root.text[id] = data;
+              callback(data)
+          });
+        }
+      }
+  };
+}]);
+
 var server = window.location.protocol + "//" + window.location.hostname
 if (window.location.port && window.location.port != "9000") server = server +":" + window.location.port
-angular.module('configuration',[]).constant('API_SERVER_ENDPOINT', server)
+angular.module('configuration',[]).constant('API_SERVER_ENDPOINT', server);
