@@ -225,28 +225,32 @@
         </div><!-- /container -->
       <div class="footer-holder">
         <footer class="container">
-        <div class="row">
-           <div class="brand-holder col-md-6">
-                <a href="/">
-                  <img src="/images/logo.png" alt="Tilos Rádió" class="logo">
-                  <h1>Tilos rádió</h1>
-                  <h2>fm 90.3 www.tilos.hu</h2>
-                </a>
-            </div>
-         <div class="col-md-3">
-           <nav>
-             <ul>
-               <li><a href="#0"><span></span>Sitemap<span></span></a></li>
-               <li><a href="#0"><span></span>Hírek<span></span></a></li>
-               <li><a href="#0"><span></span>Események<span></span></a></li>
-               <li><a href="#0"><span></span>Média<span></span></a></li>
-               <li><a href="#0"><span></span>Kapcsolat</a></li>
-             </ul>
-           </nav>
+          <div class="row">
+             <div class="brand-holder col-md-6">
+                  <a href="/">
+                    <img src="/images/logo.png" alt="Tilos Rádió" class="logo">
+                    <h1>Tilos rádió</h1>
+                    <h2>fm 90.3 www.tilos.hu</h2>
+                  </a>
+              </div>
+           <div class="col-md-3">
+            <nav class="footer-nav">
+              <a href="#0"><span class="icon-news"></span>Sitemap<span class="numb">5</span></a>
+              <a href="#/page/172"><span class="icon-chat"></span>Hírek<span class="numb">12</span></a>
+              <a href="#0"><span class="icon-calendar"></span>Események<span class="numb">5</span></a>
+              <a href="#0"><span class="icon-arrow-down"></span>Média<span class="numb">12</span></a>
+              <a href="#/page/73"><span class="icon-envelop"></span>Kapcsolat</a>
+            </nav>
 
-         </div>
-         <div class="col-md-3">dolor</div>
-         </div>
+          </div>
+          <div class="col-md-3">
+            <div ng-controller="FooterDatepicker">
+              <div class="" ng-model="dt">
+                  <datepicker min="minDate" show-weeks="showWeeks"></datepicker>
+              </div>
+            </div>
+          </div>          
+          </div>
         </footer>
       </div>
 
