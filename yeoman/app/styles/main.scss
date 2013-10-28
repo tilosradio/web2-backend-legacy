@@ -585,4 +585,38 @@ a.icon-star, a.icon-star2{
     color: white;
     margin-top: 45px;
     padding-top: 100px;
+    padding-bottom: 50px;
+}
+
+.footer-nav{
+  a{
+    color: white;
+    display: block;
+    font-size: 16px;
+    line-height: 60px;
+    padding: 0 13px;
+    width: 100%;
+    &:hover{
+      background: $gray-darken;
+      text-decoration: none;
+      .numb{
+        background: $brand-danger;
+      }
+    }
+    [class*="icon-"]{
+      font-size: 1.5em;
+      float: left;
+      margin-top: 18px;
+      margin-right: 10px;
+    }
+    .numb{
+      background: $gray-darken;
+      float: right;
+      height: 35px;
+      line-height: 35px;
+      margin: 13px  0 0 0;
+      text-align: center;
+      width: 40px;
+    }
+  }
 }

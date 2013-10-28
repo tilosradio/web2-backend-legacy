@@ -314,8 +314,8 @@ module.exports = function (grunt) {
             dist: [
                 'compass',
                 'copy:styles',
-                'imagemin',
-                'svgmin',
+                // 'imagemin',
+                // 'svgmin',
                 'htmlmin'
             ]
         },
@@ -357,16 +357,31 @@ module.exports = function (grunt) {
         'concurrent:dist',
         'autoprefixer',
 //TODO fix the parameters
-        'requirejs',
+        // 'requirejs',
         'concat',
         'cssmin',
         'uglify',
-// TODO fix the run of this tool
-//        'modernizr',
-	'copy:php',
+        'copy:php',
         'copy:dist',
         'rev',
         'usemin'
+    ]);
+    grunt.registerTask('buildlive', [
+        'clean:dist',
+        'useminPrepare',
+        'concurrent:dist',
+        'autoprefixer',
+//TODO fix the parameters
+        // 'requirejs',
+        'concat',
+        'cssmin',
+        'uglify',
+	    'copy:php',
+        'copy:dist',
+        'rev',
+        'usemin',
+        'connect:livereload',
+        'watch'
     ]);
 
     grunt.registerTask('default', [
