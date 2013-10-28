@@ -357,7 +357,7 @@ module.exports = function (grunt) {
         'concurrent:dist',
         'autoprefixer',
 //TODO fix the parameters
-        'requirejs',
+        // 'requirejs',
         'concat',
         'cssmin',
         'uglify',
@@ -365,7 +365,7 @@ module.exports = function (grunt) {
         'copy:dist',
         'rev',
         'usemin',
-         'connect:livereload',
+        'connect:livereload',
     ]);
     grunt.registerTask('buildlive', [
         'clean:dist',
@@ -373,7 +373,7 @@ module.exports = function (grunt) {
         'concurrent:dist',
         'autoprefixer',
 //TODO fix the parameters
-        'requirejs',
+        // 'requirejs',
         'concat',
         'cssmin',
         'uglify',
