@@ -10,9 +10,8 @@ return array(
             'Radio\Controller\Episode' => 'Radio\Controller\Episode',
             'Radio\Controller\Auth' => 'Radio\Controller\Auth',
             'Radio\Controller\Text' => 'Radio\Controller\Text',
-            'Radio\Controller\M3u' => 'Radio\Controller\M3u'
-
-
+            'Radio\Controller\M3u' => 'Radio\Controller\M3u',
+            'Radio\Controller\User' => 'Radio\Controller\User'
         ),
     ),
     'router' => array(
@@ -61,6 +60,14 @@ return array(
                     'route' => '/api/author[/:id]',
                     'constraints' => array('id' => '[0-9]*',),
                     'defaults' => array('controller' => 'Radio\Controller\Author',)
+                )
+            ),
+            'user-rest' => array(
+                'type' => 'Segment',
+                'options' => array(
+                    'route' => '/api/user[/:id]',
+                    'constraints' => array('id' => '[0-9]*',),
+                    'defaults' => array('controller' => 'Radio\Controller\User',)
                 )
             ),
             'episode-rest' => array(

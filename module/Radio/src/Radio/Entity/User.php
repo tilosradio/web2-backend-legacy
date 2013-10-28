@@ -39,11 +39,11 @@ class User
     private $salt;
     
     /**
-     * @ORM\OneToOne(targetEntity="Role")
+     * @ORM\ManyToOne(targetEntity="Role")
      * @ORM\JoinColumn(name="role_id", referencedColumnName="id")
      */
     private $role;
-    
+   
     public function getId()
     {
         return $this->id;
@@ -54,14 +54,26 @@ class User
         return $this->username;
     }
     
+    public function setUsername($username) {
+        $this->username = $username;
+    }
+    
     public function getPassword()
     {
         return $this->password;
     }
     
+    public function setPassword($password) {        
+        $this->password = sha1($password . $this->getSalt());
+    }
+    
     public function getEmail()
     {
         return $this->email;
+    }
+    
+    public function setEmail($email) {
+        $this->email = $email;
     }
     
     public function getSalt()
@@ -73,7 +85,7 @@ class User
     {
         // do not regenerate existing salt
         if (empty($this->salt))
-            $this->salt = sha1(date('YmdHis') . str(mt_rand()));
+            $this->salt = sha1(date('YmdHis') . mt_rand());
         return $this->salt;
     }
     
@@ -84,6 +96,10 @@ class User
     {
         return empty($this->role) ? Role::getDefault() : $this->role;
     }
+    
+    public function setRole($role) {
+        $this->role = $role;
+    } 
     
     public static function testPassword(User $user, $passwordGiven)
     {

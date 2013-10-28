@@ -22,7 +22,6 @@ return array(
                 'Radio\Controller\Text' => array(
                     ':all'      => 'guest'
                 ),
-
                 'Radio\Controller\Author' => array(
                     'get'      => 'guest',
                     'getList'  => 'guest',
