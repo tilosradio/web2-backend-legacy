@@ -364,8 +364,7 @@ module.exports = function (grunt) {
         'copy:php',
         'copy:dist',
         'rev',
-        'usemin',
-        'connect:livereload',
+        'usemin'
     ]);
     grunt.registerTask('buildlive', [
         'clean:dist',
