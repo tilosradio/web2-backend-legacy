@@ -12,10 +12,19 @@ use Zend\View\Model\JsonModel;
 class BaseController extends AbstractRestfulController {
 
     use EntityManager;
-
+    
+   
+    public function findEntityObject($type, $id) {
+        return $this->getEntityManager()->find($type, $id);
+    }
+    
+    public function findEntityList($type) {
+        return $this->getEntityManager()->getRepository($type)->findAll();
+    }
+    
     public function getEntity($type, $id, $mapping) {
         try {
-            $result = $this->getEntityManager()->find($type, $id);
+            $result = $this->findEntityObject($type, $id);
             if ($result == null) {
                 $this->getResponse()->setStatusCode(404);
                 return new JsonModel(array("error" => "Not found"));
@@ -32,7 +41,7 @@ class BaseController extends AbstractRestfulController {
     public function getEntityList($type, $mapping) {
         try {
             // TODO: paging (limit/offset)
-            $resultSet = $this->getEntityManager()->getRepository($type)->findAll();
+            $resultSet = $this->findEntityList($type);
             if (empty($resultSet))
                 return new JsonModel(array());
             $return = array();

@@ -58,7 +58,6 @@ return array(
                 'type' => 'Segment',
                 'options' => array(
                     'route' => '/api/author[/:id]',
-                    'constraints' => array('id' => '[0-9]*',),
                     'defaults' => array('controller' => 'Radio\Controller\Author',)
                 )
             ),

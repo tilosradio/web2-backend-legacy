@@ -58,6 +58,17 @@ class Author extends BaseController {
     public function get($id) {
         return $this->getEntity("\Radio\Entity\Author", $id, $this->createConverter());
     }
+    
+    public function findEntityObject($type, $id) {
+        if (is_numeric($id)) {
+            return $this->getEntityManager()->find($type, $id);
+        } else {
+           $q = $this->getEntityManager()->createQuery("SELECT a from \Radio\Entity\Author a WHERE a.alias = :id");
+           $q->setParameter("id",$id);
+           return $q->getResult()[0];
+           
+        }
+    }
 
     public function create($data) {
         try {

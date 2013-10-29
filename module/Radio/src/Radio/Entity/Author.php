@@ -23,6 +23,11 @@ class Author {
     protected $name;
     
     /**
+     * @ORM\Column(type="string", length=20) 
+     * */
+    protected $alias;
+    
+    /**
      * @ORM\Column(type="string",length=20) 
      * */
     protected $photo;
@@ -104,7 +109,16 @@ class Author {
     public function getShowAuthors() {
         return $this->showAuthors;
     }
+    
+    public function getAlias() {
+        return $this->alias;
+    }
 
+    public function setAlias($alias) {
+        $this->alias = $alias;
+    }
+
+    
     public function toArray() {
         $a = $this->toArrayShort();
         $a['introduction'] = $this->getIntroduction();
@@ -117,6 +131,7 @@ class Author {
         $a['id'] = $this->getId();
         $a['name'] = $this->getName();
         $a['avatar'] = $this->getAvatar();
+        $a['alias'] = $this->getAlias();
         return $a;
     }
     

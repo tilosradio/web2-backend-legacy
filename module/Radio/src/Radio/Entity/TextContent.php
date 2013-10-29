@@ -141,6 +141,7 @@ class TextContent {
         $a['title'] = $this->getTitle();
         $a['type'] = $this->getType();
         $a['content'] = $this->getContent();
+        $a['alias'] = $this->getAlias();
         return $a;
     }
 

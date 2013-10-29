@@ -49,6 +49,22 @@ class AuthorTest extends \PHPUnit_Framework_TestCase {
         $this->assertNotEmpty($author['photo']);
         
     }
+    
+     public function testGetWithAlias() {
+        //when        
+        $this->routeMatch->setParam('id', 'sztyepp');
+
+        $result = $this->controller->dispatch($this->request);
+        $response = $this->controller->getResponse();
+        //then
+
+        $author = $result->getVariables();
+        
+        //var_dump($author);
+        $this->assertContains("uzginuver",$author['introduction']);
+        $this->assertNotEmpty($author['photo']);
+        
+    }
 
 }
 
