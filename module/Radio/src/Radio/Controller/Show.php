@@ -15,19 +15,7 @@ class Show extends BaseController {
 
     public function createShortConverter() {
         $res = function($result) {
-                    $a = $result->toArray();
-                    foreach ($result->getAuthors() as $author) {
-                        //$a = ShowAuthor record, $a->getAuthor = author record
-                        $tmp = $author->getAuthor()->toArrayShort();
-                        $tmp['nick'] = $author->getNick();
-                        $a['authors'][] = $tmp;
-                    }
-                    $a['schedulings'] = array();
-                    foreach ($result->getSchedulings() as $scheduling) {
-                        $a['schedulings'][] = $scheduling->toArray();
-                    }
-
-                    return $a;
+                    return $result;
                 };
         return $res;
     }
@@ -46,19 +34,26 @@ class Show extends BaseController {
                         $a['schedulings'][] = $scheduling->toArray();
                     }
 
-                    
+
                     $a['episodes'] = array();
-                            
+
                     $now = time();
                     $episodes = EpisodeUtil::getEpisodeTimes($this->getEntityManager(), $a['id'], $now - 60 * 60 * 24 * 30, $now);
                     foreach ($episodes as $epi) {
                         $a['episodes'][] = $epi->toArray();
                     }
-                    
+
 
                     return $a;
                 };
         return $res;
+    }
+
+    public function findEntityList($type) {
+        $qb = $this->getEntityManager()->createQueryBuilder();
+        $qb->select('s')->from('\Radio\Entity\Show', 's')->orderBy("s.name","ASC");
+        $q = $qb->getQuery();
+        return $q->getArrayResult();
     }
 
     /**
@@ -66,7 +61,7 @@ class Show extends BaseController {
      *   path="/show",
      *   description="Generic information about radio show",
      *   @SWG\Operation(
-     *     method="GET", 
+     *     method="GET",
      *     summary="List all active radioshow"
      *   )
      * )
@@ -79,7 +74,7 @@ class Show extends BaseController {
      * @SWG\Api(
      *   path="/show/{id}",
      *   @SWG\Operation(
-     *     method="GET", 
+     *     method="GET",
      *     summary="Return information about a specific radioshow",
      *     @SWG\Parameters(
      *        @SWG\Parameter(
@@ -108,7 +103,7 @@ class Show extends BaseController {
      * @SWG\Api(
      *   path="/show/{id}",
      *   @SWG\Operation(
-     *     method="DELETE", 
+     *     method="DELETE",
      *     summary="Delete a radio show."
      *   )
      * )
