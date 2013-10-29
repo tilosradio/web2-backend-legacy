@@ -4,6 +4,6 @@
 <span ng-bind-html="author.introduction"></span>
 
 <h2>Műsorok</h2>
-<ul ng-repeat="show in author.shows">
-    <li><a href="#/show/{{show.id}}">{{show.name}}</a></li>
+<ul ng-repeat="show in author.showAuthors">
+    <li><a href="#/show/{{show.show.id}}">{{show.show.name}}</a></li>
 </ul>

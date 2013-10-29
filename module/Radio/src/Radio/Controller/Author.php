@@ -15,12 +15,7 @@ class Author extends BaseController {
 
     public function createConverter() {
         return function($result) {
-            $a = $result->toArray();
-            $a['shows'] = array();
-            foreach ($result->getShowAuthors() as $showAuthor) {
-                $a['shows'][] = $showAuthor->getShow()->toArrayShort();
-            }
-            return $a;
+            return $result;
         };
     }
 
@@ -60,14 +55,20 @@ class Author extends BaseController {
     }
     
     public function findEntityObject($type, $id) {
+        $qb = $this->getEntityManager()->createQueryBuilder();
+        $qb->select('a','sa','s')->from('\Radio\Entity\Author', 'a');
         if (is_numeric($id)) {
-            return $this->getEntityManager()->find($type, $id);
+	   $qb->where('a.id = :id');
         } else {
-           $q = $this->getEntityManager()->createQuery("SELECT a from \Radio\Entity\Author a WHERE a.alias = :id");
-           $q->setParameter("id",$id);
-           return $q->getResult()[0];
-           
+	   $qb->where('a.alias = :id');
         }
+        $qb->leftJoin('a.showAuthors', 'sa')->leftJoin('sa.show', 's');
+           
+        $q = $qb->getQuery();
+        $q->setParameter("id",$id);
+        return $q->getArrayResult()[0];
+           
+        
     }
 
     public function create($data) {
