@@ -58,17 +58,15 @@ class Author extends BaseController {
         $qb = $this->getEntityManager()->createQueryBuilder();
         $qb->select('a','sa','s')->from('\Radio\Entity\Author', 'a');
         if (is_numeric($id)) {
-	   $qb->where('a.id = :id');
+            $qb->where('a.id = :id');
         } else {
-	   $qb->where('a.alias = :id');
+            $qb->where('a.alias = :id');
         }
         $qb->leftJoin('a.showAuthors', 'sa')->leftJoin('sa.show', 's');
            
         $q = $qb->getQuery();
         $q->setParameter("id",$id);
         return $q->getArrayResult()[0];
-           
-        
     }
 
     public function create($data) {
@@ -108,6 +106,8 @@ class Author extends BaseController {
             $author->setAvatar($data['avatar']);
             $author->setIntroduction($data['introduction']);
             $author->setUser($user);
+            if (! is_null($data['alias']) )
+                $author->setAlias($data['alias']);
 
     	    $this->getEntityManager()->persist($author);
     	    $this->getEntityManager()->flush();
@@ -131,7 +131,7 @@ class Author extends BaseController {
             
             if ( !isset($data['name']) && !isset($data['photo']) &&
                             !isset($data['avatar']) && !isset($data['introduction']) &&
-                            !isset($data['user_id']) ) {
+                            !isset($data['user_id']) && !isset($data['alias']) ) {
                 $this->getResponse()->setStatusCode(400);
                 return new JsonModel(array("error" => "One of the following fields must exist: name, photo, avatar, introduction, user_id."));
             }
@@ -169,6 +169,10 @@ class Author extends BaseController {
             if ( !is_null($user) ) {
                 $author->setUser($user);
                 $updated .= " User id: " . $data['user_id'];
+            }
+            if ( !is_null($data['alias']) ) {
+                $author->setAlias($data['alias']);
+                $updated .= " Alias: " . $data['alias'];
             }
         
             $this->getEntityManager()->flush();
