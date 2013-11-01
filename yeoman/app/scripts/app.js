@@ -2,6 +2,7 @@
 var dbg;
 var tilos = angular.module('tilos', ['ngRoute', 'ngSanitize', 'configuration','ui.bootstrap']);
 
+
 tilos.weekStart = function(date) {
     var first = date.getDate() - date.getDay() + 1;
     date.setHours(0)
@@ -38,9 +39,10 @@ tilos.controller('SideCtrl', ['$scope', '$routeParams', 'API_SERVER_ENDPOINT', '
         var start = (new Date() / 1000 - 60 * 60 * 3)
         var now = new Date().getTime() / 1000
         $scope.now = new Date();
+        $scope.Math = window.Math;
         $http.get($server + '/api/episode?start=' + start + '&end=' + (start + 12 * 60 * 60)).success(function(data) {
             for (var i = 0; i < data.length; i++) {
-                if (data[i].from <= now && data[i].to > now) {                    
+                if (data[i].from <= now && data[i].to > now) {
                     $scope.current = data[i]
                 }
             }
@@ -48,8 +50,16 @@ tilos.controller('SideCtrl', ['$scope', '$routeParams', 'API_SERVER_ENDPOINT', '
             $http.get($server + '/api/show/' + $scope.current.show.id).success(function(data) {
                 $scope.current.show = data;
             });
+
+            //Get Facebook follower count
+         	$http.get('https://graph.facebook.com/tilosradio').success(function(data) {
+                $scope.current.facebook = data;
+            });
+
+            //TODO: get Twitter follower count - Twitter API needs OAuth
+
         });
-        
+
     }]);
 
 
@@ -126,7 +136,7 @@ tilos.controller('AllShowCtrl', ['$scope', '$routeParams', 'API_SERVER_ENDPOINT'
                }
             }
             $scope.shows = res;
-            
+
         });
     }]);
 

@@ -17,7 +17,7 @@
         <!-- build:js scripts/vendor/modernizr.js -->
         <script src="bower_components/modernizr/modernizr.js"></script>
         <!-- endbuild -->
-        
+
         <!-- build:js scripts/vendor.js -->
         <!-- bower:js -->
         <script src="bower_components/angular/angular.js"></script>
@@ -102,10 +102,10 @@
         <div class="container">
             <div class="row" ng-controller="SideCtrl">
               <section class="col-md-6 main" role="main" ng-view>
-              
+
               </section> <!-- col-md-6 -->
               <aside class="col-md-3">
-                <div class="box"> 
+                <div class="box">
                   <h2>Szólj hozzá</h2>
                   <h3>Adástelefon</h3>
                   <a href="tel:+3612153773" class="tel">(+36 1) 215 37 73</a>
@@ -114,7 +114,7 @@
                  <div class="box-simple" >
                    <h2>Műsorvezetők</h2>
                    <div class="row">
-                    <figure  ng-repeat="author in current.show.authors" class="show-author">                        
+                    <figure  ng-repeat="author in current.show.authors" class="show-author">
                        <a href="#/author/{{author.id}}"><img src="upload/bio/{{author.avatar}}" alt="{{author.name}}" class="show-author-image"></a>
                       <figcaption><a href="#/author/{{author.id}}">{{author.name}}</a></figcaption>
                     </figure>
@@ -125,7 +125,7 @@
                     <h2>Archívum</h2>
                     <div class="row">
                       <div class="col-xs-4">
-                        <a href="#" class="btn btn-block btn-default">Het</a>
+                        <a href="#" class="btn btn-block btn-default">Hét</a>
                       </div>
                      <div class="col-xs-4">
                         <a href="#" class="btn btn-block btn-danger">Hónap</a>
@@ -154,10 +154,10 @@
                  </div> <!-- /archive-little -->
               </aside> <!-- col-md-3 -->
               <aside class="col-md-3">
-                <div class="box backing"> 
+                <div class="box backing">
                   <h2>Támogass <span class="sub-title">(paypallal)</span></h2>
                   <div class="row">
-                    <div class="col-xs-8"> 
+                    <div class="col-xs-8">
                       <label>Egyszeri támogatás</label>
                     </div>
                     <div class="col-xs-4">
@@ -182,7 +182,7 @@
                 <div class="box-simple">
                   <h2>{{now| date: "yyyy.MM.dd"}}</h2>
                   <table class="table actual-shows" >
-                    <tr ng-repeat="episode in episodes" class="{{(current.show.id == episode.show.id) && 'actual' || ''}}" >       
+                    <tr ng-repeat="episode in episodes" class="{{(current.show.id == episode.show.id) && 'actual' || ''}}" >
                         <td><a href="#/show/{{episode.show.id}}">{{episode.show.name}}<a></td><td>{{episode.from * 1000 | date: 'HH:mm'}}</td><td><a href="#" class="icon-star"><span class="sr-only">kedvenchez adás</span></a></td> <!-- if is fav change icon-star2 -->
                     </tr>
                   </table>
@@ -193,7 +193,7 @@
                       <a href="#0" alt="facebook" class="facebook">
                         <span class="sr-only">Facebook rajongók száma:</span>
                           <span class="icon-facebook"></span>
-                          <span class="social-numb">215k</span>
+                          <span class="social-numb">{{Math.round(current.facebook.likes/1000)}}k</span>
                         </a>
                     </div>
                     <div class="col-xs-3">
@@ -248,7 +248,7 @@
                   <datepicker min="minDate" show-weeks="showWeeks"></datepicker>
               </div>
             </div>
-          </div>          
+          </div>
           </div>
         </footer>
       </div>
