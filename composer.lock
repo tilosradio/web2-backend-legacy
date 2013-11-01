@@ -78,16 +78,16 @@
         },
         {
             "name": "doctrine/cache",
-            "version": "v1.2.0",
+            "version": "v1.3.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/doctrine/cache.git",
-                "reference": "d0e4447707a064a5814b18cb0dcc2f24185f6179"
+                "reference": "e16d7adf45664a50fa86f515b6d5e7f670130449"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/doctrine/cache/zipball/d0e4447707a064a5814b18cb0dcc2f24185f6179",
-                "reference": "d0e4447707a064a5814b18cb0dcc2f24185f6179",
+                "url": "https://api.github.com/repos/doctrine/cache/zipball/e16d7adf45664a50fa86f515b6d5e7f670130449",
+                "reference": "e16d7adf45664a50fa86f515b6d5e7f670130449",
                 "shasum": ""
             },
             "require": {
@@ -95,6 +95,10 @@
             },
             "conflict": {
                 "doctrine/common": ">2.2,<2.4"
+            },
+            "require-dev": {
+                "phpunit/phpunit": ">=3.7",
+                "satooshi/php-coveralls": "~0.6"
             },
             "type": "library",
             "extra": {
@@ -143,7 +147,7 @@
                 "cache",
                 "caching"
             ],
-            "time": "2013-09-26 19:23:25"
+            "time": "2013-10-25 19:04:14"
         },
         {
             "name": "doctrine/collections",
@@ -807,12 +811,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/zendframework/ZendDeveloperTools.git",
-                "reference": "c70bf9e0072fc5868449d2776819cb27495946a9"
+                "reference": "23bcd78e80bd963f08b125d80587a640ad7a237d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/zendframework/ZendDeveloperTools/zipball/c70bf9e0072fc5868449d2776819cb27495946a9",
-                "reference": "c70bf9e0072fc5868449d2776819cb27495946a9",
+                "url": "https://api.github.com/repos/zendframework/ZendDeveloperTools/zipball/23bcd78e80bd963f08b125d80587a640ad7a237d",
+                "reference": "23bcd78e80bd963f08b125d80587a640ad7a237d",
                 "shasum": ""
             },
             "require": {
@@ -860,20 +864,20 @@
                 "module",
                 "zf2"
             ],
-            "time": "2013-10-22 22:27:05"
+            "time": "2013-10-24 10:03:13"
         },
         {
             "name": "zendframework/zendframework",
-            "version": "2.2.4",
+            "version": "2.2.5",
             "source": {
                 "type": "git",
                 "url": "https://github.com/zendframework/zf2.git",
-                "reference": "5b03d868755c181fc9b5dc56c1f8c26e73ca0bed"
+                "reference": "4a7cf6a4cf791244e14aa0ca49d1f06916b63202"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/zendframework/zf2/zipball/5b03d868755c181fc9b5dc56c1f8c26e73ca0bed",
-                "reference": "5b03d868755c181fc9b5dc56c1f8c26e73ca0bed",
+                "url": "https://api.github.com/repos/zendframework/zf2/zipball/4a7cf6a4cf791244e14aa0ca49d1f06916b63202",
+                "reference": "4a7cf6a4cf791244e14aa0ca49d1f06916b63202",
                 "shasum": ""
             },
             "require": {
@@ -934,6 +938,7 @@
             },
             "require-dev": {
                 "doctrine/annotations": ">=1.0",
+                "fabpot/php-cs-fixer": "*@dev",
                 "ircmaxell/random-lib": "dev-master",
                 "ircmaxell/security-lib": "dev-master",
                 "ocramius/proxy-manager": "0.4.*",
@@ -974,7 +979,7 @@
                 "framework",
                 "zf2"
             ],
-            "time": "2013-08-26 15:09:04"
+            "time": "2013-10-31 15:48:16"
         },
         {
             "name": "zircote/swagger-php",
@@ -982,12 +987,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/zircote/swagger-php.git",
-                "reference": "c4449feaebd88521e09d7dbfb96038b614b10e6f"
+                "reference": "0a711a426b813134f6aeb3f690cd0d50beb8af8e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/zircote/swagger-php/zipball/c4449feaebd88521e09d7dbfb96038b614b10e6f",
-                "reference": "c4449feaebd88521e09d7dbfb96038b614b10e6f",
+                "url": "https://api.github.com/repos/zircote/swagger-php/zipball/0a711a426b813134f6aeb3f690cd0d50beb8af8e",
+                "reference": "0a711a426b813134f6aeb3f690cd0d50beb8af8e",
                 "shasum": ""
             },
             "require": {
@@ -1030,7 +1035,7 @@
                 "json",
                 "service discovery"
             ],
-            "time": "2013-10-16 12:11:32"
+            "time": "2013-10-30 16:22:57"
         }
     ],
     "packages-dev": [
