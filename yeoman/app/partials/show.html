@@ -11,5 +11,5 @@
 
 <h2>Legutóbbi adások</h2>
 <ul ng-repeat="episode in show.episodes">
-    <li><a href="{{server}}/{{episode.m3u}}">{{episode.plannedFrom * 1000 | date: 'yyyy.MM.dd HH:mm'}}<a/></li>
+    <li><a href="{{server}}/{{episode.m3u}}">{{episode.plannedFrom * 1000 | date: 'yyyy.MM.dd HH:mm'}}</a> {{episode.persistent}}</li>
 </ul>

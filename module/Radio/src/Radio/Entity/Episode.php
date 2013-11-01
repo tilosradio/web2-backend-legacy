@@ -50,8 +50,13 @@ class Episode {
      * @ORM\JoinColumn(name="textcontent_id", referencedColumnName="id")
      */
     protected $text;
-    
     protected $m3uUrl;
+
+    /**
+     *
+     * false for the auto generated pseudo episde record.
+     */
+    protected $persistent = true;
 
     public function getId() {
         return $this->id;
@@ -108,21 +113,30 @@ class Episode {
     public function getM3uUrl() {
         return $this->m3uUrl;
     }
+
     public function setM3uUrl($m3uUrl) {
         $this->m3uUrl = $m3uUrl;
     }
 
-    
     public function toArray() {
-        $a['plannedFrom'] = $this->getPlannedFrom();
-        $a['plannedTo'] = $this->getPlannedTo();
+        $a['plannedFrom'] = $this->getPlannedFrom()->getTimestamp();
+        $a['plannedTo'] = $this->getPlannedTo()->getTimestamp();
+        $a['persistent'] = $this->getPersistent();
         $a['m3u'] = $this->getM3uUrl();
         return $a;
     }
+
     public function setId($id) {
         $this->id = $id;
     }
 
+    public function getPersistent() {
+        return $this->persistent;
+    }
+
+    public function setPersistent($persistent) {
+        $this->persistent = $persistent;
+    }
 
 }
 
