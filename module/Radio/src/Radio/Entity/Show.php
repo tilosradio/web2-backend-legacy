@@ -117,6 +117,38 @@ class Show {
     public function setType($type) {
         $this->type = $type;
     }
+    public function setId($id) {
+        $this->id = $id;
+    }
+
+    public function setName($name) {
+        $this->name = $name;
+    }
+
+    public function setAuthors($authors) {
+        $this->authors = $authors;
+    }
+
+    public function setSchedulings($schedulings) {
+        $this->schedulings = $schedulings;
+    }
+
+    public function setDefinition($definition) {
+        $this->definition = $definition;
+    }
+
+    public function setAlias($alias) {
+        $this->alias = $alias;
+    }
+
+    public function setBanner($banner) {
+        $this->banner = $banner;
+    }
+
+    public function setDescription($description) {
+        $this->description = $description;
+    }
+
 
 }
 

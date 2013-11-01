@@ -35,7 +35,7 @@ class AuthorTest extends \PHPUnit_Framework_TestCase {
         $this->controller->setServiceLocator($serviceManager);
     }
 
-    public function testGet() {
+    public function testGetAuthor() {
         //when        
         $this->routeMatch->setParam('id', '936');
 
@@ -44,7 +44,7 @@ class AuthorTest extends \PHPUnit_Framework_TestCase {
         //then
 
         $author = $result->getVariables();
-        
+        //var_dump($author);
         $this->assertContains("aktivista",$author['introduction']);
         $this->assertNotEmpty($author['photo']);
         

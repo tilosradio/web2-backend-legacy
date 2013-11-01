@@ -133,5 +133,11 @@ class Scheduling {
         $a['duration'] = $this->getDuration();    
         return $a;
     }
+    
+    public function setShow($show) {
+        $this->show = $show;
+    }
+
+
 
 }

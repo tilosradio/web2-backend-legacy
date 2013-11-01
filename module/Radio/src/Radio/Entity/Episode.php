@@ -50,6 +50,7 @@ class Episode {
      * @ORM\JoinColumn(name="textcontent_id", referencedColumnName="id")
      */
     protected $text;
+    
     protected $m3uUrl;
 
     public function getId() {
@@ -118,6 +119,10 @@ class Episode {
         $a['m3u'] = $this->getM3uUrl();
         return $a;
     }
+    public function setId($id) {
+        $this->id = $id;
+    }
+
 
 }
 

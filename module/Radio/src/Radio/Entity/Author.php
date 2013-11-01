@@ -23,7 +23,7 @@ class Author {
     protected $name;
     
     /**
-     * @ORM\Column(type="string", length=20) 
+     * @ORM\Column(type="string", length=20, nullable=true) 
      * */
     protected $alias;
     
