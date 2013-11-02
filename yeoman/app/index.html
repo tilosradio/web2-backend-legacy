@@ -4,266 +4,264 @@
 <!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
 <!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
 <!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
-    <head>
-        <meta charset="utf-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <title>Tilos Rádió</title>
-        <meta name="description" content="">
-        <meta name="viewport" content="width=device-width">
-        <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
-        <!-- build:css(.tmp) styles/main.css -->
-        <link rel="stylesheet" href="styles/main.css">
-        <!-- endbuild -->
-        <!-- build:js scripts/vendor/modernizr.js -->
-        <script src="bower_components/modernizr/modernizr.js"></script>
-        <!-- endbuild -->
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Tilos Rádió</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width">
+    <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
+    <!-- build:css(.tmp) styles/main.css -->
+    <link rel="stylesheet" href="styles/main.css">
+    <!-- endbuild -->
+    <!-- build:js scripts/vendor/modernizr.js -->
+    <script src="bower_components/modernizr/modernizr.js"></script>
+    <!-- endbuild -->
 
-        <!-- build:js scripts/vendor.js -->
-        <!-- bower:js -->
-        <script src="bower_components/angular/angular.js"></script>
-        <script src="bower_components/angular-route/angular-route.js"></script>
-        <script src="bower_components/angular-sanitize/angular-sanitize.js"></script>
-        <script src="bower_components/angular-ui-bootstrap-bower/ui-bootstrap.js"></script>
-        <!-- endbower -->
-        <!-- endbuild -->
-
-
-
-        <!-- build:js scripts/angular.js -->
-        <script src="scripts/app.js"></script>
-        <script src="scripts/config.js"></script>
-        <!-- endbuild -->
-
-    </head>
-    <body>
-        <!--[if lt IE 8]>
-            <div class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</div>
-        <![endif]-->
+    <!-- build:js scripts/vendor.js -->
+    <!-- bower:js -->
+    <script src="bower_components/angular/angular.js"></script>
+    <script src="bower_components/angular-route/angular-route.js"></script>
+    <script src="bower_components/angular-sanitize/angular-sanitize.js"></script>
+    <script src="bower_components/angular-ui-bootstrap-bower/ui-bootstrap.js"></script>
+    <!-- endbower -->
+    <!-- endbuild -->
 
 
 
-      <div class="navbar-fixed-top">
-        <nav class="navbar navbar-default" role="navigation"  ng-controller="Collapse">
-            <!-- Brand and toggle get grouped for better mobile display -->
-          <div class="navbar-header">
-            <button type="button" class="navbar-toggle"  ng-click="isCollapsed = !isCollapsed">
-              <span class="sr-only">Navigáció</span>
-              <span class="icon-bar"></span>
-              <span class="icon-bar"></span>
-              <span class="icon-bar"></span>
-            </button>
-            <a class="navbar-brand visible-xs" href="#">Tilos Rádió</a>
-          </div>
+    <!-- build:js scripts/angular.js -->
+    <script src="scripts/app.js"></script>
+    <script src="scripts/config.js"></script>
+    <!-- endbuild -->
 
-          <!-- Collect the nav links, forms, and other content for toggling -->
-          <div class="navbar-collapse container" ng-show="isCollapsed">
-            <ul class="nav navbar-nav">
-              <li active-link="active"><a href="/#index">Főoldal</a></li>
-              <li active-link="active"><a href="#/page/17">Infó</a></li>
-              <li active-link="active"><a href="#/shows">Műsorok</a></li>
-              <li active-link="active" data-number="15"><a href="#/page/172">Hírek</a></li>
-              <li active-link="active"><a href="#/archive">Archívum</a></li>
-              <li active-link="active"><a href="#/page/73">Elérhetőség</a></li>
-            </ul>
-            <form class="navbar-form navbar-right" role="search">
-              <div class="form-group">
+  </head>
+  <body>
+    <!--[if lt IE 8]>
+      <div class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</div>
+    <![endif]-->
+
+
+
+    <div class="navbar-fixed-top">
+      <nav class="navbar navbar-default" role="navigation"  ng-controller="Collapse">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle"  ng-click="isCollapsed = !isCollapsed">
+            <span class="sr-only">Navigáció</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand visible-xs" href="#">Tilos Rádió</a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div class="navbar-collapse container" ng-show="isCollapsed">
+          <ul class="nav navbar-nav">
+            <li active-link="active"><a href="/#index">Főoldal</a></li>
+            <li active-link="active"><a href="#/page/17">Infó</a></li>
+            <li active-link="active"><a href="#/shows">Műsorok</a></li>
+            <li active-link="active" data-number="15"><a href="#/page/172">Hírek</a></li>
+            <li active-link="active"><a href="#/archive">Archívum</a></li>
+            <li active-link="active"><a href="#/page/73">Elérhetőség</a></li>
+          </ul>
+          <form class="navbar-form navbar-right" role="search">
+            <div class="form-group">
               <label for="search" class="sr-only">keresés a Tilos Rádió oldalán</label>
-                <input type="search" id="search" class="form-control" name="search" placeholder="keresés">
-              </div>
-             <button type="submit"><span class="icon-search"></span></button>
-            </form>
-          </div><!-- /.navbar-collapse -->
-        </nav>
-        <header class="main-header">
-            <div class="container">
-                <div class="row">
-                    <div class="brand-holder col-md-6">
-                        <a href="/">
-                          <img src="/images/logo.png" alt="Tilos Rádió" class="logo">
-                          <h1>Tilos rádió</h1>
-                          <h2>fm 90.3 www.tilos.hu</h2>
-                        </a>
-                    </div>
-                    <div class="col-md-6">
-                        <div class="radio-player">
-                            <h3><span class="icon-cassette"></span> Hallgasd online <span class="active icon-loop"></span></h3>
-                            <ul class="stream-chooser">
-                                <li><a href="http://stream.tilos.hu/tilos.m3u" target="_blank"><span>256</span> mp3</a></li>
-                                <li><a href="http://stream.tilos.hu/tilos_128.mp3.m3u" target="_blank"><span>128</span> mp3</a></li>
-                                <li><a href="http://stream.tilos.hu/tilos_high.ogg.m3u" target="_blank"><span>96</span> ogg</a></li>
-                                <li><a href="http://stream.tilos.hu/tilos_low.ogg.m3u" target="_blank"><span>24</span> ogg</a></li>
-                            </ul>
-                        </div>
-                    </div>
-                </div> <!-- row -->
-            </div> <!--container -->
-        </header>
-      </div> <!-- navbar-fixed-top -->
+              <input type="search" id="search" class="form-control" name="search" placeholder="keresés">
+            </div>
+            <button type="submit"><span class="icon-search"></span></button>
+          </form>
+        </div><!-- /.navbar-collapse -->
+      </nav>
+      <header class="main-header">
         <div class="container">
-            <div class="row" ng-controller="SideCtrl">
-              <section class="col-md-6 main" role="main" ng-view>
-
-              </section> <!-- col-md-6 -->
-              <aside class="col-md-3">
-                <div class="box">
-                  <h2>Szólj hozzá</h2>
-                  <h3>Adástelefon</h3>
-                  <a href="tel:+3612153773" class="tel">(+36 1) 215 37 73</a>
-                  <a href="#" class="btn btn-danger btn-block btn-lg" role="button"><span class="icon-chat2"></span>Belépés a chatre</a>
-                 </div> <!-- box -->
-                 <div class="box-simple" >
-                   <h2>Műsorvezetők</h2>
-                   <div class="row">
-                    <figure  ng-repeat="author in current.show.authors" class="show-author">
-                       <a href="#/author/{{author.id}}"><img src="upload/bio/{{author.avatar}}" alt="{{author.name}}" class="show-author-image"></a>
-                      <figcaption><a href="#/author/{{author.id}}">{{author.name}}</a></figcaption>
-                    </figure>
-                    </div>
-                    <a href="#0" class="btn-default btn btn-lg btn-block"><span class="icon-add"></span>Kövesd!</a>
-                 </div> <!-- box-simple -->
-                 <div class="box-simple archive-little">
-                    <h2>Archívum</h2>
-                    <div class="row">
-                      <div class="col-xs-4">
-                        <a href="#" class="btn btn-block btn-default">Hét</a>
-                      </div>
-                     <div class="col-xs-4">
-                        <a href="#" class="btn btn-block btn-danger">Hónap</a>
-                      </div>
-                     <div class="col-xs-4">
-                        <a href="#" class="btn btn-block btn-default">Év</a>
-                      </div>
-                    </div>
-                   <table class="table table-hover">
-                     <tbody>
-                       <tr>
-                         <td><a href="#0">Április</a></td>
-                         <td class="text-right"><a href="#0">2013</a></td>
-                       </tr>
-                       <tr>
-                         <td><a href="#0">Május</a></td>
-                         <td class="text-right"><a href="#0">2013</a></td>
-                       </tr>
-                       <tr>
-                         <td><a href="#0">Június</a></td>
-                         <td class="text-right"><a href="#0">2013</a></td>
-                       </tr>
-                     </tbody>
-                   </table>
-
-                 </div> <!-- /archive-little -->
-              </aside> <!-- col-md-3 -->
-              <aside class="col-md-3">
-                <div class="box backing">
-                  <h2>Támogass <span class="sub-title">(paypallal)</span></h2>
-                  <div class="row">
-                    <div class="col-xs-8">
-                      <label>Egyszeri támogatás</label>
-                    </div>
-                    <div class="col-xs-4">
-                      <a href="#0" target="_blank" class="btn btn-default" role="button">mehet</a>
-                    </div>
-                  </div> <!-- /row -->
-                  <form action="/" class="form-inline row">
-                    <div class="col-xs-8">
-                    <label for="amount">Rendszeres támogatás</label>
-                       <select class="form-control" id="amount">
-                        <option>1 000Ft</option>
-                        <option>2 000Ft</option>
-                        <option>5 000Ft</option>
-                        <option>10 000Ft</option>
-                      </select>
-                      </div>
-                      <div class="col-xs-4">
-                        <button type="submit" class="btn btn-default">mehet</button>
-                      </div>
-                  </form>
-                </div> <!-- box -->
-                <div class="box-simple">
-                  <h2>{{now| date: "yyyy.MM.dd"}}</h2>
-                  <table class="table actual-shows" >
-                    <tr ng-repeat="episode in episodes" class="{{(current.show.id == episode.show.id) && 'actual' || ''}}" >
-                        <td><a href="#/show/{{episode.show.id}}">{{episode.show.name}}<a></td><td>{{episode.from * 1000 | date: 'HH:mm'}}</td><td><a href="#" class="icon-star"><span class="sr-only">kedvenchez adás</span></a></td> <!-- if is fav change icon-star2 -->
-                    </tr>
-                  </table>
-                </div>
-                <div class="box-simple social-box">
-                  <div class="row collapse-row">
-                    <div class="col-xs-3">
-                      <a href="#0" alt="facebook" class="facebook">
-                        <span class="sr-only">Facebook rajongók száma:</span>
-                          <span class="icon-facebook"></span>
-                          <span class="social-numb">{{Math.round(current.facebook.likes/1000)}}k</span>
-                        </a>
-                    </div>
-                    <div class="col-xs-3">
-                      <a href="#0" alt="facebook" class="twitter">
-                        <span class="sr-only">Twitter rajongók száma:</span>
-                          <span class="icon-twitter"></span>
-                          <span class="social-numb">30k</span>
-                        </a>
-                     </div>
-                    <div class="col-xs-3">
-                       <a href="#0" alt="facebook" class="google-plus">
-                          <span class="sr-only">g+ rajongók száma:</span>
-                          <span class="icon-google-plus"></span>
-                          <span class="social-numb">124k</span>
-                        </a>
-                    </div>
-                    <div class="col-xs-3">
-                      <a href="#0" alt="facebook" class="email-social">
-                        <span class="sr-only">Email rajongók száma:</span>
-                          <span class="icon-envelope"></span>
-                          <span class="social-numb">0</span>
-                      </a>
-                    </div>
-                  </div> <!--  collapse-row -->
-                </div> <!-- social-box -->
-              </aside>
-            </div> <!-- col-md-3 -->
-        </div><!-- /container -->
-      <div class="footer-holder">
-        <footer class="container">
           <div class="row">
-             <div class="brand-holder col-md-6">
-                  <a href="/">
-                    <img src="/images/logo.png" alt="Tilos Rádió" class="logo">
-                    <h1>Tilos rádió</h1>
-                    <h2>fm 90.3 www.tilos.hu</h2>
-                  </a>
-              </div>
-           <div class="col-md-3">
-            <nav class="footer-nav">
-              <a href="#0"><span class="icon-news"></span>Sitemap<span class="numb">5</span></a>
-              <a href="#/page/172"><span class="icon-chat"></span>Hírek<span class="numb">12</span></a>
-              <a href="#0"><span class="icon-calendar"></span>Események<span class="numb">5</span></a>
-              <a href="#0"><span class="icon-arrow-down"></span>Média<span class="numb">12</span></a>
-              <a href="#/page/73"><span class="icon-envelope"></span>Kapcsolat</a>
-            </nav>
-
-          </div>
-          <div class="col-md-3">
-            <div ng-controller="FooterDatepicker">
-              <div class="" ng-model="dt">
-                  <datepicker min="minDate" show-weeks="showWeeks"></datepicker>
+            <div class="brand-holder col-md-6">
+              <a href="/">
+                <img src="/images/logo.png" alt="Tilos Rádió" class="logo">
+                <h1>Tilos rádió</h1>
+                <h2>fm 90.3 www.tilos.hu</h2>
+              </a>
+            </div>
+            <div class="col-md-6">
+              <div class="radio-player">
+                <h3><span class="icon-cassette"></span> Hallgasd online <span class="active icon-loop"></span></h3>
+                <ul class="stream-chooser">
+                  <li><a href="http://stream.tilos.hu/tilos.m3u" target="_blank"><span>256</span> mp3</a></li>
+                  <li><a href="http://stream.tilos.hu/tilos_128.mp3.m3u" target="_blank"><span>128</span> mp3</a></li>
+                  <li><a href="http://stream.tilos.hu/tilos_high.ogg.m3u" target="_blank"><span>96</span> ogg</a></li>
+                  <li><a href="http://stream.tilos.hu/tilos_low.ogg.m3u" target="_blank"><span>24</span> ogg</a></li>
+                </ul>
               </div>
             </div>
+          </div> <!-- row -->
+        </div> <!--container -->
+      </header>
+    </div> <!-- navbar-fixed-top -->
+    <div class="container">
+      <div class="row" ng-controller="SideCtrl">
+        <section class="col-md-6 main" role="main" ng-view>
+
+        </section> <!-- col-md-6 -->
+        <aside class="col-md-3">
+          <div class="box">
+            <h2>Szólj hozzá</h2>
+            <h3>Adástelefon</h3>
+            <a href="tel:+3612153773" class="tel">(+36 1) 215 37 73</a>
+            <a href="#" class="btn btn-danger btn-block btn-lg" role="button"><span class="icon-chat2"></span>Belépés a chatre</a>
+          </div> <!-- box -->
+          <div class="box-simple" >
+            <h2>Műsorvezetők</h2>
+            <div class="row">
+              <figure  ng-repeat="author in current.show.authors" class="show-author">
+                <a href="#/author/{{author.id}}"><img src="upload/bio/{{author.avatar}}" alt="{{author.name}}"   class="show-author-image"></a>
+                <figcaption><a href="#/author/{{author.id}}">{{author.name}}</a></figcaption>
+              </figure>
+            </div>
+            <a href="#0" class="btn-default btn btn-lg btn-block"><span class="icon-add"></span>Kövesd!</a>
+          </div> <!-- box-simple -->
+          <div class="box-simple archive-little">
+            <h2>Archívum</h2>
+            <div class="row">
+              <div class="col-xs-4">
+                <a href="#" class="btn btn-block btn-default">Hét</a>
+              </div>
+              <div class="col-xs-4">
+                <a href="#" class="btn btn-block btn-danger">Hónap</a>
+              </div>
+              <div class="col-xs-4">
+                <a href="#" class="btn btn-block btn-default">Év</a>
+              </div>
+            </div>
+            <table class="table table-hover">
+              <tbody>
+                <tr>
+                  <td><a href="#0">Április</a></td>
+                  <td class="text-right"><a href="#0">2013</a></td>
+                </tr>
+                <tr>
+                  <td><a href="#0">Május</a></td>
+                  <td class="text-right"><a href="#0">2013</a></td>
+                </tr>
+                <tr>
+                  <td><a href="#0">Június</a></td>
+                  <td class="text-right"><a href="#0">2013</a></td>
+                </tr>
+              </tbody>
+            </table>
+          </div> <!-- /archive-little -->
+        </aside> <!-- col-md-3 -->
+        <aside class="col-md-3">
+          <div class="box backing">
+            <h2>Támogass <span class="sub-title">(paypallal)</span></h2>
+            <div class="row">
+              <div class="col-xs-8">
+                <label>Egyszeri támogatás</label>
+              </div>
+              <div class="col-xs-4">
+                <a href="#0" target="_blank" class="btn btn-default" role="button">mehet</a>
+              </div>
+            </div> <!-- /row -->
+            <form action="/" class="form-inline row">
+              <div class="col-xs-8">
+                <label for="amount">Rendszeres támogatás</label>
+                <select class="form-control" id="amount">
+                  <option>1 000Ft</option>
+                  <option>2 000Ft</option>
+                  <option>5 000Ft</option>
+                  <option>10 000Ft</option>
+                </select>
+              </div>
+              <div class="col-xs-4">
+                <button type="submit" class="btn btn-default">mehet</button>
+              </div>
+            </form>
+          </div> <!-- box -->
+          <div class="box-simple">
+            <h2>{{now| date: "yyyy.MM.dd"}}</h2>
+            <table class="table actual-shows" >
+              <tr ng-repeat="episode in episodes" class="{{(current.show.id == episode.show.id) && 'actual' || ''}}" >
+                <td><a href="#/show/{{episode.show.id}}">{{episode.show.name}}<a></td><td>{{episode.from * 1000 | date: 'HH:mm'}}</td><td><a href="#" class="icon-star"><span class="sr-only">kedvenchez adás</span></a></td> <!-- if is fav change icon-star2 -->
+              </tr>
+            </table>
           </div>
+          <div class="box-simple social-box">
+            <div class="row collapse-row">
+              <div class="col-xs-3">
+                <a href="#0" alt="facebook" class="facebook">
+                  <span class="sr-only">Facebook rajongók száma:</span>
+                  <span class="icon-facebook"></span>
+                  <span class="social-numb">{{Math.round(current.facebook.likes/1000)}}k</span>
+                </a>
+              </div>
+              <div class="col-xs-3">
+                <a href="#0" alt="facebook" class="twitter">
+                  <span class="sr-only">Twitter rajongók száma:</span>
+                  <span class="icon-twitter"></span>
+                  <span class="social-numb">30k</span>
+                </a>
+              </div>
+              <div class="col-xs-3">
+                <a href="#0" alt="facebook" class="google-plus">
+                  <span class="sr-only">g+ rajongók száma:</span>
+                  <span class="icon-google-plus"></span>
+                  <span class="social-numb">124k</span>
+                </a>
+              </div>
+              <div class="col-xs-3">
+                <a href="#0" alt="facebook" class="email-social">
+                  <span class="sr-only">Email rajongók száma:</span>
+                  <span class="icon-envelope"></span>
+                  <span class="social-numb">0</span>
+                </a>
+              </div>
+            </div> <!--  collapse-row -->
+          </div> <!-- social-box -->
+        </aside>
+      </div> <!-- col-md-3 -->
+    </div><!-- /container -->
+    <div class="footer-holder">
+      <footer class="container">
+        <div class="row">
+         <div class="brand-holder col-md-6">
+          <a href="/">
+            <img src="/images/logo.png" alt="Tilos Rádió" class="logo">
+            <h1>Tilos rádió</h1>
+            <h2>fm 90.3 www.tilos.hu</h2>
+          </a>
+        </div>
+        <div class="col-md-3">
+          <nav class="footer-nav">
+            <a href="#0"><span class="icon-news"></span>Sitemap<span class="numb">5</span></a>
+            <a href="#/page/172"><span class="icon-chat"></span>Hírek<span class="numb">12</span></a>
+            <a href="#0"><span class="icon-calendar"></span>Események<span class="numb">5</span></a>
+            <a href="#0"><span class="icon-arrow-down"></span>Média<span class="numb">12</span></a>
+            <a href="#/page/73"><span class="icon-envelope"></span>Kapcsolat</a>
+          </nav>
+        </div>
+        <div class="col-md-3">
+          <div ng-controller="FooterDatepicker">
+            <div class="" ng-model="dt">
+              <datepicker min="minDate" show-weeks="showWeeks"></datepicker>
+            </div>
           </div>
-        </footer>
+        </div>
       </div>
+    </footer>
+  </div>
 
-        <!-- Google Analytics: change UA-XXXXX-X to be your site's ID. -->
-        <script>
-            (function(b,o,i,l,e,r){b.GoogleAnalyticsObject=l;b[l]||(b[l]=
-            function(){(b[l].q=b[l].q||[]).push(arguments)});b[l].l=+new Date;
-            e=o.createElement(i);r=o.getElementsByTagName(i)[0];
-            e.src='//www.google-analytics.com/analytics.js';
-            r.parentNode.insertBefore(e,r)}(window,document,'script','ga'));
-            ga('create','UA-XXXXX-X');ga('send','pageview');
-        </script>
+  <!-- Google Analytics: change UA-XXXXX-X to be your site's ID. -->
+  <script>
+  (function(b,o,i,l,e,r){b.GoogleAnalyticsObject=l;b[l]||(b[l]=
+    function(){(b[l].q=b[l].q||[]).push(arguments)});b[l].l=+new Date;
+  e=o.createElement(i);r=o.getElementsByTagName(i)[0];
+  e.src='//www.google-analytics.com/analytics.js';
+  r.parentNode.insertBefore(e,r)}(window,document,'script','ga'));
+  ga('create','UA-XXXXX-X');ga('send','pageview');
+  </script>
 
 
 
-</body>
+  </body>
 </html>
