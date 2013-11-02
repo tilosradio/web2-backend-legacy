@@ -53,7 +53,7 @@ class Author extends BaseController {
     public function get($id) {
         return $this->getEntity("\Radio\Entity\Author", $id, $this->createConverter());
     }
-    
+
     public function findEntityObject($type, $id) {
         $qb = $this->getEntityManager()->createQueryBuilder();
         $qb->select('a','sa','s')->from('\Radio\Entity\Author', 'a');
@@ -63,7 +63,7 @@ class Author extends BaseController {
             $qb->where('a.alias = :id');
         }
         $qb->leftJoin('a.showAuthors', 'sa')->leftJoin('sa.show', 's');
-           
+
         $q = $qb->getQuery();
         $q->setParameter("id",$id);
         return $q->getArrayResult()[0];
@@ -78,12 +78,12 @@ class Author extends BaseController {
                 $this->getResponse()->setStatusCode(400);
                 return new JsonModel(array("error" => "Mandatory fields: name, photo, avatar, introduction, user_id."));
             }
-            
+
             // validate user id
             if ( !is_numeric($data['user_id']) ) {
                 $this->getResponse()->setStatusCode(400);
                 return new JsonModel(array("error" => "User id must be numeric."));
-            }            
+            }
             $user = $this->getEntityManager()->find('Radio\Entity\User', $data['user_id']);
             if ( is_null($user) ) {
                 $this->getResponse()->setStatusCode(400);
@@ -98,9 +98,9 @@ class Author extends BaseController {
                 $this->getResponse()->setStatusCode(400);
                 return new JsonModel(array("error" => "User is already assigned to another author."));
             }
-            
+
             $author = new \Radio\Entity\Author();
-            
+
             $author->setName($data['name']);
             $author->setPhoto($data['photo']);
             $author->setAvatar($data['avatar']);
@@ -127,15 +127,15 @@ class Author extends BaseController {
             if ( is_null($author) ) {
                 $this->getResponse()->setStatusCode(400);
                 return new JsonModel(array("error" => "Author id does not exist."));
-            }            
-            
+            }
+
             if ( !isset($data['name']) && !isset($data['photo']) &&
                             !isset($data['avatar']) && !isset($data['introduction']) &&
                             !isset($data['user_id']) && !isset($data['alias']) ) {
                 $this->getResponse()->setStatusCode(400);
                 return new JsonModel(array("error" => "One of the following fields must exist: name, photo, avatar, introduction, user_id."));
             }
-            
+
             // validate user id
             if ( isset($data['user_id']) && !is_numeric($data['user_id']) ) {
                 $this->getResponse()->setStatusCode(400);
@@ -147,8 +147,8 @@ class Author extends BaseController {
                 if ( is_null($user) ) {
                     return new JsonModel(array("error" => "User id does not exist in DB."));
                 }
-            }            
-            
+            }
+
             $updated = "";
             if (isset($data['name'])) {
                 $author->setName($data['name']);
@@ -174,13 +174,13 @@ class Author extends BaseController {
                 $author->setAlias($data['alias']);
                 $updated .= " Alias: " . $data['alias'];
             }
-        
+
             $this->getEntityManager()->flush();
             return new JsonModel(array("update"=>"success", "Updated values"=>$updated));
         } catch (\Exception $ex) {
             $this->getResponse()->setStatusCode(500);
             return new JsonModel(array("error" => $ex->getMessage()));
-        }        
+        }
     }
 
     public function delete($id) {
@@ -189,10 +189,10 @@ class Author extends BaseController {
             if ( is_null($author) ) {
                 return new JsonModel(array("error" => "Author does not exist in DB."));
             }
-            
+
             $this->getEntityManager()->remove($author);
             $this->getEntityManager()->flush();
-            
+
             return new JsonModel(array("delete"=>"success"));
         } catch (\Exception $ex) {
             $this->getResponse()->setStatusCode(500);

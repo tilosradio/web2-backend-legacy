@@ -5,35 +5,35 @@ namespace Radio\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * @ORM\Entity 
+ * @ORM\Entity
  * @ORM\Table(name="episode")
  * */
 class Episode {
 
     /**
-     * @ORM\Id 
-     * @ORM\Column(type="integer") 
-     * @ORM\GeneratedValue 
+     * @ORM\Id
+     * @ORM\Column(type="integer")
+     * @ORM\GeneratedValue
      * */
     protected $id;
 
     /**
-     * @ORM\Column(type="datetime") 
+     * @ORM\Column(type="datetime")
      * */
     protected $plannedFrom;
 
     /**
-     * @ORM\Column(type="datetime") 
+     * @ORM\Column(type="datetime")
      * */
     protected $plannedTo;
 
     /**
-     * @ORM\Column(type="datetime") 
+     * @ORM\Column(type="datetime")
      * */
     protected $realFrom;
 
     /**
-     * @ORM\Column(type="datetime") 
+     * @ORM\Column(type="datetime")
      * */
     protected $realTo;
 
@@ -45,7 +45,7 @@ class Episode {
 
     /**
      * So called 'Adadnaplo'
-     * 
+     *
      * @ORM\OneToOne(targetEntity="TextContent")
      * @ORM\JoinColumn(name="textcontent_id", referencedColumnName="id")
      */

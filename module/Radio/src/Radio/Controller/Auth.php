@@ -8,7 +8,7 @@ use Zend\Mvc\Controller\AbstractActionController,
 class Auth extends AbstractActionController
 {
     use AuthService;
-    
+
     public function loginAction()
     {
         if (!$this->getRequest()->isPost())
@@ -29,7 +29,7 @@ class Auth extends AbstractActionController
         } else
             return $this->failed();
     }
-    
+
     public function logoutAction()
     {
         if (!$this->getAuthService()->hasIdentity())
@@ -37,7 +37,7 @@ class Auth extends AbstractActionController
         $this->getAuthService()->clearIdentity();
         return $this->success();
     }
-    
+
     private function success()
     {
         $identity = $this->getAuthService()->getIdentity();
@@ -46,7 +46,7 @@ class Auth extends AbstractActionController
             $identity = $identity->toArraySafe();
         return new JsonModel(array('success' => true, 'identity' => $identity));
     }
-    
+
     private function failed()
     {
         return new JsonModel(array('success' => false));

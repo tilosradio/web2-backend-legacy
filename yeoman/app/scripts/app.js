@@ -1,5 +1,5 @@
 /*global angular, window*/
-/*jshint indent: 2, undef: true, unused: true, strict: true, trailing: true, camelcase: true, eqeqeq: true, immed: true, white: true */
+/*jshint indent: 2, undef: true, unused: true, strict: true, trailing: true, camelcase: true, eqeqeq: true, immed: true, white: true, quotmark: single, curly: true */
 
 
 var dbg;
@@ -109,7 +109,7 @@ tilos.controller('FooterDatepicker', ['$scope', '$timeout', function ($scope, $t
   };
 
   $scope.dateOptions = {
-    'year-format': "'yyyy-mm-dd'",
+    'year-format': '\'yyyy-mm-dd\'',
     'starting-day': 1
   };
 }]);
@@ -238,9 +238,9 @@ tilos.directive('activeLink', ['$location', function (location) {
 
       //TODO it shoud be more error prone
       var path = element.children()[0].href;
-      path = path.substring(1 + path.indexOf("#"));
+      path = path.substring(1 + path.indexOf('#'));
       if (path.charAt(0) !== '/') {
-        path = "/" + path;
+        path = '/' + path;
       }
 
       scope.location = location;
@@ -287,6 +287,8 @@ tilos.factory('tilosData', ['$rootScope', '$http', 'API_SERVER_ENDPOINT', functi
   };
 }]);
 
-var server = window.location.protocol + "//" + window.location.hostname;
-if (window.location.port && window.location.port !== "9000") server = server + ":" + window.location.port;
+var server = window.location.protocol + '//' + window.location.hostname;
+if (window.location.port && window.location.port !== '9000') {
+  server = server + ':' + window.location.port;
+}
 angular.module('configuration', []).constant('API_SERVER_ENDPOINT', server);
