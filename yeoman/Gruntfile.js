@@ -12,7 +12,6 @@ module.exports = function (grunt) {
     require('time-grunt')(grunt);
     // load all grunt tasks
     require('load-grunt-tasks')(grunt);
-
     grunt.initConfig({
         // configurable paths
         yeoman: {
@@ -76,9 +75,9 @@ module.exports = function (grunt) {
         },
         clean: {
             dist: {
-               options: {
-                  force: true
-               },
+                options: {
+                    force: true
+                },
                 files: [{
                     dot: true,
                     src: [

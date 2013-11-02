@@ -27,9 +27,9 @@
     "grunt-modernizr": "latest",
     "grunt-svgmin": "latest",
     "grunt-concurrent": "latest",
-    "grunt-bower-requirejs": "latest",
     "load-grunt-tasks": "latest",
-    "time-grunt": "latest"
+    "time-grunt": "latest",
+    "grunt-connect-rewrite": "latest"
   },
   "engines": {
     "node": "latest"
