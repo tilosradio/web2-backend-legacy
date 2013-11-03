@@ -23,6 +23,7 @@ class Atom extends AbstractActionController {
 
         $episodes = EpisodeUtil::getEpisodeTimes($this->getEntityManager(), $showId, \time() - 60 * 60 * 24 * 30 * 10, \time());
         usort($episodes, array("\Radio\Controller\Atom", "comparator"));
+	$limit = 30;
         foreach ($episodes as $episode) {
             $from = $episode->getPlannedFrom()->getTimestamp();
             //+360 => 6 minutes to include the next half hour
@@ -55,7 +56,9 @@ class Atom extends AbstractActionController {
                 ));
                 $feed->addEntry($entry);
                 $idx++;
+		$limit--;
             }
+	    if ($limit < 0) break;
         }
         $response = $this->getResponse();
         $response->setStatusCode(200);
