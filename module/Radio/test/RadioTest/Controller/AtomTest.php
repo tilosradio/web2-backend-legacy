@@ -42,7 +42,7 @@ class AtomTest extends \PHPUnit_Framework_TestCase {
         //then
 
         //TODO make assertions
-	//        echo($response->getContent());
+	//echo($response->getContent());
     }
 
 }

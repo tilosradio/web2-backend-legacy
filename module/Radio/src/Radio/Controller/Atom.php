@@ -34,11 +34,12 @@ class Atom extends AbstractActionController {
 
                 $entry = $feed->createEntry();
                 $entry->setTitle($show->getName() . " " . $episode->getPlannedFrom()->format("Y-m-d") . " #" . $idx);
-                $entry->setLink('http://tilos.hu/atom/' . $showId);
+                $entry->setId(sprintf("http://tilos.hu/feed/%s/%02d/%02d/%02d/%s", $showId, $d['year'], $d['mon'], $d['mday'], $timestr));                      
+                $entry->setLink('http://tilos.hu/#/show/' . $showId);
                 foreach ($show->getAuthors() as $participation) {
                     $entry->addAuthor(array(
                         'name' => $participation->getNick(),
-                        'uri' => 'http://tilos.hu/#author/'.$participation->getAuthor()->getId(),
+                        'uri' => 'http://tilos.hu/#/author/'.$participation->getAuthor()->getId(),
                     ));
                 }
                 $entry->setDateModified($episode->getPlannedTo());
@@ -62,7 +63,8 @@ class Atom extends AbstractActionController {
             'Content-Type' => 'text/xml; charset=utf-8'
         ));
 
-        $response->setContent($feed->export('atom'));
+        $renderer = new \Radio\Util\CustomAtomFeedRenderer($feed);        
+        $response->setContent($renderer->render()->saveXml());
         return $response;
     }
 
