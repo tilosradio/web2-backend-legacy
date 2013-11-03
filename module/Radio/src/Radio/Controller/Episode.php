@@ -23,6 +23,8 @@ class Episode extends BaseController {
      */
     public function getList() {
         try {
+            //TODO use EpisodeUtil here
+            
             $start = $this->params()->fromQuery("start", time());
             $end = $this->params()->fromQuery("end", $start + 60 * 60 * 5);
             //retrieve valid scheduling rules
@@ -33,7 +35,8 @@ class Episode extends BaseController {
                 return new JsonModel(array());
             $return = array();
 
-            $weekstart = getdate(strtotime('this week', $start));
+            $weekstart = new \DateTime();
+            $weekstart->setTimestamp(EpisodeUtil::weekStart($start));
 
             foreach ($resultSet as $result) {
                 $a = $result->toArray();
@@ -42,8 +45,7 @@ class Episode extends BaseController {
                 $epi['show'] = $result->getShow()->toArrayShort();
 
                 //calculate actual date from
-                $from = new \DateTime();
-                $from->setDate($weekstart['year'], $weekstart['mon'], $weekstart['mday']);
+                $from = clone $weekstart;
                 $from->setTime($result->getHourFrom(), $result->getMinFrom(), 0);
                 $from->add(new \DateInterval("P" . $result->getWeekDay() . "D"));
 

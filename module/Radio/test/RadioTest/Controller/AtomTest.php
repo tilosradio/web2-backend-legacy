@@ -41,8 +41,8 @@ class AtomTest extends \PHPUnit_Framework_TestCase {
         $response = $this->controller->getResponse();
         //then
 
-        
-        echo($response->getContent());
+        //TODO make assertions
+	//        echo($response->getContent());
     }
 
 }
