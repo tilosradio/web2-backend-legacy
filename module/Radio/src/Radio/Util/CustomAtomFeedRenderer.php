@@ -107,4 +107,3 @@ class CustomAtomFeedRenderer extends \Zend\Feed\Writer\Renderer\Feed\Atom\Abstra
 
 }
 ?>
-
