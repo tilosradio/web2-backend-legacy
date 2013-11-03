@@ -1,4 +1,5 @@
 <?php
+
 namespace Radio;
 
 return array(
@@ -11,7 +12,8 @@ return array(
             'Radio\Controller\Auth' => 'Radio\Controller\Auth',
             'Radio\Controller\Text' => 'Radio\Controller\Text',
             'Radio\Controller\M3u' => 'Radio\Controller\M3u',
-            'Radio\Controller\User' => 'Radio\Controller\User'
+            'Radio\Controller\User' => 'Radio\Controller\User',
+            'Radio\Controller\Atom' => 'Radio\Controller\Atom'
         ),
     ),
     'router' => array(
@@ -92,7 +94,7 @@ return array(
                     'defaults' => array(
                         'controller' => 'Radio\Controller\Text',
                         'action' => 'listOfType'
-                     )
+                    )
                 )
             ),
             'm3u-creator' => array(
@@ -102,9 +104,18 @@ return array(
                     'defaults' => array(
                         'controller' => 'Radio\Controller\M3u',
                         'action' => 'download'),
-
                 )
-            )
+            ),
+            'show-rss' => array(
+                'type' => 'Segment',
+                'options' => array(
+                    'route' => '/feed/show/:id',
+                    'defaults' => array(
+                        'controller' => 'Radio\Controller\Atom',
+                        'action' => 'showFeed'
+                    )
+                )
+            ),
         )
     ),
     'view_manager' => array(
