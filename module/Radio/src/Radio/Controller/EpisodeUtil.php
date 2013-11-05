@@ -43,6 +43,10 @@ class EpisodeUtil {
         $query->setParameter("start", EpisodeUtil::toDateTime($from));
         $query->setParameter("end", EpisodeUtil::toDateTime($to));
         $episodes = $query->getResult();
+        foreach ($episodes as $episode) {
+            $episode->setM3uUrl(sprintf('m3u/%d/%d.m3u', $episode->getPlannedFrom()->getTimestamp(), 
+                    ($episode->getPlannedTo()->getTimestamp() - $episode->getPlannedFrom()->getTimestamp()) / 60));
+        }
 
         $result = array();
         $si = 0; //scheduled index
