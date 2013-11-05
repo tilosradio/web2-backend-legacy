@@ -9,9 +9,13 @@
     <h2>Legutóbbi adások</h2>
     <div class="panel panel-default" ng-repeat="episode in show.episodes">
         <div class="panel-heading">
-            <a href="{{server}}/{{episode.m3u}}">{{episode.plannedFrom * 1000| date: 'yyyy.MM.dd HH:mm'}}</a>
+            {{episode.plannedFrom * 1000| date: 'yyyy.MM.dd HH:mm'}}
+            <span ng-if="episode.text">{{episode.text.title}}</span>
+            <a class="pull-right" href="{{server}}/{{episode.m3u}}">meghallgat</a>
         </div>
-        <div class="panel-body"></div>
+        <div ng-if="episode.text" class="panel-body">
+            <span ng-bind-html="episode.text.content"></span>
+        </div>
     </div>
 </section>
 <aside class="col-md-3">

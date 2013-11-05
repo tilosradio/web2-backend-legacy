@@ -39,6 +39,15 @@ class EpisodeUtilTest extends \PHPUnit_Framework_TestCase {
         $result = EpisodeUtil::getEpisodeTimes($em, 485, mktime(0, 0, 0, 1, 1, 2013), mktime(23, 59, 59, 10, 30, 2013));
         $this->assertEquals(43, sizeof($result));
     }
+    
+      public function testGetEpisodesWithLog() {
+        $serviceManager = Bootstrap::getServiceManager();
+        $em = $serviceManager->get('doctrine.entitymanager.orm_default');
+        $this->assertNotNull($em);
+        $result = EpisodeUtil::getEpisodeTimes($em, 626, mktime(0, 0, 0, 1, 1, 2013), mktime(23, 59, 59, 10, 30, 2013));
+        var_dump($result);
+        $this->assertEquals(43, sizeof($result));
+    }
 
     public function testWeekStart() {
         $given = mktime(18, 22, 50, 10, 18, 2013);

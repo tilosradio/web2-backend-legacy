@@ -123,6 +123,9 @@ class Episode {
         $a['plannedTo'] = $this->getPlannedTo()->getTimestamp();
         $a['persistent'] = $this->getPersistent();
         $a['m3u'] = $this->getM3uUrl();
+        if ($this->getText()) {
+            $a['text'] = $this->getText()->toArray();
+        }
         return $a;
     }
 

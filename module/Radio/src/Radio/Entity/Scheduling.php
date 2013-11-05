@@ -21,6 +21,11 @@ class Scheduling {
      * @ORM\Column(type="smallint") 
      * */
     protected $weekType;
+    
+    /**
+     * @ORM\Column(type="date") 
+     * */
+    protected $base;
 
     /**
      * @ORM\Column(type="smallint") 
@@ -137,6 +142,16 @@ class Scheduling {
     public function setShow($show) {
         $this->show = $show;
     }
+    
+    public function getBase() {
+        return $this->base;
+    }
+
+    public function setBase($base) {
+        $this->base = $base;
+    }
+
+
 
 
 

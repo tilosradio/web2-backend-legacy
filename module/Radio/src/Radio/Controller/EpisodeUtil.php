@@ -37,7 +37,7 @@ class EpisodeUtil {
                 $current->modify("+ 7 days");
             }
         }
-        //retrieve episodes
+        //retrieve episodes       
         $query = $em->createQuery('SELECT e FROM Radio\Entity\Episode e WHERE e.show = :showId AND e.plannedTo > :start AND e.plannedFrom < :end ORDER BY e.plannedFrom');
         $query->setParameter("showId", $show);
         $query->setParameter("start", EpisodeUtil::toDateTime($from));
