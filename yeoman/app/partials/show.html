@@ -1,15 +1,24 @@
-<h1>{{show.name}}</h1>
+<section class="col-md-9 main" role="main" >
 
-<p><i>{{show.definition}}</i></p>
+    <h1>{{show.name}}</h1>
 
-<span ng-bind-html="show.description"></span>
+    <p><i>{{show.definition}}</i></p>
 
-<h2>Műsorkészítők</h2>
-<ul ng-repeat="author in show.authors">
-    <li><a href="#/author/{{author.id}}">{{author.nick}}</a></li>
-</ul>
+    <span ng-bind-html="show.description"></span>
 
-<h2>Legutóbbi adások</h2>
-<ul ng-repeat="episode in show.episodes">
-    <li><a href="{{server}}/{{episode.m3u}}">{{episode.plannedFrom * 1000 | date: 'yyyy.MM.dd HH:mm'}}</a> {{episode.persistent}}</li>
-</ul>
+    <h2>Legutóbbi adások</h2>
+    <ul ng-repeat="episode in show.episodes">
+        <li><a href="{{server}}/{{episode.m3u}}">{{episode.plannedFrom * 1000| date: 'yyyy.MM.dd HH:mm'}}</a> {{episode.persistent}}</li>
+    </ul>
+</section>
+<aside class="col-md-3">
+    <div class="box-simple" >
+        <h2>Műsorvezetők</h2>
+        <div class="row">
+            <figure  ng-repeat="author in show.authors" class="show-author">
+                <a href="#/author/{{author.id}}"><img src="upload/bio/{{author.avatar}}" alt="{{author.name}}"   class="show-author-image"></a>
+                <figcaption><a href="#/author/{{author.id}}">{{author.name}}</a></figcaption>
+            </figure>
+        </div>
+    </div>
+</aside>

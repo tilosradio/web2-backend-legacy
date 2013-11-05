@@ -1,22 +1,20 @@
-<h1>Összes műsor</h1>
+<section class="col-md-6 main" role="main" >
+    <h1>Beszélgetős műsorok</h1>
+    <table class="table">
+        <tr ng-repeat="show in shows['talk']">
+            <td><a href="#/show/{{show.id}}">{{show.name}}</a></td>
+            <td>{{show.definition}}</td>
+        </tr>
+    </table>
 
-
-<tabset>
-    <tab heading="Beszélgetős">
-       <table class="table">
-          <tr ng-repeat="show in shows['talk']">
-             <td><a href="#/show/{{show.id}}">{{show.name}}</a></td>
-             <td>{{show.definition}}</td>
-          </tr>
-       </table>
-    </tab>
-    <tab heading="Zenés">
-       <table class="table">
-          <tr ng-repeat="show in shows['sound']">
-             <td><a href="#/show/{{show.id}}">{{show.name}}</a></td>
-             <td>{{show.definition}}</td>
-          </tr>
-       </table>
-    </tab>
-</tabset>
+</section>
+<section class="col-md-6 main" role="main" >
+    <h1>Zenés műsorok</h1>
+    <table class="table">
+        <tr ng-repeat="show in shows['sound']">
+            <td><a href="#/show/{{show.id}}">{{show.name}}</a></td>
+            <td>{{show.definition}}</td>
+        </tr>
+    </table>
+</section>
 

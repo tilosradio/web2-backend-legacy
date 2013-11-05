@@ -10,7 +10,7 @@ tilos.weekStart = function (date) {
   'use strict';
   var first = date.getDate() - date.getDay() + 1;
   date.setHours(0);
-  date.setSeconds();
+  date.setSeconds(0);
   date.setMinutes(0);
   return new Date(date.setDate(first));
 };
@@ -39,36 +39,6 @@ tilos.config(['$routeProvider', function ($routeProvider) {
     redirectTo: '/index'
   });
 }]);
-
-tilos.controller('SideCtrl', ['$scope', '$routeParams', 'API_SERVER_ENDPOINT', '$http', function ($scope, $routeParams, $server, $http) {
-  'use strict';
-  var nowDate = new Date();
-  var start = (nowDate / 1000 - 60 * 60 * 3);
-  var now = nowDate.getTime() / 1000;
-  $scope.now = new Date();
-  $scope.Math = window.Math;
-  $http.get($server + '/api/episode?start=' + start + '&end=' + (start + 12 * 60 * 60)).success(function (data) {
-    for (var i = 0; i < data.length; i++) {
-      if (data[i].from <= now && data[i].to > now) {
-        $scope.current = data[i];
-      }
-    }
-    $scope.episodes = data;
-    $http.get($server + '/api/show/' + $scope.current.show.id).success(function (data) {
-      $scope.current.show = data;
-    });
-
-    //Get Facebook follower count
-    $http.get('https://graph.facebook.com/tilosradio').success(function (data) {
-      $scope.current.facebook = data;
-    });
-
-    //TODO: get Twitter follower count - Twitter API needs OAuth
-
-  });
-
-}]);
-
 
 tilos.controller('Collapse', ['$scope', function ($scope) {
   'use strict';
@@ -115,10 +85,31 @@ tilos.controller('FooterDatepicker', ['$scope', '$timeout', function ($scope, $t
 }]);
 
 
-tilos.controller('IndexCtrl', ['$scope', '$routeParams', 'tilosData', function ($scope, $routeParams, $td) {
+tilos.controller('IndexCtrl', ['$scope', '$routeParams', 'API_SERVER_ENDPOINT','tilosData', '$http', function ($scope, $routeParams, $server, $td, $http) {
   'use strict';
   $td.getNews(function (data) {
     $scope.news = data;
+  });
+  var nowDate = new Date();
+  var start = (nowDate / 1000 - 60 * 60 * 3);
+  var now = nowDate.getTime() / 1000;
+  $scope.now = new Date();
+  $scope.Math = window.Math;
+  $http.get($server + '/api/episode?start=' + start + '&end=' + (start + 12 * 60 * 60)).success(function (data) {
+    for (var i = 0; i < data.length; i++) {
+      if (data[i].from <= now && data[i].to > now) {
+        $scope.current = data[i];
+      }
+    }
+    $scope.episodes = data;
+    $http.get($server + '/api/show/' + $scope.current.show.id).success(function (data) {
+      $scope.current.show = data;
+    });
+
+    //Get Facebook follower count
+    $http.get('https://graph.facebook.com/tilosradio').success(function (data) {
+      $scope.current.facebook = data;
+    });
   });
 }]);
 
@@ -170,7 +161,7 @@ tilos.controller('ProgramCtrl', ['$scope', '$routeParams', 'API_SERVER_ENDPOINT'
   $scope.program = {};
   var refDate = new Date();
   refDate.setHours(0);
-
+  
   refDate.setSeconds(0);
   refDate.setMinutes(0);
   refDate.setMilliseconds(0);

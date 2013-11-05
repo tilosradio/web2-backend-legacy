@@ -1,20 +1,21 @@
-<h2>{{program[currentDay].date * 1000 | date: 'yyyy.MM.dd'}}</h2>
+<section class="col-md-12 main" role="main" >
+    <h2>{{program[currentDay].date * 1000| date: 'yyyy.MM.dd'}}</h2>
 
-<ul class="pager">
-  <li class="previous"><a ng-click="prev()" >&larr; Előző nap</a></li>
-  <li class="next"><a ng-click="next()" >Következő nap &rarr;</a></li>
-</ul>
+    <ul class="pager">
+        <li class="previous"><a ng-click="prev()" >&larr; Előző nap</a></li>
+        <li class="next"><a ng-click="next()" >Következő nap &rarr;</a></li>
+    </ul>
 
-<table class="table">
-  <thead>
-    <td>Időpont</td>
-    <td>Cím</td>
-    <td>Leírás</td>
-  </thead>
-<tr ng-repeat="episode in program[currentDay].episodes">
-  <td>{{episode.from * 1000 | date: 'HH:mm'}}</td>
-  <td><a href="#/show/{{episode.show.id}}">{{episode.show.name}}</a></td>
-  <td><i>{{episode.show.definition}}</i></td>
-</tr>
-<table>
-
+    <table class="table">
+        <thead>
+        <td>Időpont</td>
+        <td>Cím</td>
+        <td>Leírás</td>
+        </thead>
+        <tr ng-repeat="episode in program[currentDay].episodes">
+            <td>{{episode.from * 1000| date: 'HH:mm'}}</td>
+            <td><a href="#/show/{{episode.show.id}}">{{episode.show.name}}</a></td>
+            <td><i>{{episode.show.definition}}</i></td>
+        </tr>
+    </table>
+</section>

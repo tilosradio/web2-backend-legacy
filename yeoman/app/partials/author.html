@@ -1,9 +1,16 @@
-<h1>{{author.name}}</h1>
+<section class="col-md-9 main" role="main" >
+    <h1>{{author.name}}</h1>
 
-<img src="upload/bio/{{author.photo}}"/>
-<span ng-bind-html="author.introduction"></span>
+    <img src="upload/bio/{{author.photo}}"/>
+    <span ng-bind-html="author.introduction"></span>
 
-<h2>Műsorok</h2>
-<ul ng-repeat="show in author.showAuthors">
-    <li><a href="#/show/{{show.show.id}}">{{show.show.name}}</a></li>
-</ul>
+</section>
+
+<aside class="col-md-3">
+    <h2>Műsorok</h2>
+    <table class="table">
+        <tr ng-repeat="show in author.showAuthors">
+            <td><a href="#/show/{{show.show.id}}">{{show.show.name}}</a></td>
+        </tr>
+    </table>
+</aside>

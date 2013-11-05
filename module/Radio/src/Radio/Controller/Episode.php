@@ -36,7 +36,11 @@ class Episode extends BaseController {
             $return = array();
 
             $weekstart = new \DateTime();
-            $weekstart->setTimestamp(EpisodeUtil::weekStart($start));
+            if (date('w',$start) == 1) {
+                $weekstart->setTimestamp(strtotime('This Monday', $start));
+            } else {
+                $weekstart->setTimestamp(strtotime('Last Monday', $start));
+            }
 
             foreach ($resultSet as $result) {
                 $a = $result->toArray();
