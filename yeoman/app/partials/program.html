@@ -7,11 +7,6 @@
     </ul>
 
     <table class="table">
-        <thead>
-        <td>Időpont</td>
-        <td>Cím</td>
-        <td>Leírás</td>
-        </thead>
         <tr ng-repeat="episode in program[currentDay].episodes">
             <td>{{episode.from * 1000| date: 'HH:mm'}}</td>
             <td><a href="#/show/{{episode.show.id}}">{{episode.show.name}}</a></td>

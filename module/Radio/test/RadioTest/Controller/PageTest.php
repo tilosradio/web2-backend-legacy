@@ -11,7 +11,7 @@ use Zend\Mvc\MvcEvent;
 use Zend\Mvc\Router\RouteMatch;
 use PHPUnit_Framework_TestCase;
 
-class ShowTest extends \PHPUnit_Framework_TestCase {
+class PageTest extends \PHPUnit_Framework_TestCase {
 
     protected $controller;
     protected $request;
@@ -21,9 +21,9 @@ class ShowTest extends \PHPUnit_Framework_TestCase {
 
     protected function setUp() {
         $serviceManager = Bootstrap::getServiceManager();
-        $this->controller = new \Radio\Controller\Show();
+        $this->controller = new \Radio\Controller\Text();
         $this->request = new Request();
-        $this->routeMatch = new RouteMatch(array('controller' => 'M3u'));
+        $this->routeMatch = new RouteMatch(array('controller' => 'Text'));
         $this->event = new MvcEvent();
         $config = $serviceManager->get('Config');
         $routerConfig = isset($config['router']) ? $config['router'] : array();
@@ -35,33 +35,32 @@ class ShowTest extends \PHPUnit_Framework_TestCase {
         $this->controller->setServiceLocator($serviceManager);
     }
 
-    public function testShowGet() {
+    public function testPageGet() {
         //when        
-        $this->routeMatch->setParam('id', '557');
+        $this->routeMatch->setParam('id', '200');
 
         $result = $this->controller->dispatch($this->request);
         $response = $this->controller->getResponse();
         //then
 
-        $show = $result->getVariables();
-        //var_dump($show);
-        $this->assertEquals($show['alias'], "haza-es-haladas");
+        $page = $result->getVariables();
+        //var_dump($page);
+        $this->assertContains("Jelentőség", $page['content']);
     }
     
-      public function testShowGetWithAlias() {
+      /*public function testPageGetWithAlias() {
         //when        
-        $this->routeMatch->setParam('id', 'paholy');
+        $this->routeMatch->setParam('id', 'info');
 
         $result = $this->controller->dispatch($this->request);
         $response = $this->controller->getResponse();
         //then
 
-        $show = $result->getVariables();
+        $page = $result->getVariables();
+        //var_dump($page);
+        $this->assertContains("Jelentőség", $page['content']);
         
-        //var_dump($show);
-        $this->assertEquals($show['id'], 485);
-        
-    }
+    }*/
 
 }
 

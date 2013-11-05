@@ -19,22 +19,30 @@ class Show extends BaseController {
                 };
         return $res;
     }
+    
+    public function findEntityObject($type, $id) {
+        $qb = $this->getEntityManager()->createQueryBuilder();
+        $qb->select('a','sa','s')->from('\Radio\Entity\Show', 's');
+        if (is_numeric($id)) {
+            $qb->where('s.id = :id');
+        } else {
+            $qb->where('s.alias = :id');
+        }
+        $qb->leftJoin('s.authors', 'sa')->leftJoin('sa.author', 'a');
 
+        $q = $qb->getQuery();
+        $q->setParameter("id",$id);
+        return $q->getArrayResult()[0];
+    }
+    
     public function createLongConverter() {
         $res = function($result) {
-                    $a = $result->toArray();
-                    foreach ($result->getAuthors() as $author) {
-                        //$a = ShowAuthor record, $a->getAuthor = author record
-                        $tmp = $author->getAuthor()->toArrayShort();
-                        $tmp['nick'] = $author->getNick();
-                        $a['authors'][] = $tmp;
+                    $a = $result;
+                    unset($result['description']);
+                    foreach ($result['authors'] as $author) {
+                        unset($author['author']['introduction']);
                     }
                     $a['schedulings'] = array();
-                    foreach ($result->getSchedulings() as $scheduling) {
-                        $a['schedulings'][] = $scheduling->toArray();
-                    }
-
-
                     $a['episodes'] = array();
 
                     $now = time();
@@ -42,8 +50,7 @@ class Show extends BaseController {
                     foreach ($episodes as $epi) {
                         $a['episodes'][] = $epi->toArray();
                     }
-
-
+                    
                     return $a;
                 };
         return $res;

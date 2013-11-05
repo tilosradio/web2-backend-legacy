@@ -7,17 +7,20 @@
     <span ng-bind-html="show.description"></span>
 
     <h2>Legutóbbi adások</h2>
-    <ul ng-repeat="episode in show.episodes">
-        <li><a href="{{server}}/{{episode.m3u}}">{{episode.plannedFrom * 1000| date: 'yyyy.MM.dd HH:mm'}}</a> {{episode.persistent}}</li>
-    </ul>
+    <div class="panel panel-default" ng-repeat="episode in show.episodes">
+        <div class="panel-heading">
+            <a href="{{server}}/{{episode.m3u}}">{{episode.plannedFrom * 1000| date: 'yyyy.MM.dd HH:mm'}}</a>
+        </div>
+        <div class="panel-body"></div>
+    </div>
 </section>
 <aside class="col-md-3">
     <div class="box-simple" >
         <h2>Műsorvezetők</h2>
         <div class="row">
             <figure  ng-repeat="author in show.authors" class="show-author">
-                <a href="#/author/{{author.id}}"><img src="upload/bio/{{author.avatar}}" alt="{{author.name}}"   class="show-author-image"></a>
-                <figcaption><a href="#/author/{{author.id}}">{{author.name}}</a></figcaption>
+                <a href="#/author/{{author.author.alias}}"><img src="upload/bio/{{author.author.avatar}}" alt="{{author.nick}}"   class="show-author-image"></a>
+                <figcaption><a href="#/author/{{author.author.alias}}">{{author.nick}}</a></figcaption>
             </figure>
         </div>
     </div>
