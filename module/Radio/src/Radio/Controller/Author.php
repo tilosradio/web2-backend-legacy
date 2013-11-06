@@ -68,6 +68,13 @@ class Author extends BaseController {
         $q->setParameter("id",$id);
         return $q->getArrayResult()[0];
     }
+    
+    public function findEntityList($type) {
+        $qb = $this->getEntityManager()->createQueryBuilder();
+        $qb->select('a')->from('\Radio\Entity\Author', 'a');
+        $q = $qb->getQuery();
+        return $q->getArrayResult();
+    }
 
     public function create($data) {
         try {
