@@ -44,7 +44,7 @@ class Episode {
     protected $show;
 
     /**
-     * So called 'Adadnaplo'
+     * So called 'Adasnaplo'
      *
      * @ORM\OneToOne(targetEntity="TextContent")
      * @ORM\JoinColumn(name="textcontent_id", referencedColumnName="id")
@@ -65,11 +65,11 @@ class Episode {
     public function getPlannedFrom() {
         return $this->plannedFrom;
     }
-
+    
     public function getPlannedTo() {
         return $this->plannedTo;
     }
-
+    
     public function getRealFrom() {
         return $this->realFrom;
     }
@@ -81,7 +81,7 @@ class Episode {
     public function getShow() {
         return $this->show;
     }
-
+    
     public function setPlannedFrom($plannedFrom) {
         $this->plannedFrom = $plannedFrom;
     }
