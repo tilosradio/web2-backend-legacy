@@ -56,3 +56,4 @@ Contributors:
 - Márton Elek elek@anzix.net
 - Dávid Barkóczi david.barkoczi@gmail.com
 - Károly Kiripolszky karcsi@ekezet.com
+- Sándor Farkas sandor.farkas@gmail.com
