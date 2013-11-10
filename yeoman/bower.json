@@ -1,5 +1,5 @@
 {
-  "name": "radio-ui",
+  "name": "tilos",
   "version": "1.0.0",
   "dependencies": {
     "sass-bootstrap": "latest",
@@ -9,10 +9,7 @@
     "angular": "latest",
     "angular-route": "latest",
     "angular-sanitize": "latest",
-    "angular-ui-bootstrap-bower":"latest"
+    "angular-ui-bootstrap-bower": "latest"
   },
-  "devDependencies": {},
-  "resolutions": {
-    "angular": "1.2.0-rc.3"
-  }
+  "devDependencies": {}
 }

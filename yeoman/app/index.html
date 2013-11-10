@@ -1,5 +1,5 @@
 <!doctype html>
-<html ng-app="tilos">
+<html ng-app="tilosApp">
 <!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
 <!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
 <!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
@@ -32,6 +32,13 @@
     <!-- build:js scripts/angular.js -->
     <script src="scripts/app.js"></script>
     <script src="scripts/config.js"></script>
+    <script src="scripts/controllers/Author.js"></script>
+    <script src="scripts/controllers/Collapse.js"></script>
+    <script src="scripts/controllers/AllShow.js"></script>
+    <script src="scripts/controllers/Show.js"></script>
+    <script src="scripts/controllers/Page.js"></script>
+    <script src="scripts/directives/activeLink.js"></script>
+    <script src="scripts/services/tilosData.js"></script>
     <!-- endbuild -->
 
   </head>
@@ -43,7 +50,7 @@
 
 
     <div class="navbar-fixed-top">
-      <nav class="navbar navbar-default" role="navigation"  ng-controller="Collapse">
+      <nav class="navbar navbar-default" role="navigation"  ng-controller="CollapseCtrl">
         <!-- Brand and toggle get grouped for better mobile display -->
         <div class="navbar-header">
           <button type="button" class="navbar-toggle"  ng-click="isCollapsed = !isCollapsed">
@@ -124,11 +131,6 @@
           </nav>
         </div>
         <div class="col-md-3">
-          <div ng-controller="FooterDatepicker">
-            <div class="" ng-model="dt">
-              <datepicker min="minDate" show-weeks="showWeeks"></datepicker>
-            </div>
-          </div>
         </div>
       </div>
     </footer>

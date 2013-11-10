@@ -1,10 +1,7 @@
 /*global angular, window*/
 /*jshint indent: 2, undef: true, unused: true, strict: true, trailing: true, camelcase: true, eqeqeq: true, immed: true, white: true, quotmark: single, curly: true */
 
-
-var dbg;
-var tilos = angular.module('tilos', ['ngRoute', 'ngSanitize', 'configuration', 'ui.bootstrap']);
-
+var tilos = angular.module('tilosApp', ['ngRoute', 'ngSanitize', 'configuration', 'ui.bootstrap']);
 
 tilos.weekStart = function (date) {
   'use strict';
@@ -34,58 +31,13 @@ tilos.config(['$routeProvider', function ($routeProvider) {
     controller: 'PageCtrl'
   }).when('/shows', {
     templateUrl: 'partials/shows.html',
-    controller: 'AllShowCtrl'
+    controller: 'AllshowCtrl'
   }).otherwise({
     redirectTo: '/index'
   });
 }]);
 
-tilos.controller('Collapse', ['$scope', function ($scope) {
-  'use strict';
-  $scope.isCollapsed = false;
-}]);
-
-
-tilos.controller('FooterDatepicker', ['$scope', '$timeout', function ($scope, $timeout) {
-  'use strict';
-  $scope.today = function () {
-    $scope.dt = new Date();
-  };
-  $scope.today();
-
-  $scope.showWeeks = true;
-  $scope.toggleWeeks = function () {
-    $scope.showWeeks = ! $scope.showWeeks;
-  };
-
-  $scope.clear = function () {
-    $scope.dt = null;
-  };
-
-      // Disable weekend selection
-      // $scope.disabled = function (date, mode) {
-      //   return ( mode === 'day' && ( date.getDay() === 0 || date.getDay() === 6 ) );
-      // };
-
-      // $scope.toggleMin = function () {
-      //   $scope.minDate = ( $scope.minDate ) ? null : new Date();
-      // };
-      // $scope.toggleMin();
-
-  $scope.open = function () {
-    $timeout(function () {
-      $scope.opened = true;
-    });
-  };
-
-  $scope.dateOptions = {
-    'year-format': '\'yyyy-mm-dd\'',
-    'starting-day': 1
-  };
-}]);
-
-
-tilos.controller('IndexCtrl', ['$scope', '$routeParams', 'API_SERVER_ENDPOINT','tilosData', '$http', function ($scope, $routeParams, $server, $td, $http) {
+tilos.controller('IndexCtrl', ['$scope', '$routeParams', 'API_SERVER_ENDPOINT', 'tilosData', '$http', function ($scope, $routeParams, $server, $td, $http) {
   'use strict';
   $td.getNews(function (data) {
     $scope.news = data;
@@ -110,47 +62,6 @@ tilos.controller('IndexCtrl', ['$scope', '$routeParams', 'API_SERVER_ENDPOINT','
     $http.get('https://graph.facebook.com/tilosradio').success(function (data) {
       $scope.current.facebook = data;
     });
-  });
-}]);
-
-tilos.controller('AuthorCtrl', ['$scope', '$routeParams', 'API_SERVER_ENDPOINT', '$http', function ($scope, $routeParams, $server, $http) {
-  'use strict';
-  $http.get($server + '/api/author/' + $routeParams.id).success(function (data) {
-    $scope.author = data;
-  });
-}]);
-
-tilos.controller('PageCtrl', ['$scope', '$routeParams', 'tilosData', function ($scope, $routeParams, $td) {
-  'use strict';
-  $td.getText($routeParams.id, function (data) {
-    $scope.page = data;
-  });
-}]);
-
-tilos.controller('AllShowCtrl', ['$scope', '$routeParams', 'API_SERVER_ENDPOINT', '$http', function ($scope, $routeParams, $server, $http) {
-  'use strict';
-  $http.get($server + '/api/show').success(function (data) {
-    var res = {
-      talk: [],
-      sound: []
-    };
-    for (var i = 0; i < data.length; i++) {
-      var show = data[i];
-      if (show.type) {
-        res.talk.push(data[i]);
-      } else {
-        res.sound.push(data[i]);
-      }
-    }
-    $scope.shows = res;
-  });
-}]);
-
-tilos.controller('ShowCtrl', ['$scope', '$routeParams', 'API_SERVER_ENDPOINT', '$http', function ($scope, $routeParams, $server, $http) {
-  'use strict';
-  $http.get($server + '/api/show/' + $routeParams.id).success(function (data) {
-    $scope.show = data;
-    $scope.server = $server;
   });
 }]);
 
@@ -218,64 +129,6 @@ tilos.controller('ProgramCtrl', ['$scope', '$routeParams', 'API_SERVER_ENDPOINT'
   $http.get($server + '/api/episode?start=' + from + '&end=' + to).success(function (data) {
     processResult(data);
   });
-}]);
-
-tilos.directive('activeLink', ['$location', function (location) {
-  'use strict';
-  return {
-    restrict: 'A',
-    link: function (scope, element, attrs) {
-      var clazz = attrs.activeLink;
-
-      //TODO it shoud be more error prone
-      var path = element.children()[0].href;
-      path = path.substring(1 + path.indexOf('#'));
-      if (path.charAt(0) !== '/') {
-        path = '/' + path;
-      }
-
-      scope.location = location;
-      scope.$watch('location.path()', function (newPath) {
-        dbg = element;
-        if (path === newPath) {
-          element.addClass(clazz);
-        } else {
-          element.removeClass(clazz);
-        }
-      });
-
-    }
-  };
-}]);
-
-tilos.factory('tilosData', ['$rootScope', '$http', 'API_SERVER_ENDPOINT', function ($root, $http, $server) {
-  'use strict';
-  return {
-    name : 'anonymous',
-    getNews: function (callback) {
-      if ($root.news) {
-        callback($root.news);
-      } else {
-        $http.get($server + '/api/text/news/list').success(function (data) {
-          $root.news = data;
-          callback(data);
-        });
-      }
-    },
-    getText: function (id, callback) {
-      if ($root.text && $root.text[id]) {
-        callback($root.text[id]);
-      } else {
-        if (!$root.text) {
-          $root.text = {};
-        }
-        $http.get($server + '/api/text/' + id).success(function (data) {
-          $root.text[id] = data;
-          callback(data);
-        });
-      }
-    }
-  };
 }]);
 
 var server = window.location.protocol + '//' + window.location.hostname;
