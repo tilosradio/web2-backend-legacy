@@ -6,11 +6,11 @@
         <li class="next"><a ng-click="next()" >Következő nap &rarr;</a></li>
     </ul>
 
-    <table class="table">
+    <table class="table table-hover" id="archiveTable">
         <tr ng-repeat="episode in program[currentDay].episodes">
             <td>{{episode.from * 1000| date: 'HH:mm'}}</td>
-            <td><a href="#/show/{{episode.show.id}}">{{episode.show.name}}</a></td>
-            <td><i>{{episode.show.definition}}</i></td>
+            <td class="archiveShowName"><a href="#/show/{{episode.show.id}}">{{episode.show.name}}</a></td>
+            <td class="archiveItalic">{{episode.show.definition}}</td>
         </tr>
     </table>
 </section>

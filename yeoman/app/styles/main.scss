@@ -138,7 +138,7 @@ img{
 // header navigation
 
 .navbar-collapse.ng-hide{
-   @media (min-width: $screen-sm){ 
+   @media (min-width: $screen-sm){
     display: block !important;
   }
 }
@@ -408,7 +408,7 @@ aside{
     color: $primary-color;
     text-decoration: none;
   }
-  @media (min-width: $screen-lg){ 
+  @media (min-width: $screen-lg){
      font-size: 31px;
   }
 }
@@ -447,7 +447,7 @@ aside{
     a{
       display: block;
     }
-  } 
+  }
 }
 
 .backing{
@@ -619,4 +619,41 @@ a.icon-star, a.icon-star2{
       width: 40px;
     }
   }
+}
+
+.previous{
+	cursor: pointer;
+}
+
+.next{
+	cursor: pointer;
+}
+
+//Style of Archive
+#archiveTable tr:hover > td{
+	background-color: $gray-dark-hover-background;
+}
+
+#archiveTable tr:hover a{
+	color: $actual-color;
+	font-weight: bold;
+}
+
+#archiveTable a{
+	color: $gray-dark-table;
+}
+
+#archiveTable a:hover{
+	text-decoration: none;
+}
+
+.archiveItalic{
+	color: $gray-light-table;
+	font-style:italic;
+	font-family: "Open Sans",sans-serif;
+	font-size: 14px;
+}
+
+.archiveShowName{
+	font-size: 18px;
 }
