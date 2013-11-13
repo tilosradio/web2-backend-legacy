@@ -1,16 +1,29 @@
 <section class="col-md-12 main" role="main" >
-    <h2>{{program[currentDay].date * 1000| date: 'yyyy.MM.dd'}}</h2>
+    <h2>
+		<div class="form-horizontal">
+			<button class="btn" ng-click="open()">
+	        	<i class="icon-calendar"></i>
+	        </button>
+	        <input type="text" class="datepicker" datepicker-popup="yyyy.MM.dd"
+	        	ng-model="program[currentDay].date" is-open="opened" min="minDate" max="'2015-06-22'"
+	        	datepicker-options="dateOptions" date-disabled="disabled(date, mode)"
+	        	ng-required="true" />
+
+	    </div>
+
+    </h2>
 
     <ul class="pager">
         <li class="previous"><a ng-click="prev()" >&larr; Előző nap</a></li>
         <li class="next"><a ng-click="next()" >Következő nap &rarr;</a></li>
     </ul>
 
-    <table class="table table-hover" id="archiveTable">
-        <tr ng-repeat="episode in program[currentDay].episodes">
-            <td>{{episode.from * 1000| date: 'HH:mm'}}</td>
-            <td class="archiveShowName"><a href="#/show/{{episode.show.id}}">{{episode.show.name}}</a></td>
-            <td class="archiveItalic">{{episode.show.definition}}</td>
-        </tr>
-    </table>
+	<table class="table table-hover" id="archiveTable">
+		<tr ng-repeat="episode in program[currentDay].episodes">
+			<td class="archiveShowName"><a href="#/show/{{episode.show.id}}">{{episode.show.name}}</a></td>
+			<td class="archiveItalic">{{episode.show.definition}}</td>
+			<td>{{episode.from * 1000| date: 'HH:mm'}}</td>
+			<td>Műsorvezető: <!--TODO: ide jon majd az episode.author, amint rajovok, hogyan mukodik a Doctrine :)--></td>
+		</tr>
+	</table>
 </section>

@@ -72,7 +72,7 @@ tilos.controller('ProgramCtrl', ['$scope', '$routeParams', 'API_SERVER_ENDPOINT'
   $scope.program = {};
   var refDate = new Date();
   refDate.setHours(0);
-  
+
   refDate.setSeconds(0);
   refDate.setMinutes(0);
   refDate.setMilliseconds(0);
@@ -97,9 +97,10 @@ tilos.controller('ProgramCtrl', ['$scope', '$routeParams', 'API_SERVER_ENDPOINT'
     };
     for (var key in result) {
       result[key].episodes.sort(sortFunction);
-      result[key].date = result[key].episodes[0].from;
+      result[key].date = result[key].episodes[0].from*1000;
     }
     $scope.program = result;
+
   };
   $scope.currentDay = 0;
   $scope.prev = function () {
@@ -136,3 +137,4 @@ if (window.location.port && window.location.port !== '9000') {
   server = server + ':' + window.location.port;
 }
 angular.module('configuration', []).constant('API_SERVER_ENDPOINT', server);
+
