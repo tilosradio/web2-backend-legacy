@@ -364,7 +364,8 @@ module.exports = function (grunt) {
     'uglify',
     'copy:php',
     'copy:dist',
-    'rev',
+    'imagemin:dist',
+//    'rev',
     'usemin'
   ]);
   grunt.registerTask('buildlive', [
@@ -379,8 +380,9 @@ module.exports = function (grunt) {
     'uglify',
     'copy:php',
     'copy:dist',
-    'rev',
-    'usemin',
+    'imagemin:dist',
+ //   'rev',
+    'usemin1',
     'connect:livereload',
     'watch'
   ]);
