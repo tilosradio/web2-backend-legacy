@@ -43,7 +43,7 @@ class EpisodeTest extends \PHPUnit_Framework_TestCase {
         $response = $this->controller->getResponse();
         //then
         $episodes = $result->getVariables();
-        var_dump($episodes);
+        //var_dump($episodes);
         $this->assertTrue(count($episodes) > 0);
     }
 
