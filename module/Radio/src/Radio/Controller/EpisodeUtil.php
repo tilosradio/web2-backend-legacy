@@ -13,11 +13,12 @@ class EpisodeUtil {
         //retrieve active rules
         $query = $em->createQuery('SELECT e FROM Radio\Entity\Scheduling e WHERE e.show = :showId ORDER BY e.weekDay,e.hourFrom,e.minFrom');
         $query->setParameter("showId", $show);
-        $resultSet = $query->getResult();
+        $resultSet = $query->getArrayResult();
 
         $scheduled = array();
         foreach ($resultSet as $result) {
-            $scheduling = $result->toArray();
+            $scheduling = $result;
+
             $current = new \DateTime();
             $current->setTimestamp(EpisodeUtil::weekStart($from + 60 * 60 * 5));
             $current->setTime(12, 0, 0);
@@ -25,7 +26,14 @@ class EpisodeUtil {
             while ($current->getTimestamp() < $to) {
                 $real = clone $current;
                 $real->setTime($scheduling['hourFrom'],$scheduling['minFrom'],0);
-                if ($real->getTimestamp() >= $from && $real->getTimestamp() < $to) {
+		$selectedWeek = true;
+     		if ($scheduling['weekType'] > 1) { 
+		   $weekNo = ($real->getTimestamp() - $scheduling['base']->getTimestamp()) / (7 * 60 * 60 * 24);
+ 		   if (round($weekNo) % $scheduling['weekType'] != 0) {
+                        $selectedWeek = false;
+                   }
+		}
+                if ($selectedWeek && $real->getTimestamp() >= $from && $real->getTimestamp() < $to) {
                     $e = new \Radio\Entity\Episode();
                     $realEnd = $real->getTimestamp() + $scheduling['duration'] * 60;
                     $e->setPlannedFrom($real);
