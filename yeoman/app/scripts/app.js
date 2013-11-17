@@ -37,100 +37,37 @@ tilos.config(['$routeProvider', function ($routeProvider) {
   });
 }]);
 
-tilos.controller('IndexCtrl', ['$scope', '$routeParams', 'API_SERVER_ENDPOINT', 'tilosData', '$http', function ($scope, $routeParams, $server, $td, $http) {
-  'use strict';
-  $td.getNews(function (data) {
-    $scope.news = data;
-  });
-  var nowDate = new Date();
-  var start = (nowDate / 1000 - 60 * 60 * 3);
-  var now = nowDate.getTime() / 1000;
-  $scope.now = new Date();
-  $scope.Math = window.Math;
-  $http.get($server + '/api/episode?start=' + start + '&end=' + (start + 12 * 60 * 60)).success(function (data) {
-    for (var i = 0; i < data.length; i++) {
-      if (data[i].from <= now && data[i].to > now) {
-        $scope.current = data[i];
-      }
-    }
-    $scope.episodes = data;
-    $http.get($server + '/api/show/' + $scope.current.show.id).success(function (data) {
-      $scope.current.show = data;
-    });
+var DatepickerCtrl = function ($scope, $timeout) {
+	$scope.today = function() {
+		$scope.dt = new Date();
+	};
+	$scope.today();
 
-    //Get Facebook follower count
-    $http.get('https://graph.facebook.com/tilosradio').success(function (data) {
-      $scope.current.facebook = data;
-    });
-  });
-}]);
+	$scope.showWeeks = true;
+	$scope.toggleWeeks = function () {
+		$scope.showWeeks = ! $scope.showWeeks;
+	};
 
-tilos.controller('ProgramCtrl', ['$scope', '$routeParams', 'API_SERVER_ENDPOINT', '$http', function ($scope, $routeParams, $server, $http) {
-  'use strict';
-  var from = (tilos.weekStart(new Date()) / 1000);
-  var to = from + 7 * 24 * 60 * 60;
-  $scope.program = {};
-  var refDate = new Date();
-  refDate.setHours(0);
+	$scope.clear = function () {
+		$scope.dt = null;
+	};
 
-  refDate.setSeconds(0);
-  refDate.setMinutes(0);
-  refDate.setMilliseconds(0);
-  refDate = refDate.getTime() / 1000;
-  var processResult = function (data) {
-    var result = $scope.program;
-    //index episodes by day
-    for (var i = 0; i < data.length; i++) {
-      var idx = Math.floor((data[i].from - refDate) / (60 * 60 * 24));
-      data[i].idx = idx;
-      if (!result[idx]) {
-        result[idx] = {
-          episodes: []
-        };
-      }
-      result[idx].episodes.push(data[i]);
-    }
+	$scope.toggleMin = function() {
+		$scope.minDate = ( $scope.minDate ) ? null : new Date();
+	};
+	$scope.toggleMin();
 
-    //sort every day
-    var sortFunction = function (a, b) {
-      return a.from - b.from;
-    };
-    for (var key in result) {
-      result[key].episodes.sort(sortFunction);
-      result[key].date = result[key].episodes[0].from*1000;
-    }
-    $scope.program = result;
+	$scope.open = function() {
+		$timeout(function() {
+			$scope.opened = true;
+		});
+	};
 
-  };
-  $scope.currentDay = 0;
-  $scope.prev = function () {
-    if ($scope.program[$scope.currentDay - 1]) {
-      $scope.currentDay--;
-    } else {
-      var oldFrom = from;
-      from = from - 7 * 24 * 60 * 60;
-      $http.get($server + '/api/episode?start=' + from + '&end=' + oldFrom).success(function (data) {
-        $scope.currentDay--;
-        processResult(data);
-      });
-    }
-  };
-  $scope.next = function () {
-    if ($scope.program[$scope.currentDay + 1]) {
-      $scope.currentDay++;
-    } else {
-      var oldTo = to;
-      to = to + 7 * 24 * 60 * 60;
-      $http.get($server + '/api/episode?start=' + oldTo + '&end=' + to).success(function (data) {
-        $scope.currentDay++;
-        processResult(data);
-      });
-    }
-  };
-  $http.get($server + '/api/episode?start=' + from + '&end=' + to).success(function (data) {
-    processResult(data);
-  });
-}]);
+	$scope.dateOptions = {
+		'year-format': "'yy'",
+		'starting-day': 1
+	};
+};
 
 var server = window.location.protocol + '//' + window.location.hostname;
 if (window.location.port && window.location.port !== '9000') {

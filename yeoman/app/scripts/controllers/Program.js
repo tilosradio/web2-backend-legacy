@@ -1,4 +1,6 @@
 /*global angular*/
+/*jshint indent: 2, undef: true, unused: true, strict: true, trailing: true, camelcase: true, eqeqeq: true, immed: true, white: true, quotmark: single, curly: true */
+'use strict';
 
 angular.module('tilosApp')
 	.controller('ProgramCtrl', ['$scope', '$routeParams', 'API_SERVER_ENDPOINT', '$http',
@@ -7,6 +9,7 @@ angular.module('tilosApp')
 		var from = (tilos.weekStart(new Date()) / 1000);
 		var to = from + 7 * 24 * 60 * 60;
 		$scope.program = {};
+		$scope.currentDay = 0;
 		var refDate = new Date();
 		refDate.setHours(0);
 
@@ -14,8 +17,38 @@ angular.module('tilosApp')
 		refDate.setMinutes(0);
 		refDate.setMilliseconds(0);
 		refDate = refDate.getTime() / 1000;
-		var processResult = function (data) {
 
+		$scope.prev = function () {
+			if ($scope.program[$scope.currentDay - 1]) {
+				$scope.currentDay--;
+			} else {
+				var oldFrom = from;
+				from = from - 7 * 24 * 60 * 60;
+				$http.get($server + '/api/episode?start=' + from + '&end=' + oldFrom).success(function (data) {
+					$scope.currentDay--;
+					processResult(data);
+				});
+			}
+		};
+
+		$scope.next = function () {
+			if ($scope.program[$scope.currentDay + 1]) {
+				$scope.currentDay++;
+			} else {
+				var oldTo = to;
+				to = to + 7 * 24 * 60 * 60;
+				$http.get($server + '/api/episode?start=' + oldTo + '&end=' + to).success(function (data) {
+					$scope.currentDay++;
+					processResult(data);
+				});
+			}
+		};
+
+		$scope.getDay = function(){
+			//TODO!
+		}
+
+		var processResult = function (data) {
 			var result = $scope.program;
 			//index episodes by day
 			for (var i = 0; i < data.length; i++) {
@@ -38,31 +71,11 @@ angular.module('tilosApp')
 				result[key].date = result[key].episodes[0].from*1000;
 			}
 			$scope.program = result;
-
-		};
-
-		$scope.currentDay = 0;
-		$scope.prev = function () {
-			if ($scope.program[$scope.currentDay - 1]) {
-				$scope.currentDay--;
-			} else {
+			//Sometimes result[0] is not set.
+			if(result[0] == undefined){
 				var oldFrom = from;
 				from = from - 7 * 24 * 60 * 60;
 				$http.get($server + '/api/episode?start=' + from + '&end=' + oldFrom).success(function (data) {
-					$scope.currentDay--;
-					processResult(data);
-				});
-			}
-		};
-
-		$scope.next = function () {
-			if ($scope.program[$scope.currentDay + 1]) {
-				$scope.currentDay++;
-			} else {
-				var oldTo = to;
-				to = to + 7 * 24 * 60 * 60;
-				$http.get($server + '/api/episode?start=' + oldTo + '&end=' + to).success(function (data) {
-					$scope.currentDay++;
 					processResult(data);
 				});
 			}

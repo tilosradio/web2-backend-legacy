@@ -1,15 +1,16 @@
 <section class="col-md-12 main" role="main" >
     <h2>
-		<div class="form-horizontal">
-			<button class="btn" ng-click="open()">
-	        	<i class="icon-calendar"></i>
-	        </button>
-	        <input type="text" class="datepicker" datepicker-popup="yyyy.MM.dd"
-	        	ng-model="currentDay" is-open="opened" min="minDate" max="maxDate"
-	        	datepicker-options="dateOptions" date-disabled="disabled(date, mode)"
-	        	ng-required="true" />
-	    </div>
-
+    	<div ng-controller="DatepickerCtrl">
+			<div class="form-horizontal">
+				<button class="btn" ng-click="open()">
+		        	<i class="icon-calendar"></i>
+		        </button>
+		        <input type="text" class="datepicker" datepicker-popup="yyyy.MM.dd"
+		        	ng-model="program[currentDay].date" is-open="opened" min="minDate" max="maxDate"
+		        	datepicker-options="dateOptions" date-disabled="disabled(date, mode)"
+		        	ng-required="true" ng-change="getDay();" />
+		    </div>
+		</div>
     </h2>
 
     <ul class="pager">
