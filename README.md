@@ -57,3 +57,4 @@ Contributors:
 - Dávid Barkóczi david.barkoczi@gmail.com
 - Károly Kiripolszky karcsi@ekezet.com
 - Sándor Farkas sandor.farkas@gmail.com
+- Eva Hajdu vid.eskin@gmail.com
