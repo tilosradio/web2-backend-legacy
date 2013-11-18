@@ -2,7 +2,7 @@
     <h1>Beszélgetős műsorok</h1>
     <table class="table">
         <tr ng-repeat="show in shows['talk']">
-            <td><a href="#/show/{{show.id}}">{{show.name}}</a></td>
+            <td><a href="#/show/{{show.alias}}">{{show.name}}</a></td>
             <td>{{show.definition}}</td>
         </tr>
     </table>
@@ -12,7 +12,7 @@
     <h1>Zenés műsorok</h1>
     <table class="table">
         <tr ng-repeat="show in shows['sound']">
-            <td><a href="#/show/{{show.id}}">{{show.name}}</a></td>
+            <td><a href="#/show/{{show.alias}}">{{show.name}}</a></td>
             <td>{{show.definition}}</td>
         </tr>
     </table>

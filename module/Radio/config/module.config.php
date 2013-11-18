@@ -82,7 +82,6 @@ return array(
                 'type' => 'Segment',
                 'options' => array(
                     'route' => '/api/text[/:id]',
-                    'constraints' => array('id' => '[0-9]*',),
                     'defaults' => array('controller' => 'Radio\Controller\Text',)
                 )
             ),

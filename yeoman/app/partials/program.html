@@ -20,7 +20,7 @@
 
 	<table class="table table-hover" id="archiveTable">
 		<tr ng-repeat="episode in program[currentDay].episodes">
-			<td class="archiveShowName"><a href="#/show/{{episode.show.id}}">{{episode.show.name}}</a></td>
+			<td class="archiveShowName"><a href="#/show/{{episode.show.alias}}">{{episode.show.name}}</a></td>
 			<td class="archiveItalic">{{episode.show.definition}}</td>
 			<td>{{episode.from * 1000| date: 'HH:mm'}}</td>
 			<td>Műsorvezető: <!--TODO: ide jon majd az episode.author, amint rajovok, hogyan mukodik a Doctrine :)--></td>

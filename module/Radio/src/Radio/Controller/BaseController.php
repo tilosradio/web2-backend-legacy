@@ -12,8 +12,7 @@ use Zend\View\Model\JsonModel;
 class BaseController extends AbstractRestfulController {
 
     use EntityManager;
-    
-   
+       
     public function findEntityObject($type, $id) {
         return $this->getEntityManager()->find($type, $id);
     }

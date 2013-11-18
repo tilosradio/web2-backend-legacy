@@ -48,7 +48,7 @@ class PageTest extends \PHPUnit_Framework_TestCase {
         $this->assertContains("Jelentőség", $page['content']);
     }
     
-      /*public function testPageGetWithAlias() {
+    public function testPageGetWithAlias() {
         //when        
         $this->routeMatch->setParam('id', 'info');
 
@@ -57,10 +57,10 @@ class PageTest extends \PHPUnit_Framework_TestCase {
         //then
 
         $page = $result->getVariables();
-        //var_dump($page);
+        var_dump($page);
         $this->assertContains("Jelentőség", $page['content']);
         
-    }*/
+    }
 
 }
 
