@@ -21,7 +21,6 @@ angular.module('tilosApp')
 			$scope.episodes = data;
 		});
 
-
 		//Get Facebook follower count
 		$http.get('https://graph.facebook.com/tilosradio').success(function (data) {
 			$scope.facebook = data;

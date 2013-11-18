@@ -17,6 +17,23 @@ h2{
     font-size: 20px;
 }
 
+.ubuntu{
+	font-family: "Ubuntu Condensed",sans-serif;
+}
+
+@mixin bordered{
+	border-bottom: 1px solid $primary-color;
+	padding-bottom: 1em;
+}
+
+.bordered{
+	@include bordered;
+}
+
+.blue{
+	color: $lightblue;
+}
+
 // original: http://www.456bereastreet.com/archive/201105/styling_ordered_list_numbers/
 
 ol {
@@ -322,7 +339,7 @@ img{
 }
 
 .facebook-share, .google-share{
-    background: $social-backgronud;
+    background: $social-background;
     color: white;
     display: inline-block;
     font-size: 16px;
@@ -412,9 +429,7 @@ aside{
     border-bottom: 1px solid $primary-color;
     padding-bottom: 1em;
     h2{
-       border-bottom: 1px solid $primary-color;
-       margin-bottom: 2em;
-       padding-bottom: 1em;
+       @include bordered;
     }
   }
 }
