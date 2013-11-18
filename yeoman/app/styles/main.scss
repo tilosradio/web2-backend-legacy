@@ -13,7 +13,8 @@ body{
 }
 
 h2{
-    font-size: 22px;
+	font-family: "Open Sans",sans-serif;
+    font-size: 20px;
 }
 
 // original: http://www.456bereastreet.com/archive/201105/styling_ordered_list_numbers/
@@ -207,11 +208,31 @@ img{
         background: rgba(white, 0.1);
         padding-top: 10px;
         width: 100%;
+        height:110px;
         h3{
-            margin-top: 0;
+            margin: 30px auto;
             padding: 0 10px;
             text-align: center;
+            font-size: 18px;
+            font-family: "Open Sans",sans-serif;
+            font-weight: bold;
         }
+        h4{
+        	margin-top: 0;
+            padding: 0 10px;
+            text-align: left;
+            font-size: 16px;
+            font-family: "Open Sans",sans-serif;
+		}
+		.radio-fromTo{
+			font-size: 20px;
+			font-weight: normal;
+		}
+		.radio-formatList{
+			//width:60%;
+		}
+
+
     }
 }
 
