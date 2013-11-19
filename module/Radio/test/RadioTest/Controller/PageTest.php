@@ -57,8 +57,8 @@ class PageTest extends \PHPUnit_Framework_TestCase {
         //then
 
         $page = $result->getVariables();
-        var_dump($page);
-        $this->assertContains("Jelentőség", $page['content']);
+        //var_dump($page);
+        $this->assertContains("Szabadrádió", $page['content']);
         
     }
 
