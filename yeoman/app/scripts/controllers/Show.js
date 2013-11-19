@@ -8,20 +8,5 @@ angular.module('tilosApp')
 			$scope.show = data;
 			$scope.server = $server;
 		});
-
-		//@TODO: this section is from index.js, should be elsewhere so it could be reused, not copied!!
-		var nowDate = new Date();
-		var start = (nowDate / 1000 - 60 * 60 * 3);
-		var now = nowDate.getTime() / 1000;
-		$scope.now = new Date();
-		$scope.Math = window.Math;
-		$http.get($server + '/api/episode?start=' + start + '&end=' + (start + 12 * 60 * 60)).success(function (data) {
-			for (var i = 0; i < data.length; i++) {
-				if (data[i].from <= now && data[i].to > now) {
-					$scope.current = data[i];
-				}
-			}
-			$scope.episodes = data;
-		});
 	}
 ]);

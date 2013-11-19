@@ -1,0 +1,48 @@
+<div class="box">
+	<h2>Szólj hozzá</h2>
+	<h3>Adástelefon</h3>
+	<a href="tel:+3612153773" class="tel">(+36 1) 215 37 73</a>
+	<a href="#" class="btn btn-danger btn-block btn-lg" role="button"><span class="icon-chat2"></span>Belépés a chatre</a>
+</div> <!-- box -->
+
+<div class="box-simple" ng-controller="EpisodesCtrl">
+	<h2>Műsorvezetők</h2>
+	<div class="row">
+		<figure ng-repeat="author in current.show.authors" class="show-author">
+			<a href="#/author/{{author.alias}}"><img src="upload/bio/{{author.avatar}}" alt="{{author.name}}"   class="show-author-image"></a>
+			<figcaption><a href="#/author/{{author.alias}}">{{author.name}}</a></figcaption>
+		</figure>
+	</div>
+	<a href="#0" class="btn-default btn btn-lg btn-block"><span class="icon-add"></span>Kövesd!</a>
+</div> <!-- box-simple -->
+
+<div class="box-simple archive-little">
+	<h2>Archívum</h2>
+	<div class="row">
+		<div class="col-xs-4">
+			<a href="#" class="btn btn-block btn-default">Hét</a>
+		</div>
+		<div class="col-xs-4">
+			<a href="#" class="btn btn-block btn-danger">Hónap</a>
+		</div>
+		<div class="col-xs-4">
+			<a href="#" class="btn btn-block btn-default">Év</a>
+		</div>
+	</div>
+	<table class="table table-hover">
+		<tbody>
+			<tr>
+				<td><a href="#0">Április</a></td>
+				<td class="text-right"><a href="#0">2013</a></td>
+			</tr>
+			<tr>
+				<td><a href="#0">Május</a></td>
+				<td class="text-right"><a href="#0">2013</a></td>
+			</tr>
+			<tr>
+				<td><a href="#0">Június</a></td>
+				<td class="text-right"><a href="#0">2013</a></td>
+			</tr>
+		</tbody>
+	</table>
+</div> <!-- /archive-little -->
