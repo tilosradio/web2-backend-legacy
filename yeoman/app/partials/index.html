@@ -1,11 +1,11 @@
 <section class="col-md-6 main" role="main" >
     <article ng-repeat="item in news">
         <h1>{{item.title}}</h1>
-        {{item.content}}
+           <span ng-bind-html="item.formatted"></span>
         <footer>
             <div class="article-info">
-                <a href="#0" class="author">{{item.author}} </a>
-                <time datetime="2013-11-06">2013. november 6.</time>
+                <span class="author">{{item.author}} </span]>
+                <time datetime="{{item.created * 1000 | date: 'yyyy-MM-dd'	}}">{{item.created * 1000 | date: 'yyyy.MM.dd'}}</time>
             </div>
             <!--div class="social">
                 <a href="#" class="facebook-share"><span class="icon-facebook"></span>Megosztom <span class="share-numb">5k</span></a>
