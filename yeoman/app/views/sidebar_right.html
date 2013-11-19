@@ -5,17 +5,26 @@
                 <label>Egyszeri támogatás</label>
             </div>
             <div class="col-xs-4">
-                <a href="#0" target="_blank" class="btn btn-default" role="button">mehet</a>
+            	<form  action="https://www.paypal.com/cgi-bin/webscr">
+            	<input type="hidden" name="cmd" value="_s-xclick">
+                <input type="hidden" name="hosted_button_id" value="VK5YWMWAGKEE4">
+                <button type="submit" class="btn btn-default" role="button">mehet</button>
+                </form>
             </div>
         </div> <!-- /row -->
-        <form action="/" class="form-inline row">
+        <form action="https://www.paypal.com/cgi-bin/webscr"  class="form-inline row">
+            <input type="hidden" name="cmd" value="_s-xclick">
+            <input type="hidden" name="hosted_button_id" value="FUBZCJARZML46">
+            <input type="hidden" name="currency_code" value="HUF">
+            <input type="hidden" name="on0" value="">
             <div class="col-xs-8">
                 <label for="amount">Rendszeres támogatás</label>
-                <select class="form-control" id="amount">
-                    <option>1 000Ft</option>
-                    <option>2 000Ft</option>
-                    <option>5 000Ft</option>
-                    <option>10 000Ft</option>
+                <select class="form-control" id="amount" name="os0">
+                    <option value="1">1 000Ft</option>
+                    <option value="2">2 000Ft</option>
+                    <option value="3">3 000Ft</option>
+                    <option value="4">5 000Ft</option>
+                    <option value="5">10 000Ft</option>
                 </select>
             </div>
             <div class="col-xs-4">
