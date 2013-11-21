@@ -20,9 +20,20 @@
     </div>
 </section>
 
-<!--These could be put to an external file-->
-
 <aside class="col-md-3">
+	<!--Dynamically changing field.-->
+	<div class="box" ng-controller="EpisodesCtrl">
+		<h2>Műsorvezetők</h2>
+		<div class="row">
+			<figure ng-repeat="author in show.authors" class="show-author">
+			<a href="#/author/{{author.author.alias}}"><img src="upload/bio/{{author.author.avatar}}" alt="{{author.nick}}"   class="show-author-image"></a>
+			<figcaption><a href="#/author/{{author.author.alias}}">{{author.nick}}</a></figcaption>
+			</figure>
+		</div>
+		<a href="#0" class="btn-default btn btn-lg btn-block"><span class="icon-add"></span>Kövesd!</a>
+	</div>
+
+
     <div ng-include src="'partials/sidebar_left.html'"></div>
 </aside>
 

@@ -227,7 +227,6 @@ img{
         width: 100%;
         height:110px;
         h3{
-            margin: 30px auto;
             padding: 0 10px;
             text-align: center;
             font-size: 18px;
@@ -246,7 +245,7 @@ img{
 			font-weight: normal;
 		}
 		.radio-formatList{
-			//width:60%;
+			padding-right: 0px;
 		}
 
 
@@ -277,18 +276,21 @@ img{
     @include clearfix();
     li{
         border-top: 3px solid $link-color;
-        border-right: 1px solid $primary-color;
+        border-left: 1px solid $link-color;
         float: left;
         text-align: center;
         width: 25%;
         &:nth-child(2){
             border-top-color: $brand-success;
+            border-left: 1px solid $brand-success;
         }
         &:nth-child(3){
             border-top-color: $placeholder-color;
+            border-left: 1px solid $placeholder-color;
         }
         &:nth-child(4){
-            border-top-color: $heiglight-color;
+            border-top-color: $higlight-color;
+            border-left: 1px solid $higlight-color;
         }
         &:hover, .active{
             background: rgba(white, 0.1);

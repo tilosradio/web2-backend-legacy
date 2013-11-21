@@ -23,7 +23,13 @@
 			<td class="archiveShowName"><a href="#/show/{{episode.show.alias}}">{{episode.show.name}}</a></td>
 			<td class="archiveItalic">{{episode.show.definition}}</td>
 			<td>{{episode.from * 1000| date: 'HH:mm'}}</td>
-			<td>Műsorvezető: <!--TODO: ide jon majd az episode.author, amint rajovok, hogyan mukodik a Doctrine :)--></td>
+			<td>
+				Műsorvezető:
+				<span ng-repeat="author in episode.showAuthor">
+					<div ng-show="(author.name != '')">{{author.name}}</div>
+        			<div ng-show="(author.name == '')">{{author.alias}}</div>
+				</span>
+			</td>
 		</tr>
 	</table>
 </section>

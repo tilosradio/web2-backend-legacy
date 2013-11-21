@@ -1,7 +1,7 @@
 <section class="col-md-6 main" role="main" >
     <article ng-repeat="item in news">
         <h1>{{item.title}}</h1>
-           <span ng-bind-html="item.formatted"></span>
+		<span ng-bind-html="item.formatted"></span>
         <footer>
             <div class="article-info">
                 <span class="author">{{item.author}} </span]>
@@ -16,7 +16,20 @@
         </footer>
     </article>
 </section> <!-- col-md-6 -->
+
+
 <aside class="col-md-3">
+	<div class="box-simple" ng-controller="EpisodesCtrl">
+		<h2>Műsorvezetők</h2>
+		<div class="row">
+			<figure ng-repeat="author in current.showAuthor" class="show-author">
+				<a href="#/author/{{author.alias}}">
+				<img src="upload/bio/{{author.avatar}}" alt="{{author.name}}" class="show-author-image"></a>
+				<figcaption><a href="#/author/{{author.alias}}">{{author.name}}</a></figcaption>
+			</figure>
+		</div>
+		<a href="#0" class="btn-default btn btn-lg btn-block"><span class="icon-add"></span>Kövesd!</a>
+	</div> <!-- box-simple -->
 	<div ng-include src="'partials/sidebar_left.html'"></div>
 </aside> <!-- col-md-3 -->
 <aside class="col-md-3">
