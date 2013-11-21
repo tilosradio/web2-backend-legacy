@@ -289,8 +289,8 @@ img{
             border-left: 1px solid $placeholder-color;
         }
         &:nth-child(4){
-            border-top-color: $higlight-color;
-            border-left: 1px solid $higlight-color;
+            border-top-color: $highlight-color;
+            border-left: 1px solid $highlight-color;
         }
         &:hover, .active{
             background: rgba(white, 0.1);
