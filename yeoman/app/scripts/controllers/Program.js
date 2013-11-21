@@ -50,7 +50,6 @@ angular.module('tilosApp')
 
 			if(!$scope.program[$scope.currentDay]){
 				$http.get($server + '/api/episode?start=' + newValue + '&end=' + oldFrom).success(function (data) {
-					$scope.currentDay = Math.round(0 - ((new Date()-(oldFrom*1000))/(1000*60*60*24)));
 					processResult(data);
 				});
 			}
