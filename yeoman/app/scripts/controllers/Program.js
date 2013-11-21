@@ -44,16 +44,16 @@ angular.module('tilosApp')
 		};
 
 		$scope.getDay = function(){
-			//TODO! befejezni, egy hettel elobb/kesobb mar nem tud mit kezdeni. Ujbol le kell kerni az adatokat.
 			var newValue = (new Date($scope.program[$scope.currentDay].date).getTime() / 1000);
-
 			var oldFrom = newValue + (24 * 60 * 60);
-			newValue = newValue + (7 * 24 * 60 * 60);
+			$scope.currentDay = Math.round(0 - ((new Date()-(oldFrom*1000))/(1000*60*60*24)));
 
-			$http.get($server + '/api/episode?start=' + newValue + '&end=' + oldFrom).success(function (data) {
-				$scope.currentDay = Math.round(0 - ((new Date()-(oldFrom*1000))/(1000*60*60*24)));
-				processResult(data);
-			});
+			if(!$scope.program[$scope.currentDay]){
+				$http.get($server + '/api/episode?start=' + newValue + '&end=' + oldFrom).success(function (data) {
+					$scope.currentDay = Math.round(0 - ((new Date()-(oldFrom*1000))/(1000*60*60*24)));
+					processResult(data);
+				});
+			}
 
 		}
 
@@ -80,8 +80,8 @@ angular.module('tilosApp')
 				result[key].date = result[key].episodes[0].from*1000;
 			}
 			$scope.program = result;
-			//Sometimes result[0] is not set.
-			if(result[0] == undefined){
+
+			if(result[$scope.currentDay] == undefined){
 				var oldFrom = from;
 				from = from - 7 * 24 * 60 * 60;
 				$http.get($server + '/api/episode?start=' + from + '&end=' + oldFrom).success(function (data) {

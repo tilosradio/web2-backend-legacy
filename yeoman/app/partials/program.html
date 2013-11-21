@@ -26,8 +26,12 @@
 			<td>
 				Műsorvezető:
 				<span ng-repeat="author in episode.showAuthor">
-					<div ng-show="(author.name != '')">{{author.name}}</div>
-        			<div ng-show="(author.name == '')">{{author.alias}}</div>
+					<div ng-show="(author.name != '')">
+						<a href="#/author/{{author.alias}}" target="_blank">{{author.name}}</a>
+					</div>
+        			<div ng-show="(author.name == '')">
+        				<a href="#/author/{{author.alias}}" target="_blank">{{author.alias}}</a>
+        			</div>
 				</span>
 			</td>
 		</tr>
