@@ -24,7 +24,7 @@ class Episode extends BaseController {
     public function getList() {
         try {
             //TODO use EpisodeUtil here
-            
+
             $start = $this->params()->fromQuery("start", time());
             $end = $this->params()->fromQuery("end", $start + 60 * 60 * 5);
             //retrieve valid scheduling rules
@@ -47,6 +47,18 @@ class Episode extends BaseController {
                 $epi = array();
                 //$epi->setShow($result->getShow());
                 $epi['show'] = $result->getShow()->toArrayShort();
+            	$epi['radioshowid'] = $a['radioshowid'];
+
+            	//Get the authors
+            	$qb = $this->getEntityManager()->createQueryBuilder();
+            	$qb->select('a')
+            		->from('\Radio\Entity\ShowAuthor', 's')
+            		->from('\Radio\Entity\Author','a')
+            		->where("s.radioshow_id = :id")
+            		->andWhere("a.id = s.author");
+            	$qb->setParameter("id",$epi['radioshowid']);
+            	$q = $qb->getQuery();
+            	$epi['showAuthor'] = $q->getArrayResult();
 
                 //calculate actual date from
                 $from = clone $weekstart;
@@ -89,8 +101,8 @@ class Episode extends BaseController {
     public function create($data) {
         try {
             // validation
-            if ( !isset($data['radioshow_id']) || !isset($data['plannedFrom']) || 
-            !isset($data['plannedTo']) || !isset($data['realFrom']) || 
+            if ( !isset($data['radioshow_id']) || !isset($data['plannedFrom']) ||
+            !isset($data['plannedTo']) || !isset($data['realFrom']) ||
             !isset($data['realTo']) ) {
                 $this->getResponse()->setStatusCode(400);
                 return new JsonModel(array("error" => "Mandatory fields: radioshow_id, plannedFrom, plannedTo, realFrom, realTo."));
@@ -120,14 +132,14 @@ class Episode extends BaseController {
             $plannedTo = new \DateTime();
             $realFrom = new \DateTime();
             $realTo = new \DateTime();
-            
+
             $plannedFrom->setTimestamp($data['plannedFrom']);
             $plannedTo->setTimestamp($data['plannedTo']);
             $realFrom->setTimestamp($data['realFrom']);
             $realTo->setTimestamp($data['realTo']);
-            
+
             $episode = new \Radio\Entity\Episode();
-            
+
             $episode->setShow($show);
             $episode->setPlannedFrom($plannedFrom);
             $episode->setPlannedTo($plannedTo);
@@ -136,7 +148,7 @@ class Episode extends BaseController {
             if ( !is_null($text) ) {
                 $episode->setText($text);
             }
-            
+
             $this->getEntityManager()->persist($episode);
             $this->getEntityManager()->flush();
 
@@ -149,20 +161,20 @@ class Episode extends BaseController {
 
     public function update($id, $data) {
         $episode = $this->getEntityManager()->find('Radio\Entity\Episode', $id);
-        
+
         // validation
         if ( is_null($episode) ) {
             $this->getResponse()->setStatusCode(400);
             return new JsonModel(array("error" => "Episode id does not exist."));
         }
-        
+
         if ( !isset($data['radioshow_id']) && !isset($data['plannedFrom']) &&
                         !isset($data['plannedTo']) && !isset($data['realFrom']) &&
                         !isset($data['realTo']) && !isset($data['textcontent_id']) ) {
             $this->getResponse()->setStatusCode(400);
             return new JsonModel(array("error" => "One of the following fields must exist: radioshow_id, plannedFrom, plannedTo, realFrom, realTo, textcontent_id."));
         }
-        
+
         if ( isset($data['radioshow_id']) ) {
             $show = $this->getEntityManager()->find('Radio\Entity\Show', $data['radioshow_id']);
             if ( is_null($show) ) {
@@ -228,7 +240,7 @@ class Episode extends BaseController {
                 $updated .= " Textcontent id: " . $data['textcontent_id'];
             }
         }
-        
+
         $this->getEntityManager()->flush();
         return new JsonModel(array("update"=>"success", "Updated values"=>$updated));
     }

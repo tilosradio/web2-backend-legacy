@@ -5,20 +5,25 @@ namespace Radio\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * @ORM\Entity 
+ * @ORM\Entity
  * @ORM\Table(name="showauthor")
  * */
 class ShowAuthor {
 
     /**
-     * @ORM\Id 
-     * @ORM\Column(type="integer") 
-     * @ORM\GeneratedValue 
+     * @ORM\Id
+     * @ORM\Column(type="integer")
+     * @ORM\GeneratedValue
      * */
     protected $id;
 
+	/**
+	 * @ORM\Column(type="smallint")
+	 * */
+	protected $radioshow_id;
+
     /**
-     * @ORM\Column(type="string",length=100) 
+     * @ORM\Column(type="string",length=100)
      * */
     protected $nick;
 
@@ -65,6 +70,22 @@ class ShowAuthor {
     public function setAuthor($author) {
         $this->author = $author;
     }
+
+	public function toArray() {
+		$a = array();
+		$a['id'] = $this->getId();
+		$a['nick'] = $this->getNick();
+		$a['author'] = $this->getAuthor();
+		return $a;
+	}
+
+	public function getRadioShowId() {
+		return $this->radioshow_id;
+	}
+
+	public function setRadioShowId($radioshow_id) {
+		$this->radioshow_id = $radioshow_id;
+	}
 
 }
 

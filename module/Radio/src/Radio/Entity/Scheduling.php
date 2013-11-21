@@ -5,54 +5,59 @@ namespace Radio\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * @ORM\Entity 
+ * @ORM\Entity
  * @ORM\Table(name="scheduling")
  * */
 class Scheduling {
 
     /**
-     * @ORM\Id 
-     * @ORM\Column(type="integer") 
-     * @ORM\GeneratedValue 
+     * @ORM\Id
+     * @ORM\Column(type="integer")
+     * @ORM\GeneratedValue
      * */
     protected $id;
 
     /**
-     * @ORM\Column(type="smallint") 
+     * @ORM\Column(type="smallint")
      * */
     protected $weekType;
-    
+
+	/**
+	 * @ORM\Column(type="smallint")
+	 * */
+	protected $radioshow_id;
+
     /**
-     * @ORM\Column(type="date") 
+     * @ORM\Column(type="date")
      * */
     protected $base;
 
     /**
-     * @ORM\Column(type="smallint") 
+     * @ORM\Column(type="smallint")
      * */
     protected $weekDay;
 
     /**
-     * @ORM\Column(type="smallint") 
+     * @ORM\Column(type="smallint")
      * */
     protected $hourFrom;
 
     /**
-     * @ORM\Column(type="smallint") 
+     * @ORM\Column(type="smallint")
      * */
     protected $minFrom;
 
     /**
-     * @ORM\Column(type="smallint") 
+     * @ORM\Column(type="smallint")
      * */
-    protected $duration;   
+    protected $duration;
     /**
-     * @ORM\Column(type="date") 
+     * @ORM\Column(type="date")
      * */
     protected $validFrom;
 
     /**
-     * @ORM\Column(type="date") 
+     * @ORM\Column(type="date")
      * */
     protected $validTo;
 
@@ -61,6 +66,7 @@ class Scheduling {
      * @ORM\JoinColumn(name = "radioshow_id", referencedColumnName = "id")
      */
     protected $show;
+
 
     public function getId() {
         return $this->id;
@@ -101,7 +107,7 @@ class Scheduling {
     public function setMinFrom($minFrom) {
         $this->minFrom = $minFrom;
     }
-  
+
     public function getValidFrom() {
         return $this->validFrom;
     }
@@ -135,14 +141,15 @@ class Scheduling {
         $a['weekDay'] = $this->getWeekDay();
         $a['hourFrom'] = $this->getHourFrom();
         $a['minFrom'] = $this->getMinFrom();
-        $a['duration'] = $this->getDuration();    
+        $a['duration'] = $this->getDuration();
+        $a['radioshowid'] = $this->getRadioShowId();
         return $a;
     }
-    
+
     public function setShow($show) {
         $this->show = $show;
     }
-    
+
     public function getBase() {
         return $this->base;
     }
@@ -151,7 +158,13 @@ class Scheduling {
         $this->base = $base;
     }
 
+	public function getRadioShowId() {
+		return $this->radioshow_id;
+	}
 
+	public function setRadioShowId($radioshow_id) {
+		$this->radioshow_id = $radioshow_id;
+	}
 
 
 
