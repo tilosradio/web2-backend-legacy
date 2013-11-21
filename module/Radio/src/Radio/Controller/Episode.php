@@ -249,6 +249,7 @@ class Episode extends BaseController {
         try {
             $episode = $this->getEntityManager()->find('Radio\Entity\Episode', $id);
             if ( is_null($episode) ) {
+                $this->getResponse()->setStatusCode(400);
                 return new JsonModel(array("error" => "Episode does not exist in DB."));
             }
 
