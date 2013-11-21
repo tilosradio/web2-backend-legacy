@@ -47,18 +47,15 @@ class Episode extends BaseController {
                 $epi = array();
                 //$epi->setShow($result->getShow());
                 $epi['show'] = $result->getShow()->toArrayShort();
-            	$epi['radioshowid'] = $a['radioshowid'];
 
+				$epi['showAuthor'] = array();
             	//Get the authors
-            	$qb = $this->getEntityManager()->createQueryBuilder();
-            	$qb->select('a')
-            		->from('\Radio\Entity\ShowAuthor', 's')
-            		->from('\Radio\Entity\Author','a')
-            		->where("s.radioshow_id = :id")
-            		->andWhere("a.id = s.author");
-            	$qb->setParameter("id",$epi['radioshowid']);
-            	$q = $qb->getQuery();
-            	$epi['showAuthor'] = $q->getArrayResult();
+            	foreach ($result->getShow()->getAuthors() as $author) {
+            	    $participant = $author->getAuthor()->toArrayShort();
+            	    $participant['nick'] = $author->getNick();
+            	    $epi['showAuthor'][] = $participant;
+				}
+            	
 
                 //calculate actual date from
                 $from = clone $weekstart;

@@ -17,11 +17,6 @@ class ShowAuthor {
      * */
     protected $id;
 
-	/**
-	 * @ORM\Column(type="smallint")
-	 * */
-	protected $radioshow_id;
-
     /**
      * @ORM\Column(type="string",length=100)
      * */
@@ -79,13 +74,6 @@ class ShowAuthor {
 		return $a;
 	}
 
-	public function getRadioShowId() {
-		return $this->radioshow_id;
-	}
-
-	public function setRadioShowId($radioshow_id) {
-		$this->radioshow_id = $radioshow_id;
-	}
 
 }
 

@@ -22,11 +22,6 @@ class Scheduling {
      * */
     protected $weekType;
 
-	/**
-	 * @ORM\Column(type="smallint")
-	 * */
-	protected $radioshow_id;
-
     /**
      * @ORM\Column(type="date")
      * */
@@ -142,7 +137,6 @@ class Scheduling {
         $a['hourFrom'] = $this->getHourFrom();
         $a['minFrom'] = $this->getMinFrom();
         $a['duration'] = $this->getDuration();
-        $a['radioshowid'] = $this->getRadioShowId();
         return $a;
     }
 
@@ -158,13 +152,6 @@ class Scheduling {
         $this->base = $base;
     }
 
-	public function getRadioShowId() {
-		return $this->radioshow_id;
-	}
-
-	public function setRadioShowId($radioshow_id) {
-		$this->radioshow_id = $radioshow_id;
-	}
 
 
 
