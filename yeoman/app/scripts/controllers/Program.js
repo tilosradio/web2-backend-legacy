@@ -1,6 +1,5 @@
 /*global angular*/
 /*jshint indent: 2, undef: true, unused: true, strict: true, trailing: true, camelcase: true, eqeqeq: true, immed: true, white: true, quotmark: single, curly: true */
-'use strict';
 
 angular.module('tilosApp')
 	.controller('ProgramCtrl', ['$scope', '$routeParams', 'API_SERVER_ENDPOINT', '$http',
@@ -45,7 +44,17 @@ angular.module('tilosApp')
 		};
 
 		$scope.getDay = function(){
-			//TODO!
+			//TODO! befejezni, egy hettel elobb/kesobb mar nem tud mit kezdeni. Ujbol le kell kerni az adatokat.
+			var newValue = (new Date($scope.program[$scope.currentDay].date).getTime() / 1000);
+
+			var oldFrom = newValue + (24 * 60 * 60);
+			newValue = newValue + (7 * 24 * 60 * 60);
+
+			$http.get($server + '/api/episode?start=' + newValue + '&end=' + oldFrom).success(function (data) {
+				$scope.currentDay = Math.round(0 - ((new Date()-(oldFrom*1000))/(1000*60*60*24)));
+				processResult(data);
+			});
+
 		}
 
 		var processResult = function (data) {
