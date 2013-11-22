@@ -45,10 +45,11 @@ angular.module('tilosApp')
 
 		$scope.getDay = function(){
 			var newValue = (new Date($scope.program[$scope.currentDay].date).getTime() / 1000);
-			$scope.currentDay = Math.round(0 - ((new Date()-(newValue*1000))/(1000*60*60*24)));
+			var oldFrom = newValue + (24 * 60 * 60);
+			$scope.currentDay = Math.round(0 - ((new Date()-(oldFrom*1000))/(1000*60*60*24)));
 
 			if(!$scope.program[$scope.currentDay]){
-				$http.get($server + '/api/episode?start=' + newValue + '&end=' + newValue).success(function (data) {
+				$http.get($server + '/api/episode?start=' + newValue + '&end=' + oldFrom).success(function (data) {
 					processResult(data);
 				});
 			}
