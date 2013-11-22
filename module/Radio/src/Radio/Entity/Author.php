@@ -43,9 +43,9 @@ class Author {
     protected $introduction;
 
     /**
-     * @ORM\OneToMany(targetEntity="ShowAuthor",mappedBy="author", fetch="EAGER")
+     * @ORM\OneToMany(targetEntity="Contribution",mappedBy="author", fetch="EAGER")
      */
-    protected $showAuthors;
+    protected $contributions;
     
     /**
      * @ORM\OneToOne(targetEntity="User")
@@ -54,7 +54,11 @@ class Author {
     protected $user;
     
     /**
-     * @ORM\OneToMany(targetEntity="AuthorUrl", mappedBy="author")
+     * @ORM\ManyToMany(targetEntity="Url")
+     * @ORM\JoinTable(name="author_url",
+     *      joinColumns={@ORM\JoinColumn(name="url_id", referencedColumnName="id")},
+     *      inverseJoinColumns={@ORM\JoinColumn(name="author_id", referencedColumnName="id", unique=true)}
+     *      )
      **/
     protected $urls;
 
@@ -106,11 +110,16 @@ class Author {
         $this->user = $user;
     } 
     
-    public function getShowAuthors() {
-        return $this->showAuthors;
+  
+    public function getContributions() {
+        return $this->contributions;
     }
-    
-    public function getAlias() {
+
+    public function setContributions($contributions) {
+        $this->contributions = $contributions;
+    }
+
+        public function getAlias() {
         return $this->alias;
     }
 

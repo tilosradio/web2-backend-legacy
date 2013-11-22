@@ -48,13 +48,13 @@ class Episode extends BaseController {
                 //$epi->setShow($result->getShow());
                 $epi['show'] = $result->getShow()->toArrayShort();
 
-				$epi['showAuthor'] = array();
+                $epi['showAuthor'] = array();
             	//Get the authors
-            	foreach ($result->getShow()->getAuthors() as $author) {
-            	    $participant = $author->getAuthor()->toArrayShort();
-            	    $participant['nick'] = $author->getNick();
+            	foreach ($result->getShow()->getContributors() as $contributor) {
+            	    $participant = $contributor->getAuthor()->toArrayShort();
+            	    $participant['nick'] = $contributor->getNick();
             	    $epi['showAuthor'][] = $participant;
-				}
+		}
             	
 
                 //calculate actual date from

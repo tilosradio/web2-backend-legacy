@@ -62,7 +62,7 @@ class Author extends BaseController {
         } else {
             $qb->where('a.alias = :id');
         }
-        $qb->leftJoin('a.showAuthors', 'sa')->leftJoin('sa.show', 's');
+        $qb->leftJoin('a.contributions', 'sa')->leftJoin('sa.show', 's');
 
         $q = $qb->getQuery();
         $q->setParameter("id",$id);

@@ -8,7 +8,7 @@ use Doctrine\ORM\Mapping as ORM;
  * @ORM\Entity 
  * @ORM\Table(name="authorurl")
  * */
-class AuthorUrl {
+class Url {
 
     /**
      * @ORM\Id 
@@ -23,11 +23,18 @@ class AuthorUrl {
     protected $url;
     
     /**
-     * @ORM\ManyToOne(targetEntity="Author", inversedBy="urls")
-     * @ORM\JoinColumn(name="author_id", referencedColumnName="id")
-     **/
-    protected $author;
+     * @ORM\Column(type="string") 
+     * */
+    protected $type; 
     
+    public function getType() {
+        return $this->type;
+    }
+
+    public function setType($type) {
+        $this->type = $type;
+    }
+
     
     public function getId() {
         return $this->id;

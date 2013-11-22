@@ -6,9 +6,9 @@ use Doctrine\ORM\Mapping as ORM;
 
 /**
  * @ORM\Entity
- * @ORM\Table(name="showauthor")
+ * @ORM\Table(name="contribution")
  * */
-class ShowAuthor {
+class Contribution {
 
     /**
      * @ORM\Id

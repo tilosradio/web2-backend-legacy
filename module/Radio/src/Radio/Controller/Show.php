@@ -28,7 +28,7 @@ class Show extends BaseController {
         } else {
             $qb->where('s.alias = :id');
         }
-        $qb->leftJoin('s.authors', 'sa')->leftJoin('sa.author', 'a');
+        $qb->leftJoin('s.contributors', 'sa')->leftJoin('sa.author', 'a');
 
         $q = $qb->getQuery();
         $q->setParameter("id",$id);
@@ -39,7 +39,7 @@ class Show extends BaseController {
         $res = function($result) {
                     $a = $result;
                     unset($result['description']);
-                    foreach ($result['authors'] as $author) {
+                    foreach ($result['contributors'] as $author) {
                         unset($author['author']['introduction']);
                     }
                     $a['schedulings'] = array();

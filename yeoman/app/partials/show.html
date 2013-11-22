@@ -25,7 +25,7 @@
 	<div class="box" ng-controller="EpisodesCtrl">
 		<h2>Műsorvezetők</h2>
 		<div class="row">
-			<figure ng-repeat="author in show.authors" class="show-author">
+			<figure ng-repeat="author in show.contributors" class="show-author">
 			<a href="#/author/{{author.author.alias}}"><img src="upload/bio/{{author.author.avatar}}" alt="{{author.nick}}"   class="show-author-image"></a>
 			<figcaption><a href="#/author/{{author.author.alias}}">{{author.nick}}</a></figcaption>
 			</figure>

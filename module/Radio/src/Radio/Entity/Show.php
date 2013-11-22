@@ -23,9 +23,9 @@ class Show {
     protected $name;
 
     /**
-     * @ORM\OneToMany(targetEntity="ShowAuthor",mappedBy="show", fetch="EAGER")
+     * @ORM\OneToMany(targetEntity="Contribution",mappedBy="show", fetch="EAGER")
      */
-    protected $authors;
+    protected $contributors;
 
     /**
      * @ORM\OneToMany(targetEntity="Scheduling", mappedBy="show")
@@ -124,11 +124,15 @@ class Show {
     public function setName($name) {
         $this->name = $name;
     }
-
-    public function setAuthors($authors) {
-        $this->authors = $authors;
+    public function getContributors() {
+        return $this->contributors;
     }
 
+    public function setContributors($contributors) {
+        $this->contributors = $contributors;
+    }
+
+     
     public function setSchedulings($schedulings) {
         $this->schedulings = $schedulings;
     }
