@@ -714,3 +714,6 @@ a.icon-star, a.icon-star2{
 .btn:hover{
 	color:$gray-light;
 }
+.navbar-default .navbar-nav > li.highlight > a {
+	color: $brand-danger;
+}
