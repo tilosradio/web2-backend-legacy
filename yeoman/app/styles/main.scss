@@ -9,7 +9,7 @@
 
 
 body{
-    padding-top: 228px; //need for a fix navbar
+    padding-top: 300px; //need for a fix navbar
 }
 
 h2{
@@ -325,6 +325,11 @@ img{
     //     @include rotate-animation();
     // }
 }
+
+.playerimg{
+	padding: 0px 10px 0px 10px;
+}
+
 
 // header end
 // Article style
