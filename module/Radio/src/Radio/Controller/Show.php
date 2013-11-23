@@ -22,13 +22,15 @@ class Show extends BaseController {
     
     public function findEntityObject($type, $id) {
         $qb = $this->getEntityManager()->createQueryBuilder();
-        $qb->select('a','sa','s')->from('\Radio\Entity\Show', 's');
+        $qb->select('a','sa','s','u')->from('\Radio\Entity\Show', 's');
         if (is_numeric($id)) {
             $qb->where('s.id = :id');
         } else {
             $qb->where('s.alias = :id');
         }
         $qb->leftJoin('s.contributors', 'sa')->leftJoin('sa.author', 'a');
+        $qb->leftJoin('s.urls', 'u');
+
 
         $q = $qb->getQuery();
         $q->setParameter("id",$id);

@@ -6,7 +6,7 @@ use Doctrine\ORM\Mapping as ORM;
 
 /**
  * @ORM\Entity 
- * @ORM\Table(name="authorurl")
+ * @ORM\Table(name="url")
  * */
 class Url {
 
@@ -23,7 +23,7 @@ class Url {
     protected $url;
     
     /**
-     * @ORM\Column(type="string") 
+     * @ORM\Column(type="string",nullable=true) 
      * */
     protected $type; 
     

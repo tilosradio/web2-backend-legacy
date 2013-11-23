@@ -56,7 +56,27 @@ class Show {
      * @ORM\Column(type="integer") 
      * */
     protected $type;
+    
+     /**
+     * @ORM\ManyToMany(targetEntity="Url")
+     * @ORM\JoinTable(name="show_url",
+     *      joinColumns={@ORM\JoinColumn(name="url_id", referencedColumnName="id")},
+     *      inverseJoinColumns={@ORM\JoinColumn(name="show_id", referencedColumnName="id", unique=true)}
+     *      )
+     **/
+    protected $urls = array();
+    
+    public function getUrls() {
+        return $this->urls;
+    }
 
+    public function setUrls($urls) {
+        $this->urls = $urls;
+    }
+    public function addUrl($url) {
+        $this->urls[] = $url;
+    }
+    
     public function getId() {
         return $this->id;
     }

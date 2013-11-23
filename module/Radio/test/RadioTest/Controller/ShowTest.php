@@ -37,7 +37,7 @@ class ShowTest extends \PHPUnit_Framework_TestCase {
 
     public function testShowGet() {
         //when        
-        $this->routeMatch->setParam('id', '557');
+        $this->routeMatch->setParam('id', '531');
 
         $result = $this->controller->dispatch($this->request);
         $response = $this->controller->getResponse();
@@ -45,7 +45,9 @@ class ShowTest extends \PHPUnit_Framework_TestCase {
 
         $show = $result->getVariables();
         //var_dump($show);
-        $this->assertEquals($show['alias'], "haza-es-haladas");
+        $this->assertEquals($show['name'], "Cratesoul Radio Show / A barázdán is csomót!");
+        $this->assertEquals(sizeof($show['urls']), 2);
+
     }
     
       public function testShowGetWithAlias() {
