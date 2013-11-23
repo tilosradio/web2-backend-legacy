@@ -60,8 +60,8 @@ class Show {
      /**
      * @ORM\ManyToMany(targetEntity="Url")
      * @ORM\JoinTable(name="show_url",
-     *      joinColumns={@ORM\JoinColumn(name="url_id", referencedColumnName="id")},
-     *      inverseJoinColumns={@ORM\JoinColumn(name="show_id", referencedColumnName="id", unique=true)}
+     *      joinColumns={@ORM\JoinColumn(name="show_id", referencedColumnName="id")},
+     *      inverseJoinColumns={@ORM\JoinColumn(name="url_id", referencedColumnName="id", unique=true)}
      *      )
      **/
     protected $urls = array();

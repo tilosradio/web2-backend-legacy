@@ -56,13 +56,15 @@ class Author extends BaseController {
 
     public function findEntityObject($type, $id) {
         $qb = $this->getEntityManager()->createQueryBuilder();
-        $qb->select('a','sa','s')->from('\Radio\Entity\Author', 'a');
+        $qb->select('a','sa','s','u')->from('\Radio\Entity\Author', 'a');
         if (is_numeric($id)) {
             $qb->where('a.id = :id');
         } else {
             $qb->where('a.alias = :id');
         }
         $qb->leftJoin('a.contributions', 'sa')->leftJoin('sa.show', 's');
+        $qb->leftJoin('a.urls', 'u');
+
 
         $q = $qb->getQuery();
         $q->setParameter("id",$id);

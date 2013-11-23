@@ -1,5 +1,5 @@
 <section class="col-md-6 main" role="main" >
-	<h2 class="bordered blue">Műsor:</h2>
+    <h2 class="bordered blue">Műsor:</h2>
 
     <h1 class="ubuntu">{{show.name}}</h1>
 
@@ -21,31 +21,31 @@
 </section>
 
 <aside class="col-md-3">
-	<!--Dynamically changing field.-->
-	<div class="box" ng-controller="EpisodesCtrl">
-		<h2>Műsorvezetők</h2>
-		<div class="row">
-			<figure ng-repeat="author in show.contributors" class="show-author">
-			<a href="#/author/{{author.author.alias}}"><img src="upload/bio/{{author.author.avatar}}" alt="{{author.nick}}"   class="show-author-image"></a>
-			<figcaption><a href="#/author/{{author.author.alias}}">{{author.nick}}</a></figcaption>
-			</figure>
-		</div>
-		<a href="#0" class="btn-default btn btn-lg btn-block"><span class="icon-add"></span>Kövesd!</a>
-	</div>
+    <!--Dynamically changing field.-->
+    <div class="box" ng-controller="EpisodesCtrl">
+        <h2>Műsorvezetők</h2>
+        <div class="row">
+            <figure ng-repeat="author in show.contributors" class="show-author">
+                <a href="#/author/{{author.author.alias}}"><img src="upload/bio/{{author.author.avatar}}" alt="{{author.nick}}"   class="show-author-image"></a>
+                <figcaption><a href="#/author/{{author.author.alias}}">{{author.nick}}</a></figcaption>
+            </figure>
+        </div>
+        <a href="#0" class="btn-default btn btn-lg btn-block"><span class="icon-add"></span>Kövesd!</a>
+    </div>
 
-	<div class="box" >
-		<h2>Linkek</h2>
-		<div class="row">
-                    <ul>
-			<li ng-repeat="url in show.urls">
-			<a href="{{url.url}}">{{url.url | limitTo: 30}}</a>
-			</li>
-                </ul>
-		</div>
-	</div>
+    <div class="box"  ng-show="show.urls.length > 0">
+        <h2>Linkek</h2>
+        <div class="row">
+            <ul>
+                <li ng-repeat="url in show.urls">
+                    <a href="{{url.url}}">{{url.url| limitTo: 30}}</a>
+                </li>
+            </ul>
+        </div>
+    </div>
 
 </aside>
 
 <aside class="col-md-3">
-	<div ng-include src="'partials/sidebar_right.html'"></div>
+    <div ng-include src="'partials/sidebar_right.html'"></div>
 </aside>

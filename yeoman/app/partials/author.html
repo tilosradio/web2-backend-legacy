@@ -7,10 +7,22 @@
 </section>
 
 <aside class="col-md-3">
-    <h2>Műsorok</h2>
-    <table class="table">
-        <tr ng-repeat="show in author.contributions">
-            <td><a href="#/show/{{show.show.id}}">{{show.show.name}}</a></td>
-        </tr>
-    </table>
+    <div class="box">
+        <h2>Műsorok</h2>
+        <table class="table">
+            <tr ng-repeat="show in author.contributions">
+                <td><a href="#/show/{{show.show.id}}">{{show.show.name}}</a></td>
+            </tr>
+        </table>
+    </div>
+
+    <div class="box" ng-show="author.urls.length > 0">
+        <h2>Linkek</h2>
+        <ul>
+            <li ng-repeat="url in author.urls">
+                <a href="{{url.url}}">{{url.url| limitTo: 30}}</a>
+            </li>
+        </ul>
+    </div>
+
 </aside>

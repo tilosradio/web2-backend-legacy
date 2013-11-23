@@ -56,11 +56,11 @@ class Author {
     /**
      * @ORM\ManyToMany(targetEntity="Url")
      * @ORM\JoinTable(name="author_url",
-     *      joinColumns={@ORM\JoinColumn(name="url_id", referencedColumnName="id")},
-     *      inverseJoinColumns={@ORM\JoinColumn(name="author_id", referencedColumnName="id", unique=true)}
+     *      joinColumns={@ORM\JoinColumn(name="author_id", referencedColumnName="id")},
+     *      inverseJoinColumns={@ORM\JoinColumn(name="url_id", referencedColumnName="id", unique=true)}
      *      )
      **/
-    protected $urls;
+    protected $urls = array();
 
     public function getId() {
         return $this->id;
@@ -119,7 +119,7 @@ class Author {
         $this->contributions = $contributions;
     }
 
-        public function getAlias() {
+    public function getAlias() {
         return $this->alias;
     }
 
@@ -147,6 +147,16 @@ class Author {
     public function getUrls() {
         return $this->urls;
     }
+    
+    public function addUrl($url) {
+        $this->urls[] = $url;
+    }
+    
+    public function setUrls($urls) {
+        $this->urls = $urls;
+    }
+
+
 
 
 
