@@ -361,7 +361,7 @@ module.exports = function (grunt) {
     // 'requirejs',
     'concat',
     'cssmin',
-    'uglify',
+//    'uglify',
     'copy:php',
     'copy:dist',
     'imagemin:dist',
