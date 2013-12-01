@@ -1,10 +1,7 @@
-/*global angular*/
-/*jshint indent: 2, undef: true, unused: true, strict: true, trailing: true, camelcase: true, eqeqeq: true, immed: true, white: true, quotmark: single, curly: true */
-
+'use strict';
 angular.module('tilosApp')
 	.controller('ProgramCtrl', ['$scope', '$routeParams', 'API_SERVER_ENDPOINT', '$http',
 	function ($scope, $routeParams, $server, $http) {
-		'use strict';
 		var from = (tilos.weekStart(new Date()) / 1000);
 		var to = from + 7 * 24 * 60 * 60;
 		$scope.program = {};
@@ -43,18 +40,16 @@ angular.module('tilosApp')
 			}
 		};
 
-		$scope.getDay = function(){
+		$scope.getDay = function () {
 			var newValue = (new Date($scope.program[$scope.currentDay].date).getTime() / 1000);
 			var oldFrom = newValue + (24 * 60 * 60);
-			$scope.currentDay = Math.round(0 - ((new Date()-(oldFrom*1000))/(1000*60*60*24)));
-
-			if(!$scope.program[$scope.currentDay]){
+			$scope.currentDay = Math.round(0 - ((new Date() - (oldFrom * 1000)) / (1000 * 60 * 60 * 24)));
+			if (!$scope.program[$scope.currentDay]) {
 				$http.get($server + '/api/episode?start=' + newValue + '&end=' + oldFrom).success(function (data) {
 					processResult(data);
 				});
 			}
-
-		}
+		};
 
 		var processResult = function (data) {
 			var result = $scope.program;
@@ -76,11 +71,11 @@ angular.module('tilosApp')
 			};
 			for (var key in result) {
 				result[key].episodes.sort(sortFunction);
-				result[key].date = result[key].episodes[0].from*1000;
+				result[key].date = result[key].episodes[0].from * 1000;
 			}
 			$scope.program = result;
 
-			if(result[$scope.currentDay] == undefined){
+			if (result[$scope.currentDay] === undefined) {
 				var oldFrom = from;
 				from = from - 7 * 24 * 60 * 60;
 				$http.get($server + '/api/episode?start=' + from + '&end=' + oldFrom).success(function (data) {
@@ -93,9 +88,9 @@ angular.module('tilosApp')
 			processResult(data);
 		});
 
-		$scope.closeText = "Close";
-		$scope.toggleWeeksText = "Weeks";
-		$scope.currentText = "Today";
-		$scope.clearText = "Clear";
+		$scope.closeText = 'Close';
+		$scope.toggleWeeksText = 'Weeks';
+		$scope.currentText = 'Today';
+		$scope.clearText = 'Clear';
 	}
 ]);

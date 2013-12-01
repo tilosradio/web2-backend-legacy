@@ -50,7 +50,6 @@ class Episode {
      * @ORM\JoinColumn(name="textcontent_id", referencedColumnName="id")
      */
     protected $text;
-
     protected $m3uUrl;
 
     /**

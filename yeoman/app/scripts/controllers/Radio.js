@@ -1,9 +1,8 @@
-/*global angular*/
+'use strict';
 
 angular.module('tilosApp')
 	.controller('RadioCtrl', ['$scope', '$routeParams', 'API_SERVER_ENDPOINT', 'tilosData', '$http',
 	function ($scope, $routeParams, $server, $td, $http) {
-		'use strict';
 		var nowDate = new Date();
 		var start = (nowDate / 1000 - 60 * 60 * 3);
 		var now = nowDate.getTime() / 1000;

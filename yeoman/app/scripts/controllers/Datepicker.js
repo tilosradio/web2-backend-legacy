@@ -1,9 +1,10 @@
+'use strict';
 /**
 * Datepicker settings
 */
 
 var DatepickerCtrl = function ($scope, $timeout) {
-	$scope.today = function() {
+	$scope.today = function () {
 		$scope.dt = new Date();
 	};
 	$scope.today();
@@ -17,12 +18,12 @@ var DatepickerCtrl = function ($scope, $timeout) {
 		$scope.dt = null;
 	};
 
-	$scope.toggleMin = function() {
-		$scope.minDate = ( $scope.minDate ) ? null : new Date();
+	$scope.toggleMin = function () {
+		$scope.minDate = ($scope.minDate) ? null : new Date();
 	};
 
-	$scope.open = function() {
-		$timeout(function() {
+	$scope.open = function () {
+		$timeout(function () {
 			$scope.opened = true;
 		});
 	};

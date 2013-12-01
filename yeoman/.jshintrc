@@ -18,5 +18,15 @@
     "strict": true,
     "trailing": true,
     "smarttabs": true,
-    "jquery": true
+    "white": true,
+    "predef": [
+        "tilos",
+        "expect",
+        "angular",
+        "define",
+        "require",
+        "it",
+        "chai",
+        "describe"
+    ]
 }
