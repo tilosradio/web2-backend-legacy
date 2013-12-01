@@ -14,14 +14,29 @@ class Atom extends AbstractActionController {
 
     public function showFeedAction() {
         $showId = $this->params()->fromRoute("id");
-        $show = $this->getEntityManager()->find("\Radio\Entity\Show", $showId);
+        $qb = $this->getEntityManager()->createQueryBuilder();
+
+        $qb->select('s')->from('\Radio\Entity\Show', 's');
+        if (is_numeric($showId)) {
+            $qb->where('s.id = :id');
+        } else {
+            $qb->where('s.alias = :id');
+        }
+
+        $q = $qb->getQuery();
+        $q->setParameter("id", $showId);
+        $show = $q->getResult()[0];
+
+        $qb->leftJoin('s.contributors', 'sa')->leftJoin('sa.author', 'a');
+        $qb->leftJoin('s.urls', 'u');
+
         $feed = new \Zend\Feed\Writer\Feed;
         $feed->setTitle($show->getName() . ' :: Tilos Rádió');
         $feed->setLink('http://tilos.hu/');
         $feed->setFeedLink('http://tilos.hu/atom/' . $showId, 'atom');
         $feed->setDateModified(time());
 
-        $episodes = EpisodeUtil::getEpisodeTimes($this->getEntityManager(), $showId, \time() - 60 * 60 * 24 * 30 * 10, \time());
+        $episodes = EpisodeUtil::getEpisodeTimes($this->getEntityManager(), $show->getId(), \time() - 60 * 60 * 24 * 30 * 10, \time());
         usort($episodes, array("\Radio\Controller\Atom", "comparator"));
         $limit = 30;
         foreach ($episodes as $episode) {
