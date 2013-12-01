@@ -83,26 +83,29 @@
             <li active-link="active"><a href="#/archive">Archívum</a></li>
             <li active-link="active"><a href="#/page/elerhetoseg">Elérhetőség</a></li>
             <li active-link="active" class="highlight"><a href="#/page/segits">Támogass</a></li>
+              <li class="visible-xs"><a href="http://stream.tilos.hu/tilos.m3u" target="_blank"><span>256</span> mp3</a></li>
+              <li class="visible-xs"><a href="http://stream.tilos.hu/tilos_128.mp3.m3u" target="_blank"><span>128</span> mp3</a></li>
+              <li class="visible-xs"><a href="http://stream.tilos.hu/tilos_high.ogg.m3u" target="_blank"><span>96</span> ogg</a></li>
+              <li class="visible-xs"><a href="http://stream.tilos.hu/tilos_low.ogg.m3u" target="_blank"><span>24</span> ogg</a></li>
           </ul>
 
         </div><!-- /.navbar-collapse -->
       </nav>
-		<header class="main-header">
+		<header class="main-header hidden-xs">
 			<div class="container">
 				<div class="row">
 					<div class="brand-holder col-md-6">
 						<a href="/">
 							<img src="/images/logo.png" alt="Tilos Rádió" class="logo">
 							<h1>Tilos rádió</h1>
-							<h2 class="ubuntu">fm 90.3 www.tilos.hu</h2>
+							<h2 class="ubuntu">fm 90.3 <span>www.tilos.hu</span></h2>
 						</a>
 					</div>
-					<div class="col-md-6">
+					<div class="col-md-6 radio-holder">
 						<div class="radio-player" ng-controller="RadioCtrl">
 							<div class="col-md-6">
 								<h3>
 									<a href="#/show/{{current.show.alias}}">{{current.show.name}}</a>
-									<br/>
 									<span class="radio-fromTo">
 										<i class="fa fa-volume-up"></i>
 										{{current.show.episodes[0].plannedFrom * 1000| date: 'HH:mm'}}
