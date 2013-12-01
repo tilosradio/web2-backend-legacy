@@ -50,6 +50,7 @@
     <script src="scripts/controllers/Social.js"></script>
     <script src="scripts/controllers/Episodes.js"></script>
     <script src="scripts/controllers/Datepicker.js"></script>
+    <script src="scripts/directives/scroll.js"></script>
     <!-- endbuild -->
 
   </head>
@@ -60,7 +61,7 @@
 
 
 
-    <div class="navbar-fixed-top">
+    <div class="navbar-fixed-top" scroll ng-class="{scrolled:boolChangeClass}">
       <nav class="navbar navbar-default" role="navigation"  ng-controller="CollapseCtrl">
         <!-- Brand and toggle get grouped for better mobile display -->
         <div class="navbar-header">

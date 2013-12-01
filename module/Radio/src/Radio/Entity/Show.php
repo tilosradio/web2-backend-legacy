@@ -25,12 +25,12 @@ class Show {
     /**
      * @ORM\OneToMany(targetEntity="Contribution",mappedBy="show", fetch="EAGER")
      */
-    protected $contributors;
+    protected $contributors = array();
 
     /**
      * @ORM\OneToMany(targetEntity="Scheduling", mappedBy="show")
      */
-    protected $schedulings;
+    protected $schedulings = array();
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true) 

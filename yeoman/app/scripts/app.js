@@ -1,7 +1,7 @@
+'use strict';
 var tilos = angular.module('tilosApp', ['ngRoute', 'ngSanitize', 'configuration', 'ui.bootstrap']);
 
 tilos.weekStart = function (date) {
-  'use strict';
   var first = date.getDate() - date.getDay() + 1;
   date.setHours(0);
   date.setSeconds(0);
@@ -10,7 +10,6 @@ tilos.weekStart = function (date) {
 };
 
 tilos.config(['$routeProvider', function ($routeProvider) {
-  'use strict';
   $routeProvider.when('/index', {
     templateUrl: 'partials/index.html',
     controller: 'IndexCtrl'
