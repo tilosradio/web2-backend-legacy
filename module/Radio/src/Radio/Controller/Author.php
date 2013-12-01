@@ -13,12 +13,6 @@ class Author extends BaseController {
 
     use EntityManager;
 
-    public function createConverter() {
-        return function($result) {
-            return $result;
-        };
-    }
-
     /**
      * @SWG\Api(
      *   path="/author",
@@ -30,7 +24,7 @@ class Author extends BaseController {
      * )
      */
     public function getList() {
-        return $this->getEntityList("\Radio\Entity\Author", $this->createConverter());
+        return $this->getEntityList("\Radio\Entity\Author");
     }
 
     /**
@@ -51,7 +45,7 @@ class Author extends BaseController {
      * )
      */
     public function get($id) {
-        return $this->getEntity("\Radio\Entity\Author", $id, $this->createConverter());
+        return $this->getEntity("\Radio\Entity\Author", $id);
     }
 
     public function findEntityObject($type, $id) {
@@ -70,7 +64,7 @@ class Author extends BaseController {
         $q->setParameter("id",$id);
         return $q->getArrayResult()[0];
     }
-    
+
     public function findEntityList($type) {
         $qb = $this->getEntityManager()->createQueryBuilder();
         $qb->select('a')->from('\Radio\Entity\Author', 'a');

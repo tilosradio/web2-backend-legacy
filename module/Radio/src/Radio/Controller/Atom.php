@@ -23,7 +23,7 @@ class Atom extends AbstractActionController {
 
         $episodes = EpisodeUtil::getEpisodeTimes($this->getEntityManager(), $showId, \time() - 60 * 60 * 24 * 30 * 10, \time());
         usort($episodes, array("\Radio\Controller\Atom", "comparator"));
-	$limit = 30;
+        $limit = 30;
         foreach ($episodes as $episode) {
             $from = $episode->getPlannedFrom()->getTimestamp();
             //+360 => 6 minutes to include the next half hour
@@ -35,12 +35,12 @@ class Atom extends AbstractActionController {
 
                 $entry = $feed->createEntry();
                 $entry->setTitle($show->getName() . " " . $episode->getPlannedFrom()->format("Y-m-d") . " #" . $idx);
-                $entry->setId(sprintf("http://tilos.hu/feed/%s/%02d/%02d/%02d/%s", $showId, $d['year'], $d['mon'], $d['mday'], $timestr));                      
+                $entry->setId(sprintf("http://tilos.hu/feed/%s/%02d/%02d/%02d/%s", $showId, $d['year'], $d['mon'], $d['mday'], $timestr));
                 $entry->setLink('http://tilos.hu/#/show/' . $showId);
                 foreach ($show->getContributors() as $participation) {
                     $entry->addAuthor(array(
                         'name' => $participation->getNick(),
-                        'uri' => 'http://tilos.hu/#/author/'.$participation->getAuthor()->getId(),
+                        'uri' => 'http://tilos.hu/#/author/' . $participation->getAuthor()->getId(),
                     ));
                 }
                 $entry->setDateModified($episode->getPlannedTo());
@@ -56,9 +56,9 @@ class Atom extends AbstractActionController {
                 ));
                 $feed->addEntry($entry);
                 $idx++;
-		$limit--;
+                $limit--;
             }
-	    if ($limit < 0) break;
+            if ($limit < 0) break;
         }
         $response = $this->getResponse();
         $response->setStatusCode(200);
@@ -66,7 +66,7 @@ class Atom extends AbstractActionController {
             'Content-Type' => 'text/xml; charset=utf-8'
         ));
 
-        $renderer = new \Radio\Util\CustomAtomFeedRenderer($feed);        
+        $renderer = new \Radio\Util\CustomAtomFeedRenderer($feed);
         $response->setContent($renderer->render()->saveXml());
         return $response;
     }

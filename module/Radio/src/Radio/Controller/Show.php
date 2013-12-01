@@ -13,16 +13,9 @@ class Show extends BaseController {
 
     use EntityManager;
 
-    public function createShortConverter() {
-        $res = function($result) {
-                    return $result;
-                };
-        return $res;
-    }
-    
     public function findEntityObject($type, $id) {
         $qb = $this->getEntityManager()->createQueryBuilder();
-        $qb->select('a','sa','s','u')->from('\Radio\Entity\Show', 's');
+        $qb->select('a', 'sa', 's', 'u')->from('\Radio\Entity\Show', 's');
         if (is_numeric($id)) {
             $qb->where('s.id = :id');
         } else {
@@ -33,34 +26,33 @@ class Show extends BaseController {
 
 
         $q = $qb->getQuery();
-        $q->setParameter("id",$id);
+        $q->setParameter("id", $id);
         return $q->getArrayResult()[0];
     }
-    
-    public function createLongConverter() {
-        $res = function($result) {
-                    $a = $result;
-                    unset($result['description']);
-                    foreach ($result['contributors'] as $author) {
-                        unset($author['author']['introduction']);
-                    }
-                    $a['schedulings'] = array();
-                    $a['episodes'] = array();
 
-                    $now = time();
-                    $episodes = EpisodeUtil::getEpisodeTimes($this->getEntityManager(), $a['id'], $now - 60 * 60 * 24 * 30 * 10, $now);
-                    foreach ($episodes as $epi) {
-                        $a['episodes'][] = $epi->toArray();
-                    }
-                    
-                    return $a;
-                };
-        return $res;
+    public function mapEntity($result) {
+        $a = $result;
+        unset($result['description']);
+        foreach ($result['contributors'] as $author) {
+            unset($author['author']['introduction']);
+        }
+        $a['schedulings'] = array();
+        $a['episodes'] = array();
+
+        $now = time();
+        $episodes = EpisodeUtil::getEpisodeTimes($this->getEntityManager(), $a['id'], $now - 60 * 60 * 24 * 30 * 10, $now);
+        foreach ($episodes as $epi) {
+            $a['episodes'][] = $epi->toArray();
+        }
+
+        return $a;
     }
+
+
 
     public function findEntityList($type) {
         $qb = $this->getEntityManager()->createQueryBuilder();
-        $qb->select('s')->from('\Radio\Entity\Show', 's')->orderBy("s.name","ASC");
+        $qb->select('s')->from('\Radio\Entity\Show', 's')->orderBy("s.name", "ASC");
         $q = $qb->getQuery();
         return $q->getArrayResult();
     }
@@ -69,24 +61,24 @@ class Show extends BaseController {
      * @SWG\Api(
      *   path="/show",
      *   description="Generic information about radio show",
-     *   @SWG\Operation(
+     * @SWG\Operation(
      *     method="GET",
      *     summary="List all active radioshow"
      *   )
      * )
      */
     public function getList() {
-        return $this->getEntityList("\Radio\Entity\Show", $this->createShortConverter());
+        return $this->getEntityList("\Radio\Entity\Show");
     }
 
     /**
      * @SWG\Api(
      *   path="/show/{id}",
-     *   @SWG\Operation(
+     * @SWG\Operation(
      *     method="GET",
      *     summary="Return information about a specific radioshow",
-     *     @SWG\Parameters(
-     *        @SWG\Parameter(
+     * @SWG\Parameters(
+     * @SWG\Parameter(
      *           name= "id",
      *           description="Id of the show",
      *           paramType="path",
@@ -97,7 +89,7 @@ class Show extends BaseController {
      * )
      */
     public function get($id) {
-        return $this->getEntity("\Radio\Entity\Show", $id, $this->createLongConverter(true));
+        return $this->getEntity("\Radio\Entity\Show", $id);
     }
 
     public function create($data) {
@@ -111,7 +103,7 @@ class Show extends BaseController {
     /**
      * @SWG\Api(
      *   path="/show/{id}",
-     *   @SWG\Operation(
+     * @SWG\Operation(
      *     method="DELETE",
      *     summary="Delete a radio show."
      *   )

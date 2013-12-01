@@ -12,23 +12,31 @@ use Zend\View\Model\JsonModel;
 class BaseController extends AbstractRestfulController {
 
     use EntityManager;
-       
+
     public function findEntityObject($type, $id) {
         return $this->getEntityManager()->find($type, $id);
     }
-    
+
     public function findEntityList($type) {
         return $this->getEntityManager()->getRepository($type)->findAll();
     }
-    
-    public function getEntity($type, $id, $mapping) {
+
+    public function mapEntityListElement($result) {
+        return $result;
+    }
+
+    public function mapEntity($result) {
+        return $result;
+    }
+
+    public function getEntity($type, $id) {
         try {
             $result = $this->findEntityObject($type, $id);
             if ($result == null) {
                 $this->getResponse()->setStatusCode(404);
                 return new JsonModel(array("error" => "Not found"));
             } else {
-                $a = call_user_func($mapping, $result);
+                $a = $this->mapEntity($result);
                 return new JsonModel($a);
             }
         } catch (\Exception $ex) {
@@ -45,7 +53,7 @@ class BaseController extends AbstractRestfulController {
                 return new JsonModel(array());
             $return = array();
             foreach ($resultSet as $result) {
-                $return[] = call_user_func($mapping, $result);
+                $return[] = $this->mapEntityListElement($result);
             }
             return new JsonModel($return);
         } catch (Exception $ex) {
