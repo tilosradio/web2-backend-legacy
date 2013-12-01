@@ -4,7 +4,7 @@ namespace Radio\Controller;
 
 /**
  * Utility class to return with episodes.
- * 
+ *
  */
 class EpisodeUtil {
 
@@ -25,14 +25,14 @@ class EpisodeUtil {
             $current->modify("+" . $scheduling['weekDay'] . " days");
             while ($current->getTimestamp() < $to) {
                 $real = clone $current;
-                $real->setTime($scheduling['hourFrom'],$scheduling['minFrom'],0);
-		$selectedWeek = true;
-     		if ($scheduling['weekType'] > 1) { 
-		   $weekNo = ($real->getTimestamp() - $scheduling['base']->getTimestamp()) / (7 * 60 * 60 * 24);
- 		   if (round($weekNo) % $scheduling['weekType'] != 0) {
+                $real->setTime($scheduling['hourFrom'], $scheduling['minFrom'], 0);
+                $selectedWeek = true;
+                if ($scheduling['weekType'] > 1) {
+                    $weekNo = ($real->getTimestamp() - $scheduling['base']->getTimestamp()) / (7 * 60 * 60 * 24);
+                    if (round($weekNo) % $scheduling['weekType'] != 0) {
                         $selectedWeek = false;
-                   }
-		}
+                    }
+                }
                 if ($selectedWeek && $real->getTimestamp() >= $from && $real->getTimestamp() < $to) {
                     $e = new \Radio\Entity\Episode();
                     $realEnd = $real->getTimestamp() + $scheduling['duration'] * 60;
@@ -52,8 +52,8 @@ class EpisodeUtil {
         $query->setParameter("end", EpisodeUtil::toDateTime($to));
         $episodes = $query->getResult();
         foreach ($episodes as $episode) {
-            $episode->setM3uUrl(sprintf('m3u/%d/%d.m3u', $episode->getPlannedFrom()->getTimestamp(), 
-                    ($episode->getPlannedTo()->getTimestamp() - $episode->getPlannedFrom()->getTimestamp()) / 60));
+            $episode->setM3uUrl(sprintf('m3u/%d/%d.m3u', $episode->getPlannedFrom()->getTimestamp(),
+                ($episode->getPlannedTo()->getTimestamp() - $episode->getPlannedFrom()->getTimestamp()) / 60));
         }
 
         $result = array();
@@ -82,8 +82,16 @@ class EpisodeUtil {
                 }
             }
         }
+        uasort($result, array("self","comparator"));
         //merge the data
         return $result;
+    }
+
+    static function comparator($a, $b) {
+        if ($a->getPlannedFrom()->getTimestamp() < $b->getPlannedFrom()->getTimestamp()) {
+            return 1;
+        }
+        return -1;
     }
 
     static function toDateTime($timestamp) {
