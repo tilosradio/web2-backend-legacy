@@ -40,7 +40,7 @@ class Author {
     /**
      * @ORM\Column(type="text") 
      * */
-    protected $introduction;
+    protected $introduction = "";
 
     /**
      * @ORM\OneToMany(targetEntity="Contribution",mappedBy="author", fetch="EAGER")
