@@ -165,7 +165,7 @@ img{
   }
 }
 .navbar-collapse{
-    overflow-y: auto;  
+    overflow-y: auto;
 }
 .navbar-collapse.ng-hide{
    @media all and (min-width: $screen-sm){
@@ -441,7 +441,6 @@ img{
     display: inline-block;
     font-size: 16px;
     font-weight: 300;
-    height: 30px;
     line-height: 30px;
     &:hover{
         color: white;
@@ -483,6 +482,7 @@ img{
     position: relative;
     text-align: center;
     width: 34px;
+    border-top: 1px solid $gray-light;
     &:before{
        content: "";
        border-right: 5px solid $gray-light;
@@ -754,11 +754,7 @@ a.icon-star, a.icon-star2{
   }
 }
 
-.previous{
-	cursor: pointer;
-}
-
-.next{
+.cursorPointer{
 	cursor: pointer;
 }
 

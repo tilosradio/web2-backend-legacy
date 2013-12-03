@@ -7,6 +7,21 @@
 
     <span ng-bind-html="show.description"></span>
 
+    <footer>
+  		<div class="social" ng-controller="SocialCtrl">
+			<iframe src="//www.facebook.com/plugins/like.php?href=http%3A%2F%2F{{tilosHost}}%2F%23%2Fshow%2F{{show.alias}}&amp;width&amp;layout=standard&amp;action=like&amp;show_faces=true&amp;share=true&amp;height=80&amp;" scrolling="no" frameborder="0" style="border:none; overflow:hidden; height:80px;" allowTransparency="true"></iframe>
+			<!--
+			<div class="facebook-share">
+				<span class="icon-facebook"></span>
+				<span class="cursorPointer" ng-click="share(show.name, show.definition, show.alias)">Megosztom</span>
+				<span class="share-numb">5k</span>
+			</div>
+			<a href="#" class="google-share"><span class=" icon-google-plus"></span>Megosztom <span class="share-numb">5k</span></a>
+			<a href="#" class="edit-this icon-pencil"></a>
+			<a href="#" class="archive-this icon-box-add"></a>-->
+		</div>
+    </footer>
+
     <h2>Legutóbbi adások</h2>
 
     <div class="panel panel-default" ng-repeat="episode in show.episodes">
