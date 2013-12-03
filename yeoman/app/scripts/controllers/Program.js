@@ -55,7 +55,7 @@ angular.module('tilosApp')
 			var result = $scope.program;
 			//index episodes by day
 			for (var i = 0; i < data.length; i++) {
-				var idx = Math.floor((data[i].from - refDate) / (60 * 60 * 24));
+				var idx = Math.floor((data[i].plannedFrom - refDate) / (60 * 60 * 24));
 				data[i].idx = idx;
 				if (!result[idx]) {
 					result[idx] = {
@@ -67,11 +67,11 @@ angular.module('tilosApp')
 
 			//sort every day
 			var sortFunction = function (a, b) {
-				return a.from - b.from;
+				return a.plannedFrom - b.plannedTo;
 			};
 			for (var key in result) {
 				result[key].episodes.sort(sortFunction);
-				result[key].date = result[key].episodes[0].from * 1000;
+				result[key].date = result[key].episodes[0].plannedFrom * 1000;
 			}
 			$scope.program = result;
 

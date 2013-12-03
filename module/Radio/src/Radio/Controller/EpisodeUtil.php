@@ -8,57 +8,94 @@ namespace Radio\Controller;
  */
 class EpisodeUtil {
 
-    static function getEpisodeTimes($em, $show, $from, $to) {
-        //$em->getConfiguration()->setSQLLogger(new \Doctrine\DBAL\Logging\EchoSQLLogger());
-        //retrieve active rules
-        $query = $em->createQuery('SELECT e FROM Radio\Entity\Scheduling e WHERE e.show = :showId ORDER BY e.weekDay,e.hourFrom,e.minFrom');
-        $query->setParameter("showId", $show);
-        $resultSet = $query->getArrayResult();
+    static function getScheduled($em, $from, $to, $show) {
+        $qb = $em->createQueryBuilder();
+        $qb->select('e', 's', 'c')->from('\Radio\Entity\Scheduling', 'e');
+        $qb->leftJoin("e.show", "s");
+        $qb->leftJoin('s.contributors', 'c');
 
+        if ($show != null) {
+            $qb->where('e.show = :showId AND s.status = 1');
+        } else {
+            $qb->where('s.status = 1');
+        }
+        $qb->orderBy("e.weekDay,e.hourFrom,e.minFrom");
+        $query = $qb->getQuery();
+        if ($show != null) {
+            $query->setParameter("showId", $show);
+        }
+        $resultSet = $query->getArrayResult();
         $scheduled = array();
         foreach ($resultSet as $result) {
             $scheduling = $result;
 
             $current = new \DateTime();
-            $current->setTimestamp(EpisodeUtil::weekStart($from + 60 * 60 * 5));
+            $current->setTimestamp(EpisodeUtil::weekStart($from + 60 * 60 * (5 - 7 * 24)));
             $current->setTime(12, 0, 0);
             $current->modify("+" . $scheduling['weekDay'] . " days");
-            while ($current->getTimestamp() < $to) {
+            while ($to) {
                 $real = clone $current;
                 $real->setTime($scheduling['hourFrom'], $scheduling['minFrom'], 0);
+                if ($real->getTimestamp() > $to) {
+                    break;
+                }
                 $selectedWeek = true;
                 if ($scheduling['weekType'] > 1) {
                     $weekNo = ($real->getTimestamp() - $scheduling['base']->getTimestamp()) / (7 * 60 * 60 * 24);
-                    if (round($weekNo) % $scheduling['weekType'] != 0) {
+                    if (floor($weekNo) % $scheduling['weekType'] != 0) {
                         $selectedWeek = false;
                     }
                 }
+
                 if ($selectedWeek && $real->getTimestamp() >= $from && $real->getTimestamp() < $to) {
-                    $e = new \Radio\Entity\Episode();
+                    $e = [];
                     $realEnd = $real->getTimestamp() + $scheduling['duration'] * 60;
-                    $e->setPlannedFrom($real);
-                    $e->setPlannedTo(EpisodeUtil::toDateTime($realEnd));
-                    $e->setM3uUrl(sprintf('m3u/%d/%d.m3u', $real->getTimestamp(), $scheduling['duration']));
-                    $e->setPersistent(false);
+                    $e['plannedFrom'] = $real;
+                    $e['plannedTo'] = EpisodeUtil::toDateTime($realEnd);
+                    $e['m3uUrl'] = sprintf('m3u/%d/%d.m3u', $real->getTimestamp(), $scheduling['duration']);
+                    $e['persistent'] = false;
+                    $e['show'] = $scheduling['show'];
                     $scheduled[] = $e;
                 }
                 $current->modify("+ 7 days");
             }
         }
-        //retrieve episodes       
-        $query = $em->createQuery('SELECT e FROM Radio\Entity\Episode e WHERE e.show = :showId AND e.plannedTo > :start AND e.plannedFrom < :end ORDER BY e.plannedFrom');
-        $query->setParameter("showId", $show);
+        return $scheduled;
+    }
+
+    static function getEpisodes($em, $from, $to, $show = null) {
+        $qb = $em->createQueryBuilder();
+        $qb->select('e', 's', 'c', 't')->from('\Radio\Entity\Episode', 'e');
+        if ($show != null) {
+            $qb->where("e.show = :showId AND e.plannedTo > :start AND e.plannedFrom < :end AND s.status = 1");
+        } else {
+            $qb->where("e.plannedTo > :start AND e.plannedFrom < :end AND s.status = 1");
+        }
+        $qb->leftJoin('e.show', 's');
+        $qb->leftJoin('s.contributors', 'c');
+        $qb->leftJoin('e.text', 't');
+
+        $qb->orderBy("e.plannedFrom");
+        $query = $qb->getQuery();
+
+        if ($show != null) {
+            $query->setParameter("showId", $show);
+        }
         $query->setParameter("start", EpisodeUtil::toDateTime($from));
         $query->setParameter("end", EpisodeUtil::toDateTime($to));
-        $episodes = $query->getResult();
-        foreach ($episodes as $episode) {
-            $episode->setM3uUrl(sprintf('m3u/%d/%d.m3u', $episode->getPlannedFrom()->getTimestamp(),
-                ($episode->getPlannedTo()->getTimestamp() - $episode->getPlannedFrom()->getTimestamp()) / 60));
+        $episodes = $query->getArrayResult();
+        foreach ($episodes as &$episode) {
+            $episode['persistent'] = true;
+            $episode['m3uUrl'] = sprintf('m3u/%d/%d.m3u', $episode['plannedFrom']->getTimestamp(),
+                ($episode['plannedTo']->getTimestamp() - $episode['plannedFrom']->getTimestamp()) / 60);
         }
+        return $episodes;
+    }
 
+    static function merge($episodes, $scheduled) {
         $result = array();
         $si = 0; //scheduled index
-        $ei = 0; //episode index;        
+        $ei = 0; //episode index;
         while ($si < count($scheduled) || $ei < count($episodes)) {
             if ($si == count($scheduled)) {
                 $result[] = $episodes[$ei];
@@ -67,13 +104,13 @@ class EpisodeUtil {
                 $result[] = $scheduled[$si];
                 $si++;
             } else {
-                $sStart = $scheduled[$si]->getPlannedFrom();
-                $eStart = $episodes[$ei]->getPlannedFrom();
-                if ($sStart == $eStart) {
+                $sStart = $scheduled[$si]['plannedFrom'];
+                $eStart = $episodes[$ei]['plannedFrom'];
+                if ($sStart->getTimestamp() == $eStart->getTimestamp()) {
                     $result[] = $episodes[$ei];
                     $si++;
                     $ei++;
-                } else if ($sStart < $eStart) {
+                } else if ($sStart->getTimestamp() < $eStart->getTimestamp()) {
                     $result[] = $scheduled[$si];
                     $si++;
                 } else {
@@ -82,13 +119,35 @@ class EpisodeUtil {
                 }
             }
         }
-        uasort($result, array("self","comparator"));
-        //merge the data
         return $result;
     }
 
+    static function getEpisodeTimes($em, $from, $to, $show = null, $reverse = false) {
+        //$em->getConfiguration()->setSQLLogger(new \Doctrine\DBAL\Logging\EchoSQLLogger());
+        //retrieve active rules
+        $scheduled = EpisodeUtil::getScheduled($em, $from, $to, $show);
+        //retrieve episodes
+        $episodes = EpisodeUtil::getEpisodes($em, $from, $to, $show);
+
+        $result = EpisodeUtil::merge($episodes, $scheduled);
+        if ($reverse) {
+            uasort($result, array("self", "reverseComparator"));
+        } else {
+            uasort($result, array("self", "comparator"));
+
+        }
+        return $result;
+    }
+
+    static function reverseComparator($a, $b) {
+        if ($a['plannedFrom']->getTimestamp() > $b['plannedFrom']->getTimestamp()) {
+            return -1;
+        }
+        return 1;
+    }
+
     static function comparator($a, $b) {
-        if ($a->getPlannedFrom()->getTimestamp() < $b->getPlannedFrom()->getTimestamp()) {
+        if ($a['plannedFrom']->getTimestamp() > $b['plannedFrom']->getTimestamp()) {
             return 1;
         }
         return -1;

@@ -36,20 +36,20 @@ class Atom extends AbstractActionController {
         $feed->setFeedLink('http://tilos.hu/atom/' . $showId, 'atom');
         $feed->setDateModified(time());
 
-        $episodes = EpisodeUtil::getEpisodeTimes($this->getEntityManager(), $show->getId(), \time() - 60 * 60 * 24 * 30 * 10, \time());
+        $episodes = EpisodeUtil::getEpisodeTimes($this->getEntityManager(), \time() - 60 * 60 * 24 * 30 * 10, \time(), $show->getId());
         usort($episodes, array("\Radio\Controller\Atom", "comparator"));
         $limit = 30;
         foreach ($episodes as $episode) {
-            $from = $episode->getPlannedFrom()->getTimestamp();
+            $from = $episode['plannedFrom']->getTimestamp();
             //+360 => 6 minutes to include the next half hour
-            $end = $episode->getPlannedTo()->getTimestamp() + 6 * 60;
+            $end = $episode['plannedTo']->getTimestamp() + 6 * 60;
             $idx = 1;
             for ($i = $from; $i < $end; $i += 30 * 60) {
                 $d = getdate($i);
                 $timestr = sprintf("%02d%02d", $d['hours'], $d['minutes']);
 
                 $entry = $feed->createEntry();
-                $entry->setTitle($show->getName() . " " . $episode->getPlannedFrom()->format("Y-m-d") . " #" . $idx);
+                $entry->setTitle($show->getName() . " " . $episode['plannedFrom']->format("Y-m-d") . " #" . $idx);
                 $entry->setId(sprintf("http://tilos.hu/feed/%s/%02d/%02d/%02d/%s", $showId, $d['year'], $d['mon'], $d['mday'], $timestr));
                 $entry->setLink('http://tilos.hu/#/show/' . $showId);
                 foreach ($show->getContributors() as $participation) {
@@ -58,8 +58,8 @@ class Atom extends AbstractActionController {
                         'uri' => 'http://tilos.hu/#/author/' . $participation->getAuthor()->getId(),
                     ));
                 }
-                $entry->setDateModified($episode->getPlannedTo());
-                $entry->setDateCreated($episode->getPlannedFrom());
+                $entry->setDateModified($episode['plannedTo']);
+                $entry->setDateCreated($episode['plannedFrom']);
                 $entry->setDescription("Az adás $idx. része");
                 $entry->setContent('content');
                 $entry->setItunesExplicit('no');
@@ -87,7 +87,7 @@ class Atom extends AbstractActionController {
     }
 
     public static function comparator($a, $b) {
-        return ($a->getPlannedFrom()->getTimestamp() > $b->getPlannedFrom()->getTimestamp()) ? -1 : +1;
+        return ($a['plannedFrom']->getTimestamp() > $b['plannedTo']->getTimestamp()) ? -1 : +1;
     }
 
 }

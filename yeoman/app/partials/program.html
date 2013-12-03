@@ -22,7 +22,7 @@
 		<tr ng-repeat="episode in program[currentDay].episodes">
 			<td class="archiveShowName"><a href="#/show/{{episode.show.alias}}">{{episode.show.name}}</a></td>
 			<td class="archiveItalic archiveDesc">{{episode.show.definition}}</td>
-			<td class="archiveTime">{{episode.from * 1000| date: 'HH:mm'}}</td>
+			<td class="archiveTime">{{episode.plannedFrom * 1000| date: 'HH:mm'}}</td>
 			<td class="archiveAuth">
 				Műsorvezető:
 				<span ng-repeat="author in episode.showAuthor">

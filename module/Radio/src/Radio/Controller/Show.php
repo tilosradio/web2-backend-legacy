@@ -40,19 +40,23 @@ class Show extends BaseController {
         $a['episodes'] = array();
 
         $now = time();
-        $episodes = EpisodeUtil::getEpisodeTimes($this->getEntityManager(), $a['id'], $now - 60 * 60 * 24 * 30 * 10, $now);
-        foreach ($episodes as $epi) {
-            $a['episodes'][] = $epi->toArray();
+        $episodes = EpisodeUtil::getEpisodeTimes($this->getEntityManager(), $now - 60 * 60 * 24 * 30 * 10, $now, $a['id'], true);
+        foreach ($episodes as $episode) {
+            unset($episode['show']);
+            $episode['plannedFrom'] = $episode['plannedFrom']->getTimestamp();
+            $episode['plannedTo'] = $episode['plannedTo']->getTimestamp();
+
+            $a['episodes'][] = $episode;
+
         }
+
 
         return $a;
     }
 
-
-
     public function findEntityList($type) {
         $qb = $this->getEntityManager()->createQueryBuilder();
-        $qb->select('s')->from('\Radio\Entity\Show', 's')->orderBy("s.name", "ASC");
+        $qb->select('s')->from('\Radio\Entity\Show', 's')->where("s.status = 1")->orderBy("s.name", "ASC");
         $q = $qb->getQuery();
         return $q->getArrayResult();
     }

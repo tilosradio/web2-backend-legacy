@@ -23,52 +23,20 @@ class Episode extends BaseController {
      */
     public function getList() {
         try {
-            //TODO use EpisodeUtil here
-
             $start = $this->params()->fromQuery("start", time());
             $end = $this->params()->fromQuery("end", $start + 60 * 60 * 5);
-            //retrieve valid scheduling rules
-            $query = $this->getEntityManager()->createQuery('SELECT e FROM Radio\Entity\Scheduling e WHERE e.weekType = :type OR e.weekType = 0 ORDER BY e.weekDay,e.hourFrom,e.minFrom');
-            $query->setParameter("type", date("W", $start) % 2 + 1);
-            $resultSet = $query->getResult();
-            if (empty($resultSet))
-                return new JsonModel(array());
-            $return = array();
-
-            $weekstart = new \DateTime();
-            if (date('w',$start) == 1) {
-                $weekstart->setTimestamp(strtotime('This Monday', $start));
-            } else {
-                $weekstart->setTimestamp(strtotime('Last Monday', $start));
-            }
-
-            foreach ($resultSet as $result) {
-                $a = $result->toArray();
-                $epi = array();
-                //$epi->setShow($result->getShow());
-                $epi['show'] = $result->getShow()->toArrayShort();
-
-                $epi['showAuthor'] = array();
-            	//Get the authors
-            	foreach ($result->getShow()->getContributors() as $contributor) {
-            	    $participant = $contributor->getAuthor()->toArrayShort();
-            	    $participant['nick'] = $contributor->getNick();
-            	    $epi['showAuthor'][] = $participant;
-		}
-            	
-
-                //calculate actual date from
-                $from = clone $weekstart;
-                $from->setTime($result->getHourFrom(), $result->getMinFrom(), 0);
-                $from->add(new \DateInterval("P" . $result->getWeekDay() . "D"));
-
-                $epi['from'] = $from->getTimestamp();
-                $epi['to'] = $from->getTimestamp() + $result->getDuration() * 60;
-                if($epi['from']>=$start && $epi['to']<=$end){
-                    $return[] = (array) $epi;
+            $episodes = EpisodeUtil::getEpisodeTimes($this->getEntityManager(),$start,$end);
+            $result = [];
+            foreach ($episodes as $episode) {
+                if ($episode['show']) {
+                    unset($episode['show']['description']);
                 }
+                $episode['plannedFrom'] = $episode['plannedFrom']->getTimestamp();
+                $episode['plannedTo'] = $episode['plannedTo']->getTimestamp();
+                $result[] = $episode;
+
             }
-            return new JsonModel($return);
+            return new JsonModel($result);
         } catch (Exception $ex) {
             $this->getResponse()->setStatusCode(500);
             return new JsonModel(array("error" => $ex->getMessage()));

@@ -16,33 +16,27 @@ class Episode {
      * @ORM\GeneratedValue
      * */
     protected $id;
-
     /**
      * @ORM\Column(type="datetime")
      * */
     protected $plannedFrom;
-
     /**
      * @ORM\Column(type="datetime")
      * */
     protected $plannedTo;
-
     /**
      * @ORM\Column(type="datetime")
      * */
     protected $realFrom;
-
     /**
      * @ORM\Column(type="datetime")
      * */
     protected $realTo;
-
     /**
      * @ORM\ManyToOne(targetEntity = "Show")
      * @ORM\JoinColumn(name = "radioshow_id", referencedColumnName = "id")
      */
     protected $show;
-
     /**
      * So called 'Adasnaplo'
      *
@@ -52,7 +46,6 @@ class Episode {
     protected $text;
 
     protected $m3uUrl;
-
     /**
      *
      * false for the auto generated pseudo episde record.
@@ -66,11 +59,11 @@ class Episode {
     public function getPlannedFrom() {
         return $this->plannedFrom;
     }
-    
+
     public function getPlannedTo() {
         return $this->plannedTo;
     }
-    
+
     public function getRealFrom() {
         return $this->realFrom;
     }
@@ -82,7 +75,7 @@ class Episode {
     public function getShow() {
         return $this->show;
     }
-    
+
     public function setPlannedFrom($plannedFrom) {
         $this->plannedFrom = $plannedFrom;
     }
@@ -127,6 +120,11 @@ class Episode {
         if ($this->getText()) {
             $a['text'] = $this->getText()->toArray();
         }
+        if ($this->getShow()) {
+            $a['show'] = [];
+            $a['show']['id'] = $this->getShow()->getId();
+            $a['show']['name'] = $this->getShow()->getName();
+        }
         return $a;
     }
 
@@ -141,6 +139,8 @@ class Episode {
     public function setPersistent($persistent) {
         $this->persistent = $persistent;
     }
+
+
 
 }
 

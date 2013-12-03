@@ -5,67 +5,63 @@ namespace Radio\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * @ORM\Entity 
+ * @ORM\Entity
  * @ORM\Table(name="radioshow")
  * */
 class Show {
 
     /**
-     * @ORM\Id 
-     * @ORM\Column(type="integer") 
-     * @ORM\GeneratedValue 
+     * @ORM\Id
+     * @ORM\Column(type="integer")
+     * @ORM\GeneratedValue
      * */
     protected $id;
-
     /**
-     * @ORM\Column(type="string", length=100) 
+     * @ORM\Column(type="string", length=100)
      * */
     protected $name;
-
     /**
      * @ORM\OneToMany(targetEntity="Contribution",mappedBy="show", fetch="EAGER")
      */
     protected $contributors = array();
-
     /**
      * @ORM\OneToMany(targetEntity="Scheduling", mappedBy="show")
      */
     protected $schedulings = array();
-
     /**
-     * @ORM\Column(type="string", length=255, nullable=true) 
+     * @ORM\Column(type="string", length=255, nullable=true)
      * */
     protected $definition;
-
     /**
-     * @ORM\Column(type="string", length=25,nullable=true) 
+     * @ORM\Column(type="string", length=25,nullable=true)
      * */
     protected $alias;
-
     /**
-     * @ORM\Column(type="string", length=50,nullable=true) 
+     * @ORM\Column(type="string", length=50,nullable=true)
      * */
     protected $banner;
-
     /**
-     * @ORM\Column(type="text",nullable=true) 
+     * @ORM\Column(type="text",nullable=true)
      * */
     protected $description;
-
     /**
-     * @ORM\Column(type="integer") 
+     * @ORM\Column(type="integer")
      * */
     protected $type;
-    
-     /**
+    /**
      * @ORM\ManyToMany(targetEntity="Url")
      * @ORM\JoinTable(name="show_url",
-     *      joinColumns={@ORM\JoinColumn(name="show_id", referencedColumnName="id")},
+     *      joinColumns={@ORM\JoinColumn(name="radioshow_id", referencedColumnName="id")},
      *      inverseJoinColumns={@ORM\JoinColumn(name="url_id", referencedColumnName="id", unique=true)}
      *      )
      **/
     protected $urls = array();
-    
+    /**
+     * @ORM\Column(type="integer")
+     * 0 - planned, 1 - active, 2 - archived
+     */
+    protected $status;
+
     public function getUrls() {
         return $this->urls;
     }
@@ -73,10 +69,11 @@ class Show {
     public function setUrls($urls) {
         $this->urls = $urls;
     }
+
     public function addUrl($url) {
         $this->urls[] = $url;
     }
-    
+
     public function getId() {
         return $this->id;
     }
@@ -137,6 +134,7 @@ class Show {
     public function setType($type) {
         $this->type = $type;
     }
+
     public function setId($id) {
         $this->id = $id;
     }
@@ -144,6 +142,7 @@ class Show {
     public function setName($name) {
         $this->name = $name;
     }
+
     public function getContributors() {
         return $this->contributors;
     }
@@ -152,7 +151,6 @@ class Show {
         $this->contributors = $contributors;
     }
 
-     
     public function setSchedulings($schedulings) {
         $this->schedulings = $schedulings;
     }
@@ -171,6 +169,20 @@ class Show {
 
     public function setDescription($description) {
         $this->description = $description;
+    }
+
+    /**
+     * @param mixed $status
+     */
+    public function setStatus($status) {
+        $this->status = $status;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getStatus() {
+        return $this->status;
     }
 
 
