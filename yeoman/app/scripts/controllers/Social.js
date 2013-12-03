@@ -10,12 +10,10 @@ angular.module('tilosApp')
 
 		$scope.share = function(name, definition, alias){
 			window.open(
-				"http://www.facebook.com/sharer.php?s=100&p[title]="+encodeURIComponent(name)+"&p[summary]="+encodeURIComponent(definition)+"&p[url]="+encodeURIComponent("http://tilos.anzix.net/#/show/"+alias)+""
+				"http://www.facebook.com/sharer.php?s=100&p[title]="+encodeURIComponent(name)+"&p[summary]="+encodeURIComponent(definition)+"&p[url]="+encodeURIComponent(server+"/#/show/"+alias)+"",
+				"",
+				"width=500, height=300"
 			);
-		}
-
-		$scope.like = function(name, definition, alias){
-
 		}
 
 	}

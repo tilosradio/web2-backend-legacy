@@ -42,3 +42,11 @@ var tilosHost = window.location.hostname;
 
 angular.module('configuration', []).constant('API_SERVER_ENDPOINT', server);
 
+tilos.factory("validateUrl",function($sce){
+    return {
+        getValidUrl:function(url){
+            return $sce.trustAsResourceUrl(url)
+        }
+    };
+});
+
