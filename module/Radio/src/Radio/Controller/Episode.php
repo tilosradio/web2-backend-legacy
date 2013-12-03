@@ -12,11 +12,11 @@ class Episode extends BaseController {
 
     use EntityManager;
 
-     /**
+    /**
      * @SWG\Api(
      *   path="/episode",
      *   description="List of the exact episodes for a specific time range",
-     *   @SWG\Operation(
+     * @SWG\Operation(
      *     method="GET"
      *   )
      * )
@@ -25,12 +25,14 @@ class Episode extends BaseController {
         try {
             $start = $this->params()->fromQuery("start", time());
             $end = $this->params()->fromQuery("end", $start + 60 * 60 * 5);
-            $episodes = EpisodeUtil::getEpisodeTimes($this->getEntityManager(),$start,$end);
+            $episodes = EpisodeUtil::getEpisodeTimes($this->getEntityManager(), $start, $end);
             $result = [];
             foreach ($episodes as $episode) {
                 if ($episode['show']) {
                     unset($episode['show']['description']);
                 }
+                $episode['m3uUrl'] =  "http://" . $this->getRequest()->getServer('HTTP_HOST') . "/" . $episode['m3uUrl'];
+
                 $episode['plannedFrom'] = $episode['plannedFrom']->getTimestamp();
                 $episode['plannedTo'] = $episode['plannedTo']->getTimestamp();
                 $result[] = $episode;
@@ -66,29 +68,31 @@ class Episode extends BaseController {
     public function create($data) {
         try {
             // validation
-            if ( !isset($data['radioshow_id']) || !isset($data['plannedFrom']) ||
-            !isset($data['plannedTo']) || !isset($data['realFrom']) ||
-            !isset($data['realTo']) ) {
+            if (!isset($data['radioshow_id']) || !isset($data['plannedFrom']) ||
+                !isset($data['plannedTo']) || !isset($data['realFrom']) ||
+                !isset($data['realTo'])
+            ) {
                 $this->getResponse()->setStatusCode(400);
                 return new JsonModel(array("error" => "Mandatory fields: radioshow_id, plannedFrom, plannedTo, realFrom, realTo."));
             }
             // validate show id via DB
             $show = $this->getEntityManager()->find('Radio\Entity\Show', $data['radioshow_id']);
-            if ( is_null($show) ) {
+            if (is_null($show)) {
                 $this->getResponse()->setStatusCode(400);
                 return new JsonModel(array("error" => "Show id does not exist in DB."));
             }
             // validate textcontent id via DB
-            if ( isset($data['textcontent_id']) ) {
+            if (isset($data['textcontent_id'])) {
                 $text = $this->getEntityManager()->find('Radio\Entity\TextContent', $data['textcontent_id']);
-                if ( is_null($text) ) {
+                if (is_null($text)) {
                     $this->getResponse()->setStatusCode(400);
                     return new JsonModel(array("error" => "Textcontent id does not exist in DB."));
                 }
             }
             // validate timestamps
-            if ( !is_numeric($data['plannedFrom']) || !is_numeric($data['plannedTo']) ||
-            !is_numeric($data['realFrom']) || !is_numeric($data['plannedTo']) ) {
+            if (!is_numeric($data['plannedFrom']) || !is_numeric($data['plannedTo']) ||
+                !is_numeric($data['realFrom']) || !is_numeric($data['plannedTo'])
+            ) {
                 $this->getResponse()->setStatusCode(400);
                 return new JsonModel(array("error" => "Waiting dates in timestamp format (integer)."));
             }
@@ -110,14 +114,14 @@ class Episode extends BaseController {
             $episode->setPlannedTo($plannedTo);
             $episode->setRealFrom($realFrom);
             $episode->setRealTo($realTo);
-            if ( !is_null($text) ) {
+            if (!is_null($text)) {
                 $episode->setText($text);
             }
 
             $this->getEntityManager()->persist($episode);
             $this->getEntityManager()->flush();
 
-            return new JsonModel(array("create"=>"success"));
+            return new JsonModel(array("create" => "success"));
         } catch (\Exception $ex) {
             $this->getResponse()->setStatusCode(500);
             return new JsonModel(array("error" => $ex->getMessage()));
@@ -128,21 +132,22 @@ class Episode extends BaseController {
         $episode = $this->getEntityManager()->find('Radio\Entity\Episode', $id);
 
         // validation
-        if ( is_null($episode) ) {
+        if (is_null($episode)) {
             $this->getResponse()->setStatusCode(400);
             return new JsonModel(array("error" => "Episode id does not exist."));
         }
 
-        if ( !isset($data['radioshow_id']) && !isset($data['plannedFrom']) &&
-                        !isset($data['plannedTo']) && !isset($data['realFrom']) &&
-                        !isset($data['realTo']) && !isset($data['textcontent_id']) ) {
+        if (!isset($data['radioshow_id']) && !isset($data['plannedFrom']) &&
+            !isset($data['plannedTo']) && !isset($data['realFrom']) &&
+            !isset($data['realTo']) && !isset($data['textcontent_id'])
+        ) {
             $this->getResponse()->setStatusCode(400);
             return new JsonModel(array("error" => "One of the following fields must exist: radioshow_id, plannedFrom, plannedTo, realFrom, realTo, textcontent_id."));
         }
 
-        if ( isset($data['radioshow_id']) ) {
+        if (isset($data['radioshow_id'])) {
             $show = $this->getEntityManager()->find('Radio\Entity\Show', $data['radioshow_id']);
-            if ( is_null($show) ) {
+            if (is_null($show)) {
                 $this->getResponse()->setStatusCode(400);
                 return new JsonModel(array("error" => "Show id does not exist in DB."));
             } else {
@@ -150,8 +155,8 @@ class Episode extends BaseController {
                 $updated .= " Show id: " . $data['radioshow_id'];
             }
         }
-        if ( isset($data['plannedFrom']) ) {
-            if ( !is_numeric($data['plannedFrom']) ) {
+        if (isset($data['plannedFrom'])) {
+            if (!is_numeric($data['plannedFrom'])) {
                 $this->getResponse()->setStatusCode(400);
                 return new JsonModel(array("error" => "Waiting dates in timestamp format (integer)."));
             } else {
@@ -161,8 +166,8 @@ class Episode extends BaseController {
                 $updated .= " PlannedFrom: " . $data['plannedFrom'];
             }
         }
-        if ( isset($data['plannedTo']) ) {
-            if ( !is_numeric($data['plannedTo']) ) {
+        if (isset($data['plannedTo'])) {
+            if (!is_numeric($data['plannedTo'])) {
                 $this->getResponse()->setStatusCode(400);
                 return new JsonModel(array("error" => "Waiting dates in timestamp format (integer)."));
             } else {
@@ -172,8 +177,8 @@ class Episode extends BaseController {
                 $updated .= " PlannedTo: " . $data['plannedTo'];
             }
         }
-        if ( isset($data['realFrom']) ) {
-            if ( !is_numeric($data['realFrom']) ) {
+        if (isset($data['realFrom'])) {
+            if (!is_numeric($data['realFrom'])) {
                 $this->getResponse()->setStatusCode(400);
                 return new JsonModel(array("error" => "Waiting dates in timestamp format (integer)."));
             } else {
@@ -183,8 +188,8 @@ class Episode extends BaseController {
                 $updated .= " RealFrom: " . $data['realFrom'];
             }
         }
-        if ( isset($data['realTo']) ) {
-            if ( !is_numeric($data['realTo']) ) {
+        if (isset($data['realTo'])) {
+            if (!is_numeric($data['realTo'])) {
                 $this->getResponse()->setStatusCode(400);
                 return new JsonModel(array("error" => "Waiting dates in timestamp format (integer)."));
             } else {
@@ -195,9 +200,9 @@ class Episode extends BaseController {
             }
         }
         // validate textcontent id via DB
-        if ( isset($data['textcontent_id']) ) {
+        if (isset($data['textcontent_id'])) {
             $text = $this->getEntityManager()->find('Radio\Entity\TextContent', $data['textcontent_id']);
-            if ( is_null($text) ) {
+            if (is_null($text)) {
                 $this->getResponse()->setStatusCode(400);
                 return new JsonModel(array("error" => "Textcontent id does not exist in DB."));
             } else {
@@ -207,13 +212,13 @@ class Episode extends BaseController {
         }
 
         $this->getEntityManager()->flush();
-        return new JsonModel(array("update"=>"success", "Updated values"=>$updated));
+        return new JsonModel(array("update" => "success", "Updated values" => $updated));
     }
 
     public function delete($id) {
         try {
             $episode = $this->getEntityManager()->find('Radio\Entity\Episode', $id);
-            if ( is_null($episode) ) {
+            if (is_null($episode)) {
                 $this->getResponse()->setStatusCode(400);
                 return new JsonModel(array("error" => "Episode does not exist in DB."));
             }
@@ -221,7 +226,7 @@ class Episode extends BaseController {
             $this->getEntityManager()->remove($episode);
             $this->getEntityManager()->flush();
 
-            return new JsonModel(array("delete"=>"success"));
+            return new JsonModel(array("delete" => "success"));
         } catch (\Exception $ex) {
             $this->getResponse()->setStatusCode(500);
             return new JsonModel(array("error" => $ex->getMessage()));

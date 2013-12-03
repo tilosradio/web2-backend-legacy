@@ -1,39 +1,43 @@
-<section class="col-md-12 main" role="main" >
+<section class="col-md-12 main" role="main">
     <h2>
-    	<div ng-controller="DatepickerCtrl" class="DatePicker">
-			<div class="form-horizontal">
-				<button class="btn ChooseDate" ng-click="open()">
-		        	<i class="icon-calendar"></i>
-		        </button>
-		        <input type="text" class="datepicker" datepicker-popup="yyyy.MM.dd"
-		        	ng-model="program[currentDay].date" is-open="opened" min="minDate" max="maxDate"
-		        	datepicker-options="dateOptions" date-disabled="disabled(date, mode)"
-		        	ng-required="true" ng-change="getDay();" />
-		    </div>
-		</div>
+        <div ng-controller="DatepickerCtrl" class="DatePicker">
+            <div class="form-horizontal">
+                <button class="btn ChooseDate" ng-click="open()">
+                    <i class="icon-calendar"></i>
+                </button>
+                <input type="text" class="datepicker" datepicker-popup="yyyy.MM.dd"
+                       ng-model="program[currentDay].date" is-open="opened" min="minDate" max="maxDate"
+                       datepicker-options="dateOptions" date-disabled="disabled(date, mode)"
+                       ng-required="true" ng-change="getDay();"/>
+            </div>
+        </div>
     </h2>
 
     <ul class="pager">
-        <li class="cursorPointer"><a ng-click="prev()" >&larr; Előző nap</a></li>
-        <li class="cursorPointer"><a ng-click="next()" >Következő nap &rarr;</a></li>
+        <li class="cursorPointer"><a ng-click="prev()">&larr; Előző nap</a></li>
+        <li class="cursorPointer"><a ng-click="next()">Következő nap &rarr;</a></li>
     </ul>
 
-	<table class="table table-hover" id="archiveTable">
-		<tr ng-repeat="episode in program[currentDay].episodes">
-			<td class="archiveShowName"><a href="#/show/{{episode.show.alias}}">{{episode.show.name}}</a></td>
-			<td class="archiveItalic archiveDesc">{{episode.show.definition}}</td>
-			<td class="archiveTime">{{episode.plannedFrom * 1000| date: 'HH:mm'}}</td>
-			<td class="archiveAuth">
-				Műsorvezető:
-				<span ng-repeat="author in episode.showAuthor">
+    <table class="table table-hover" id="archiveTable">
+        <tr ng-repeat="episode in program[currentDay].episodes">
+            <td class="archiveTime">{{episode.plannedFrom * 1000| date: 'HH:mm'}}</td>
+            <td class="archiveShowName"><a href="#/show/{{episode.show.alias}}">{{episode.show.name}}</a></td>
+            <td class="archiveItalic archiveDesc">{{episode.text.title}}</td>
+            <td class="archiveAuth">
+                Műsorvezető:
+				<span ng-repeat="author in episode.show.contributors">
 					<div ng-show="(author.nick != '')">
-						<a href="#/author/{{author.alias}}">{{author.nick}}</a>
-					</div>
+                        <a href="#/author/{{author.alias}}">{{author.nick}}</a>
+                    </div>
         			<div ng-show="(author.name == '')">
-        				<a href="#/author/{{author.alias}}">{{author.alias}}</a>
-        			</div>
+                        <a href="#/author/{{author.alias}}">{{author.alias}}</a>
+                    </div>
 				</span>
-			</td>
-		</tr>
-	</table>
+            </td>
+            <td>
+                <a href="{{episode.m3uUrl}}">Meghallgat</a>
+            </td>
+
+        </tr>
+    </table>
 </section>
