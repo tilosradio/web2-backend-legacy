@@ -9,7 +9,7 @@
 
 
 body{
-    padding-top: 300px; //need for a fix navbar
+    padding-top: 250px; //need for a fix navbar
 }
 
 h2{
@@ -84,7 +84,7 @@ blockquote{
 }
 
 article{
-    padding-bottom: 27px;
+    padding-bottom: 10px;
     a{
         font-weight: bold;
     }
@@ -114,6 +114,8 @@ img{
     margin-right: 10px;
   }
 }
+
+
 
 .collapse-row{
   margin: 0;
@@ -164,10 +166,16 @@ img{
 .navbar-nav {
     > li{
         font-size: 19px;
-        border-left: 1px solid rgba(white, 0.6);
+        border-left: 1px solid rgba($navbar-separator, 0.6);
         &:first-child{
             border-left: none;
+
+            a:first-child{
+				padding-left:0;
+            }
         }
+
+     	
     }
 }
 
@@ -206,8 +214,12 @@ img{
 // Header
 
 
-.main-header{
+.navbar-fixed-top{
     background: $primary-color;
+}
+
+
+.main-header{
     color: white;
     padding: 22px 0;
     h1{
@@ -227,11 +239,15 @@ img{
         width: 100%;
         height:110px;
         h3{
-            padding: 0 10px;
-            text-align: center;
-            font-size: 18px;
+            padding: 0px 10px;
+            text-align: left;
+            font-size: 22px;
             font-family: "Open Sans",sans-serif;
             font-weight: bold;
+            margin:0;
+            	a{
+					color:#fff;
+            	}
         }
         h4{
         	margin-top: 0;
@@ -243,9 +259,15 @@ img{
 		.radio-fromTo{
 			font-size: 20px;
 			font-weight: normal;
+			position:absolute;
+			bottom:0;
 		}
 		.radio-formatList{
 			padding-right: 0px;
+		}
+		.col-md-6{
+			height:80px;
+			position:relative;
 		}
 
 
@@ -276,21 +298,21 @@ img{
     @include clearfix();
     li{
         border-top: 3px solid $link-color;
-        border-left: 1px solid $link-color;
+        border-left: 1px solid $stream-separator;
         float: left;
         text-align: center;
         width: 25%;
         &:nth-child(2){
             border-top-color: $brand-success;
-            border-left: 1px solid $brand-success;
+            //border-left: 1px solid $brand-success;
         }
         &:nth-child(3){
             border-top-color: $placeholder-color;
-            border-left: 1px solid $placeholder-color;
+            //border-left: 1px solid $placeholder-color;
         }
         &:nth-child(4){
             border-top-color: $highlight-color;
-            border-left: 1px solid $highlight-color;
+            //border-left: 1px solid $highlight-color;
         }
         &:hover, .active{
             background: rgba(white, 0.1);
@@ -334,8 +356,17 @@ img{
 // header end
 // Article style
 
+
+.main{
+	h2{
+		border-bottom:1px solid #201f1f;
+		margin-top:40px;
+		line-height:1.4em;
+	}
+}
+
 .article-info{
-    padding: 40px 0;
+    padding: 20px 0;
 }
 
 .author{
@@ -517,7 +548,7 @@ aside{
         position: relative;
         &:before{
           content: "";
-          border-left: 5px solid white;
+          border-left: 5px solid #ededeb;
           border-top: 10px solid transparent;
           border-bottom: 10px solid transparent;
           bottom: 0;
@@ -536,6 +567,29 @@ a.icon-star, a.icon-star2{
   &:hover{
     text-decoration: none;
   }
+}
+
+
+#plaza{
+	margin-bottom:20px;
+	h2{
+		border:none;
+		margin-bottom:0;
+		a{
+			background:$primary-color;
+			border-radius:50%;
+			color:#fff;
+			width:150px;
+			height:150px;
+			line-height:150px;
+			margin:0 auto;
+			text-align:center;
+			display:block;
+			font-size:20px;
+		}
+	}
+
+
 }
 
 
@@ -625,10 +679,14 @@ a.icon-star, a.icon-star2{
 
 .footer-holder{
     background: $primary-color;
-    color: white;
+    color: $footer-text;
     margin-top: 45px;
     padding-top: 100px;
     padding-bottom: 50px;
+   		 h2{
+			color: $footer-title;
+			font-size:16px;
+    	}
 }
 
 .footer-nav{
@@ -673,6 +731,23 @@ a.icon-star, a.icon-star2{
 }
 
 //Style of Archive
+
+#archiveTable{
+	.archiveShowName{
+			width:15%;
+	}
+	.archiveDesc{
+			width:60%;
+	}
+	.archiveTime{
+			width:15%;
+	}
+	.archiveAuth{
+			width:20%;
+	}
+}
+
+
 #archiveTable tr:hover > td{
 	background-color: $gray-dark-hover-background;
 }
@@ -684,6 +759,7 @@ a.icon-star, a.icon-star2{
 
 #archiveTable a{
 	color: $gray-dark-table;
+	font-weight: bold;	
 }
 
 #archiveTable a:hover{
@@ -711,9 +787,41 @@ a.icon-star, a.icon-star2{
 	margin-left:-6px;
 }
 
+.btn-success, .btn-success:hover{
+	background-color:$yellow;
+	border:1px solid $yellow;
+}
+
+.btn:hover, .btn:focus{
+	i{
+		color:$primary-color;
+	}
+}
+.DatePicker{
+	button.ChooseDate{
+		background:transparent none;
+	}
+}
+
+input.datepicker {
+	background:transparent none;
+}
+
+.pager li > a, .pager li > span{
+	border-radius:0;
+	border:none;
+	background:transparent none;
+}
+
+
+.pager li > a:hover{
+	background:white none;
+}
+
 .btn:hover{
 	color:$gray-light;
 }
+
 .navbar-default .navbar-nav > li.highlight > a {
-	color: $brand-danger;
+	color: $yellow;
 }
