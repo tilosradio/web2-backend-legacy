@@ -1,3 +1,13 @@
+<div class="box">
+	<h2>Szólj hozzá</h2>
+	<h3>Adástelefon</h3>
+	<a href="tel:+3612153773" class="tel">(+36 1) 215 37 73</a>
+	<a href="#" class="btn btn-danger btn-block btn-lg" role="button"><span class="icon-chat2"></span>Belépés a chatre</a>
+</div> <!-- box -->
+
+
+
+
 	<div class="box backing">
         <h2>Támogass <span class="sub-title">(paypal)</span></h2>
         <div class="row">
@@ -33,14 +43,10 @@
         </form>
     </div> <!-- box -->
 
-	<div class="box-simple" ng-controller="EpisodesCtrl">
-		<h2>{{now| date: "yyyy.MM.dd"}}</h2>
-		<table class="table actual-shows" >
-			<tr ng-repeat="episode in episodes" class="{{(current.show.id == episode.show.id) && 'actual'|| ''}}" >
-				<td><a href="#/show/{{episode.show.alias}}">{{episode.show.name}}<a></td><td>{{episode.from * 1000| date: 'HH:mm'}}</td><td><a href="#" class="icon-star"><span class="sr-only">kedvenchez adás</span></a></td> <!-- if is fav change icon-star2 -->
-			</tr>
-		</table>
-	</div>
+	<div class="box box-simple" id="plaza">
+	<h2><a href="http://plaza.tilos.hu" alt="tilos plaza"><span class="icon-shop"></span>Tilos Pláza</a></h2>
+
+	 </div> <!-- box -->
 
 	<div class="box-simple social-box" ng-controller="SocialCtrl">
 		<div class="row collapse-row">

@@ -62,7 +62,8 @@
 
 
     <div class="navbar-fixed-top" scroll ng-class="{scrolled:boolChangeClass}">
-      <nav class="navbar navbar-default" role="navigation"  ng-controller="CollapseCtrl">
+        <nav class="navbar navbar-default" role="navigation"  ng-controller="CollapseCtrl">
+        <div class="container">
         <!-- Brand and toggle get grouped for better mobile display -->
         <div class="navbar-header">
           <button type="button" class="navbar-toggle"  ng-click="isCollapsed = !isCollapsed">
@@ -90,6 +91,7 @@
           </ul>
 
         </div><!-- /.navbar-collapse -->
+        </div><!-- container -->
       </nav>
 		<header class="main-header hidden-xs">
 			<div class="container">
@@ -106,6 +108,7 @@
 							<div class="col-md-6">
 								<h3>
 									<a href="#/show/{{current.show.alias}}">{{current.show.name}}</a>
+									<br/>
 									<span class="radio-fromTo">
 										<i class="fa fa-volume-up"></i>
 										{{current.show.episodes[0].plannedFrom * 1000| date: 'HH:mm'}}
@@ -137,17 +140,42 @@
       <footer class="container">
         <div class="row">
          <div class="brand-holder col-md-6">
+         	<a href="/">
+							<img src="/images/logo.png" alt="Tilos Rádió" class="logo">
+							<h1>Tilos rádió</h1>
+							<h2 class="ubuntu">fm 90.3 www.tilos.hu</h2>
+						</a>
 
         </div>
         <div class="col-md-3">
+
+
           <nav class="footer-nav">
 
           </nav>
+
+          <h2>A Tilos Rádió elérhetőségei</h2>
+
+		<p>adástelefon: 215 3773</p>
+		<p>e-mail: radio@tilos.hu</p>
+		<p>Minden műsorral kapcsolatos kérdésben, valamint műsorötleteitekkel kapcsolatban is 
+a Tilos szerkesztőségének írjatok levelet!</p>
         </div>
-        <div class="col-md-3">
+        <div class="col-md-3"> 
+
+        
+		<h2>A Tilos Rádiót működtető Tilos Kulturális Alapítvány elérhetőségei:</h2>
+		<p>1085 Budapest, Üllői út 32. (Mária u. 54.)<br/>
+			telefon: (061) 476 8491<br/>
+			fax: (061) 476 8492<br/>
+			radio@tilos.hu<br/>
+			postacím: 1462 Budapest, Pf. 601.</p>
         </div>
+
+            © 2013. Tilos Rádió -  Minden jog fenntartva
       </div>
     </footer>
+
   </div>
 
   <!-- Google Analytics: change UA-XXXXX-X to be your site's ID. -->
