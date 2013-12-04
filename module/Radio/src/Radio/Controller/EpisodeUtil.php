@@ -25,7 +25,7 @@ class EpisodeUtil {
             $query->setParameter("showId", $show);
         }
         $resultSet = $query->getArrayResult();
-        $scheduled = array();
+        $scheduled = [];
         $now = new \DateTime();
         foreach ($resultSet as $result) {
             $scheduling = $result;
@@ -101,7 +101,7 @@ class EpisodeUtil {
     }
 
     static function merge($episodes, $scheduled) {
-        $result = array();
+        $result = [];
         $si = 0; //scheduled index
         $ei = 0; //episode index;
         while ($si < count($scheduled) || $ei < count($episodes)) {
@@ -139,9 +139,9 @@ class EpisodeUtil {
 
         $result = EpisodeUtil::merge($episodes, $scheduled);
         if ($reverse) {
-            uasort($result, array("self", "reverseComparator"));
+            usort($result, array("self", "reverseComparator"));
         } else {
-            uasort($result, array("self", "comparator"));
+            usort($result, array("self", "comparator"));
 
         }
         return $result;

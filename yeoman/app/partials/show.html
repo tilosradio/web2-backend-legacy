@@ -32,12 +32,16 @@
         <div class="panel-heading">
             {{episode.plannedFrom * 1000| date: 'yyyy.MM.dd HH:mm'}}
             <span ng-if="episode.text">{{episode.text.title}}</span>
-            <a class="pull-right" href="{{server}}/{{episode.m3uUrl}}">meghallgat</a>
+            <a ng-show="{{episode.m3uUrl}}" class="pull-right" href="{{server}}/{{episode.m3uUrl}}">meghallgat</a>
         </div>
         <div ng-if="episode.text" class="panel-body">
             <span ng-bind-html="episode.text.content"></span>
         </div>
     </div>
+    <ul class="pager">
+        <li class="cursorPointer"><a ng-click="prev()">&larr; Korábbi adások</a></li>
+        <li class="cursorPointer"><a ng-click="next()">Későbbi adások &rarr;</a></li>
+    </ul>
 </section>
 
 <aside class="col-md-3">

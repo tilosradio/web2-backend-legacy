@@ -55,6 +55,16 @@ return array(
                     'defaults' => array('controller' => 'Radio\Controller\Show',)
                 )
             ),
+            'show-episodes' => array(
+                'type' => 'Segment',
+                'options' => array(
+                    'route' => '/api/show/:id/episodes',
+                    'defaults' => array(
+                        'controller' => 'Radio\Controller\Show',
+                        'action' => 'listOfEpisodes'
+                    )
+                )
+            ),
             'author-rest' => array(
                 'type' => 'Segment',
                 'options' => array(
@@ -78,14 +88,14 @@ return array(
                     'defaults' => array('controller' => 'Radio\Controller\Episode',)
                 )
             ),
-            'episode-text' => array(
+            'show-text' => array(
                 'type' => 'Segment',
                 'options' => array(
                     'route' => '/api/text[/:id]',
                     'defaults' => array('controller' => 'Radio\Controller\Text',)
                 )
             ),
-            'episode-list' => array(
+            'text-list' => array(
                 'type' => 'Segment',
                 'options' => array(
                     'route' => '/api/text/[:type]/list',

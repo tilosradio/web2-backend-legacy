@@ -51,23 +51,6 @@ class Text extends BaseController {
         return new JsonModel($return);
     }
 
-    /**
-     * @SWG\Api(
-     * path="/show/{id}",
-     * @SWG\Operation(
-     * method="GET",
-     * summary="Returns content of a specific page",
-     * @SWG\Parameters(
-     * @SWG\Parameter(
-     * name= "id",
-     * description="Id of the text content",
-     * paramType="path",
-     * type="string"
-     * )
-     * )
-     * )
-     * )
-     */
     public function get($id) {
         return $this->getEntity("\Radio\Entity\TextContent", $id);
     }

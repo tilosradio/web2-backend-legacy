@@ -40,7 +40,7 @@ class Show extends BaseController {
         $a['episodes'] = array();
 
         $now = time();
-        $episodes = EpisodeUtil::getEpisodeTimes($this->getEntityManager(), $now - 60 * 60 * 24 * 30 * 10, $now, $a['id'], true);
+        $episodes = EpisodeUtil::getEpisodeTimes($this->getEntityManager(), $now - 60 * 60 * 24 * 60, $now, $a['id'], true);
         foreach ($episodes as $episode) {
             unset($episode['show']);
             $episode['plannedFrom'] = $episode['plannedFrom']->getTimestamp();
@@ -52,6 +52,11 @@ class Show extends BaseController {
 
 
         return $a;
+    }
+
+    public function mapEntityListElement($result) {
+        unset($result['description']);
+        return $result;
     }
 
     public function findEntityList($type) {
@@ -94,6 +99,20 @@ class Show extends BaseController {
      */
     public function get($id) {
         return $this->getEntity("\Radio\Entity\Show", $id);
+    }
+
+    public function listOfEpisodesAction($id) {
+        $id = $this->params()->fromRoute("id");
+        $start = $this->params()->fromQuery("from", time() - 60 * 24 * 60 * 60);
+        $end = $this->params()->fromQuery("to", time());
+        $episodes = EpisodeUtil::getEpisodeTimes($this->getEntityManager(), $start, $end, $id, true);
+        foreach ($episodes as &$episode) {
+            unset($episode['show']['description']);
+            $episode['plannedFrom'] = $episode['plannedFrom']->getTimestamp();
+            $episode['plannedTo'] = $episode['plannedTo']->getTimestamp();
+        }
+
+        return new JsonModel($episodes);
     }
 
     public function create($data) {

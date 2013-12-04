@@ -32,6 +32,7 @@ return array(
                 'Radio\Controller\Show' => array(
                     'get'      => 'guest',
                     'getList'  => 'guest',
+                    'listOfEpisodes' => 'guest',
                     'create'   => 'admin',
                     'update'   => 'author',
                     'delete'   => 'admin',
