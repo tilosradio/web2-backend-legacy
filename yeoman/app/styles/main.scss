@@ -252,40 +252,63 @@ img{
         font-weight: 300;
         margin:  0;
     }
-    .radio-player{
-        background: white;
-        background: rgba(white, 0.1);
-        padding-top: 10px;
-        width: 100%;
-        height:110px;
-        h3{
-            padding: 0px 10px;
-            text-align: left;
-            font-size: 22px;
-            font-family: "Open Sans",sans-serif;
-            font-weight: bold;
-            margin:0;
-            	a{
-					color:#fff;
-            	}
-        }
+	.radio-player{
+		background: #353434;
+		background: rgba(white, 0.1);
+		padding-top: 10px;
+		width: 100%;
+		@include clearfix();
+		.scrolled &{
+			padding-top: 0;
+		}
+		h3{
+			font-size: 18px;
+			font-family: "Open Sans",sans-serif;
+			font-weight: bold;
+			padding: 0;
+			text-align: center;
+			@include clearfix();
+			.scrolled &{
+				margin: 10px -23px 0 -10px;
+				text-align: left;
+			}
+		}
+		a{
+			color: white;
+			display: block;
+			margin-bottom: 5px;
+			overflow: hidden;
+			.scrolled &{
+				float: left;
+				font-size: 13px;
+				margin-right: 5px;
+				text-overflow: ellipsis;
+				white-space: nowrap;
+				max-width: 70%;
+			}
+		}
+
         h4{
-        	margin-top: 0;
-            padding: 0 10px;
-            text-align: left;
-            font-size: 16px;
-            font-family: "Open Sans",sans-serif;
+			margin-top: 0;
+			padding: 0 10px;
+			text-align: left;
+			font-size: 16px;
+			font-family: "Open Sans",sans-serif;
+			.scrolled &{
+			display: none;
+		}
+
 		}
 		.radio-fromTo{
 			font-size: 20px;
 			font-weight: normal;
-			position:absolute;
-			bottom:0;
-.scrolled &{
-        float: left;
-        font-size: 12px;
-        margin-top: 3px;
-      }
+
+		.scrolled &{
+			float: left;
+			font-size: 12px;
+			margin-top: 3px;
+		}
+
 		}
 		.radio-formatList{
 			padding-right: 0px;
@@ -789,7 +812,7 @@ a.icon-star, a.icon-star2{
 
 #archiveTable a{
 	color: $gray-dark-table;
-	font-weight: bold;	
+	font-weight: bold;
 }
 
 #archiveTable a:hover{
@@ -854,4 +877,8 @@ input.datepicker {
 
 .navbar-default .navbar-nav > li.highlight > a {
 	color: $yellow;
+}
+
+#plaza{
+	border:none;
 }
