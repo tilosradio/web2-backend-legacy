@@ -31,7 +31,9 @@ class Episode extends BaseController {
                 if ($episode['show']) {
                     unset($episode['show']['description']);
                 }
-                $episode['m3uUrl'] =  "http://" . $this->getRequest()->getServer('HTTP_HOST') . "/" . $episode['m3uUrl'];
+                if ($episode['m3uUrl']) {
+                    $episode['m3uUrl'] = "http://" . $this->getRequest()->getServer('HTTP_HOST') . "/" . $episode['m3uUrl'];
+                }
 
                 $episode['plannedFrom'] = $episode['plannedFrom']->getTimestamp();
                 $episode['plannedTo'] = $episode['plannedTo']->getTimestamp();

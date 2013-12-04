@@ -26,6 +26,7 @@ class EpisodeUtil {
         }
         $resultSet = $query->getArrayResult();
         $scheduled = array();
+        $now = new \DateTime();
         foreach ($resultSet as $result) {
             $scheduling = $result;
 
@@ -52,7 +53,9 @@ class EpisodeUtil {
                     $realEnd = $real->getTimestamp() + $scheduling['duration'] * 60;
                     $e['plannedFrom'] = $real;
                     $e['plannedTo'] = EpisodeUtil::toDateTime($realEnd);
-                    $e['m3uUrl'] = sprintf('m3u/%d/%d.m3u', $real->getTimestamp(), $scheduling['duration']);
+                    if ($now->getTimestamp() > $realEnd) {
+                        $e['m3uUrl'] = sprintf('m3u/%d/%d.m3u', $real->getTimestamp(), $scheduling['duration']);
+                    }
                     $e['persistent'] = false;
                     $e['show'] = $scheduling['show'];
                     $scheduled[] = $e;
@@ -64,6 +67,9 @@ class EpisodeUtil {
     }
 
     static function getEpisodes($em, $from, $to, $show = null) {
+        $current = new \DateTime();
+        $now = new \DateTime();
+
         $qb = $em->createQueryBuilder();
         $qb->select('e', 's', 'c', 't')->from('\Radio\Entity\Episode', 'e');
         if ($show != null) {
@@ -86,8 +92,10 @@ class EpisodeUtil {
         $episodes = $query->getArrayResult();
         foreach ($episodes as &$episode) {
             $episode['persistent'] = true;
-            $episode['m3uUrl'] = sprintf('m3u/%d/%d.m3u', $episode['plannedFrom']->getTimestamp(),
-                ($episode['plannedTo']->getTimestamp() - $episode['plannedFrom']->getTimestamp()) / 60);
+            if ($now->getTimestamp() > $episode['plannedTo']->getTimestamp()) {
+                $episode['m3uUrl'] = sprintf('m3u/%d/%d.m3u', $episode['plannedFrom']->getTimestamp(),
+                    ($episode['plannedTo']->getTimestamp() - $episode['plannedFrom']->getTimestamp()) / 60);
+            }
         }
         return $episodes;
     }
