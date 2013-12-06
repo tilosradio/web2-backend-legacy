@@ -775,14 +775,6 @@ a.icon-star, a.icon-star2{
   }
 }
 
-.previous{
-	cursor: pointer;
-}
-
-.next{
-	cursor: pointer;
-}
-
 //Style of Archive
 
 #archiveTable{
@@ -833,7 +825,7 @@ a.icon-star, a.icon-star2{
 
 .datepicker{
 	font-family: "Open Sans",sans-serif;
-	font-size: 12px;
+	font-size: 18px;
 	border:none;
 	padding:10px;
 	width:175px;
@@ -881,4 +873,8 @@ input.datepicker {
 
 #plaza{
 	border:none;
+}
+
+.cursorPointer{
+	cursor: pointer;
 }
