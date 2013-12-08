@@ -611,7 +611,7 @@ aside{
 .actual-shows{
   font-size: 15px;
   td{
-    padding: 0.5em 0 0.5em 0.7em !important;
+    padding: 0.5em 0.7em 0.5em 0.7em !important;
   }
   .actual{
     color: $actual-color;
@@ -678,8 +678,7 @@ a.icon-star, a.icon-star2{
       width: 100%;
       &[class*="icon-"]{
         font-size: 25px;
-        height: 80px;
-        line-height: 80px;
+        line-height: 110px;
       }
       &.social-numb{
         height: 30px;

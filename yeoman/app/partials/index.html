@@ -1,18 +1,17 @@
 <section class="col-md-6 main" role="main" >
     <article ng-repeat="item in news">
-        <h1>{{item.title}}</h1>
+        <h1>
+       		<a href="#/news/{{item.id}}">{{item.title}}</a>
+        </h1>
 		<span ng-bind-html="item.formatted"></span>
         <footer>
             <div class="article-info">
                 <span class="author">{{item.author}} </span]>
                 <time datetime="{{item.created * 1000 | date: 'yyyy-MM-dd'	}}">{{item.created * 1000 | date: 'yyyy.MM.dd'}}</time>
             </div>
-            <!--div class="social">
-                <a href="#" class="facebook-share"><span class="icon-facebook"></span>Megosztom <span class="share-numb">5k</span></a>
-                <a href="#" class="google-share"><span class=" icon-google-plus"></span>Megosztom <span class="share-numb">5k</span></a>
-                <a href="#" class="edit-this icon-pencil"></a>
-                <a href="#" class="archive-this icon-box-add"></a>
-            </div-->
+            <div class="social">
+                <iframe ng-src="{{item.likeURL}}"  scrolling="no" frameborder="0" style="border:none; overflow:hidden; height:80px;" allowTransparency="true"></iframe>
+            </div>
         </footer>
     </article>
 </section> <!-- col-md-6 -->

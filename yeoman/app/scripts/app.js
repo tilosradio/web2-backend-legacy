@@ -28,6 +28,9 @@ tilos.config(['$routeProvider', function ($routeProvider) {
   }).when('/shows', {
     templateUrl: 'partials/shows.html',
     controller: 'AllshowCtrl'
+  }).when('/news/:id', {
+    templateUrl: 'partials/news.html',
+    controller: 'NewsCtrl'
   }).otherwise({
     redirectTo: '/index'
   });
