@@ -265,6 +265,7 @@ img{
 			font-size: 18px;
 			font-family: "Open Sans",sans-serif;
 			font-weight: bold;
+      margin: 0;
 			padding: 0;
 			text-align: center;
 			@include clearfix();
@@ -272,30 +273,32 @@ img{
 				margin: 10px -23px 0 -10px;
 				text-align: left;
 			}
-		}
-		a{
-			color: white;
-			display: block;
-			margin-bottom: 5px;
-			.scrolled &{
-				float: left;
-				font-size: 13px;
-				margin-right: 5px;
-				text-overflow: ellipsis;
-				white-space: nowrap;
-				max-width: 70%;
-			}
-		}
-
-        h4{
+  		a{
+  			color: white;
+  			display: block;
+        line-height: 1.3em;
+  			margin-bottom: 5px;
+        max-height: 46px;
+        overflow: hidden;
+  			.scrolled &{
+  				float: left;
+  				font-size: 13px;
+  				margin-right: 5px;
+  				text-overflow: ellipsis;
+  				white-space: nowrap;
+  				max-width: 70%;
+  			}
+  		}
+    }
+     h4{
 			margin-top: 0;
 			padding: 0 10px;
 			text-align: left;
 			font-size: 16px;
 			font-family: "Open Sans",sans-serif;
 			.scrolled &{
-			display: none;
-		}
+			 display: none;
+		  }
 
 		}
 		.radio-fromTo{
