@@ -19,13 +19,13 @@
 
 
 <aside class="col-md-3">
-	<div class="box-simple" ng-controller="EpisodesCtrl">
+	<div class="box-simple">
 		<h2>Műsorvezetők</h2>
 		<div class="row">
-			<figure ng-repeat="author in current.showAuthor" class="show-author">
-				<a href="#/author/{{author.alias}}">
-				<img src="upload/bio/{{author.avatar}}" alt="{{author.name}}" class="show-author-image"></a>
-				<figcaption><a href="#/author/{{author.alias}}">{{author.name}}</a></figcaption>
+			<figure ng-repeat="contributor in current.show.contributors" class="show-author">
+				<a href="#/author/{{contributor.author.alias}}">
+				<img src="upload/bio/{{contributor.author.avatar}}" alt="{{contributor.nick}}" class="show-author-image"></a>
+				<figcaption><a href="#/author/{{contributor.author.alias}}">{{contributor.nick}}</a></figcaption>
 			</figure>
 		</div>
 	</div> <!-- box-simple -->

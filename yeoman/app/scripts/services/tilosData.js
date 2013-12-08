@@ -30,24 +30,7 @@ angular.module('tilosApp')
           });
         }
       },
-      getCurrentEpisodes: function (callback) {
-        var nowDate = new Date();
-        var start = (nowDate / 1000 - 60 * 60 * 3);
-        var now = nowDate.getTime() / 1000;
-        var current;
-        $http.get($server + '/api/episode?start=' + start + '&end=' + (start + 12 * 60 * 60)).success(function (data) {
-          for (var i = 0; i < data.length; i++) {
-            if (data[i].plannedFrom <= now && data[i].plannedTo > now) {
-              current = data[i];
-            }
-          }
-          $http.get($server + '/api/show/' + current.show.id).success(function (sd) {
-            current.show = sd;
-            callback(current, data);
 
-          });
-        });
-      },
       getText: function (id, callback) {
         if ($root.text && $root.text[id]) {
           callback($root.text[id]);
