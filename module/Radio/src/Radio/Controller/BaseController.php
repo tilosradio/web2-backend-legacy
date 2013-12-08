@@ -45,7 +45,7 @@ class BaseController extends AbstractRestfulController {
         }
     }
 
-    public function getEntityList($type, $mapping) {
+    public function getEntityList($type) {
         try {
             // TODO: paging (limit/offset)
             $resultSet = $this->findEntityList($type);
