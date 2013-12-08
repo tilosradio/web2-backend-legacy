@@ -1,96 +1,111 @@
 'use strict';
+var debug;
+
 angular.module('tilosApp')
-	.controller('ProgramCtrl', ['$scope', '$routeParams', 'API_SERVER_ENDPOINT', '$http',
-	function ($scope, $routeParams, $server, $http) {
-		var from = (tilos.weekStart(new Date()) / 1000);
-		var to = from + 7 * 24 * 60 * 60;
-		$scope.program = {};
-		$scope.currentDay = 0;
-		var refDate = new Date();
-		refDate.setHours(0);
+  .controller('ProgramCtrl', ['$scope', '$routeParams', 'API_SERVER_ENDPOINT', '$http',
+    function ($scope, $routeParams, $server, $http) {
 
-		refDate.setSeconds(0);
-		refDate.setMinutes(0);
-		refDate.setMilliseconds(0);
-		refDate = refDate.getTime() / 1000;
+      Date.prototype.setToNoon = function () {
+        this.setHours(12, 0, 0, 0);
+      }
 
-		$scope.prev = function () {
-			if ($scope.program[$scope.currentDay - 1]) {
-				$scope.currentDay--;
-			} else {
-				var oldFrom = from;
-				from = from - 7 * 24 * 60 * 60;
-				$http.get($server + '/api/episode?start=' + from + '&end=' + oldFrom).success(function (data) {
-					$scope.currentDay--;
-					processResult(data);
-				});
-			}
-		};
+      Date.prototype.setToDayStart = function () {
+        this.setHours(0, 0, 0, 0);
+      }
 
-		$scope.next = function () {
-			if ($scope.program[$scope.currentDay + 1]) {
-				$scope.currentDay++;
-			} else {
-				var oldTo = to;
-				to = to + 7 * 24 * 60 * 60;
-				$http.get($server + '/api/episode?start=' + oldTo + '&end=' + to).success(function (data) {
-					$scope.currentDay++;
-					processResult(data);
-				});
-			}
-		};
 
-		$scope.getDay = function () {
-			var newValue = (new Date($scope.program[$scope.currentDay].date).getTime() / 1000);
-			var oldFrom = newValue + (24 * 60 * 60);
-			$scope.currentDay = Math.round(0 - ((new Date() - (oldFrom * 1000)) / (1000 * 60 * 60 * 24)));
-			if (!$scope.program[$scope.currentDay]) {
-				$http.get($server + '/api/episode?start=' + newValue + '&end=' + oldFrom).success(function (data) {
-					processResult(data);
-				});
-			}
-		};
+      Date.prototype.setToDayEnd = function () {
+        this.setHours(23, 59, 60, 0);
+      }
 
-		var processResult = function (data) {
-			var result = $scope.program;
-			//index episodes by day
-			for (var i = 0; i < data.length; i++) {
-				var idx = Math.floor((data[i].plannedFrom - refDate) / (60 * 60 * 24));
-				data[i].idx = idx;
-				if (!result[idx]) {
-					result[idx] = {
-						episodes: []
-					};
-				}
-				result[idx].episodes.push(data[i]);
-			}
+      Date.prototype.isLeapYear = function (year) {
+        return (year % 4 === 0 && (year % 100 !== 0 || year % 400 === 0));
 
-			//sort every day
-			var sortFunction = function (a, b) {
-				return a.plannedFrom - b.plannedTo;
-			};
-			for (var key in result) {
-				result[key].episodes.sort(sortFunction);
-				result[key].date = result[key].episodes[0].plannedFrom * 1000;
-			}
-			$scope.program = result;
+      }
 
-			if (result[$scope.currentDay] === undefined) {
-				var oldFrom = from;
-				from = from - 7 * 24 * 60 * 60;
-				$http.get($server + '/api/episode?start=' + from + '&end=' + oldFrom).success(function (data) {
-					processResult(data);
-				});
-			}
-		};
 
-		$http.get($server + '/api/episode?start=' + from + '&end=' + to).success(function (data) {
-			processResult(data);
-		});
+      Date.prototype.daysInFebruary = function (year) {
+        if (this.isLeapYear(year)) {
+          // Leap year
+          return 29;
+        } else {
+          // Not a leap year
+          return 28;
+        }
+      };
 
-		$scope.closeText = 'Close';
-		$scope.toggleWeeksText = 'Weeks';
-		$scope.currentText = 'Today';
-		$scope.clearText = 'Clear';
-	}
-]);
+      Date.prototype.getTimestamp = function () {
+        return this.getTime() / 1000;
+      };
+
+      Date.prototype.dayIndex = function () {
+        var pastYears = 0;
+        for (var i = 1990; i < this.getFullYear(); i++) {
+          pastYears += 365;
+          if (this.isLeapYear(i)) pastYears++;
+        }
+        var feb = this.daysInFebruary(this.getFullYear());
+        var aggregateMonths = [0, // January
+          31, // February
+          31 + feb, // March
+          31 + feb + 31, // April
+          31 + feb + 31 + 30, // May
+          31 + feb + 31 + 30 + 31, // June
+          31 + feb + 31 + 30 + 31 + 30, // July
+          31 + feb + 31 + 30 + 31 + 30 + 31, // August
+          31 + feb + 31 + 30 + 31 + 30 + 31 + 31, // September
+          31 + feb + 31 + 30 + 31 + 30 + 31 + 31 + 30, // October
+          31 + feb + 31 + 30 + 31 + 30 + 31 + 31 + 30 + 31, // November
+          31 + feb + 31 + 30 + 31 + 30 + 31 + 31 + 30 + 31 + 30, // December
+        ];
+        return pastYears + aggregateMonths[this.getMonth() - 1] + this.getDate();
+      };
+
+      $scope.gotoDay = function (dt) {
+        $scope.gotoDate = new Date(dt.getTime());
+        $scope.gotoDate.setToNoon();
+        $scope.currentTimestamp = $scope.gotoDate.getTimestamp();
+        $scope.getDay($scope.currentTimestamp);
+      };
+      var from = (tilos.weekStart(new Date()) / 1000);
+      var to = from + 7 * 24 * 60 * 60;
+      $scope.program = {};
+      var now = new Date();
+      now.setToNoon();
+      $scope.gotoDate = new Date();
+      $scope.gotoDate.setFullYear(2003);
+      $scope.currentTimestamp = now.getTimestamp();
+
+      $scope.prev = function () {
+        $scope.currentTimestamp -= 24 * 60 * 60;
+        $scope.getDay($scope.currentTimestamp);
+        $scope.gotoDate = new Date($scope.currentTimestamp * 1000);
+
+      };
+
+      $scope.next = function () {
+        $scope.currentTimestamp += 24 * 60 * 60;
+        $scope.getDay($scope.currentTimestamp);
+        $scope.gotoDate = new Date($scope.currentTimestamp * 1000);
+      };
+
+      $scope.getDay = function (timestamp) {
+        var from = new Date(timestamp * 1000);
+        from.setToDayStart();
+        var to = new Date(timestamp * 1000);
+        to.setToDayEnd();
+        console.log(from);
+        console.log(to);
+        $http.get($server + '/api/episode?start=' + from.getTimestamp() + '&end=' + to.getTimestamp(), {cache: true}).success(function (data) {
+          $scope.episodes = data;
+        });
+      };
+
+      $scope.getDay($scope.currentTimestamp);
+
+      $scope.closeText = 'Close';
+      $scope.toggleWeeksText = 'Weeks';
+      $scope.currentText = 'Today';
+      $scope.clearText = 'Clear';
+    }
+  ]);

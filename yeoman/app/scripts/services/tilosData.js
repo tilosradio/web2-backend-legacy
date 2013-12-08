@@ -5,6 +5,8 @@
 
 angular.module('tilosApp')
   .factory('tilosData', ['$rootScope', '$http', 'API_SERVER_ENDPOINT', function ($root, $http, $server) {
+
+
     return {
       name: 'anonymous',
       getNews: function (callback) {
