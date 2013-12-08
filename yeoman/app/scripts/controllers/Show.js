@@ -13,8 +13,6 @@ angular.module('tilosApp')
         var to = $scope.show.episodes[$scope.show.episodes.length - 1].plannedFrom - 60;
         var from = to - 60 * 24 * 60 * 60;
         $http.get($server + '/api/show/' + data.id + '/episodes?from=' + from + "&to=" + to).success(function (data) {
-          d = data;
-
           $scope.show.episodes = data;
         });
 
