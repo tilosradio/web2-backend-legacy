@@ -33,7 +33,7 @@ class Show {
      * */
     protected $definition;
     /**
-     * @ORM\Column(type="string", length=25,nullable=true)
+     * @ORM\Column(type="string", length=50,nullable=true)
      * */
     protected $alias;
     /**
