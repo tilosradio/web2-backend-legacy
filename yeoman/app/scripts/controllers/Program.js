@@ -1,4 +1,4 @@
-'use strict';
+﻿'use strict';
 var debug;
 
 angular.module('tilosApp')
@@ -73,7 +73,6 @@ angular.module('tilosApp')
       var now = new Date();
       now.setToNoon();
       $scope.gotoDate = new Date();
-      $scope.gotoDate.setFullYear(2003);
       $scope.currentTimestamp = now.getTimestamp();
 
       $scope.prev = function () {
@@ -94,8 +93,6 @@ angular.module('tilosApp')
         from.setToDayStart();
         var to = new Date(timestamp * 1000);
         to.setToDayEnd();
-        console.log(from);
-        console.log(to);
         $http.get($server + '/api/episode?start=' + from.getTimestamp() + '&end=' + to.getTimestamp(), {cache: true}).success(function (data) {
           $scope.episodes = data;
         });
@@ -103,9 +100,9 @@ angular.module('tilosApp')
 
       $scope.getDay($scope.currentTimestamp);
 
-      $scope.closeText = 'Close';
-      $scope.toggleWeeksText = 'Weeks';
-      $scope.currentText = 'Today';
-      $scope.clearText = 'Clear';
+      $scope.closeText = 'Bezár';
+      $scope.toggleWeeksText = 'Hetek száma';
+      $scope.currentText = 'Ma';
+      $scope.clearText = 'Törlés';
     }
   ]);

@@ -1,4 +1,4 @@
-@font-face {
+﻿@font-face {
 	font-family: 'tilos';
 	src:url('fonts/tilos.eot?vczg69');
 	src:url('fonts/tilos.eot?#iefixvczg69') format('embedded-opentype'),
@@ -88,4 +88,12 @@
 }
 .icon-shop:before {
 	content: "\e116";
+}
+
+.icon-arrow-left:before {
+	content: "\e615";
+}
+
+.icon-arrow-right:before {
+	content: "\e616";
 }
