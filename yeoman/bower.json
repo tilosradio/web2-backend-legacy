@@ -2,14 +2,14 @@
   "name": "tilos",
   "version": "1.0.0",
   "dependencies": {
-    "sass-bootstrap": "latest",
-    "requirejs": "latest",
-    "modernizr": "latest",
-    "jquery": "latest",
-    "angular": "latest",
-    "angular-route": "latest",
-    "angular-sanitize": "latest",
-    "angular-ui-bootstrap-bower": "latest"
+    "sass-bootstrap": "3.0.2",
+    "requirejs": "2.1.9",
+    "modernizr": "2.7.1",
+    "jquery": "2.0.3",
+    "angular": "1.2.4",
+    "angular-route": "1.2.4",
+    "angular-sanitize": "1.2.4",
+    "angular-ui-bootstrap-bower": "0.7.0"
   },
   "devDependencies": {}
 }
