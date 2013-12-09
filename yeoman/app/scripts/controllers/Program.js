@@ -2,8 +2,12 @@
 var debug;
 
 angular.module('tilosApp')
-  .controller('ProgramCtrl', ['$scope', '$routeParams', 'API_SERVER_ENDPOINT', '$http',
-    function ($scope, $routeParams, $server, $http) {
+  .controller('ProgramCtrl', ['$scope', '$routeParams', 'API_SERVER_ENDPOINT', '$http','datepickerPopupConfig',
+    function ($scope, $routeParams, $server, $http, $popupconfig) {
+      $popupconfig.closeText = "Bezár";
+      $popupconfig.toggleWeeksText = 'Hetek száma';
+      $popupconfig.currentText = 'Ma';
+      $popupconfig.clearText = 'Törlés';
 
       Date.prototype.setToNoon = function () {
         this.setHours(12, 0, 0, 0);
