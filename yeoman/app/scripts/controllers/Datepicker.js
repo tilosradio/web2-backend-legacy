@@ -1,9 +1,14 @@
-'use strict';
+﻿'use strict';
 /**
  * Datepicker settings
  */
 
 var DatepickerCtrl = function ($scope, $timeout) {
+	$scope.closeText = 'Bezár';
+	$scope.toggleWeeksText = 'Hetek száma';
+	$scope.currentText = 'Ma';
+	$scope.clearText = 'Törlés';
+
   $scope.today = function () {
     $scope.dt = new Date();
   };

@@ -99,10 +99,5 @@ angular.module('tilosApp')
       };
 
       $scope.getDay($scope.currentTimestamp);
-
-      $scope.closeText = 'Bezár';
-      $scope.toggleWeeksText = 'Hetek száma';
-      $scope.currentText = 'Ma';
-      $scope.clearText = 'Törlés';
     }
   ]);

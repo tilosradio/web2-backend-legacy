@@ -1,4 +1,4 @@
-	<div class="box-simple" ng-controller="EpisodesCtrl">
+	<div class="box-simple">
 		<h2>{{now| date: "yyyy.MM.dd"}}</h2>
 		<table class="table actual-shows" >
 			<tr ng-repeat="episode in episodes" class="{{(current.show.id == episode.show.id) && 'actual'|| ''}}" >
