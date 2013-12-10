@@ -78,13 +78,12 @@ angular.module('tilosApp')
       now.setToNoon();
       $scope.gotoDate = new Date();
       $scope.currentTimestamp = now.getTimestamp();
-      $scope.today = now.getTimestamp();
+      $scope.todayTimestamp = now.getTimestamp();
 
       $scope.prev = function () {
         $scope.currentTimestamp -= 24 * 60 * 60;
         $scope.getDay($scope.currentTimestamp);
         $scope.gotoDate = new Date($scope.currentTimestamp * 1000);
-
       };
 
       $scope.next = function () {
@@ -102,6 +101,9 @@ angular.module('tilosApp')
           $scope.episodes = data;
         });
       };
+
+      //Get today's episodes.
+      $scope.getDay(now.getTimestamp());
 
     }
   ]);

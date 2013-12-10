@@ -1,4 +1,4 @@
-<section class="col-md-6 main" role="main" >
+<section class="col-md-9 main" role="main" >
     <article ng-repeat="item in news">
         <h1>
        		<a href="#/news/{{item.id}}">{{item.title}}</a>
@@ -16,7 +16,8 @@
     </article>
 </section> <!-- col-md-6 -->
 
-
+<!--
+Egyelore nincs szukseg a musorvezetos reszre
 <aside class="col-md-3">
 	<div class="box-simple">
 		<h2>Műsorvezetők</h2>
@@ -30,6 +31,7 @@
 	</div> <!-- box-simple -->
 	<div ng-include src="'partials/sidebar_left.html'"></div>
 </aside> <!-- col-md-3 -->
+
 <aside class="col-md-3">
     <div ng-include src="'partials/sidebar_right.html'"></div>
 </aside>
