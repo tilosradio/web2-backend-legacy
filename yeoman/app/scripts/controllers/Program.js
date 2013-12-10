@@ -103,7 +103,5 @@ angular.module('tilosApp')
         });
       };
 
-      console.log(new Date($scope.currentTimestamp * 1000));
-
     }
   ]);
