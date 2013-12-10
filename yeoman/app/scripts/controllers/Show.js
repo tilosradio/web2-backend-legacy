@@ -35,8 +35,6 @@ angular.module('tilosApp')
         }
       });
 
-      console.log(new Date($scope.show.episodes[0].plannedTo * 1000));
-
     });
 
   }
