@@ -1,7 +1,7 @@
 {
 	"metadata": {
-		"name": "Tilos 1",
-		"lastOpened": 1386512043529,
+		"name": "Tilos 1 1",
+		"lastOpened": 1386693717096,
 		"created": 1382198342365
 	},
 	"iconSets": [
@@ -50789,7 +50789,7 @@
 					"prevSize": 20,
 					"code": 58899,
 					"name": "pencil",
-					"tempChar": "",
+					"tempChar": "",
 					"ligatures": ""
 				},
 				{
@@ -60629,8 +60629,13 @@
 					"id": 37
 				},
 				{
-					"order": 0,
-					"id": 38
+					"order": 24,
+					"id": 38,
+					"prevSize": 28,
+					"code": 58903,
+					"name": "volume-up",
+					"tempChar": "",
+					"ligatures": ""
 				},
 				{
 					"order": 0,
@@ -60956,8 +60961,13 @@
 					"id": 115
 				},
 				{
-					"order": 0,
-					"id": 116
+					"order": 25,
+					"id": 116,
+					"prevSize": 28,
+					"code": 58904,
+					"name": "shopping-cart",
+					"tempChar": "",
+					"ligatures": ""
 				},
 				{
 					"order": 0,

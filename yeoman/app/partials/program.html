@@ -15,11 +15,14 @@
 
     <ul class="pager">
         <li class="cursorPointer"><a ng-click="prev()">&larr; Előző nap</a></li>
-        <li class="cursorPointer"><a ng-click="next()">Következő nap &rarr;</a></li>
+        <li class="cursorPointer" ng-if="currentTimestamp < today"><a ng-click="next()">Következő nap &rarr;</a></li>
     </ul>
 
     <table class="table table-hover" id="archiveTable">
         <tr ng-repeat="episode in episodes">
+        	<td class="archiveTime">
+                <a ng-show="episode.m3uUrl" href="{{episode.m3uUrl}}"><i class="icon-volume-up"></i> Meghallgat</a>
+            </td>
             <td class="archiveTime">{{episode.plannedFrom * 1000| date: 'HH:mm'}}</td>
             <td class="archiveShowName"><a href="#/show/{{episode.show.alias}}">{{episode.show.name}}</a></td>
             <td class="archiveItalic archiveDesc">{{episode.text.title}}</td>
@@ -34,10 +37,6 @@
                     </div>
 				</span>
             </td>
-            <td>
-                <a ng-show="episode.m3uUrl" href="{{episode.m3uUrl}}">Meghallgat</a>
-            </td>
-
         </tr>
     </table>
 </section>

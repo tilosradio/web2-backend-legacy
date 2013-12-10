@@ -78,6 +78,7 @@ angular.module('tilosApp')
       now.setToNoon();
       $scope.gotoDate = new Date();
       $scope.currentTimestamp = now.getTimestamp();
+      $scope.today = now.getTimestamp();
 
       $scope.prev = function () {
         $scope.currentTimestamp -= 24 * 60 * 60;
@@ -102,6 +103,7 @@ angular.module('tilosApp')
         });
       };
 
-      $scope.getDay($scope.currentTimestamp);
+      console.log(new Date($scope.currentTimestamp * 1000));
+
     }
   ]);
