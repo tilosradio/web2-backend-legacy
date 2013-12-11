@@ -35,9 +35,6 @@
     <!-- endbower -->
     <!-- endbuild -->
     <script src="//cdnjs.cloudflare.com/ajax/libs/angular-i18n/1.2.0/angular-locale_hu-hu.js"></script>
-
-
-
     <!-- build:js scripts/angular.js -->
     <script src="scripts/app.js"></script>
     <script src="scripts/config.js"></script>
@@ -64,134 +61,127 @@
       <div class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</div>
     <![endif]-->
 
+		<div class="navbar-fixed-top" scroll ng-class="{scrolled:boolChangeClass}">
+			<nav class="navbar navbar-default" role="navigation"  ng-controller="CollapseCtrl">
+				<div class="container">
+					<!-- Brand and toggle get grouped for better mobile display -->
+					<div class="navbar-header">
+						<button type="button" class="navbar-toggle"  ng-click="isCollapsed = !isCollapsed">
+							<span class="sr-only">Navigáció</span>
+							<span class="icon-bar"></span>
+							<span class="icon-bar"></span>
+							<span class="icon-bar"></span>
+						</button>
+						<a class="navbar-brand visible-xs" href="/#"> Tilos Rádió</a>
+					</div>
 
+					<!-- Collect the nav links, forms, and other content for toggling -->
+					<div class="navbar-collapse container" ng-show="isCollapsed">
+						<ul class="nav navbar-nav">
+							<li active-link="active"><a href="/#index" ng-click="isCollapsed = !isCollapsed">Főoldal</a></li>
+							<li active-link="active"><a href="#/page/info" ng-click="isCollapsed = !isCollapsed">Infó</a></li>
+							<li active-link="active"><a href="#/shows" ng-click="isCollapsed = !isCollapsed">Műsorok</a></li>
+							<li active-link="active"><a href="#/archive" ng-click="isCollapsed = !isCollapsed">Archívum</a></li>
+							<li active-link="active"><a href="#/page/elerhetoseg" ng-click="isCollapsed = !isCollapsed">Elérhetőség</a></li>
+							<li active-link="active"><a href="#/page/english" ng-click="isCollapsed = !isCollapsed">English</a></li>
+							<li active-link="active" class="highlight"><a href="#/page/segits" ng-click="isCollapsed = !isCollapsed">Támogass</a></li>
+							<li class="visible-xs"><a href="http://stream.tilos.hu/tilos.m3u" target="_blank" ng-click="isCollapsed = !isCollapsed"><span>256</span> mp3</a></li>
+							<li class="visible-xs"><a href="http://stream.tilos.hu/tilos_128.mp3.m3u" target="_blank" ng-click="isCollapsed = !isCollapsed"><span>128</span> mp3</a></li>
+							<li class="visible-xs"><a href="http://stream.tilos.hu/tilos_high.ogg.m3u" target="_blank" ng-click="isCollapsed = !isCollapsed"><span>96</span> ogg</a></li>
+							<li class="visible-xs"><a href="http://stream.tilos.hu/tilos_low.ogg.m3u" target="_blank" ng-click="isCollapsed = !isCollapsed"><span>24</span> ogg</a></li>
+						</ul>
 
-    <div class="navbar-fixed-top" scroll ng-class="{scrolled:boolChangeClass}">
-        <nav class="navbar navbar-default" role="navigation"  ng-controller="CollapseCtrl">
-        <div class="container">
-        <!-- Brand and toggle get grouped for better mobile display -->
-        <div class="navbar-header">
-          <button type="button" class="navbar-toggle"  ng-click="isCollapsed = !isCollapsed">
-            <span class="sr-only">Navigáció</span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-          </button>
-          <a class="navbar-brand visible-xs" href="/#"> Tilos Rádió</a>
-        </div>
+					</div><!-- /.navbar-collapse -->
+				</div><!-- container -->
+			</nav>
 
-        <!-- Collect the nav links, forms, and other content for toggling -->
-        <div class="navbar-collapse container" ng-show="isCollapsed">
-          <ul class="nav navbar-nav">
-            <li active-link="active"><a href="/#index" ng-click="isCollapsed = !isCollapsed">Főoldal</a></li>
-            <li active-link="active"><a href="#/page/info" ng-click="isCollapsed = !isCollapsed">Infó</a></li>
-            <li active-link="active"><a href="#/shows" ng-click="isCollapsed = !isCollapsed">Műsorok</a></li>
-            <li active-link="active"><a href="#/archive" ng-click="isCollapsed = !isCollapsed">Archívum</a></li>
-            <li active-link="active"><a href="#/page/elerhetoseg" ng-click="isCollapsed = !isCollapsed">Elérhetőség</a></li>
-            <li active-link="active"><a href="#/page/english" ng-click="isCollapsed = !isCollapsed">English</a></li>
-            <li active-link="active" class="highlight"><a href="#/page/segits" ng-click="isCollapsed = !isCollapsed">Támogass</a></li>
-              <li class="visible-xs"><a href="http://stream.tilos.hu/tilos.m3u" target="_blank" ng-click="isCollapsed = !isCollapsed"><span>256</span> mp3</a></li>
-              <li class="visible-xs"><a href="http://stream.tilos.hu/tilos_128.mp3.m3u" target="_blank" ng-click="isCollapsed = !isCollapsed"><span>128</span> mp3</a></li>
-              <li class="visible-xs"><a href="http://stream.tilos.hu/tilos_high.ogg.m3u" target="_blank" ng-click="isCollapsed = !isCollapsed"><span>96</span> ogg</a></li>
-              <li class="visible-xs"><a href="http://stream.tilos.hu/tilos_low.ogg.m3u" target="_blank" ng-click="isCollapsed = !isCollapsed"><span>24</span> ogg</a></li>
-          </ul>
-
-        </div><!-- /.navbar-collapse -->
-        </div><!-- container -->
-      </nav>
-		<header class="main-header hidden-xs">
-			<div class="container">
-				<div class="row">
-					<div class="brand-holder col-md-6">
-						<a href="/">
+			<header class="main-header hidden-xs">
+				<div class="container">
+					<div class="row">
+						<div class="brand-holder col-md-6">
+							<a href="/">
 							<img src="/images/logo.png" alt="Tilos Rádió" class="logo">
 							<h1>Tilos Rádió</h1>
 							<h2 class="ubuntu">fm 90.3 <span>www.tilos.hu</span></h2>
-						</a>
-					</div>
-					<div class="col-md-6 radio-holder" ng-controller="EpisodesCtrl">
-						<div class="radio-player">
-							<div class="col-md-6">
-								<h3>
-									<a href="#/show/{{current.show.alias}}">{{current.show.name}}</a>
-									<span class="radio-fromTo">
+							</a>
+						</div>
+						<div class="col-md-6 radio-holder" ng-controller="EpisodesCtrl">
+							<div class="radio-player">
+								<div class="col-md-6">
+									<h3>
+										<a href="#/show/{{current.show.alias}}">{{current.show.name}}</a>
+										<span class="radio-fromTo">
 										{{current.show.episodes[0].plannedFrom * 1000| date: 'HH:mm'}}-{{current.show.episodes[0].plannedTo * 1000| date: 'HH:mm'}}
-									</span>
-								</h3>
-							</div>
-							<div class="col-md-6 radio-formatList">
-								<h4>HALLGASD ONLINE!<span class="active icon-loop"></span></h4>
-								<ul class="stream-chooser">
-									<li><a href="http://stream.tilos.hu/tilos.m3u" target="_blank"><span>256</span> mp3</a></li>
-									<li><a href="http://stream.tilos.hu/tilos_128.mp3.m3u" target="_blank"><span>128</span> mp3</a></li>
-									<li><a href="http://stream.tilos.hu/tilos_high.ogg.m3u" target="_blank"><span>96</span> ogg</a></li>
-									<li><a href="http://stream.tilos.hu/tilos_low.ogg.m3u" target="_blank"><span>24</span> ogg</a></li>
-								</ul>
+										</span>
+									</h3>
+								</div>
+								<div class="col-md-6 radio-formatList">
+									<h4>HALLGASD ONLINE!<span class="active icon-loop"></span></h4>
+									<ul class="stream-chooser">
+										<li><a href="http://stream.tilos.hu/tilos.m3u" target="_blank"><span>256</span> mp3</a></li>
+										<li><a href="http://stream.tilos.hu/tilos_128.mp3.m3u" target="_blank"><span>128</span> mp3</a></li>
+										<li><a href="http://stream.tilos.hu/tilos_high.ogg.m3u" target="_blank"><span>96</span> ogg</a></li>
+										<li><a href="http://stream.tilos.hu/tilos_low.ogg.m3u" target="_blank"><span>24</span> ogg</a></li>
+									</ul>
+								</div>
 							</div>
 						</div>
-					</div>
-				</div> <!-- row -->
-			</div> <!--container -->
-		</header>
-    </div> <!-- navbar-fixed-top -->
-    <div class="container">
-      <div class="row" ng-view>
+					</div> <!-- row -->
+				</div> <!--container -->
+			</header>
+		</div> <!-- navbar-fixed-top -->
 
-      </div> <!-- col-md-3 -->
-    </div><!-- /container -->
-    <div class="footer-holder">
-      <footer class="container">
-        <div class="row">
-         <div class="brand-holder col-md-6">
-         	<a href="/">
-							<img src="/images/logo.png" alt="Tilos Rádió" class="logo">
-							<h1>Tilos rádió</h1>
-							<h2 class="ubuntu">fm 90.3 www.tilos.hu</h2>
+
+		<div class="container">
+			<div class="row" ng-view>
+			</div> <!-- col-md-3 -->
+		</div><!-- /container -->
+
+		<div class="footer-holder">
+			<footer class="container">
+				<div class="row">
+					<div class="brand-holder col-md-6">
+						<a href="/">
+						<img src="/images/logo.png" alt="Tilos Rádió" class="logo">
+						<h1>Tilos rádió</h1>
+						<h2 class="ubuntu">fm 90.3 www.tilos.hu</h2>
 						</a>
+					</div>
+					<div class="col-md-3">
+						<nav class="footer-nav">
+						</nav>
+						<h2>A Tilos Rádió elérhetőségei</h2>
+						<p>adástelefon: 215 3773</p>
+						<p>e-mail: <a href="mailto:radio@tilos.hu">radio@tilos.hu</a></p>
+						<p>Minden műsorral kapcsolatos kérdésben a Tilos szerkesztőségének írjatok levelet: <a href="mailto:szerkessz@tilos.hu">szerkessz@tilos.hu</a></p>
+						<p>A weboldallal kapcsolatos kérdésekben az illetékes: <a href="mailto:gepezet@tilos.hu">gepezet@tilos.hu</a></p>
+					</div>
+					<div class="col-md-3">
+						<h2>A Tilos Rádiót működtető Tilos Kulturális Alapítvány elérhetőségei:</h2>
+						<p>
+							1085 Budapest<br/>
+							Üllői út 32. (Mária u. 54.)<br/>
+							telefon: (061) 476 8491<br/>
+							fax: (061) 476 8492<br/>
+							<a href="mailto:radio@tilos.hu">radio@tilos.hu</a><br/>
+							postacím: 1462 Budapest, Pf. 601.
+						</p>
+					</div>
 
-        </div>
-        <div class="col-md-3">
+					© 2013. Tilos Rádió -  Minden jog fenntartva
+				</div>
+			</footer>
+		</div><!-- footer-holder -->
 
-
-          <nav class="footer-nav">
-
-          </nav>
-
-          <h2>A Tilos Rádió elérhetőségei</h2>
-
-		<p>adástelefon: 215 3773</p>
-		<p>e-mail: <a href="mailto:radio@tilos.hu">radio@tilos.hu</a></p>
-		<p>Minden műsorral kapcsolatos kérdésben a Tilos szerkesztőségének írjatok levelet: <a href="mailto:szerkessz@tilos.hu">szerkessz@tilos.hu</a></p>
-<p>A weboldallal kapcsolatos kérdésekben az illetékes: <a href="mailto:gepezet@tilos.hu">gepezet@tilos.hu</a></p>
-        </div>
-        <div class="col-md-3">
-
-
-		<h2>A Tilos Rádiót működtető Tilos Kulturális Alapítvány elérhetőségei:</h2>
-		<p>1085 Budapest<br/>Üllői út 32. (Mária u. 54.)<br/>
-			telefon: (061) 476 8491<br/>
-			fax: (061) 476 8492<br/>
-			<a href="mailto:radio@tilos.hu">radio@tilos.hu</a><br/>
-			postacím: 1462 Budapest, Pf. 601.</p>
-        </div>
-
-            © 2013. Tilos Rádió -  Minden jog fenntartva
-      </div>
-    </footer>
-
-  </div>
-
-  <!-- Google Analytics: change UA-XXXXX-X to be your site's ID. -->
-  <script>
-  (function(b,o,i,l,e,r){b.GoogleAnalyticsObject=l;b[l]||(b[l]=
-    function(){(b[l].q=b[l].q||[]).push(arguments)});b[l].l=+new Date;
-  e=o.createElement(i);r=o.getElementsByTagName(i)[0];
-  e.src='//www.google-analytics.com/analytics.js';
-  r.parentNode.insertBefore(e,r)}(window,document,'script','ga'));
-  ga('create','UA-XXXXX-X');ga('send','pageview');
-  </script>
-
-
+		<!-- Google Analytics: change UA-XXXXX-X to be your site's ID. -->
+		<script>
+			(function(b,o,i,l,e,r){b.GoogleAnalyticsObject=l;b[l]||(b[l]=
+			function(){(b[l].q=b[l].q||[]).push(arguments)});b[l].l=+new Date;
+			e=o.createElement(i);r=o.getElementsByTagName(i)[0];
+			e.src='//www.google-analytics.com/analytics.js';
+			r.parentNode.insertBefore(e,r)}(window,document,'script','ga'));
+			ga('create','UA-XXXXX-X');ga('send','pageview');
+		</script>
 
   </body>
 </html>

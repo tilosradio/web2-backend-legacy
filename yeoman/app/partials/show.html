@@ -22,8 +22,10 @@
 
     <div class="panel panel-default" ng-repeat="episode in show.episodes">
         <div class="panel-heading">
-            {{episode.plannedFrom * 1000| date: 'yyyy.MM.dd HH:mm'}}
-            <span ng-if="episode.text">{{episode.text.title}}</span>
+            <b>
+            	{{episode.plannedFrom * 1000| date: 'yyyy.MM.dd HH:mm'}}
+				<span ng-if="episode.text">{{episode.text.title}}</span>
+            </b>
             <a ng-show="episode.m3uUrl" class="pull-right" href="{{server}}/{{episode.m3uUrl}}">
             	<i class="icon-volume-up"></i> Meghallgat
             </a>

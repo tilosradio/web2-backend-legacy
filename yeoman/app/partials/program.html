@@ -30,10 +30,10 @@
                 Műsorvezető:
 				<span ng-repeat="author in episode.show.contributors">
 					<div ng-show="(author.nick != '')">
-                        <a href="#/author/{{author.alias}}">{{author.nick}}</a>
+                        <!--<a href="#/author/{{author.alias}}">-->{{author.nick}}<!--</a>-->
                     </div>
         			<div ng-show="(author.name == '')">
-                        <a href="#/author/{{author.alias}}">{{author.alias}}</a>
+                        <!--<a href="#/author/{{author.alias}}">-->{{author.alias}}<!--</a>-->
                     </div>
 				</span>
             </td>
