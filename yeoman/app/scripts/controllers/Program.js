@@ -68,8 +68,7 @@ angular.module('tilosApp')
       $scope.gotoDay = function (dt) {
         $scope.gotoDate = new Date(dt.getTime());
         $scope.gotoDate.setToNoon();
-        $scope.currentTimestamp = $scope.gotoDate.getTimestamp();
-        $scope.getDay($scope.currentTimestamp);
+        $scope.getDay($scope.gotoDate.getTimestamp());
       };
       var from = (tilos.weekStart(new Date()) / 1000);
       var to = from + 7 * 24 * 60 * 60;
@@ -81,15 +80,16 @@ angular.module('tilosApp')
       $scope.todayTimestamp = now.getTimestamp();
 
       $scope.prev = function () {
-        $scope.currentTimestamp -= 24 * 60 * 60;
-        $scope.getDay($scope.currentTimestamp);
-        $scope.gotoDate = new Date($scope.currentTimestamp * 1000);
+        $scope.gotoDate = new Date($scope.gotoDate.getTime() - 60 * 60 * 24 * 1000);
+        $scope.gotoDate.setToNoon();
+        $scope.getDay($scope.gotoDate.getTimestamp());
+
       };
 
       $scope.next = function () {
-        $scope.currentTimestamp += 24 * 60 * 60;
-        $scope.getDay($scope.currentTimestamp);
-        $scope.gotoDate = new Date($scope.currentTimestamp * 1000);
+        $scope.gotoDate = new Date($scope.gotoDate.getTime() + 60 * 60 * 24 * 1000);
+        $scope.gotoDate.setToNoon();
+        $scope.getDay($scope.gotoDate.getTimestamp());
       };
 
       $scope.getDay = function (timestamp) {
@@ -105,5 +105,39 @@ angular.module('tilosApp')
       //Get today's episodes.
       $scope.getDay(now.getTimestamp());
 
+      $scope.today = function () {
+        $scope.dt = new Date();
+      };
+      $scope.today();
+
+      $scope.showWeeks = true;
+      $scope.toggleWeeks = function () {
+        $scope.showWeeks = !$scope.showWeeks;
+      };
+
+      $scope.clear = function () {
+        $scope.dt = null;
+      };
+
+      $scope.disabled = function(date, mode) {
+        return ( mode === 'day' && date > new Date() );
+      };
+
+      $scope.toggleMin = function () {
+        $scope.minDate = ($scope.minDate) ? null : new Date();
+      };
+
+      $scope.open = function () {
+        $timeout(function () {
+          $scope.opened = true;
+        });
+      };
+      $scope.goto = function () {
+        $scope.gotoDay($scope.gotoDate);
+      };
+      $scope.dateOptions = {
+        'year-format': "'yy'",
+        'starting-day': 1
+      };
     }
   ]);
