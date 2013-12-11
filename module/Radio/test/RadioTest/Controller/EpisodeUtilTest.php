@@ -14,6 +14,16 @@ class EpisodeUtilTest extends \PHPUnit_Framework_TestCase {
 
     }
 
+    public function testGetEpisodesWithStartEnd() {
+        $serviceManager = Bootstrap::getServiceManager();
+        $em = $serviceManager->get('doctrine.entitymanager.orm_default');
+        $this->assertNotNull($em);
+        $result = EpisodeUtil::getEpisodeTimes($em, mktime(0, 0, 0, 1, 1, 2013), mktime(23, 59, 59, 12, 31, 2013), 800);
+        $this->assertEquals(5, sizeof($result));
+        $this->assertEquals(mktime(7, 0, 0, 10, 23, 2013), $result[0]['plannedFrom']->getTimestamp());
+        $this->assertEquals(mktime(8, 0, 0, 10, 23, 2013), $result[0]['plannedTo']->getTimestamp());
+        $this->assertEquals(mktime(7, 0, 0, 11, 20, 2013), $result[4]['plannedFrom']->getTimestamp());
+    }
     public function testGetEpisodes1() {
         $serviceManager = Bootstrap::getServiceManager();
         $em = $serviceManager->get('doctrine.entitymanager.orm_default');

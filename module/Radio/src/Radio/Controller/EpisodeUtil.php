@@ -15,9 +15,9 @@ class EpisodeUtil {
         $qb->leftJoin('s.contributors', 'c');
 
         if ($show != null) {
-            $qb->where('e.show = :showId AND s.status = 1');
+            $qb->where('e.show = :showId');
         } else {
-            $qb->where('s.status = 1');
+           // $qb->where('s.status = 1');
         }
         $qb->orderBy("e.weekDay,e.hourFrom,e.minFrom");
         $query = $qb->getQuery();
@@ -48,7 +48,7 @@ class EpisodeUtil {
                     }
                 }
 
-                if ($selectedWeek && $real->getTimestamp() >= $from && $real->getTimestamp() < $to) {
+                if ($selectedWeek && $real->getTimestamp() >= $from && $real->getTimestamp() < $to && $real->getTimestamp() < $scheduling['validTo']->getTimestamp() && $real->getTimestamp() >= $scheduling['validFrom']->getTimestamp()) {
                     $e = [];
                     $realEnd = $real->getTimestamp() + $scheduling['duration'] * 60;
                     $e['plannedFrom'] = $real;
