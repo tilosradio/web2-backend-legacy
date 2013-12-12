@@ -72,6 +72,7 @@ class MapperFactory {
         $em->addMapper(new Field("id"));
         $em->addMapper(new DateField("plannedFrom"));
         $em->addMapper(new DateField("plannedTo"));
+        $em->addMapper(new InternalLinkField("m3uUrl", $context['baseUrl']));
 
         $m->addMapper(new Field("description"));
 
@@ -102,7 +103,7 @@ class MapperFactory {
         $m->addMapper(new Field("id"));
         $m->addMapper(new DateField("plannedFrom"));
         $m->addMapper(new DateField("plannedTo"));
-        $m->addMapper(new ResourceField("m3uUrl", $context['baseUrl']));
+        $m->addMapper(new InternalLinkField("m3uUrl", $context['baseUrl']));
         $sm = $m->addMapper(new ChildObject("show"));
         MapperFactory::shortShow($sm, $context);
         $cm = $sm->addMapper(new ChildCollection("contributors"));
