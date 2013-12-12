@@ -18,6 +18,6 @@ class ResourceField implements Mapper {
     }
 
     public function map(&$from, &$to) {
-        $to[$this->name] = $this->baseUrl . "/" . $from[$this->name];
+        $to[$this->name] = $this->baseUrl . "/upload/" . $from[$this->name];
     }
 }
