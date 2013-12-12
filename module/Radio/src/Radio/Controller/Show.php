@@ -2,6 +2,7 @@
 
 namespace Radio\Controller;
 
+use Radio\Mapper\MapperFactory;
 use Zend\Mvc\Controller\AbstractRestfulController;
 use Zend\View\Model\JsonModel;
 use Radio\Provider\EntityManager;
@@ -32,31 +33,19 @@ class Show extends BaseController {
 
     public function mapEntity($result) {
         $a = $result;
-        unset($result['description']);
-        foreach ($result['contributors'] as $author) {
-            unset($author['author']['introduction']);
-        }
-        $a['schedulings'] = array();
-        $a['episodes'] = array();
-
         $now = time();
         $episodes = EpisodeUtil::getEpisodeTimes($this->getEntityManager(), $now - 60 * 60 * 24 * 60, $now, $a['id'], true);
-        foreach ($episodes as $episode) {
-            unset($episode['show']);
-            $episode['plannedFrom'] = $episode['plannedFrom']->getTimestamp();
-            $episode['plannedTo'] = $episode['plannedTo']->getTimestamp();
+        $a['episodes'] = $episodes;
+        $r = [];
+        MapperFactory::showMapper(['baseUrl' => $this->getServerUrl()])->map($a, $r);
+        return $r;
 
-            $a['episodes'][] = $episode;
-
-        }
-
-
-        return $a;
     }
 
     public function mapEntityListElement($result) {
-        unset($result['description']);
-        return $result;
+        $r = [];
+        MapperFactory::showElementMapper(['baseUrl' => $this->getServerUrl()])->map($result, $r);
+        return $r;
     }
 
     public function findEntityList($type) {

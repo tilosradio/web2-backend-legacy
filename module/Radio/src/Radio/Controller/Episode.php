@@ -4,6 +4,8 @@ namespace Radio\Controller;
 
 use Zend\View\Model\JsonModel;
 use Radio\Provider\EntityManager;
+use Radio\Mapper\MapperFactory;
+
 
 /**
  * @SWG\Resource(resourcePath="/episode",basePath="/api")
@@ -27,20 +29,10 @@ class Episode extends BaseController {
             $end = $this->params()->fromQuery("end", $start + 60 * 60 * 5);
             $episodes = EpisodeUtil::getEpisodeTimes($this->getEntityManager(), $start, $end);
             $result = [];
-            foreach ($episodes as $episode) {
-                if ($episode['show']) {
-                    unset($episode['show']['description']);
-                }
-                if (array_key_exists("m3uUrl", $episode) && $episode['m3uUrl']) {
-                    $episode['m3uUrl'] = "http://" . $this->getRequest()->getServer('HTTP_HOST') . "/" . $episode['m3uUrl'];
-                }
+            $s = ['list' => $episodes];
+            MapperFactory::episodeElementMapper(['baseUrl' => $this->getServerUrl()])->map($s, $result);
 
-                $episode['plannedFrom'] = $episode['plannedFrom']->getTimestamp();
-                $episode['plannedTo'] = $episode['plannedTo']->getTimestamp();
-                $result[] = $episode;
-
-            }
-            return new JsonModel($result);
+            return new JsonModel($result['list']);
         } catch (Exception $ex) {
             $this->getResponse()->setStatusCode(500);
             return new JsonModel(array("error" => $ex->getMessage()));

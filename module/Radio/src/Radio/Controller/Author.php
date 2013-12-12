@@ -5,6 +5,7 @@ namespace Radio\Controller;
 use Zend\Mvc\Controller\AbstractRestfulController;
 use Zend\View\Model\JsonModel;
 use Radio\Provider\EntityManager;
+use Radio\Mapper\MapperFactory;
 
 /**
  * @SWG\Resource(resourcePath="/author",basePath="/api")
@@ -46,6 +47,23 @@ class Author extends BaseController {
      */
     public function get($id) {
         return $this->getEntity("\Radio\Entity\Author", $id);
+    }
+
+    public function mapEntity($result) {
+        $a = $result;
+        $now = time();
+        $episodes = EpisodeUtil::getEpisodeTimes($this->getEntityManager(), $now - 60 * 60 * 24 * 60, $now, $a['id'], true);
+        $a['episodes'] = $episodes;
+        $r = [];
+        MapperFactory::authorMapper(['baseUrl' => $this->getServerUrl()])->map($a, $r);
+        return $r;
+
+    }
+
+    public function mapEntityListElement($result) {
+        $r = [];
+        MapperFactory::authorElementMapper(['baseUrl' => $this->getServerUrl()])->map($result, $r);
+        return $r;
     }
 
     public function findEntityObject($type, $id) {

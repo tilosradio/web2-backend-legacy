@@ -10,9 +10,10 @@ class EpisodeUtil {
 
     static function getScheduled($em, $from, $to, $show) {
         $qb = $em->createQueryBuilder();
-        $qb->select('e', 's', 'c')->from('\Radio\Entity\Scheduling', 'e');
+        $qb->select('e', 's', 'c','a')->from('\Radio\Entity\Scheduling', 'e');
         $qb->leftJoin("e.show", "s");
         $qb->leftJoin('s.contributors', 'c');
+        $qb->leftJoin('c.author', 'a');
 
         if ($show != null) {
             $qb->where('e.show = :showId');
@@ -71,7 +72,7 @@ class EpisodeUtil {
         $now = new \DateTime();
 
         $qb = $em->createQueryBuilder();
-        $qb->select('e', 's', 'c', 't')->from('\Radio\Entity\Episode', 'e');
+        $qb->select('e', 's', 'c', 't','a')->from('\Radio\Entity\Episode', 'e');
         if ($show != null) {
             $qb->where("e.show = :showId AND e.plannedTo > :start AND e.plannedFrom < :end AND s.status = 1");
         } else {
@@ -80,6 +81,8 @@ class EpisodeUtil {
         $qb->leftJoin('e.show', 's');
         $qb->leftJoin('s.contributors', 'c');
         $qb->leftJoin('e.text', 't');
+        $qb->leftJoin('c.author', 'a');
+
 
         $qb->orderBy("e.plannedFrom");
         $query = $qb->getQuery();

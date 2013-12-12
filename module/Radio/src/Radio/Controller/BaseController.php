@@ -62,6 +62,10 @@ class BaseController extends AbstractRestfulController {
         }
     }
 
+    public function getServerUrl(){
+        return "http://" . $this->getRequest()->getServer('HTTP_HOST');
+    }
+
 }
 
 ?>
