@@ -119,10 +119,6 @@ angular.module('tilosApp')
         $scope.dt = null;
       };
 
-      $scope.disabled = function(date, mode) {
-        return ( mode === 'day' && date > new Date() );
-      };
-
       $scope.toggleMin = function () {
         $scope.minDate = ($scope.minDate) ? null : new Date();
       };

@@ -900,8 +900,24 @@ input.datepicker {
 	cursor: pointer;
 }
 
+
+//News extra
+
+.newsItem td{
+	vertical-align:top;
+}
+
 .newsItem img{
-	padding: 10px;
-	border: 1px solid $gray-light;
 	margin-right: 10px;
+	margin-top: 5px;
+}
+
+.newsLink{
+	color: $gray-darken;
+	font-weight: normal;
+}
+
+.newsLink:hover{
+	color: $gray-darken;
+	text-decoration: none;
 }

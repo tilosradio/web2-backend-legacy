@@ -1,7 +1,7 @@
 <section class="col-md-9 main" role="main" >
     <article ng-repeat="item in news">
         <h1>
-       		<a href="#/news/{{item.id}}">{{item.title}}</a>
+       		<a class="newsLink" href="#/news/{{item.id}}">{{item.title}}</a>
         </h1>
 		<span ng-bind-html="item.formatted" class="newsItem"></span>
         <footer>
