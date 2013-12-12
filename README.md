@@ -52,9 +52,10 @@ Development tools
 Contributors:
 =============
 
-- László Károlyi laszlo@karolyi.hu
 - Márton Elek elek@anzix.net
 - Dávid Barkóczi david.barkoczi@gmail.com
 - Károly Kiripolszky karcsi@ekezet.com
 - Sándor Farkas sandor.farkas@gmail.com
 - Eva Hajdu vid.eskin@gmail.com
+- Márton Rónyai marci@pioneers.hu
+- László Károlyi laszlo@karolyi.hu
