@@ -31,7 +31,7 @@ return array(
             'sign_in' => array(
                 'type' => 'Literal',
                 'options' => array(
-                    'route' => '/api/auth/sign_in',
+                    'route' => '/api/v0/auth/sign_in',
                     'defaults' => array(
                         'controller' => 'Radio\Controller\Auth',
                         'action' => 'login'
@@ -41,7 +41,7 @@ return array(
             'sign_out' => array(
                 'type' => 'Literal',
                 'options' => array(
-                    'route' => '/api/auth/sign_out',
+                    'route' => '/api/v0/auth/sign_out',
                     'defaults' => array(
                         'controller' => 'Radio\Controller\Auth',
                         'action' => 'logout'
@@ -51,14 +51,14 @@ return array(
             'show-rest' => array(
                 'type' => 'Segment',
                 'options' => array(
-                    'route' => '/api/show[/:id]',
+                    'route' => '/api/v0/show[/:id]',
                     'defaults' => array('controller' => 'Radio\Controller\Show',)
                 )
             ),
             'show-episodes' => array(
                 'type' => 'Segment',
                 'options' => array(
-                    'route' => '/api/show/:id/episodes',
+                    'route' => '/api/v0/show/:id/episodes',
                     'defaults' => array(
                         'controller' => 'Radio\Controller\Show',
                         'action' => 'listOfEpisodes'
@@ -68,14 +68,14 @@ return array(
             'author-rest' => array(
                 'type' => 'Segment',
                 'options' => array(
-                    'route' => '/api/author[/:id]',
+                    'route' => '/api/v0/author[/:id]',
                     'defaults' => array('controller' => 'Radio\Controller\Author',)
                 )
             ),
             'user-rest' => array(
                 'type' => 'Segment',
                 'options' => array(
-                    'route' => '/api/user[/:id]',
+                    'route' => '/api/v0/user[/:id]',
                     'constraints' => array('id' => '[0-9]*',),
                     'defaults' => array('controller' => 'Radio\Controller\User',)
                 )
@@ -83,7 +83,7 @@ return array(
             'episode-rest' => array(
                 'type' => 'Segment',
                 'options' => array(
-                    'route' => '/api/episode[/:id]',
+                    'route' => '/api/v0/episode[/:id]',
                     'constraints' => array('id' => '[0-9]*',),
                     'defaults' => array('controller' => 'Radio\Controller\Episode',)
                 )
@@ -91,14 +91,14 @@ return array(
             'show-text' => array(
                 'type' => 'Segment',
                 'options' => array(
-                    'route' => '/api/text[/:id]',
+                    'route' => '/api/v0/text[/:id]',
                     'defaults' => array('controller' => 'Radio\Controller\Text',)
                 )
             ),
             'text-list' => array(
                 'type' => 'Segment',
                 'options' => array(
-                    'route' => '/api/text/[:type]/list',
+                    'route' => '/api/v0/text/[:type]/list',
                     'defaults' => array(
                         'controller' => 'Radio\Controller\Text',
                         'action' => 'listOfType'

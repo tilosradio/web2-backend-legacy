@@ -13,14 +13,14 @@ angular.module('tilosApp')
       var nowDate = new Date();
       var start = Math.round((nowDate / 1000 - 60 * 60 * 3) / 10) * 10;
       var now = nowDate.getTime() / 1000;
-      $http.get($server + '/api/episode?start=' + start + '&end=' + (start + 12 * 60 * 60), {cache: true}).success(function (data) {
+      $http.get($server + '/api/v0/episode?start=' + start + '&end=' + (start + 12 * 60 * 60), {cache: true}).success(function (data) {
         dbg = data;
         for (var i = 0; i < data.length; i++) {
           if (data[i].plannedFrom <= now && data[i].plannedTo > now) {
             $scope.current = data[i];
           }
         }
-        $http.get($server + '/api/show/' + $scope.current.show.id, {cache: true}).success(function (sd) {
+        $http.get($server + '/api/v0/show/' + $scope.current.show.id, {cache: true}).success(function (sd) {
           $scope.current.show = sd;
           $scope.episodes = data;
           dbg = $scope;

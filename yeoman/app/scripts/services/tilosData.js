@@ -13,7 +13,7 @@ angular.module('tilosApp')
         if ($root.news) {
           callback($root.news);
         } else {
-          $http.get($server + '/api/text/news/list').success(function (data) {
+          $http.get($server + '/api/v0/text/news/list').success(function (data) {
             $root.news = data;
 
             for(var i = 0; i < $root.news.length; i++){
@@ -43,7 +43,7 @@ angular.module('tilosApp')
           if (!$root.text) {
             $root.text = {};
           }
-          $http.get($server + '/api/text/' + id).success(function (data) {
+          $http.get($server + '/api/v0/text/' + id).success(function (data) {
             $root.text[id] = data;
             callback(data);
           });

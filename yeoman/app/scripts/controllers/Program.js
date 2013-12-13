@@ -97,7 +97,7 @@ angular.module('tilosApp')
         from.setToDayStart();
         var to = new Date(timestamp * 1000);
         to.setToDayEnd();
-        $http.get($server + '/api/episode?start=' + from.getTimestamp() + '&end=' + to.getTimestamp(), {cache: true}).success(function (data) {
+        $http.get($server + '/api/v0/episode?start=' + from.getTimestamp() + '&end=' + to.getTimestamp(), {cache: true}).success(function (data) {
           $scope.episodes = data;
         });
       };

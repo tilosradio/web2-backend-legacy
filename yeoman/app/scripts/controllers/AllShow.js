@@ -2,7 +2,7 @@
 
 angular.module('tilosApp')
   .controller('AllshowCtrl', ['$scope', '$routeParams', 'API_SERVER_ENDPOINT', '$http', function ($scope, $routeParams, $server, $http) {
-  $http.get($server + '/api/show').success(function (data) {
+  $http.get($server + '/api/v0/show').success(function (data) {
     var res = {
       talk: [],
       sound: []
