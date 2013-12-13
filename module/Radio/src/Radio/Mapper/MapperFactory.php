@@ -38,6 +38,8 @@ class MapperFactory {
         $m->addMapper(new Field("type"));
         $m->addMapper(new Field("status"));
         $m->addMapper(new Field("alias"));
+        $m->addMapper(new ResourceField("banner", $context['baseUrl']));
+
 
     }
 
@@ -88,7 +90,6 @@ class MapperFactory {
         $am = $cm->addMapper(new ChildObject("author"));
         MapperFactory::shortAuthor($am, $context);
 
-
         return $m;
     }
 
@@ -96,21 +97,27 @@ class MapperFactory {
         return MapperFactory::episodeElementMapper($context);
     }
 
-    public static function episodeElementMapper($context) {
-        $a = new ObjectMapper();
-        $m = $a->addMapper(new ChildCollection("list"));
-
+    public static function shortEpisodeElementMapper($context) {
+        $m = new ListMapper();
         $m->addMapper(new Field("id"));
         $m->addMapper(new DateField("plannedFrom"));
         $m->addMapper(new DateField("plannedTo"));
         $m->addMapper(new InternalLinkField("m3uUrl", $context['baseUrl']));
+        $em = $m->addMapper(new ChildObject("text"));
+        $em->addMapper(new Field("title"));
+        $em->addMapper(new Field("content"));
+        return $m;
+    }
+
+    public static function episodeElementMapper($context) {
+        $m = MapperFactory::shortEpisodeElementMapper($context);
         $sm = $m->addMapper(new ChildObject("show"));
         MapperFactory::shortShow($sm, $context);
         $cm = $sm->addMapper(new ChildCollection("contributors"));
         $cm->addMapper(new Field("nick"));
         $am = $cm->addMapper(new ChildObject("author"));
         MapperFactory::shortAuthor($am, $context);
-        return $a;
+        return $m;
     }
 
 

@@ -90,18 +90,17 @@ class Show extends BaseController {
         return $this->getEntity("\Radio\Entity\Show", $id);
     }
 
-    public function listOfEpisodesAction($id) {
+    public function listOfEpisodesAction() {
         $id = $this->params()->fromRoute("id");
         $start = $this->params()->fromQuery("from", time() - 60 * 24 * 60 * 60);
         $end = $this->params()->fromQuery("to", time());
         $episodes = EpisodeUtil::getEpisodeTimes($this->getEntityManager(), $start, $end, $id, true);
-        foreach ($episodes as &$episode) {
-            unset($episode['show']['description']);
-            $episode['plannedFrom'] = $episode['plannedFrom']->getTimestamp();
-            $episode['plannedTo'] = $episode['plannedTo']->getTimestamp();
-        }
 
-        return new JsonModel($episodes);
+        $result = [];
+        $mapper = MapperFactory::shortEpisodeElementMapper(['baseUrl' => $this->getServerUrl()]);
+        $mapper->map($episodes,$result);
+
+        return new JsonModel($result);
     }
 
     public function create($data) {

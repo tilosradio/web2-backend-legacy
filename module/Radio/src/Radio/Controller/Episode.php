@@ -29,10 +29,9 @@ class Episode extends BaseController {
             $end = $this->params()->fromQuery("end", $start + 60 * 60 * 5);
             $episodes = EpisodeUtil::getEpisodeTimes($this->getEntityManager(), $start, $end);
             $result = [];
-            $s = ['list' => $episodes];
-            MapperFactory::episodeElementMapper(['baseUrl' => $this->getServerUrl()])->map($s, $result);
+            MapperFactory::episodeElementMapper(['baseUrl' => $this->getServerUrl()])->map($episodes, $result);
 
-            return new JsonModel($result['list']);
+            return new JsonModel($result);
         } catch (Exception $ex) {
             $this->getResponse()->setStatusCode(500);
             return new JsonModel(array("error" => $ex->getMessage()));
