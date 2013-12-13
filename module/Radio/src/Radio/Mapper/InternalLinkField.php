@@ -18,6 +18,9 @@ class InternalLinkField implements Mapper {
     }
 
     public function map(&$from, &$to) {
-        $to[$this->name] = $this->baseUrl . "/" . $from[$this->name];
+        if (array_key_exists($this->name, $from)) {
+
+            $to[$this->name] = $this->baseUrl . "/" . $from[$this->name];
+        }
     }
 }
