@@ -47,3 +47,6 @@ data/DoctrineORMModule/
 vagrant_ansible_inventory_default
 .buildpath
 *.iml
+
+# Ignore our own composer.lock files
+composer.lock
