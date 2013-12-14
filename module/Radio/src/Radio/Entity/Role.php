@@ -18,7 +18,7 @@ class Role
     protected $id;
 
     /**
-     * @ORM\Column(length=10)
+     * @ORM\Column(type="string",length=10)
      */
     protected $name;
     
@@ -61,4 +61,26 @@ class Role
         }
         return $def;
     }
+
+    /**
+     * @param mixed $id
+     */
+    public function setId($id) {
+        $this->id = $id;
+    }
+
+    /**
+     * @param mixed $name
+     */
+    public function setName($name) {
+        $this->name = $name;
+    }
+
+    /**
+     * @param mixed $parent
+     */
+    public function setParent($parent) {
+        $this->parent = $parent;
+    }
+
 }

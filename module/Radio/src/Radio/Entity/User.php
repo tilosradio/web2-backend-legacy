@@ -19,22 +19,22 @@ class User
     private $id;
     
     /**
-     * @ORM\Column(length=20)
+     * @ORM\Column(type="string",length=20)
      */
     private $username;
     
     /**
-     * @ORM\Column(length=40)
+     * @ORM\Column(type="string",length=40)
      */
     private $password;
     
     /**
-     * @ORM\Column(length=255)
+     * @ORM\Column(type="string",length=255)
      */
     private $email;
     
     /**
-     * @ORM\Column(length=40)
+     * @ORM\Column(type="string",length=40)
      */
     private $salt;
     
@@ -125,4 +125,19 @@ class User
             'email'     => $this->email,
         );
     }
+
+    /**
+     * @param mixed $id
+     */
+    public function setId($id) {
+        $this->id = $id;
+    }
+
+    /**
+     * @param mixed $salt
+     */
+    public function setSalt($salt) {
+        $this->salt = $salt;
+    }
+
  }
