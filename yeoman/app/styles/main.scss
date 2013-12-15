@@ -267,29 +267,31 @@ img{
 			font-size: 18px;
 			font-family: "Open Sans",sans-serif;
 			font-weight: bold;
-      		margin: 15px;
+      margin: 15px;
 			padding: 0;
 			text-align: center;
 			@include clearfix();
 			.scrolled &{
-				//margin: 0px -23px 0 -10px;
+        margin-bottom: 10px;
+        margin-right: 0;
+        margin-left: 0;
 				text-align: left;
 			}
   		a{
   			color: white;
   			display: block;
-        	line-height: 1.3em;
+        line-height: 1.3em;
   			margin-bottom: 5px;
-			max-height: 46px;
-			overflow: hidden;
+			  max-height: 46px;
+			  overflow: hidden;
   			.scrolled &{
   				float: left;
-  				font-size: 13px;
+  				font-size: 16px;
   				margin-top: 2px;
   				margin-right: 5px;
   				text-overflow: ellipsis;
   				white-space: nowrap;
-  				max-width: 70%;
+  				max-width: 76%;
   			}
   		}
     }
@@ -310,17 +312,23 @@ img{
 
 		.scrolled &{
 			float: left;
-			font-size: 12px;
-			margin-top: 3px;
+			font-size: 13px;
+			margin-top: 4px;
 		}
 
 		}
 		.radio-formatList{
 			padding-right: 0px;
+      .scrolled &{
+        width: 40%;
+      }
 		}
-
-
+    .radio-info{
+      .scrolled &{
+        width: 60%;
+      }
     }
+  }
 }
 
 .brand-holder{
@@ -406,6 +414,9 @@ img{
         span{
             font-size: 22px;
             display: block;
+           .scrolled &{
+            font-size: 20px;
+           } 
         }
         &:hover{
             text-decoration: none;
