@@ -28,12 +28,14 @@
     it('show classify returned shows', function () {
       $httpBackend.expectGET('http://server/api/v0/show').respond([
         {id: 1, type: 1},
-        {id: 2, type: 0}
+        {id: 2, type: 0},
+        {id: 3, type: 0}
+
       ]);
       var controller = createController();
       $httpBackend.flush();
       chai.expect(scope.shows.talk.length).to.equal(1);
-      chai.expect(scope.shows.sound.length).to.equal(1);
+      chai.expect(scope.shows.sound.length).to.equal(2);
     });
   });
 })();
