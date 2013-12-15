@@ -2,34 +2,17 @@
 
 namespace RadioTest\Controller;
 
+use Radio\Controller\Atom;
 use RadioTest\Bootstrap;
 use Zend\Mvc\Router\Http\TreeRouteStack as HttpRouter;
 use Zend\Http\Request;
 use Zend\Mvc\MvcEvent;
 use Zend\Mvc\Router\RouteMatch;
 
-class AtomTest extends \PHPUnit_Framework_TestCase {
-
-    protected $controller;
-    protected $request;
-    protected $response;
-    protected $routeMatch;
-    protected $event;
+class AtomTest extends TestBase {
 
     protected function setUp() {
-        $serviceManager = Bootstrap::getServiceManager();
-        $this->controller = new \Radio\Controller\Atom();
-        $this->request = new Request();
-        $this->routeMatch = new RouteMatch(array('controller' => 'Atom'));
-        $this->event = new MvcEvent();
-        $config = $serviceManager->get('Config');
-        $routerConfig = isset($config['router']) ? $config['router'] : array();
-        $router = HttpRouter::factory($routerConfig);
-
-        $this->event->setRouter($router);
-        $this->event->setRouteMatch($this->routeMatch);
-        $this->controller->setEvent($this->event);
-        $this->controller->setServiceLocator($serviceManager);
+        $this->initTest("Atom", new Atom());
     }
 
     public function testAtomFeed() {
@@ -42,7 +25,7 @@ class AtomTest extends \PHPUnit_Framework_TestCase {
         //then
 
         //TODO make assertions
-	//echo($response->getContent());
+        //echo($response->getContent());
     }
 
 }

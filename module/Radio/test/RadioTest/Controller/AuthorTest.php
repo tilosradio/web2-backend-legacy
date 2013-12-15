@@ -2,7 +2,9 @@
 
 namespace RadioTest\Controller;
 
-use RadioTest\Bootstrap;
+use HttpRequest;
+use Radio\Controller\Auth;
+use Radio\Controller\Author;
 use Zend\Mvc\Router\Http\TreeRouteStack as HttpRouter;
 use Application\Controller\IndexController;
 use Zend\Http\Request;
@@ -11,33 +13,15 @@ use Zend\Mvc\MvcEvent;
 use Zend\Mvc\Router\RouteMatch;
 use PHPUnit_Framework_TestCase;
 
-class AuthorTest extends \PHPUnit_Framework_TestCase {
-
-    protected $controller;
-    protected $request;
-    protected $response;
-    protected $routeMatch;
-    protected $event;
+class AuthorTest extends TestBase {
 
     protected function setUp() {
-        $serviceManager = Bootstrap::getServiceManager();
-        $this->controller = new \Radio\Controller\Author();
-        $this->request = new Request();
-        $this->routeMatch = new RouteMatch(array('controller' => 'Author'));
-        $this->event = new MvcEvent();
-        $config = $serviceManager->get('Config');
-        $routerConfig = isset($config['router']) ? $config['router'] : array();
-        $router = HttpRouter::factory($routerConfig);
-
-        $this->event->setRouter($router);
-        $this->event->setRouteMatch($this->routeMatch);
-        $this->controller->setEvent($this->event);
-        $this->controller->setServiceLocator($serviceManager);
+        $this->initTest("Author", new Author());
     }
 
     public function testGetAuthor() {
         //when        
-        $this->routeMatch->setParam('id', '936');
+        $this->routeMatch->setParam('id', '763');
 
         $result = $this->controller->dispatch($this->request);
         $response = $this->controller->getResponse();
@@ -45,12 +29,15 @@ class AuthorTest extends \PHPUnit_Framework_TestCase {
 
         $author = $result->getVariables();
         //var_dump($author);
-        $this->assertContains("aktivista",$author['introduction']);
+        $this->assertContains("Sangeet Sanstan", $author['introduction']);
         $this->assertNotEmpty($author['photo']);
-        
+        $this->assertEquals(sizeof($author['urls']), 1);
+        $this->assertEquals("http://raga.hu",$author['urls'][0]['url']);
+
+
     }
-    
-     public function testGetWithAlias() {
+
+    public function testGetWithAlias() {
         //when        
         $this->routeMatch->setParam('id', 'sztyepp');
 
@@ -59,11 +46,11 @@ class AuthorTest extends \PHPUnit_Framework_TestCase {
         //then
 
         $author = $result->getVariables();
-        
+
         //var_dump($author);
-        $this->assertContains("uzginuver",$author['introduction']);
+        $this->assertContains("uzginuver", $author['introduction']);
         $this->assertNotEmpty($author['photo']);
-        
+
     }
 
 }
