@@ -25,9 +25,13 @@ module.exports = function (config) {
       'app/scripts/services/tilosData.js',
 
       'app/scripts/controllers/AllShow.js',
+      'app/scripts/controllers/Index.js',
+
       'test/lib/chai.js',
       'test/lib/expect.js',
-      'test/spec/controllers/AllShow.js'
+      'test/spec/controllers/AllShow.js' ,
+      'test/spec/controllers/Index.js'
+
     ],
 
 

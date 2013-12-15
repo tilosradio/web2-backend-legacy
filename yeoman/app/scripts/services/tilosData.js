@@ -9,21 +9,6 @@ angular.module('tilosApp')
 
     return {
       name: 'anonymous',
-      getNews: function (callback) {
-        if ($root.news) {
-          callback($root.news);
-        } else {
-          $http.get($server + '/api/v0/text/news/list').success(function (data) {
-            $root.news = data;
-
-            for(var i = 0; i < $root.news.length; i++){
- 				$root.news[i].likeURL = validateUrl.getValidUrl('http://www.facebook.com/plugins/like.php?href=http%3A%2F%2F' + tilosHost + '%2F%23%2Fnews%2F' + $root.news[i].id + '&width&layout=standard&action=like&show_faces=true&share=true');
-			}
-
-            callback(data);
-          });
-        }
-      },
       getFacebookData: function (callback) {
         if ($root.facebook) {
           callback($root.facebook);

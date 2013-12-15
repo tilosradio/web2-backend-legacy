@@ -1,22 +1,44 @@
 'use strict';
+(function () {
+  describe('Controller: IndexCtrl', function () {
 
-describe('Controller: IndexCtrl', function () {
+    // load the controller's module
+    beforeEach(module('tilosApp'));
 
-  // load the controller's module
-  beforeEach(module('tilosApp'));
+    var createController;
+    var scope;
+    var $httpBackend;
 
-  var IndexCtrl,
-    scope;
+    // Initialize the controller and a mock scope
+    beforeEach(inject(function ($injector, $rootScope) {
+      scope = $rootScope.$new();
 
-  // Initialize the controller and a mock scope
-  beforeEach(inject(function ($controller, $rootScope) {
-    scope = $rootScope.$new();
-    IndexCtrl = $controller('IndexCtrl', {
-      $scope: scope
+
+      var $controller = $injector.get('$controller');
+
+
+      createController = function () {
+        return $controller('IndexCtrl', {
+            '$scope': $rootScope,
+            'API_SERVER_ENDPOINT': "http://server"
+          }
+        );
+      };
+      $httpBackend = $injector.get('$httpBackend');
+    }));
+
+    it('retrieve list of news', function () {
+      $httpBackend.expectGET('http://server/api/v0/text/news/list').respond([
+        {id: 1, title: "asd", content: "asd"},
+        {id: 2, title: "qwe", content: "asd"}
+
+
+      ]);
+      var controller = createController();
+      $httpBackend.flush();
+      chai.expect(scope.news.length).to.equal(2);
+      chai.expect(scope.news[1].title).to.equal("qwe");
+
     });
-  }));
-
-  it('should attach a list of awesomeThings to the scope', function () {
-    expect(scope.awesomeThings.length).toBe(3);
   });
-});
+})();
