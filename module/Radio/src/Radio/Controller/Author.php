@@ -85,7 +85,8 @@ class Author extends BaseController {
 
     public function findEntityList($type) {
         $qb = $this->getEntityManager()->createQueryBuilder();
-        $qb->select('a')->from('\Radio\Entity\Author', 'a');
+        $qb->select('a','c','s')->from('\Radio\Entity\Author', 'a');
+        $qb->leftJoin('a.contributions', 'c')->leftJoin('c.show', 's');
         $q = $qb->getQuery();
         return $q->getArrayResult();
     }
