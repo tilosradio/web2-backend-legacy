@@ -11,28 +11,10 @@ use Zend\Mvc\MvcEvent;
 use Zend\Mvc\Router\RouteMatch;
 use PHPUnit_Framework_TestCase;
 
-class TextTest extends \PHPUnit_Framework_TestCase {
-
-    protected $controller;
-    protected $request;
-    protected $response;
-    protected $routeMatch;
-    protected $event;
+class TextTest extends TestBase {
 
     protected function setUp() {
-        $serviceManager = Bootstrap::getServiceManager();
-        $this->controller = new \Radio\Controller\Text();
-        $this->request = new Request();
-        $this->routeMatch = new RouteMatch(array('controller' => 'M3u'));
-        $this->event = new MvcEvent();
-        $config = $serviceManager->get('Config');
-        $routerConfig = isset($config['router']) ? $config['router'] : array();
-        $router = HttpRouter::factory($routerConfig);
-
-        $this->event->setRouter($router);
-        $this->event->setRouteMatch($this->routeMatch);
-        $this->controller->setEvent($this->event);
-        $this->controller->setServiceLocator($serviceManager);
+        $this->initTest("Text", new \Radio\Controller\Text());
     }
 
     public function testListOfType() {
@@ -43,7 +25,7 @@ class TextTest extends \PHPUnit_Framework_TestCase {
         $response = $this->controller->getResponse();
         //then
 
-        $shows = $result->getVariables();
+//        $shows = $result->getVariables();
         //var_dump($show);
         //$this->assertEquals($shows[0]['alias'], "haza-es-haladas");
     }

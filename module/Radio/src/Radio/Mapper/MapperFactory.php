@@ -46,6 +46,8 @@ class MapperFactory {
     public static function authorMapper($context) {
         $m = MapperFactory::authorElementMapper($context);
         $m->addMapper(new Field("introduction"));
+        $um = $m->addMapper(new ChildCollection("urls"));
+        $um->addMapper(new Field('url'));
         return $m;
     }
 
@@ -77,6 +79,9 @@ class MapperFactory {
         $em->addMapper(new InternalLinkField("m3uUrl", $context['baseUrl']));
 
         $m->addMapper(new Field("description"));
+
+        $um = $m->addMapper(new ChildCollection("urls"));
+        $um->addMapper(new Field('url'));
 
         return $m;
     }

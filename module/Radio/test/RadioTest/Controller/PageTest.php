@@ -11,28 +11,10 @@ use Zend\Mvc\MvcEvent;
 use Zend\Mvc\Router\RouteMatch;
 use PHPUnit_Framework_TestCase;
 
-class PageTest extends \PHPUnit_Framework_TestCase {
-
-    protected $controller;
-    protected $request;
-    protected $response;
-    protected $routeMatch;
-    protected $event;
+class PageTest extends TestBase {
 
     protected function setUp() {
-        $serviceManager = Bootstrap::getServiceManager();
-        $this->controller = new \Radio\Controller\Text();
-        $this->request = new Request();
-        $this->routeMatch = new RouteMatch(array('controller' => 'Text'));
-        $this->event = new MvcEvent();
-        $config = $serviceManager->get('Config');
-        $routerConfig = isset($config['router']) ? $config['router'] : array();
-        $router = HttpRouter::factory($routerConfig);
-
-        $this->event->setRouter($router);
-        $this->event->setRouteMatch($this->routeMatch);
-        $this->controller->setEvent($this->event);
-        $this->controller->setServiceLocator($serviceManager);
+        $this->initTest("Text", new \Radio\Controller\Text());
     }
 
     public function testPageGet() {

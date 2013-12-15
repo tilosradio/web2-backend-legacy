@@ -11,28 +11,11 @@ use Zend\Mvc\MvcEvent;
 use Zend\Mvc\Router\RouteMatch;
 use PHPUnit_Framework_TestCase;
 
-class ShowTest extends \PHPUnit_Framework_TestCase {
+class ShowTest extends TestBase {
 
-    protected $controller;
-    protected $request;
-    protected $response;
-    protected $routeMatch;
-    protected $event;
 
     protected function setUp() {
-        $serviceManager = Bootstrap::getServiceManager();
-        $this->controller = new \Radio\Controller\Show();
-        $this->request = new Request();
-        $this->routeMatch = new RouteMatch(array('controller' => 'M3u'));
-        $this->event = new MvcEvent();
-        $config = $serviceManager->get('Config');
-        $routerConfig = isset($config['router']) ? $config['router'] : array();
-        $router = HttpRouter::factory($routerConfig);
-
-        $this->event->setRouter($router);
-        $this->event->setRouteMatch($this->routeMatch);
-        $this->controller->setEvent($this->event);
-        $this->controller->setServiceLocator($serviceManager);
+        $this->initTest("Show", new \Radio\Controller\Show());
     }
 
     public function testShowGet() {
