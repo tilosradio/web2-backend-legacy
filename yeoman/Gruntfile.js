@@ -357,11 +357,9 @@ module.exports = function (grunt) {
     'useminPrepare',
     'concurrent:dist',
     'autoprefixer',
-    //TODO fix the parameters
-    // 'requirejs',
     'concat',
     'cssmin',
-//    'uglify',
+    'uglify',
     'copy:php',
     'copy:dist',
     'imagemin:dist',
@@ -373,8 +371,6 @@ module.exports = function (grunt) {
     'useminPrepare',
     'concurrent:dist',
     'autoprefixer',
-    //TODO fix the parameters
-    // 'requirejs',
     'concat',
     'cssmin',
     'uglify',
