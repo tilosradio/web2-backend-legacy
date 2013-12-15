@@ -66,7 +66,7 @@ class Episode extends BaseController {
                 !isset($data['realTo'])
             ) {
                 $this->getResponse()->setStatusCode(400);
-                return new JsonModel(array("error" => "Mandatory fields: radioshow_id, plannedFrom, plannedTo, realFrom, realTo."));
+                return new JsonModel(array("error" => "Mandatory fields: radioshow_id, plannedFrom, plannedTo."));
             }
             // validate show id via DB
             $show = $this->getEntityManager()->find('Radio\Entity\Show', $data['radioshow_id']);
@@ -205,7 +205,7 @@ class Episode extends BaseController {
         }
 
         $this->getEntityManager()->flush();
-        return new JsonModel(array("update" => "success", "Updated values" => $updated));
+        return new JsonModel(array("update" => "success", "data" => $updated));
     }
 
     public function delete($id) {

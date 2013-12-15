@@ -21,17 +21,19 @@ class AuthorTest extends TestBase {
 
     public function testGetAuthor() {
         //when        
-        $this->routeMatch->setParam('id', '936');
+        $this->routeMatch->setParam('id', '763');
 
         $result = $this->controller->dispatch($this->request);
         $response = $this->controller->getResponse();
         //then
 
         $author = $result->getVariables();
-        var_dump($author);
-        $this->assertContains("aktivista", $author['introduction']);
+        //var_dump($author);
+        $this->assertContains("Sangeet Sanstan", $author['introduction']);
         $this->assertNotEmpty($author['photo']);
-        $this->assertEquals(sizeof($author['urls']), 2);;
+        $this->assertEquals(sizeof($author['urls']), 1);
+        $this->assertEquals("http://raga.hu",$author['urls'][0]['url']);
+
 
     }
 
