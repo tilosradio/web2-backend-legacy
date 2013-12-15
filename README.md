@@ -10,6 +10,9 @@ Directories and files in the repo
 * __config__: Config of the ZF2 backend
 * __module__: The code of the backend
 * __vendor__: directories for the php libraries managed by the composer dependency manager (see below to create it)
+* __yeaoman__: directory of the frontend application
+* __yeoman/app__: raw fronted source files (HTML, JS, CSS/SCSS)
+* __yeoman/app/bower_components__: client side dependencies managed with bower, user ```bower update``` regulary to regenerate this folder
 
 
 How to run
@@ -47,12 +50,18 @@ Development tools
 
 * [EditorConfig](http://editorconfig.org/): basic code style definition
 * Zend Framework 2.2: backend framework
-* TODO
+* Composer: PHP dependency management
+* doctrine: PHP Object relation mapping tool
+* AngularJS: client side MVC web framework
+* Bower: client side dependency management
+* Grunt: javascript build tool
+* yeoman: client side scaffolding tool
+* mocha, karma, chai: client side test frameworks
 
 Contributors:
 =============
 
-- Márton Elek elek@anzix.net
+- Márton Elek level2@anzix.net
 - Dávid Barkóczi david.barkoczi@gmail.com
 - Károly Kiripolszky karcsi@ekezet.com
 - Sándor Farkas sandor.farkas@gmail.com
