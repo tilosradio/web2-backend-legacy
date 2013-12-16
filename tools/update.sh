@@ -71,7 +71,7 @@ if [ ! -f config/autoload/local.php ]; then
 else
   echo "=== Updating database"
 fi
-vendor/bin/doctrine-module orm:schema-tool:update --force --dump-sql
+php vendor/bin/doctrine-module orm:schema-tool:update --force --dump-sql
 echo "=== Updating frontend dependencies"
 cd yeoman
 mkdir -p node_modules/.bin
@@ -82,5 +82,5 @@ fi
 # install npm locally, having the latest version is always a good idea
 npm install npm
 hash -r
-npm install
-bower install
+node node_modules/.bin/npm install
+node node_modules/.bin/bower install
