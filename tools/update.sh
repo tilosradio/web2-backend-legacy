@@ -83,4 +83,4 @@ fi
 npm install npm
 hash -r
 node node_modules/.bin/npm install
-node node_modules/.bin/bower install
+node node_modules/.bin/bower install --allow-root
