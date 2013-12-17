@@ -762,6 +762,7 @@ a.icon-star, a.icon-star2{
     }
   }
 }
+
 // Footer
 
 .footer-holder{
@@ -933,4 +934,21 @@ input.datepicker {
 .newsLink:hover{
 	color: $gray-darken;
 	text-decoration: none;
+}
+
+// style singe show page
+
+.episode-box{
+  .panel-heading{
+    overflow: hidden;
+    padding-right: 120px;
+    position: relative;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    .listen-show{
+      position: absolute;
+      right: 15px;
+      top: 10px;
+    }
+  }
 }
