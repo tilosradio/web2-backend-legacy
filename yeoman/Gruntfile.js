@@ -286,6 +286,15 @@ module.exports = function (grunt) {
           src: ['*.php']
         }]
       },
+      chat: {
+        files: [{
+          expand: true,
+          dot: true,
+          cwd: './',
+          dest: '<%= yeoman.dist %>',
+          src: ['chat/*']
+        }]
+      },
       styles: {
         expand: true,
         dot: true,
@@ -362,6 +371,7 @@ module.exports = function (grunt) {
     'uglify',
     'copy:php',
     'copy:dist',
+    'copy:chat',
     'imagemin:dist',
 //    'rev',
     'usemin'
