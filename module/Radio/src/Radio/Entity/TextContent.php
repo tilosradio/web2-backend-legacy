@@ -59,7 +59,7 @@ class TextContent {
     protected $author;
 
     /**
-     * @ORM\Column(type="string", length=25) 
+     * @ORM\Column(type="string", length=60) 
      * */
     protected $alias;
 
