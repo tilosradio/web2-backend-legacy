@@ -1,7 +1,11 @@
-<section class="col-md-6 main" role="main" >
+<section class="col-md-6 main" role="main">
     <h1>{{author.name}}</h1>
 
-    <img class="pull-right" src="{{author.photo}}"/>
+
+    <figure class="show-author pull-right">
+        <img src="{{author.avatar}}"
+             alt="{{author.name}}" class="show-author-image"/>
+    </figure>
     <span ng-bind-html="author.introduction"></span>
 
 </section>
