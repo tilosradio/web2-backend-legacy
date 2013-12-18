@@ -1,7 +1,7 @@
 <section class="col-md-9 main" role="main" >
     <article ng-repeat="item in news">
         <h1>
-       		<a class="newsLink" href="#/news/{{item.id}}">{{item.title}}</a>
+           	{{item.title}}
         </h1>
 		<span ng-bind-html="item.formatted" class="newsItem"></span>
         <footer>
@@ -9,9 +9,9 @@
                 <span class="author">{{item.author}} </span]>
                 <time datetime="{{item.created * 1000 | date: 'yyyy-MM-dd'	}}">{{item.created * 1000 | date: 'yyyy.MM.dd'}}</time>
             </div>
-            <div class="social">
+           <!--  <div class="social"> temporaly remove
                 <iframe ng-src="{{item.likeURL}}"  scrolling="no" frameborder="0" style="border:none; overflow:hidden; height:80px;" allowTransparency="true"></iframe>
-            </div>
+            </div> -->
         </footer>
     </article>
 </section> <!-- col-md-6 -->
