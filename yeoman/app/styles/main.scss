@@ -565,6 +565,9 @@ aside{
        @include bordered;
     }
     &.link-box{
+      ul{
+        padding-left: 15px;
+      }
       li{
         padding-right: 18px;
         overflow: hidden;
