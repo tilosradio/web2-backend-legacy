@@ -23,7 +23,7 @@
     <div class="panel panel-default episode-box" ng-repeat="episode in show.episodes">
         <div class="panel-heading">
             <b>
-            	{{episode.plannedFrom * 1000| date: 'yyyy.MM.dd HH:mm'}}
+            	{{episode.plannedFrom * 1000| date: 'yyyy.MM.dd'}}
 				<span ng-if="episode.text">{{episode.text.title}}</span>
             </b>
             <a ng-show="episode.m3uUrl" class="pull-right listen-show" href="{{episode.m3uUrl}}">
