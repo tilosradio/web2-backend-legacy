@@ -560,6 +560,7 @@ aside{
   .box{
     border-bottom: 1px solid $primary-color;
     padding-bottom: 1em;
+    @include clearfix();
     h2{
        @include bordered;
     }
