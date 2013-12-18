@@ -2,15 +2,17 @@
     <h1>{{author.name}}</h1>
 
 
-    <figure class="show-author pull-right">
-        <img src="{{author.avatar}}"
-             alt="{{author.name}}" class="show-author-image"/>
-    </figure>
     <span ng-bind-html="author.introduction"></span>
 
 </section>
 
 <aside class="col-md-3">
+    <div class="row">
+        <figure class="show-author">
+            <img src="{{author.avatar}}"
+                 alt="{{author.name}}" class="show-author-image"/>
+        </figure>
+    </div>
     <div class="box">
         <h2>Műsorok</h2>
         <table class="table">
