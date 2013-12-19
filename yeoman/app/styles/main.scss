@@ -15,6 +15,16 @@ body{
   }
 }
 
+h1{
+  a{
+    color: inherit;
+    font-size: inherit;
+    font-weight: inherit;
+    &:hover{
+      color: inherit;
+    }
+  }
+}
 h2{
 	font-family: "Open Sans",sans-serif;
     font-size: 20px;
@@ -88,9 +98,6 @@ blockquote{
 
 article{
     padding-bottom: 10px;
-    a{
-        font-weight: bold;
-    }
     .main &{
        border-bottom: 5px solid $gray-light;
     }
