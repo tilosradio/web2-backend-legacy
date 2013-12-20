@@ -13,6 +13,7 @@ module.exports = function (grunt) {
   require('time-grunt')(grunt);
   // load all grunt tasks
   require('load-grunt-tasks')(grunt);
+
   grunt.initConfig({
     // configurable paths
     yeoman: {
@@ -351,6 +352,16 @@ module.exports = function (grunt) {
       },
       all: {
         rjsConfig: '<%= yeoman.app %>/scripts/main.js'
+      }
+    },
+    php: {
+      dev: {
+        options: {
+          keepalive: true,
+          port: 5000,
+          base: '../www',
+          router: '../router.php'
+        }
       }
     }
   });
