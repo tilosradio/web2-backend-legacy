@@ -79,14 +79,16 @@ module.exports = function (grunt) {
         options: {
           force: true
         },
-        files: [{
-          dot: true,
-          src: [
-            '.tmp',
-            '<%= yeoman.dist %>/*',
-            '!<%= yeoman.dist %>/.git*'
-          ]
-        }]
+        files: [
+          {
+            dot: true,
+            src: [
+              '.tmp',
+              '<%= yeoman.dist %>/*',
+              '!<%= yeoman.dist %>/.git*'
+            ]
+          }
+        ]
       },
       server: '.tmp'
     },
@@ -140,19 +142,21 @@ module.exports = function (grunt) {
         browsers: ['last 1 version']
       },
       dist: {
-        files: [{
-          expand: true,
-          cwd: '.tmp/styles/',
-          src: '{,*/}*.css',
-          dest: '.tmp/styles/'
-        }]
+        files: [
+          {
+            expand: true,
+            cwd: '.tmp/styles/',
+            src: '{,*/}*.css',
+            dest: '.tmp/styles/'
+          }
+        ]
       }
     },
     // not used since Uglify task does concat,
     // but still available if needed
     /*concat: {
-        dist: {}
-      },*/
+     dist: {}
+     },*/
     requirejs: {
       dist: {
         // Options: https://github.com/jrburke/r.js/blob/master/build/example.build.js
@@ -199,101 +203,113 @@ module.exports = function (grunt) {
     },
     imagemin: {
       dist: {
-        files: [{
-          expand: true,
-          cwd: '<%= yeoman.app %>/images',
-          src: '{,*/}*.{png,jpg,jpeg}',
-          dest: '<%= yeoman.dist %>/images'
-        }]
+        files: [
+          {
+            expand: true,
+            cwd: '<%= yeoman.app %>/images',
+            src: '{,*/}*.{png,jpg,jpeg}',
+            dest: '<%= yeoman.dist %>/images'
+          }
+        ]
       }
     },
     svgmin: {
       dist: {
-        files: [{
-          expand: true,
-          cwd: '<%= yeoman.app %>/images',
-          src: '{,*/}*.svg',
-          dest: '<%= yeoman.dist %>/images'
-        }]
+        files: [
+          {
+            expand: true,
+            cwd: '<%= yeoman.app %>/images',
+            src: '{,*/}*.svg',
+            dest: '<%= yeoman.dist %>/images'
+          }
+        ]
       }
     },
     cssmin: {
-        // This task is pre-configured if you do not wish to use Usemin
-        // blocks for your CSS. By default, the Usemin block from your
-        // `index.html` will take care of minification, e.g.
-        //
-        //     <!-- build:css({.tmp,app}) styles/main.css -->
-        //
-        // dist: {
-        //     files: {
-        //         '<%= yeoman.dist %>/styles/main.css': [
-        //             '.tmp/styles/{,*/}*.css',
-        //             '<%= yeoman.app %>/styles/{,*/}*.css'
-        //         ]
-        //     }
-        // }
+      // This task is pre-configured if you do not wish to use Usemin
+      // blocks for your CSS. By default, the Usemin block from your
+      // `index.html` will take care of minification, e.g.
+      //
+      //     <!-- build:css({.tmp,app}) styles/main.css -->
+      //
+      // dist: {
+      //     files: {
+      //         '<%= yeoman.dist %>/styles/main.css': [
+      //             '.tmp/styles/{,*/}*.css',
+      //             '<%= yeoman.app %>/styles/{,*/}*.css'
+      //         ]
+      //     }
+      // }
     },
     htmlmin: {
       dist: {
         options: {
-              /*removeCommentsFromCDATA: true,
-                // https://github.com/yeoman/grunt-usemin/issues/44
-                //collapseWhitespace: true,
-                collapseBooleanAttributes: true,
-                removeAttributeQuotes: true,
-                removeRedundantAttributes: true,
-                useShortDoctype: true,
-                removeEmptyAttributes: true,
-                removeOptionalTags: true*/
+          /*removeCommentsFromCDATA: true,
+           // https://github.com/yeoman/grunt-usemin/issues/44
+           //collapseWhitespace: true,
+           collapseBooleanAttributes: true,
+           removeAttributeQuotes: true,
+           removeRedundantAttributes: true,
+           useShortDoctype: true,
+           removeEmptyAttributes: true,
+           removeOptionalTags: true*/
         },
-        files: [{
-          expand: true,
-          cwd: '<%= yeoman.app %>',
-          src: '*.html',
-          dest: '<%= yeoman.dist %>'
-        }]
+        files: [
+          {
+            expand: true,
+            cwd: '<%= yeoman.app %>',
+            src: '*.html',
+            dest: '<%= yeoman.dist %>'
+          }
+        ]
       }
     },
     // Put files not handled in other tasks here
     copy: {
       dist: {
-        files: [{
-          expand: true,
-          dot: true,
-          cwd: '<%= yeoman.app %>',
-          dest: '<%= yeoman.dist %>',
-          src: [
-            '*.{ico,png,txt}',
-            '.htaccess',
-            'images/{,*/}*.{webp,gif}',
-            'styles/fonts/{,*/}*.*',
-            'template/{,*/}*.*',
-            'bower_components/sass-bootstrap/fonts/*.*',
-            'bower_components/angular/*.*',
-            'bower_components/angular-route/*.*',
-            'bower_components/angular-sanitize/*.*',
-            'partials/*',
-            'doc/{,*/}*.*'
-          ]
-        }]
+        files: [
+          {
+            expand: true,
+            dot: true,
+            cwd: '<%= yeoman.app %>',
+            dest: '<%= yeoman.dist %>',
+            src: [
+              '*.{ico,png,txt}',
+              '.htaccess',
+              'images/{,*/}*.{webp,gif}',
+              'styles/fonts/{,*/}*.*',
+              'template/{,*/}*.*',
+              'bower_components/sass-bootstrap/fonts/*.*',
+              'bower_components/angular/*.*',
+              'bower_components/angular-route/*.*',
+              'bower_components/angular-sanitize/*.*',
+              'partials/*',
+              'doc/{,*/}*.*'
+            ]
+          }
+        ]
       },
       php: {
-        files: [{
-          expand: true,
-          dot: true,
-          cwd: '../www',
-          dest: '<%= yeoman.dist %>',
-          src: ['*.php']
-        }]
+        files: [
+          {
+            expand: true,
+            dot: true,
+            cwd: '../www',
+            dest: '<%= yeoman.dist %>',
+            src: ['*.php']
+          }
+        ]
       },
       chat: {
-        files: [{
-          expand: true,
-          dot: true,
-          cwd: './',
-          dest: '<%= yeoman.dist %>',
-          src: ['chat/*']
-        }]
+        files: [
+          {
+            expand: true,
+            dot: true,
+            cwd: './',
+            dest: '<%= yeoman.dist %>',
+            src: ['chat/*']
+          }
+        ]
       },
       styles: {
         expand: true,
@@ -391,7 +407,7 @@ module.exports = function (grunt) {
     'copy:php',
     'copy:dist',
     'imagemin:dist',
- //   'rev',
+    //   'rev',
     'usemin1',
     'connect:livereload',
     'watch'
