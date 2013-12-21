@@ -1,19 +1,21 @@
 <section class="col-md-9 main" role="main" >
-    <article ng-repeat="item in news">
-        <h1>
-           	{{item.title}}
-        </h1>
-		<span ng-bind-html="item.formatted" class="newsItem"></span>
-        <footer>
-            <div class="article-info">
-                <span class="author">{{item.author}} </span]>
-                <time datetime="{{item.created * 1000 | date: 'yyyy-MM-dd'	}}">{{item.created * 1000 | date: 'yyyy.MM.dd'}}</time>
-            </div>
-           <!--  <div class="social"> temporaly remove
-                <iframe ng-src="{{item.likeURL}}"  scrolling="no" frameborder="0" style="border:none; overflow:hidden; height:80px;" allowTransparency="true"></iframe>
+    <article ng-repeat="feed in feeds">
+    <h1><a href="{{feed.link}}" target="_blank">{{feed.title}}</a></h1>
+    <div class="news-lead">
+      <img src="{{feed.mediaGroups[0].contents[0].url}}" alt="{{feed.title}}" ng-show="{{feed.mediaGroups[0].contents[0].url}}">
+      <span ng-bind-html="feed.content"></span>
+    </div>
+  <footer class="article-info">
+    <time datetime="{{feed.publishedDate}}">{{feed.publishedDate |  RssDate }}</time>
+    <span class="author">{{feed.author}} </span>
+        <div>
+        <small ng-repeat="category in feed.categories">{{category}}, &nbsp;</small>
+    </div>
+      <!--<div class="social">
+                <iframe ng-src="{{likeURL}}"  scrolling="no" frameborder="0" style="border:none; overflow:hidden; height:80px;" allowTransparency="true"></iframe>
             </div> -->
-        </footer>
-    </article>
+   </footer>
+  </article>
 </section> <!-- col-md-6 -->
 
 <!--

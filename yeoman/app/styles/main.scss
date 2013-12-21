@@ -928,13 +928,23 @@ input.datepicker {
 
 //News extra
 
-.newsItem td{
-	vertical-align:top;
-}
 
-.newsItem img{
-	margin-right: 10px;
-	margin-top: 5px;
+.news-lead{
+  @include clearfix();
+  img{
+    float: left;
+    max-width: 30%;
+    margin-right: 10px;
+    margin-bottom: 10px;
+    @media all and (max-width: 700px) {
+      max-width: 100%;  
+    }
+    @media all and (max-width: 450px) {
+      float: none;
+      display: block;      
+    }
+  }
+
 }
 
 .newsLink{

@@ -12,7 +12,7 @@ tilos.weekStart = function (date) {
 tilos.config(['$routeProvider', function ($routeProvider) {
   $routeProvider.when('/index', {
     templateUrl: 'partials/index.html',
-    controller: 'IndexCtrl'
+    controller: 'RssNewsCtrl'
   }).when('/archive', {
     templateUrl: 'partials/program.html',
     controller: 'ProgramCtrl'
@@ -31,9 +31,6 @@ tilos.config(['$routeProvider', function ($routeProvider) {
   }).when('/news/:id', {
     templateUrl: 'partials/news.html',
     controller: 'NewsCtrl'
-  }).when('/rssnews', {
-    templateUrl: 'partials/rssnews.html',
-    controller: 'RssNewsCtrl'
   }).otherwise({
     redirectTo: '/index'
   });
