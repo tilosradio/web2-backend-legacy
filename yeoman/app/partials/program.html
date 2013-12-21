@@ -1,5 +1,6 @@
 <section class="col-md-12 main" role="main">
-    <h2>
+    <h2>Archívum</h2>
+    <div class="clearfix">
         <div class="DatePicker">
             <div class="form-horizontal">
                 <button class="btn ChooseDate" ng-click="open()">
@@ -12,16 +13,12 @@
                 {{gotoDate | date:'EEEE'}}
             </div>
         </div>
-
-    </h2>
-
-
-
-    <ul class="pager">
-        <li class="cursorPointer"><a ng-click="prev()">&larr; Előző nap</a></li>
-        <li class="cursorPointer"><a ng-click="next()">Következő nap &rarr;</a></li>
-    </ul>
-
+        <ul class="pager">
+            <li class="cursorPointer"><a ng-click="prev()">&larr; Előző nap</a></li>
+            <li class="cursorPointer"><a ng-click="next()">Következő nap &rarr;</a></li>
+        </ul>
+        
+    </div>
     <table class="table table-hover" id="archiveTable">
         <tr ng-repeat="episode in episodes">
         	<td class="archiveTime">

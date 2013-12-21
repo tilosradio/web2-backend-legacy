@@ -47,6 +47,10 @@ h2{
 	color: $lightblue;
 }
 
+.panel{
+  @include box-shadow(none);
+}
+
 // original: http://www.456bereastreet.com/archive/201105/styling_ordered_list_numbers/
 
 ol {
@@ -870,9 +874,9 @@ a.icon-star, a.icon-star2{
 }
 
 .datepicker{
+  border:none;
 	font-family: "Open Sans",sans-serif;
 	font-size: 18px;
-	border:none;
 	padding:10px;
 	width:175px;
 	margin-left:-6px;
@@ -889,6 +893,8 @@ a.icon-star, a.icon-star2{
 	}
 }
 .DatePicker{
+  display: inline-block;
+  float: left;
 	button.ChooseDate{
 		background:transparent none;
 	}
@@ -898,6 +904,11 @@ input.datepicker {
 	background:transparent none;
 }
 
+.pager{
+  float: right;
+  font-size: 14px;
+  margin: 8px 0;
+}
 .pager li > a, .pager li > span{
 	border-radius:0;
 	border:none;
@@ -961,6 +972,7 @@ input.datepicker {
 
 .episode-box{
   .panel-heading{
+    border-bottom: 0;
     overflow: hidden;
     padding-right: 120px;
     position: relative;
