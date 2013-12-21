@@ -48,6 +48,16 @@ return array(
                     )
                 )
             ),
+            'password_reset' => array(
+                'type' => 'Segment',
+                'options' => array(
+                    'route' => '/api/v0/user/[:id]/password_reset',
+                    'defaults' => array(
+                        'controller' => 'Radio\Controller\User',
+                        'action' => 'passwordReset'
+                    )
+                )
+            ),
             'show-rest' => array(
                 'type' => 'Segment',
                 'options' => array(

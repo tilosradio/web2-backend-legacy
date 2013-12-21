@@ -5,7 +5,8 @@ namespace Radio\Controller;
 use Zend\Mvc\Controller\AbstractRestfulController;
 use Zend\View\Model\JsonModel;
 use Radio\Provider\EntityManager;
-
+use Radio\Entity\ChangePasswordToken;
+use Zend\XmlRpc\Value\DateTime;
 /**
  * @SWG\Resource(resourcePath="/user",basePath="/api")
  */
@@ -20,11 +21,11 @@ class User extends BaseController {
             $retUser['role'] = $user->getRole();
             $retUser['username'] = $user->getUsername();
             $retUser['email'] = $user->getEmail();
-            
+
             return $retUser;
         };
     }
-    
+
     /**
      * @SWG\Api(
      *   path="/user",
@@ -38,7 +39,7 @@ class User extends BaseController {
     public function getList() {
         return $this->getEntityList("\Radio\Entity\User", $this->createConverter());
     }
-    
+
     /**
      * @SWG\Api(
      *   path="/user/{id}",
@@ -59,7 +60,7 @@ class User extends BaseController {
     public function get($id) {
         return $this->getEntity("\Radio\Entity\User", $id, $this->createConverter());
     }
-    
+
     public function create($data) {
         try {
             // validation
@@ -67,8 +68,8 @@ class User extends BaseController {
             !isset($data['password']) || !isset($data['email']) ) {
                 $this->getResponse()->setStatusCode(400);
                 return new JsonModel(array("error" => "Mandatory fields: role_id, username, password, email."));
-            }   
-            
+            }
+
             // validate fields via DB
             // check if role exist
             $role = $this->getEntityManager()->find('Radio\Entity\Role', $data['role_id']);
@@ -92,40 +93,40 @@ class User extends BaseController {
                 $this->getResponse()->setStatusCode(400);
                 return new JsonModel(array("error" => "Email already taken."));
             }
-    
+
             $user = new \Radio\Entity\User();
-    
+
             $user->setUsername($data['username']);
             $user->setEmail($data['email']);
             $user->createSalt();
             $user->setPassword($data['password']);
             $user->setRole($role);
-            
+
             $this->getEntityManager()->persist($user);
             $this->getEntityManager()->flush();
-    
+
             return new JsonModel(array("create"=>"success"));
         } catch (\Exception $ex) {
             $this->getResponse()->setStatusCode(500);
             return new JsonModel(array("error" => $ex->getMessage()));
         }
     }
-    
+
     public function update($id, $data) {
         try {
-             $user = $this->getEntityManager()->find('Radio\Entity\User', $id); 
+             $user = $this->getEntityManager()->find('Radio\Entity\User', $id);
 
             // validation
             if ( is_null($user) ) {
                 $this->getResponse()->setStatusCode(400);
                 return new JsonModel(array("error" => "User id does not exist."));
             }
-            
+
             if ( !isset($data['role_id']) && !isset($data['username']) &&
             !isset($data['password']) && !isset($data['email']) ) {
                 $this->getResponse()->setStatusCode(400);
                 return new JsonModel(array("error" => "One of the following fields must exist: role_id, username, password, email."));
-            }            
+            }
 
             // validate fields via DB
             // check if role exist
@@ -175,7 +176,7 @@ class User extends BaseController {
                 $user->setPassword($data['password']);
                 $updated .= " Password: *****:)**";
             }
-    
+
             $this->getEntityManager()->flush();
             return new JsonModel(array("update"=>"success", "Updated values"=>$updated));
         } catch (\Exception $ex) {
@@ -183,7 +184,7 @@ class User extends BaseController {
             return new JsonModel(array("error" => $ex->getMessage()));
         }
     }
-    
+
     public function delete($id) {
         try {
             $user = $this->getEntityManager()->find('Radio\Entity\User', $id);
@@ -191,14 +192,78 @@ class User extends BaseController {
                 $this->getResponse()->setStatusCode(400);
                 return new JsonModel(array("error" => "User does not exist in DB."));
             }
-    
+
             $this->getEntityManager()->remove($user);
             $this->getEntityManager()->flush();
-    
+
             return new JsonModel(array("delete"=>"success"));
         } catch (\Exception $ex) {
             $this->getResponse()->setStatusCode(500);
             return new JsonModel(array("error" => $ex->getMessage()));
+        }
+    }
+
+    public function passwordResetAction(){
+        //slow it down
+        sleep(1);
+        $id = $this->params()->fromRoute("id");
+        $user = $this->getEntityManager()->find('Radio\Entity\User', $id);
+        if ( is_null($user) ) {
+            $this->getResponse()->setStatusCode(400);
+            return new JsonModel(array("error" => "User does not exist in DB."));
+        }
+        $token = $this->params()->fromQuery("token");
+        if ( is_null($token) ) {
+            $q = $this->getEntityManager()->createQueryBuilder()->delete('\Radio\Entity\ChangePasswordToken', 't')->where("t.user = :user")->getQuery();
+            $q->setParameter("user", $user);
+            $q->execute();
+
+            $token = new ChangePasswordToken();
+            $token->setCreated(new \DateTime());
+            $token->setToken(sha1(date('YmdHis') . mt_rand() . mt_rand()));
+            $token->setUser($user);
+            $this->getEntityManager()->persist($token);
+            $this->getEntityManager()->flush();
+            echo "mail is sent: ". $token->getToken();
+            return new JsonModel(array("status"=>true, "message"=>"Token has been generated and sent."));
+           //regenerate token and send it in a mail
+        } else {
+            $qb = $this->getEntityManager()->createQueryBuilder();
+            $qb->select('t')->from('\Radio\Entity\ChangePasswordToken', 't');
+            $qb->where('t.user = :usr AND t.token = :tkn');
+            $qb->orderBy("t.created", "DESC");
+            $q = $qb->getQuery();
+            $q->setParameter("usr",$user);
+            $q->setParameter("tkn",$token);
+            $results = $q->getArrayResult();
+            if (count($results) == 0) {
+                $this->getResponse()->setStatusCode(400);
+                return new JsonModel(array("error" => "No such valid token."));
+            }
+            $token = $results[0];
+            $now = new \DateTime();
+            $now = $now->sub(new \DateInterval("PT30M"));
+            if ($now->getTimestamp() > $results[0]['created']->getTimestamp()) {
+                $this->getResponse()->setStatusCode(400);
+                return new JsonModel(array("error" => "Token is too old"));
+            }
+
+            $password = $this->params()->fromQuery("password");
+            if  ( is_null($password) ){
+                $this->getResponse()->setStatusCode(400);
+                return new JsonModel(array("error" => "Password field is empty."));
+            } else if (strlen($password) < 9) {
+                $this->getResponse()->setStatusCode(400);
+                return new JsonModel(array("error" => "Password is too short (min size: 9)."));
+            }
+            $user->setPassword($password);
+            $this->getEntityManager()->persist($user);
+            $q = $this->getEntityManager()->createQueryBuilder()->delete('\Radio\Entity\ChangePasswordToken', 't')->where("t.user = :user")->getQuery();
+            $q->setParameter("user", $user);
+            $q->execute();
+            $this->getEntityManager()->flush();
+            return new JsonModel(array("status"=>true,"message"=>"password has been changed"));
+            //check token and change the password
         }
     }
 }
