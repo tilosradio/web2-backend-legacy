@@ -13,7 +13,6 @@ use PHPUnit_Framework_TestCase;
 
 class ShowTest extends TestBase {
 
-
     protected function setUp() {
         $this->initTest("Show", new \Radio\Controller\Show());
     }
@@ -32,8 +31,8 @@ class ShowTest extends TestBase {
         $this->assertEquals(sizeof($show['urls']), 2);
 
     }
-    
-      public function testShowGetWithAlias() {
+
+    public function testShowGetWithAlias() {
         //when        
         $this->routeMatch->setParam('id', 'paholy');
 
@@ -42,10 +41,37 @@ class ShowTest extends TestBase {
         //then
 
         $show = $result->getVariables();
-        
+
         //var_dump($show);
         $this->assertEquals($show['id'], 485);
-        
+        $this->assertArrayHasKey("schedulings", $show);
+        $this->assertArrayHasKey("schedulingText", $show);
+
+        $this->assertEquals(1, count($show['schedulingText']));
+        $this->assertContains("minden", $show['schedulingText'][0]);
+
+
+    }
+
+    public function testShowGetWithMultiScheduling() {
+        //when
+        $this->routeMatch->setParam('id', '568');
+
+        $result = $this->controller->dispatch($this->request);
+        $response = $this->controller->getResponse();
+        //then
+
+        $show = $result->getVariables();
+
+        var_dump($show);
+        $this->assertEquals($show['id'], 568);
+        $this->assertArrayHasKey("schedulings", $show);
+        $this->assertArrayHasKey("schedulingText", $show);
+
+        $this->assertEquals(1, count($show['schedulingText']));
+        $this->assertContains("minden", $show['schedulingText'][0]);
+
+
     }
 
 }

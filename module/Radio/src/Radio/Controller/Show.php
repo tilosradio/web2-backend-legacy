@@ -3,6 +3,7 @@
 namespace Radio\Controller;
 
 use Radio\Mapper\MapperFactory;
+use Zend\Db\Sql\Expression;
 use Zend\Mvc\Controller\AbstractRestfulController;
 use Zend\View\Model\JsonModel;
 use Radio\Provider\EntityManager;
@@ -16,7 +17,7 @@ class Show extends BaseController {
 
     public function findEntityObject($type, $id) {
         $qb = $this->getEntityManager()->createQueryBuilder();
-        $qb->select('a', 'sa', 's', 'u')->from('\Radio\Entity\Show', 's');
+        $qb->select('a', 'sa', 's', 'u','c')->from('\Radio\Entity\Show', 's');
         if (is_numeric($id)) {
             $qb->where('s.id = :id');
         } else {
@@ -24,10 +25,13 @@ class Show extends BaseController {
         }
         $qb->leftJoin('s.contributors', 'sa')->leftJoin('sa.author', 'a');
         $qb->leftJoin('s.urls', 'u');
+        $qb->leftJoin('s.schedulings', 'c', "WITH", "c.validFrom < :now and c.validTo > :now");
+        $qb->orderBy("c.weekDay","ASC");
 
 
         $q = $qb->getQuery();
         $q->setParameter("id", $id);
+        $q->setParameter("now", new \DateTime());
         return $q->getArrayResult()[0];
     }
 

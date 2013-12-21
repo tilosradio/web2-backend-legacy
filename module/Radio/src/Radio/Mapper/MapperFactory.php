@@ -83,6 +83,16 @@ class MapperFactory {
         $um = $m->addMapper(new ChildCollection("urls"));
         $um->addMapper(new Field('url'));
 
+        $schm = $m->addMapper(new ChildCollection("schedulings"));
+        $schm->addMapper(new Field("hourFrom"));
+        $schm->addMapper(new Field("minFrom"));
+        $schm->addMapper(new DateField("base"));
+        $schm->addMapper(new DateField("validFrom"));
+        $schm->addMapper(new DateField("validTo"));
+        $schm->addMapper(new Field("weekType"));
+
+        $schm = $m->addMapper(new SchedulingCollection("schedulings"));
+
         return $m;
     }
 

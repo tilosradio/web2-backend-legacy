@@ -178,6 +178,18 @@ class EpisodeUtil {
         return strtotime('Last Monday', $time);
     }
 
+    static function schedulingMessage($scheduling){
+        $str = "minden ";
+        if ($scheduling['weekType'] == 2) {
+            $str .= "második ";
+        }
+        $days = ["hétfő", "kedd", "szerda", "csütörtök", "péntek", "szombat", "vasárnap"];
+        $str .= $days[$scheduling['weekDay']];
+        $str.= " " . sprintf("%d:%02d",$scheduling['hourFrom'],$scheduling['minFrom']);
+        return $str;
+    }
+
+
 }
 
 ?>

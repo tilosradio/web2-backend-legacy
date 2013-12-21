@@ -24,6 +24,7 @@ class EpisodeUtilTest extends \PHPUnit_Framework_TestCase {
         $this->assertEquals(mktime(8, 0, 0, 10, 23, 2013), $result[0]['plannedTo']->getTimestamp());
         $this->assertEquals(mktime(7, 0, 0, 11, 20, 2013), $result[4]['plannedFrom']->getTimestamp());
     }
+
     public function testGetEpisodes1() {
         $serviceManager = Bootstrap::getServiceManager();
         $em = $serviceManager->get('doctrine.entitymanager.orm_default');
@@ -49,7 +50,6 @@ class EpisodeUtilTest extends \PHPUnit_Framework_TestCase {
         $this->assertEquals(mktime(8, 0, 0, 10, 18, 2013), $result[2]['plannedFrom']->getTimestamp());
         $this->assertEquals(mktime(8, 0, 0, 10, 25, 2013), $result[3]['plannedFrom']->getTimestamp());
     }
-
 
     public function testGetScheduled2() {
         $serviceManager = Bootstrap::getServiceManager();
@@ -86,7 +86,6 @@ class EpisodeUtilTest extends \PHPUnit_Framework_TestCase {
 
     }
 
-
     public function testWeekStart() {
         $given = mktime(18, 22, 50, 10, 18, 2013);
         $expected = mktime(0, 0, 0, 10, 14, 2013);
@@ -102,6 +101,30 @@ class EpisodeUtilTest extends \PHPUnit_Framework_TestCase {
         $expected = mktime(10, 30, 0, 10, 16, 2013);
         $this->assertEquals($expected, EpisodeUtil::timeInWeek($given, array('weekDay' => 2, 'hourFrom' => 10, 'minFrom' => 30)));
     }
+
+    public function testSchedulingMessage() {
+        $s = [];
+        $s['hourFrom'] = 12;
+        $s['minFrom'] = 30;
+        $s['weekType'] = 1;
+        $s['weekDay'] = 2;
+        $this->assertEquals("minden szerda 12:30", EpisodeUtil::schedulingMessage($s));
+
+        $s = [];
+        $s['hourFrom'] = 8;
+        $s['minFrom'] = 30;
+        $s['weekType'] = 2;
+        $s['weekDay'] = 1;
+        $this->assertEquals("minden második kedd 8:30", EpisodeUtil::schedulingMessage($s));
+
+        $s = [];
+        $s['hourFrom'] = 8;
+        $s['minFrom'] = 0;
+        $s['weekType'] = 2;
+        $s['weekDay'] = 1;
+        $this->assertEquals("minden második kedd 8:00", EpisodeUtil::schedulingMessage($s));
+    }
+
 
 }
 
