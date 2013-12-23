@@ -1,4 +1,4 @@
-<?
+<?php
 $lyt_color = '222';
 $lyt_cookie = 'usrtilos';
 
@@ -23,13 +23,6 @@ background-color:{$lyt_color};
 </style>
 <script src="//ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
 <script type="text/javascript" src="msq_chat.js?_={$uniqId}"></script>
-<script type="text/javascript">
-<!--
-window.onload = function () {
-    msqgetbanner();
-}
-//-->
-</script>
 </head>
 <body>
 <a href="http://tilos.hu" target="_blank" style="float:left;" title="Tilos Rádió - KEZDŐLAP"><img src="tilos_chat_logo.png" alt="tilos chat logo" /></a><span id="OnAirBanner"></span><h1>TILOS RÁDIÓ - Chat</h1>
