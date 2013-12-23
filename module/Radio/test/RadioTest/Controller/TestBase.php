@@ -19,6 +19,7 @@ class TestBase extends \PHPUnit_Framework_TestCase {
     protected $response;
     protected $routeMatch;
     protected $event;
+    protected $em;
 
     protected function initTest($controllerName, $controller) {
         $serviceManager = Bootstrap::getServiceManager();
@@ -34,6 +35,7 @@ class TestBase extends \PHPUnit_Framework_TestCase {
         $this->event->setRouteMatch($this->routeMatch);
         $this->controller->setEvent($this->event);
         $this->controller->setServiceLocator($serviceManager);
+        $this->em = $serviceManager->get('doctrine.entitymanager.orm_default');
 
 
     }
