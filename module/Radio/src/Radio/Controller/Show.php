@@ -103,13 +103,7 @@ class Show extends BaseController {
         return new JsonModel($result);
     }
 
-    public function create($data) {
-        // TODO: implementation
-    }
 
-    public function update($id, $data) {
-        // TODO: implementation
-    }
 
     /**
      * @SWG\Api(
