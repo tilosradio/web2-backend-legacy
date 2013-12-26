@@ -1,6 +1,6 @@
-<div class="box-simple" ng-controller="AuthCtrl" ng-show="user">
-    <h2>{{user.username}}</h2>
-    <ul>
+<div class="box-simple" ng-controller="AuthCtrl">
+    <h2 ng-show="user">{{user.username}}</h2>
+    <ul ng-show="user">
         <li><a ng-click="logout()">Logout</a></li>
     </ul>
 
