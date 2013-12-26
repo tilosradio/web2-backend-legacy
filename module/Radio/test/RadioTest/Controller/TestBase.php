@@ -5,6 +5,8 @@ namespace RadioTest\Controller;
 
 
 use HttpRequest;
+use Radio\Entity\Role;
+use Radio\Entity\User;
 use Zend\Mvc\Router\Http\TreeRouteStack as HttpRouter;
 use Zend\Http\Response;
 use Zend\Mvc\MvcEvent;
@@ -20,6 +22,7 @@ class TestBase extends \PHPUnit_Framework_TestCase {
     protected $routeMatch;
     protected $event;
     protected $em;
+    protected $user;
 
     protected function initTest($controllerName, $controller) {
         $serviceManager = Bootstrap::getServiceManager();
@@ -37,7 +40,27 @@ class TestBase extends \PHPUnit_Framework_TestCase {
         $this->controller->setServiceLocator($serviceManager);
         $this->em = $serviceManager->get('doctrine.entitymanager.orm_default');
 
+        $serviceManager->setAllowOverride(true);
+        $serviceManager->setService('doctrine.authenticationservice.orm_default', $this);
+    }
 
+    public function hasIdentity() {
+        return $this->user == null;
+    }
+
+    public function getIdentity() {
+        return $this->user;
+    }
+
+    public function createUser($id, $name, $role) {
+        $u = new User();
+        $u->setUsername($name);
+        $u->setId($id);
+        $r = new Role();
+        $r->setId(1);
+        $r->setName($role);
+        $u->setRole($r);
+        return $u;
     }
 
 } 
