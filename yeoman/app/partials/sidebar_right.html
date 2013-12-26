@@ -1,4 +1,12 @@
-	<div class="box-simple">
+<div class="box-simple" ng-controller="AuthCtrl" ng-show="user">
+    <h2>{{user.username}}</h2>
+    <ul>
+        <li><a ng-click="logout()">Logout</a></li>
+    </ul>
+
+</div>
+
+<div class="box-simple">
 		<h2>{{now| date: "yyyy.MM.dd"}}</h2>
 		<table class="table actual-shows" >
 			<tr ng-repeat="episode in episodes" class="{{(current.show.id == episode.show.id) && 'actual'|| ''}}" >

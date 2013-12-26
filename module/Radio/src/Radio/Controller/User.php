@@ -58,7 +58,21 @@ class User extends BaseController {
      * )
      */
     public function get($id) {
+        if ($id=='me') {
+            return $this->currentUserAction();
+        }
         return $this->getEntity("\Radio\Entity\User", $id, $this->createConverter());
+    }
+
+    public function currentUserAction(){
+        $authService = $this->getServiceLocator()->get('doctrine.authenticationservice.orm_default');
+        // identify the user
+        $user = $authService->hasIdentity() ? $authService->getIdentity() : null;
+        $u = [];
+        $u['username'] = $user->getUsername();
+        $u['role'] = ['name'=>$user->getRole()->getName()];
+        return new JsonModel($u);
+
     }
 
     public function create($data) {

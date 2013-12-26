@@ -26,6 +26,18 @@ class UserTest extends TestBase {
 
     }
 
+    public function testCurrentUser() {
+        //when
+        $this->routeMatch->setParam('action', 'currentUser');
+
+        $result = $this->controller->dispatch($this->request);
+        $response = $this->controller->getResponse();
+        //then
+
+        $model = $this->event->getResult()->getVariables();
+        $this->assertEquals([], $model);
+    }
+
     public function testPasswordReset() {
         //when        
         $this->routeMatch->setParam('id', '1');

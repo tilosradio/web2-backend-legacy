@@ -136,7 +136,15 @@ class BaseController extends AbstractRestfulController {
                     $return = $this->get($id);
                     break;
                 }
-                throw new Exception\DomainException('Missing route matches; unsure how to retrieve action');
+                $routeMatch->setParam('action', 'getList');
+                $this->checkAccess($e);
+                $return = $this->getList();
+                break;
+            case 'options':
+                $routeMatch->setParam('action', 'option');;
+
+                $this->response->setContent("ok");
+                $return = $e->getResponse();
                 break;
             // POST
             case 'post':

@@ -18,6 +18,7 @@ return array(
                 ),
                 'Radio\Controller\User' => array(
                     'create'      => 'admin',
+                    'get'         => 'guest',
                     'passwordReset' => 'guest',
 
                 ),

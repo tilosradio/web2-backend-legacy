@@ -13,6 +13,15 @@ tilos.config(['$routeProvider', function ($routeProvider) {
   $routeProvider.when('/index', {
     templateUrl: 'partials/index.html',
     controller: 'IndexCtrl'
+  }).when('/edit/author', {
+      templateUrl: 'partials/edit/author.html',
+      controller: 'AuthorEditCtrl'
+  }).when('/edit/author/:id', {
+      templateUrl: 'partials/edit/author.html',
+      controller: 'AuthorEditCtrl'
+    }).when('/login', {
+      templateUrl: 'partials/edit/login.html',
+      controller: 'LoginCtrl'
   }).when('/archive', {
     templateUrl: 'partials/program.html',
     controller: 'ProgramCtrl'

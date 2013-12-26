@@ -82,11 +82,18 @@ return array(
                     'defaults' => array('controller' => 'Radio\Controller\Author',)
                 )
             ),
+            'currentuser-rest' => array(
+                'type' => 'Literal',
+                'options' => array(
+                    'route' => '/api/v0/user/me',
+                    'defaults' => array('controller' => 'Radio\Controller\User',),
+                    'action' => 'currentUser'
+                )
+            ),
             'user-rest' => array(
                 'type' => 'Segment',
                 'options' => array(
-                    'route' => '/api/v0/user[/:id]',
-                    'constraints' => array('id' => '[0-9]*',),
+                    'route' => '/api/v0/user/[:id]',
                     'defaults' => array('controller' => 'Radio\Controller\User',)
                 )
             ),
