@@ -1,6 +1,7 @@
 <?php
 namespace RadioTest;
 
+use Doctrine\ORM\Tools\SchemaTool;
 use Zend\Loader\AutoloaderFactory;
 use Zend\Mvc\Service\ServiceManagerConfig;
 use Zend\ServiceManager\ServiceManager;
@@ -55,6 +56,10 @@ class Bootstrap
 
         static::$serviceManager = $serviceManager;
         static::$config = $config;
+
+        $em = $serviceManager->get('doctrine.entitymanager.orm_default');
+        $tool = new SchemaTool($em);
+        $tool->updateSchema($em->getMetadataFactory()->getAllMetadata());
     }
 
     public static function getServiceManager()
