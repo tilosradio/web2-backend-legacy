@@ -16,6 +16,9 @@ tilos.config(['$routeProvider', function ($routeProvider) {
   $routeProvider.when('/index', {
     templateUrl: 'partials/index.html',
     controller: 'RssNewsCtrl'
+  }).when('/', {
+    templateUrl: 'partials/index.html',
+    controller: 'RssNewsCtrl'
   }).when('/edit/author', {
       templateUrl: 'partials/edit/author.html',
       controller: 'AuthorEditCtrl'
