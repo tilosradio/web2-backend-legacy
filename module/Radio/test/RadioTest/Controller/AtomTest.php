@@ -17,7 +17,7 @@ class AtomTest extends TestBase {
 
     public function testAtomFeed() {
         //when        
-        $this->routeMatch->setParam('id', '557');
+        $this->routeMatch->setParam('id', '1');
         $this->routeMatch->setParam('action', 'showFeed');
 
         $result = $this->controller->dispatch($this->request);

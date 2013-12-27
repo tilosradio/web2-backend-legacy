@@ -254,8 +254,8 @@ class User extends BaseController {
             $mail->addTo($user->getEmail());
             $mail->setSubject('Jelszó emlékeztető');
 
-            $transport = new Mail\Transport\Sendmail();
-            $transport->send($mail);
+            /*$transport = new Mail\Transport\Sendmail();
+            $transport->send($mail);*/
 
             return new JsonModel(array("status" => true, "message" => "Token has been generated and sent."));
             //regenerate token and send it in a mail
