@@ -8,6 +8,7 @@ use Radio\Provider\EntityManager;
 use Radio\Entity\ChangePasswordToken;
 use Zend\XmlRpc\Value\DateTime;
 use Zend\Mail;
+
 /**
  * @SWG\Resource(resourcePath="/user",basePath="/api")
  */
@@ -247,15 +248,15 @@ class User extends BaseController {
             $this->getEntityManager()->flush();
 
 
-
             $mail = new Mail\Message();
-            $mail->setBody('Token: '. $token->getToken());
+            $mail->setBody('Token: ' . $token->getToken());
             $mail->setFrom('webmester@tilos.hu', 'Tilos gépház');
             $mail->addTo($user->getEmail());
-            $mail->setSubject('Jelszó emlékeztető');
+            $mail->setSubject('[tilos.hu]Jelszó emlékeztető');
 
-            /*$transport = new Mail\Transport\Sendmail();
-            $transport->send($mail);*/
+
+            $transport = $this->getServiceLocator()->get('Radio\Mail\Transport');
+            $transport->send($mail);
 
             return new JsonModel(array("status" => true, "message" => "Token has been generated and sent."));
             //regenerate token and send it in a mail

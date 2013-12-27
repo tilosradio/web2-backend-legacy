@@ -3,6 +3,7 @@
 namespace Radio;
 
 use Radio\Util\BusinessLogger;
+use Zend\Mail\Transport\Sendmail;
 use Zend\Mvc\MvcEvent,
     Radio\Entity\Role,
     Radio\Permissions\Acl,
@@ -37,6 +38,9 @@ class Module {
         return array(
             'invokables' => array(
                 'ApiAuditLogger' => '\Radio\Util\ApiAuditLogger'
+            ),
+            'services' => array(
+                '\Radio\Mail\Transport' => new Sendmail()
             )
         );
     }

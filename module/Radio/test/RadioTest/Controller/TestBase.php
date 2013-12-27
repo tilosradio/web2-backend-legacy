@@ -11,6 +11,8 @@ use HttpRequest;
 use Radio\Entity\Role;
 use Radio\Entity\User;
 use RadioTest\Fixitures\BaseData;
+use Zend\Mail\Transport\File;
+use Zend\Mail\Transport\FileOptions;
 use Zend\Mvc\Router\Http\TreeRouteStack as HttpRouter;
 use Zend\Http\Response;
 use Zend\Mvc\MvcEvent;
@@ -47,6 +49,13 @@ class TestBase extends \PHPUnit_Framework_TestCase {
 
         $serviceManager->setAllowOverride(true);
         $serviceManager->setService('doctrine.authenticationservice.orm_default', $this);
+
+        $transport = new File();
+        $options = new FileOptions(array(
+            'path' => '/tmp/',
+        ));
+        $transport->setOptions($options);
+        $serviceManager->setService("Radio\Mail\Transport", $transport);
     }
 
     public function hasIdentity() {
@@ -68,7 +77,7 @@ class TestBase extends \PHPUnit_Framework_TestCase {
         return $u;
     }
 
-    public function baseData(){
+    public function baseData() {
         $loader = new Loader();
         $loader->addFixture(new BaseData());
         $purger = new ORMPurger();
