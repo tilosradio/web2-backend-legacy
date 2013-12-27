@@ -107,7 +107,7 @@ class Author extends BaseController {
                 return new JsonModel(array("error" => "User id must be numeric."));
             }
             $user = $this->getEntityManager()->find('Radio\Entity\User', $data['user_id']);
-            if ( is_null($user) ) {
+            if ( is_null($user) )  {
                 $this->getResponse()->setStatusCode(400);
                 return new JsonModel(array("error" => "User id does not exist in DB."));
             }

@@ -12,16 +12,21 @@ use Zend\Http\Response;
 use Zend\Mvc\MvcEvent;
 use Zend\Mvc\Router\RouteMatch;
 use PHPUnit_Framework_TestCase;
+use Zend\Stdlib\Parameters;
 
 class EpisodeTest extends TestBase {
 
     protected function setUp() {
-        $this->initTest("Episode", new Episode());
+        $this->initTest("Radio\Controller\Episode", new Episode());
+        $this->baseData();
     }
 
     public function testEpisodeList() {
+        $start = mktime(10, 0, 0, 1, 28, 2013);
+        $end = mktime(15, 0, 0, 1, 28, 2013);
         //when        
-        $this->request->setUri("/api/episode");
+        $this->request->setUri("/api/episode?start=$start&end=$end");
+        $this->request->setQuery(new Parameters(['start' => $start, 'end' => $end]));
 
         $result = $this->controller->dispatch($this->request);
         $response = $this->controller->getResponse();

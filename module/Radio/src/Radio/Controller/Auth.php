@@ -3,7 +3,9 @@ namespace Radio\Controller;
 
 use Zend\Mvc\Controller\AbstractActionController,
     Zend\View\Model\JsonModel,
-    Radio\Provider\AuthService;
+    Radio\Provider\AuthService,
+    Zend\Json\Json;
+
 
 class Auth extends AbstractActionController
 {
@@ -16,9 +18,10 @@ class Auth extends AbstractActionController
             $this->getResponse()->setStatusCode(400);
             return new JsonModel(array("error" => "Bad request"));
         }
+        $data = Json::decode($this->getRequest()->getContent(), Json::TYPE_ARRAY);
         $adapter = $this->getAuthService()->getAdapter();
-        $adapter->setIdentityValue($this->params()->fromPost('username'));
-        $adapter->setCredentialValue($this->params()->fromPost('password'));
+        $adapter->setIdentityValue($data['username']);
+        $adapter->setCredentialValue($data['password']);
         $result = $adapter->authenticate();
         if ($result->isValid())
         {

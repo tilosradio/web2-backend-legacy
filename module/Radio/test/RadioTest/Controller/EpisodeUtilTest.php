@@ -3,86 +3,33 @@
 use RadioTest\Bootstrap;
 use Radio\Controller\EpisodeUtil;
 
-class EpisodeUtilTest extends \PHPUnit_Framework_TestCase {
+class EpisodeUtilTest extends \RadioTest\Controller\TestBase {
 
-    public function testGetScheduled() {
-        $serviceManager = Bootstrap::getServiceManager();
-        $em = $serviceManager->get('doctrine.entitymanager.orm_default');
-        $this->assertNotNull($em);
-        $result = EpisodeUtil::getScheduled($em, mktime(22, 0, 0, 1, 1, 2013), mktime(05, 59, 59, 1, 2, 2013), null);
-        $this->assertEquals(4, sizeof($result));
-
+    protected function setUp() {
+        //TODO do it without any controller
+        $this->initTest('Radio\Controller\Episode', new \Radio\Controller\Episode());
+        $this->baseData();
     }
 
     public function testGetEpisodesWithStartEnd() {
         $serviceManager = Bootstrap::getServiceManager();
         $em = $serviceManager->get('doctrine.entitymanager.orm_default');
-        $this->assertNotNull($em);
-        $result = EpisodeUtil::getEpisodeTimes($em, mktime(0, 0, 0, 1, 1, 2013), mktime(23, 59, 59, 12, 31, 2013), 800);
-        $this->assertEquals(5, sizeof($result));
-        $this->assertEquals(mktime(7, 0, 0, 10, 23, 2013), $result[0]['plannedFrom']->getTimestamp());
-        $this->assertEquals(mktime(8, 0, 0, 10, 23, 2013), $result[0]['plannedTo']->getTimestamp());
-        $this->assertEquals(mktime(7, 0, 0, 11, 20, 2013), $result[4]['plannedFrom']->getTimestamp());
-    }
 
-    public function testGetEpisodes1() {
-        $serviceManager = Bootstrap::getServiceManager();
-        $em = $serviceManager->get('doctrine.entitymanager.orm_default');
-        $this->assertNotNull($em);
-        $result = EpisodeUtil::getEpisodeTimes($em, mktime(0, 0, 0, 1, 1, 2013), mktime(23, 59, 59, 1, 31, 2013), 557);
+        $result = EpisodeUtil::getEpisodeTimes($em, mktime(0, 0, 0, 1, 1, 2013), mktime(23, 59, 59, 12, 31, 2013), 1);
         $this->assertEquals(4, sizeof($result));
-        $this->assertEquals(mktime(8, 0, 0, 1, 4, 2013), $result[0]['plannedFrom']->getTimestamp());
-        $this->assertEquals(mktime(10, 0, 0, 1, 4, 2013), $result[0]['plannedTo']->getTimestamp());
-        $this->assertEquals(mktime(8, 0, 0, 1, 11, 2013), $result[1]['plannedFrom']->getTimestamp());
-        $this->assertEquals(mktime(8, 0, 0, 1, 18, 2013), $result[2]['plannedFrom']->getTimestamp());
-        $this->assertEquals(mktime(8, 0, 0, 1, 25, 2013), $result[3]['plannedFrom']->getTimestamp());
-    }
-
-    public function testGetEpisodes2() {
-        $serviceManager = Bootstrap::getServiceManager();
-        $em = $serviceManager->get('doctrine.entitymanager.orm_default');
-        $this->assertNotNull($em);
-        $result = EpisodeUtil::getEpisodeTimes($em, mktime(0, 0, 0, 10, 1, 2013), mktime(23, 59, 59, 10, 30, 2013), 557);
-        $this->assertEquals(4, sizeof($result));
-        $this->assertEquals(mktime(8, 0, 0, 10, 4, 2013), $result[0]['plannedFrom']->getTimestamp());
-        $this->assertEquals(mktime(10, 0, 0, 10, 4, 2013), $result[0]['plannedTo']->getTimestamp());
-        $this->assertEquals(mktime(8, 0, 0, 10, 11, 2013), $result[1]['plannedFrom']->getTimestamp());
-        $this->assertEquals(mktime(8, 0, 0, 10, 18, 2013), $result[2]['plannedFrom']->getTimestamp());
-        $this->assertEquals(mktime(8, 0, 0, 10, 25, 2013), $result[3]['plannedFrom']->getTimestamp());
-    }
-
-    public function testGetScheduled2() {
-        $serviceManager = Bootstrap::getServiceManager();
-        $em = $serviceManager->get('doctrine.entitymanager.orm_default');
-        $this->assertNotNull($em);
-        $result = EpisodeUtil::getScheduled($em, mktime(0, 0, 0, 1, 1, 2013), mktime(23, 59, 59, 2, 28, 2013), 485);
-        $this->assertEquals(5, sizeof($result));
-    }
-
-    public function testGetEpisodeList1() {
-        $serviceManager = Bootstrap::getServiceManager();
-        $em = $serviceManager->get('doctrine.entitymanager.orm_default');
-        $this->assertNotNull($em);
-        $result = EpisodeUtil::getEpisodes($em, mktime(0, 0, 0, 1, 1, 2013), mktime(23, 59, 59, 2, 28, 2013), 485);
-        $this->assertEquals(5, sizeof($result));
-    }
-
-    public function testGetEpisodes3() {
-        $serviceManager = Bootstrap::getServiceManager();
-        $em = $serviceManager->get('doctrine.entitymanager.orm_default');
-        $this->assertNotNull($em);
-        $result = EpisodeUtil::getEpisodeTimes($em, mktime(0, 0, 0, 1, 1, 2013), mktime(23, 59, 59, 2, 28, 2013), 485);
-        $this->assertEquals(5, sizeof($result));
+        $this->assertEquals(mktime(10, 30, 0, 1, 7, 2013), $result[0]['plannedFrom']->getTimestamp());
+        $this->assertEquals(mktime(12, 30, 0, 1, 7, 2013), $result[0]['plannedTo']->getTimestamp());
+        $this->assertEquals(mktime(10, 30, 0, 1, 28, 2013), $result[3]['plannedFrom']->getTimestamp());
     }
 
     public function testGetEpisodesWithLog() {
         $serviceManager = Bootstrap::getServiceManager();
         $em = $serviceManager->get('doctrine.entitymanager.orm_default');
         $this->assertNotNull($em);
-        $result = EpisodeUtil::getEpisodeTimes($em, mktime(0, 0, 0, 1, 1, 2013), mktime(23, 59, 59, 3, 1, 2013), 626);
+        $result = EpisodeUtil::getEpisodeTimes($em, mktime(0, 0, 0, 1, 1, 2013), mktime(23, 59, 59, 12, 31, 2013), 1);
         //var_dump($result);
-        $this->assertEquals(5, sizeof($result));
-        $this->assertContains("pályázatának", $result[4]['text']['content']);
+        $this->assertEquals(4, sizeof($result));
+        $this->assertContains("pályázatának", $result[3]['text']['content']);
 
     }
 
@@ -124,7 +71,6 @@ class EpisodeUtilTest extends \PHPUnit_Framework_TestCase {
         $s['weekDay'] = 1;
         $this->assertEquals("minden második kedd 8:00", EpisodeUtil::schedulingMessage($s));
     }
-
 
 }
 

@@ -1,5 +1,5 @@
 <?php
-
+//bh6ouac1ghk8oug1pub43q8j11
 return array(
     'acl' => array(
         'roles' => array(
@@ -15,6 +15,12 @@ return array(
                 ),
                 'Radio\Controller\Auth' => array(
                     ':all'      => 'guest'
+                ),
+                'Radio\Controller\User' => array(
+                    'create'      => 'admin',
+                    'get'         => 'guest',
+                    'passwordReset' => 'guest',
+
                 ),
                 'Radio\Controller\M3u' => array(
                     ':all'      => 'guest'

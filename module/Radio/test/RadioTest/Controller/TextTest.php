@@ -14,7 +14,8 @@ use PHPUnit_Framework_TestCase;
 class TextTest extends TestBase {
 
     protected function setUp() {
-        $this->initTest("Text", new \Radio\Controller\Text());
+        $this->initTest("Radio\Controller\Text", new \Radio\Controller\Text());
+        $this->baseData();
     }
 
     public function testListOfType() {
