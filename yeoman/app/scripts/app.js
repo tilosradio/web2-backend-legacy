@@ -1,6 +1,9 @@
 'use strict';
 var tilos = angular.module('tilosApp', ['ngRoute', 'ngSanitize', 'configuration', 'ui.bootstrap']);
 
+tilos.config(function($locationProvider){
+  $locationProvider.html5Mode(true);
+});
 tilos.weekStart = function (date) {
   var first = date.getDate() - date.getDay() + 1;
   date.setHours(0);
