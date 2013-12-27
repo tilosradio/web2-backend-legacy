@@ -14,12 +14,13 @@ use PHPUnit_Framework_TestCase;
 class PageTest extends TestBase {
 
     protected function setUp() {
-        $this->initTest("Text", new \Radio\Controller\Text());
+        $this->initTest("Radio\Controller\Text", new \Radio\Controller\Text());
+        $this->baseData();
     }
 
     public function testPageGet() {
         //when        
-        $this->routeMatch->setParam('id', '201');
+        $this->routeMatch->setParam('id', '1');
 
         $result = $this->controller->dispatch($this->request);
         $response = $this->controller->getResponse();
@@ -40,7 +41,7 @@ class PageTest extends TestBase {
 
         $page = $result->getVariables();
         //var_dump($page);
-        $this->assertContains("Szabadrádió", $page['content']);
+        $this->assertContains("Jelentőség", $page['content']);
         
     }
 

@@ -176,7 +176,7 @@ class BaseController extends AbstractRestfulController {
     }
 
     function checkAccess(MvcEvent $event) {
-        $serviceManager = $event->getApplication()->getServiceManager();
+        $serviceManager = $this->getServiceLocator();
         $authService = $serviceManager->get('doctrine.authenticationservice.orm_default');
         // identify the user
         $user = $authService->hasIdentity() ? $authService->getIdentity() : null;
@@ -196,7 +196,7 @@ class BaseController extends AbstractRestfulController {
                 // respond with 401 Unauthorized
                 $event->getResponse()->setStatusCode(401)->sendHeaders();
                 if (!$acl->hasResource($controller))
-                    die("ERROR: No permission rule for $controller");
+                    die("ERROR: No permission rule for controller $controller");
                 else if (!$acl->isAllowed($role->getName(), $controller, $action))
                     die('ERROR: Unauthorized');
             }

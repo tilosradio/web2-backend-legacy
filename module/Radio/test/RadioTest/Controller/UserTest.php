@@ -18,11 +18,7 @@ class UserTest extends TestBase {
 
     protected function setUp() {
         $this->initTest("User", new User());
-        $loader = new Loader();
-        $loader->addFixture(new BaseData());
-        $purger = new ORMPurger();
-        $executor = new ORMExecutor($this->em, $purger);
-        $executor->execute($loader->getFixtures());
+
 
     }
 

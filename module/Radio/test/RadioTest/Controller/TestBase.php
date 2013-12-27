@@ -4,9 +4,13 @@
 namespace RadioTest\Controller;
 
 
+use Doctrine\Common\DataFixtures\Executor\ORMExecutor;
+use Doctrine\Common\DataFixtures\Loader;
+use Doctrine\Common\DataFixtures\Purger\ORMPurger;
 use HttpRequest;
 use Radio\Entity\Role;
 use Radio\Entity\User;
+use RadioTest\Fixitures\BaseData;
 use Zend\Mvc\Router\Http\TreeRouteStack as HttpRouter;
 use Zend\Http\Response;
 use Zend\Mvc\MvcEvent;
@@ -30,6 +34,7 @@ class TestBase extends \PHPUnit_Framework_TestCase {
         $this->request = new \Zend\Http\PhpEnvironment\Request();
         $this->routeMatch = new RouteMatch(array('controller' => $controllerName));
         $this->event = new MvcEvent();
+
         $config = $serviceManager->get('Config');
         $routerConfig = isset($config['router']) ? $config['router'] : array();
         $router = HttpRouter::factory($routerConfig);
@@ -61,6 +66,14 @@ class TestBase extends \PHPUnit_Framework_TestCase {
         $r->setName($role);
         $u->setRole($r);
         return $u;
+    }
+
+    public function baseData(){
+        $loader = new Loader();
+        $loader->addFixture(new BaseData());
+        $purger = new ORMPurger();
+        $executor = new ORMExecutor($this->em, $purger);
+        $executor->execute($loader->getFixtures());
     }
 
 } 

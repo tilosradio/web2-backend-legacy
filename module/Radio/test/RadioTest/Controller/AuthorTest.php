@@ -16,7 +16,8 @@ use PHPUnit_Framework_TestCase;
 class AuthorTest extends TestBase {
 
     protected function setUp() {
-        $this->initTest("Author", new Author());
+        $this->initTest("Radio\Controller\Author", new Author());
+        $this->baseData();
     }
 
     public function testGetAuthor() {

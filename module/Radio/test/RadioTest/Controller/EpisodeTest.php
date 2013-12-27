@@ -16,7 +16,8 @@ use PHPUnit_Framework_TestCase;
 class EpisodeTest extends TestBase {
 
     protected function setUp() {
-        $this->initTest("Episode", new Episode());
+        $this->initTest("Radio\Controller\Episode", new Episode());
+        $this->baseData();
     }
 
     public function testEpisodeList() {

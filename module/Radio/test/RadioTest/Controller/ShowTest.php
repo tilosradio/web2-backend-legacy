@@ -15,12 +15,13 @@ class ShowTest extends TestBase {
 
 
     protected function setUp() {
-        $this->initTest("Show", new \Radio\Controller\Show());
+        $this->initTest("Radio\Controller\Show", new \Radio\Controller\Show());
+        $this->baseData();
     }
 
     public function testShowGet() {
         //when        
-        $this->routeMatch->setParam('id', '531');
+        $this->routeMatch->setParam('id', '1');
 
         $result = $this->controller->dispatch($this->request);
         $response = $this->controller->getResponse();
@@ -28,14 +29,14 @@ class ShowTest extends TestBase {
 
         $show = $result->getVariables();
         //var_dump($show);
-        $this->assertEquals($show['name'], "Cratesoul Radio Show / A barázdán is csomót!");
+        $this->assertEquals($show['name'], "Good show");
         $this->assertEquals(sizeof($show['urls']), 2);
 
     }
     
       public function testShowGetWithAlias() {
         //when        
-        $this->routeMatch->setParam('id', 'paholy');
+        $this->routeMatch->setParam('id', 'goodshow');
 
         $result = $this->controller->dispatch($this->request);
         $response = $this->controller->getResponse();
@@ -44,7 +45,7 @@ class ShowTest extends TestBase {
         $show = $result->getVariables();
         
         //var_dump($show);
-        $this->assertEquals($show['id'], 485);
+        $this->assertEquals($show['id'], 1);
         
     }
 
