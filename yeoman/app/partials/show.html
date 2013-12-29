@@ -26,7 +26,7 @@
             	{{episode.plannedFrom * 1000| date: 'yyyy.MM.dd'}}
 				<span ng-if="episode.text">{{episode.text.title}}</span>
             </b>
-            <a ng-show="episode.m3uUrl" class="pull-right listen-show" ng-href="{{episode.m3uUrl}}">
+            <a ng-show="episode.m3uUrl" class="pull-right listen-show" ng-href="{{episode.m3uUrl}}" target="_blank">
             	<i class="icon-volume-up"></i> Meghallgat
             </a>
         </div>
