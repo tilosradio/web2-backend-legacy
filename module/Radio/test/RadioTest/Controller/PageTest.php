@@ -40,7 +40,7 @@ class PageTest extends TestBase {
 
         $page = $result->getVariables();
         //var_dump($page);
-        $this->assertContains("Szabadrádió", $page['content']);
+        $this->assertContains("ádió", $page['content']);
         
     }
 
