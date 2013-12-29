@@ -42,7 +42,8 @@
     "karma-phantomjs-launcher": "~0.1.1",
     "karma": "~0.10.8",
     "karma-mocha": "~0.1.1",
-    "grunt-php": "~0.3.1"
+    "grunt-php": "~0.3.1",
+    "connect-modrewrite": "0.5.0"
   },
   "engines": {
     "node": "latest"
