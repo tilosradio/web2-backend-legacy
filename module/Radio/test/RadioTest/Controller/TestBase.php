@@ -28,7 +28,7 @@ class TestBase extends \PHPUnit_Framework_TestCase {
     protected $routeMatch;
     protected $event;
     protected $em;
-    protected $user;
+    public $user;
 
     protected function initTest($controllerName, $controller) {
         $serviceManager = Bootstrap::getServiceManager();
@@ -59,7 +59,7 @@ class TestBase extends \PHPUnit_Framework_TestCase {
     }
 
     public function hasIdentity() {
-        return $this->user == null;
+        return $this->user != null;
     }
 
     public function getIdentity() {

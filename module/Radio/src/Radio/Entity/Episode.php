@@ -113,6 +113,8 @@ class Episode {
     }
 
     public function toArray() {
+        $a['id'] = $this->getId();
+
         $a['plannedFrom'] = $this->getPlannedFrom()->getTimestamp();
         $a['plannedTo'] = $this->getPlannedTo()->getTimestamp();
         $a['persistent'] = $this->getPersistent();

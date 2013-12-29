@@ -22,9 +22,12 @@ tilos.config(['$routeProvider', function ($routeProvider) {
   }).when('/edit/author', {
       templateUrl: 'partials/edit/author.html',
       controller: 'AuthorEditCtrl'
-  }).when('/edit/author/:id', {
-      templateUrl: 'partials/edit/author.html',
-      controller: 'AuthorEditCtrl'
+  }).when('/edit/episode/:id', {
+      templateUrl: 'partials/edit/episode.html',
+      controller: 'EpisodeEditCtrl'
+    }).when('/edit/episode', {
+      templateUrl: 'partials/edit/episode.html',
+      controller: 'EpisodeEditCtrl'
     }).when('/login', {
       templateUrl: 'partials/edit/login.html',
       controller: 'LoginCtrl'

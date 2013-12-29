@@ -1,0 +1,43 @@
+<form class="form-horizontal">
+    <fieldset>
+
+        <!-- Form Name -->
+        <legend>Episode</legend>
+        <!-- Text input-->
+        <div class="control-group">
+            <label class="control-label" for="plannedFrom">From</label>
+
+            <div class="controls">
+                <span id="plannedFrom">{{episode.plannedFrom}}</span>
+            </div>
+        </div>
+        <!-- Text input-->
+        <div class="control-group">
+            <label class="control-label" for="plannedTo">To</label>
+
+            <div class="controls">
+                <span id="plannedTo">{{episode.plannedTo}}</span>
+            </div>
+        </div>
+        <!-- Text input-->
+        <div class="control-group">
+            <label class="control-label" for="title">Title</label>
+
+            <div class="controls">
+                <input id="title" name="title" type="text" placeholder="placeholder" class="input-xlarge"
+                       ng-model="episode.title">
+            </div>
+        </div>
+
+        <!-- Textarea -->
+        <div class="control-group">
+            <label class="control-label" for="content">Content</label>
+
+            <div class="controls">
+                <textarea cols="80" rows="20" id="content" name="content" ng-model="episode.content"></textarea>
+            </div>
+        </div>
+
+    </fieldset>
+    <input type="submit" ng-click="save()"/>
+</form>

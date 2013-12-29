@@ -156,6 +156,12 @@ class BaseData implements FixtureInterface {
         $manager->persist($epi);
 
         $manager->flush();
+
+        foreach (['Radio\Entity\Role', 'Radio\Entity\Author', 'Radio\Entity\User', 'Radio\Entity\Url', 'Radio\Entity\TextContent', 'Radio\Entity\Show', 'Radio\Entity\Scheduling', 'Radio\Entity\Episode'] as $type) {
+            $metadata = $manager->getClassMetaData($type);
+            $metadata->setIdGeneratorType(\Doctrine\ORM\Mapping\ClassMetadata::GENERATOR_TYPE_AUTO);
+            $metadata->setIdGenerator(new \Doctrine\ORM\Id\IdentityGenerator());
+        }
     }
 
 

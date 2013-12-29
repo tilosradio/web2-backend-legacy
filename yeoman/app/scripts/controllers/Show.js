@@ -1,6 +1,6 @@
 'use strict';
 angular.module('tilosApp')
-  .controller('ShowCtrl', ['$scope', '$routeParams', 'API_SERVER_ENDPOINT', '$http', 'validateUrl', function ($scope, $routeParams, $server, $http, validateUrl) {
+  .controller('ShowCtrl', ['$scope', '$routeParams', 'API_SERVER_ENDPOINT', '$http', 'validateUrl', '$rootScope', '$location', function ($scope, $routeParams, $server, $http, validateUrl, $root, $location) {
     $http.get($server + '/api/v0/show/' + $routeParams.id, {cache: true}).success(function (data) {
       $scope.show = data;
       $scope.server = $server;
@@ -12,7 +12,7 @@ angular.module('tilosApp')
       $scope.currentShowPage = 0;
 
       $scope.prev = function () {
-      	$scope.currentShowPage--;
+        $scope.currentShowPage--;
         var to = $scope.show.episodes[$scope.show.episodes.length - 1].plannedFrom - 60;
         var from = to - 60 * 24 * 60 * 60;
         $http.get($server + '/api/v0/show/' + data.id + '/episodes?from=' + from + "&to=" + to).success(function (data) {
@@ -21,7 +21,7 @@ angular.module('tilosApp')
 
       };
       $scope.next = function () {
-      	$scope.currentShowPage++;
+        $scope.currentShowPage++;
         var from = $scope.show.episodes[0].plannedTo + 60;
         var to = from + 60 * 24 * 60 * 60;
         $http.get($server + '/api/v0/show/' + data.id + '/episodes?from=' + from + "&to=" + to).success(function (data) {
@@ -34,6 +34,13 @@ angular.module('tilosApp')
           $scope.show.sharecount = data.data[0].share_count;
         }
       });
+
+      $scope.newEpisode = function (episode) {
+        $root.newEpisode = episode;
+        $root.newEpisode.show = $scope.show;
+        $location.path('/edit/episode');
+      };
+
 
     });
 
