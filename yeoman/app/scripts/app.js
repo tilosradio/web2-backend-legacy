@@ -16,6 +16,9 @@ tilos.config(['$routeProvider', function ($routeProvider) {
   $routeProvider.when('/index', {
     templateUrl: 'partials/index.html',
     controller: 'RssNewsCtrl'
+  }).when('/', {
+    templateUrl: 'partials/index.html',
+    controller: 'RssNewsCtrl'
   }).when('/archive', {
     templateUrl: 'partials/program.html',
     controller: 'ProgramCtrl'
@@ -35,7 +38,8 @@ tilos.config(['$routeProvider', function ($routeProvider) {
     templateUrl: 'partials/news.html',
     controller: 'NewsCtrl'
   }).otherwise({
-    redirectTo: '/index'
+    templateUrl: '/partials/404.html',
+    controller: '404Ctrl'
   });
 }]);
 
