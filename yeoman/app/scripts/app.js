@@ -19,7 +19,7 @@ tilos.config(['$routeProvider', function ($routeProvider) {
   }).when('/', {
     templateUrl: 'partials/index.html',
     controller: 'RssNewsCtrl'
-  }).when('/edit/author', {
+  }).when('/edit/author/:id', {
       templateUrl: 'partials/edit/author.html',
       controller: 'AuthorEditCtrl'
   }).when('/edit/episode/:id', {
