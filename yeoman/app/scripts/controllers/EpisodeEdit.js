@@ -5,7 +5,9 @@ angular.module('tilosApp')
     var id = $routeParams.id;
     if (id) {
       $http.get(server + '/api/v0/episode/' + id).success(function (data) {
+
         $scope.episode = data;
+        $scope.episode.id = id;
         $scope.show = data['show'];
         $scope.episode.show = null;
         if ($scope.episode.text) {
@@ -28,7 +30,9 @@ angular.module('tilosApp')
         });
       } else {
         $http.put(server + '/api/v0/episode/' + $scope.episode.id, $scope.episode).success(function (data) {
-          alert("updated successfully");
+          var httpCache = $cacheFactory.get('$http');
+          httpCache.remove(server + '/api/v0/episode/' + $scope.episode.id);
+          $location.path('/episode/' + $scope.episode.id);
         });
       }
     };
