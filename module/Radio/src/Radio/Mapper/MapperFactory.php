@@ -18,7 +18,7 @@ class MapperFactory {
         $t->addMapper(new Field("id"));
         $t->addMapper(new Field("title"));
         $t->addMapper(new Field("format"));
-        $t->addMapper(new Field("content"));
+        $t->addMapper(new TextContent());
         return $t;
 
     }
@@ -79,6 +79,8 @@ class MapperFactory {
         $em->addMapper(new InternalLinkField("m3uUrl", $context['baseUrl']));
 
         $m->addMapper(new Field("description"));
+        $m->addMapper(new FormattedTextField("description", "legacy"));
+
 
         $um = $m->addMapper(new ChildCollection("urls"));
         $um->addMapper(new Field('url'));

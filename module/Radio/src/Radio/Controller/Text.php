@@ -16,6 +16,7 @@ class Text extends BaseController {
         $res['formatted'] = $formatter->format($res['format'], $res['content']);
         $res['created'] = $res['created']->getTimestamp();
         $res['modified'] = $res['modified']->getTimestamp();
+
         return $res;
     }
 

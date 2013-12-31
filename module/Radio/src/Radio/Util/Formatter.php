@@ -9,8 +9,8 @@ class Formatter
     public function __construct()
     {
         $this->transformers = [
-            'legacy' => new LegacyTransformer(),
-            'normal' => new NormalTransformer()
+            'legacy' => new RestrictedHtmlTransformer(),
+            'normal' => new RestrictedHtmlTransformer()
         ];
     }
 
