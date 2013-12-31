@@ -48,13 +48,15 @@ class EpisodeTest extends TestBase {
         $this->request->setContent(Json::encode(
             ['plannedFrom' => $start,
                 'plannedTo' => $end,
+                'title' => 'title',
+                'content' => 'content',
                 'radioshow_id' => 1]));
 
         $result = $this->controller->dispatch($this->request);
         $response = $this->controller->getResponse();
         //then
         $episode = $result->getVariables();
-
+        //var_dump($episode);
 
         $this->assertTrue($episode['success']);
         $id = $episode['data']['id'];
@@ -63,7 +65,7 @@ class EpisodeTest extends TestBase {
         $this->assertEquals($id, $persisted->getId());
         $this->assertEquals($start, $persisted->getPlannedFrom()->getTimestamp());
         $this->assertEquals($end, $persisted->getPlannedTo()->getTimestamp());
-        $this->assertNull($persisted->getText());
+        $this->assertNotNull($persisted->getText());
 
 
     }
@@ -151,7 +153,7 @@ class EpisodeTest extends TestBase {
         $response = $this->controller->getResponse();
         //then
         $episode = $result->getVariables();
-        var_dump($episode);
+        //var_dump($episode);
 
         $this->assertEquals(200, $response->getStatusCode());
         $this->assertTrue(count($response) > 0);

@@ -26,7 +26,7 @@ class FormatterTest extends \PHPUnit_Framework_TestCase {
         $content = "qwe\n\nesdf";
         // when
         $formatted = $this->formatter->format('normal', $content);
-        $this->assertEquals("<p>qwe</p>\n<p>esdf</p>", $formatted);
+        $this->assertEquals("<p>qwe\n\nesdf</p>", $formatted);
     }
 }
 

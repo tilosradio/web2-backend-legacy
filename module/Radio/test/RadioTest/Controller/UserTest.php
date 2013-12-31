@@ -46,7 +46,7 @@ class UserTest extends TestBase {
         //then
 
         $model = $this->event->getResult()->getVariables();
-        $this->assertEquals([], $model);
+        $this->assertEquals('admin', $model['username']);
     }
 
     public function testPasswordReset() {
