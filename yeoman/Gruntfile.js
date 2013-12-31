@@ -41,7 +41,7 @@ module.exports = function (grunt) {
         },
         files: [
           '<%= yeoman.app %>/*.html',
-          '<%= yeoman.app %>/partials/*.html',
+          '<%= yeoman.app %>/partials/{,*/}*.*',
           '.tmp/styles/{,*/}*.css',
           '{.tmp,<%= yeoman.app %>}/scripts/{,*/}*.js',
           '<%= yeoman.app %>/images/{,*/}*.{png,jpg,jpeg,gif,webp,svg}'
@@ -299,7 +299,7 @@ module.exports = function (grunt) {
               'bower_components/angular/*.*',
               'bower_components/angular-route/*.*',
               'bower_components/angular-sanitize/*.*',
-              'partials/*',
+              'partials/{,*/}*.*',
               'doc/{,*/}*.*'
             ]
           }
