@@ -9,9 +9,12 @@
     "angular": "1.2.4",
     "angular-route": "1.2.4",
     "angular-sanitize": "1.2.4",
-    "textAngular":  "1.1.2",
+    "textAngular": "1.1.2",
     "angular-mocks": "1.2.4",
     "angular-ui-bootstrap-bower": "0.7.0"
   },
-  "devDependencies": {}
+  "devDependencies": {},
+  "resolutions": {
+    "angular": "1.2.4"
+  }
 }
