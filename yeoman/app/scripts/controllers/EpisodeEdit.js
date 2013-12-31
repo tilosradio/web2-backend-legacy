@@ -24,16 +24,32 @@ angular.module('tilosApp')
 
     }
     $scope.save = function () {
-      if ($scope.type == 'new') {
+      if ($scope.type === 'new') {
         $http.post(server + '/api/v0/episode', $scope.episode).success(function (data) {
-          alert("created successfully");
-        });
+          var httpCache = $cacheFactory.get('$http');
+          httpCache.remove(server + '/api/v0/show/' + $scope.show.id);
+          $location.path('/episode/' + data.data.id);
+        }).error(function (data) {
+            if (data.error) {
+              $scope.error = data.error;
+            } else {
+              $scope.error = "Unknown.error";
+            }
+          });
       } else {
         $http.put(server + '/api/v0/episode/' + $scope.episode.id, $scope.episode).success(function (data) {
           var httpCache = $cacheFactory.get('$http');
           httpCache.remove(server + '/api/v0/episode/' + $scope.episode.id);
+          httpCache.remove(server + '/api/v0/show/' + $scope.show.id);
           $location.path('/episode/' + $scope.episode.id);
-        });
+        }).error(function (data) {
+            if (data.error) {
+              $scope.error = data.error;
+            } else {
+              $scope.error = "Unknown.error";
+            }
+          });
+        ;
       }
     };
 

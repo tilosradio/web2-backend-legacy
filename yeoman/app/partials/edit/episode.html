@@ -1,11 +1,12 @@
 <form class="form-horizontal">
+    <div class="alert alert-danger" ng-show="error">{{error}}</div>
+
     <fieldset>
 
         <!-- Form Name -->
-        <legend>Episode</legend>
         <!-- Text input-->
         <div class="control-group">
-            <label class="control-label" for="plannedFrom">From</label>
+            <label class="control-label" for="plannedFrom">Kezdet</label>
 
             <div class="controls">
                 <span id="plannedFrom">{{episode.plannedFrom * 1000 | date:'yyyy-MM-dd HH:ss'}}</span>
@@ -13,7 +14,7 @@
         </div>
         <!-- Text input-->
         <div class="control-group">
-            <label class="control-label" for="plannedTo">To</label>
+            <label class="control-label" for="plannedTo">Vég</label>
 
             <div class="controls">
                 <span id="plannedTo">{{episode.plannedTo * 1000 | date:'yyyy-MM-dd HH:ss'}}</span>
@@ -21,20 +22,20 @@
         </div>
         <!-- Text input-->
         <div class="control-group">
-            <label class="control-label" for="title">Title</label>
+            <label class="control-label" for="title">Cím</label>
 
             <div class="controls">
-                <input id="title" name="title" type="text" placeholder="placeholder" class="input-xlarge"
+                <input id="title" name="title" type="text" class="input-xlarge"
                        ng-model="episode.title">
             </div>
         </div>
 
         <!-- Textarea -->
         <div class="control-group">
-            <label class="control-label" for="content">Content</label>
+            <label class="control-label" for="content">Leírás</label>
 
             <div class="controls">
-                <div text-angular="text-angular" ng-model="episode.content"></div>
+                <div id="content" ta-toolbar="[['h2','h3'],['bold','italics'],['ol','ul']]" text-angular="text-angular" ng-model="episode.content"></div>
             </div>
         </div>
 

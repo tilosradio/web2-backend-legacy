@@ -77,6 +77,12 @@ class MapperFactory {
         $em->addMapper(new DateField("plannedFrom"));
         $em->addMapper(new DateField("plannedTo"));
         $em->addMapper(new InternalLinkField("m3uUrl", $context['baseUrl']));
+        $emt = $em->addMapper(new ChildObject("text"));
+        $emt->addMapper(new Field("title"));
+        $emt->addMapper(new Field("format"));
+        $emt->addMapper(new TextContent());
+
+
 
         $m->addMapper(new Field("description"));
         $m->addMapper(new FormattedTextField("description", "legacy"));
@@ -92,6 +98,8 @@ class MapperFactory {
         $schm->addMapper(new DateField("validFrom"));
         $schm->addMapper(new DateField("validTo"));
         $schm->addMapper(new Field("weekType"));
+
+
 
         $schm = $m->addMapper(new SchedulingCollection("schedulings"));
 
@@ -122,7 +130,7 @@ class MapperFactory {
         $m->addMapper(new InternalLinkField("m3uUrl", $context['baseUrl']));
         $em = $m->addMapper(new ChildObject("text"));
         $em->addMapper(new Field("title"));
-        $em->addMapper(new Field("content"));
+        $em->addMapper(new TextContent());
         return $m;
     }
 

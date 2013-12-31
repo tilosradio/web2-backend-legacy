@@ -10,7 +10,8 @@ class Formatter
     {
         $this->transformers = [
             'legacy' => new RestrictedHtmlTransformer(),
-            'normal' => new RestrictedHtmlTransformer()
+            'normal' => new RestrictedHtmlTransformer(),
+            'html' => new RestrictedHtmlTransformer()
         ];
     }
 

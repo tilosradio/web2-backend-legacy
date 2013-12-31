@@ -120,6 +120,7 @@ class Episode extends BaseController {
             $episode->setRealTo($realTo);
 
             if (!array_key_exists('title', $data) || !array_key_exists('content', $data)) {
+                $this->getResponse()->setStatusCode(400);
                 return new JsonModel(array("error" => "Mandatory fields: title, content"));
             } else {
                 $t = new \Radio\Entity\TextContent();
