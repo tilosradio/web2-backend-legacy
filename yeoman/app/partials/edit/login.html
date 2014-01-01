@@ -1,27 +1,56 @@
 <form class="form-horizontal">
-    <fieldset>
-        <!-- Form Name -->
-        <legend>Login</legend>
-        <div class="alert alert-danger" ng-show="error">{{error}}</div>
-        <!-- Text input-->
-        <div class="control-group">
-            <label class="control-label" for="password">Username</label>
+    <tabset>
+        <tab heading="Belépés">
 
-            <div class="controls">
-                <input id="password" name="password" type="text" class="input-xlarge"
-                       ng-model="logindata.username">
-            </div>
-        </div>
+            <form>
+                <fieldset>
+                    <!-- Form Name -->
 
-        <!-- Text input-->
-        <div class="control-group">
-            <label class="control-label" for="password">Password</label>
+                    <div class="alert alert-danger" ng-show="loginerror">{{loginerror}}</div>
+                    <!-- Text input-->
+                    <div class="control-group">
+                        <label class="control-label" for="password">Username</label>
 
-            <div class="controls">
-                <input id="password" name="password" type="password" class="input-xlarge"
-                       ng-model="logindata.password">
-            </div>
-        </div>
-    </fieldset>
-    <input type="submit" ng-click="login()" value="login"/>
+                        <div class="controls">
+                            <input required id="password" name="password" type="text" class="input-xlarge"
+                                   ng-model="logindata.username">
+                        </div>
+                    </div>
+
+                    <!-- Text input-->
+                    <div class="control-group">
+                        <label class="control-label" for="password">Password</label>
+
+                        <div class="controls">
+                            <input required id="password" name="password" type="password" class="input-xlarge"
+                                   ng-model="logindata.password">
+                        </div>
+                    </div>
+                </fieldset>
+                <input type="submit" ng-click="login()" value="login"/>
+            </form>
+        </tab>
+        <tab heading="Elfelejtett jelszó">
+            <form>
+                <fieldset>
+                    <!-- Form Name -->
+                    <div class="alert" ng-show="message">{{message}}</div>
+
+                    <div class="alert alert-danger" ng-show="remindererror">{{remindererror}}</div>
+                    <!-- Text input-->
+                    <div class="control-group">
+                        <label class="control-label" for="email">Email</label>
+
+                        <div class="controls">
+                            <input id="email" name="email" type="text" class="input-xlarge"
+                                   ng-model="reminderdata.email">
+                        </div>
+                    </div>
+
+
+                </fieldset>
+                <input type="submit" ng-click="reminder()" value="Jelszó emlékeztető küldése"/>
+            </form>
+        </tab>
+    </tabset>
 </form>

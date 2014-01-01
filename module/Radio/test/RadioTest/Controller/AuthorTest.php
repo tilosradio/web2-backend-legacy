@@ -33,7 +33,7 @@ class AuthorTest extends TestBase {
         $this->assertContains("Sangeet Sanstan", $author['introduction']);
         $this->assertNotEmpty($author['photo']);
         $this->assertEquals(sizeof($author['urls']), 1);
-        $this->assertEquals("http://raga.hu",$author['urls'][0]['url']);
+        $this->assertEquals("http://raga.hu", $author['urls'][0]['url']);
 
 
     }
@@ -53,6 +53,7 @@ class AuthorTest extends TestBase {
         $this->assertNotEmpty($author['photo']);
 
     }
+
 
 }
 

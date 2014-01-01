@@ -51,10 +51,10 @@ return array(
             'password_reset' => array(
                 'type' => 'Segment',
                 'options' => array(
-                    'route' => '/api/v0/user/[:id]/password_reset',
+                    'route' => '/api/v0/auth/password_reset',
                     'defaults' => array(
-                        'controller' => 'Radio\Controller\User',
-                        'action' => 'passwordReset'
+                        'controller' => 'Radio\Controller\Auth',
+                        'action' => 'passwordReset',
                     )
                 )
             ),
