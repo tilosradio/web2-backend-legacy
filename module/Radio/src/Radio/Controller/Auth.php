@@ -113,7 +113,7 @@ class Auth extends AbstractActionController {
             $transport = $this->getServiceLocator()->get('Radio\Mail\Transport');
             $transport->send($mail);
 
-            return new JsonModel(array("status" => true, "message" => "Token has been generated and sent."));
+            return new JsonModel(array("success" => true, "message" => "Token has been generated and sent."));
             //regenerate token and send it in a mail
         } else {
             $token = $data["token"];
@@ -153,7 +153,7 @@ class Auth extends AbstractActionController {
             $q->setParameter("user", $user);
             $q->execute();
             $this->getEntityManager()->flush();
-            return new JsonModel(array("status" => true, "message" => "password has been changed"));
+            return new JsonModel(array("success" => true, "message" => "password has been changed"));
             //check token and change the password
         }
     }
