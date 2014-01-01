@@ -10,7 +10,7 @@ use Zend\Mvc\Controller\AbstractActionController,
 use Zend\Mail;
 
 
-class Auth extends AbstractActionController {
+class Auth extends BaseController {
 
     use AuthService;
 
@@ -101,10 +101,15 @@ class Auth extends AbstractActionController {
             $this->getEntityManager()->persist($token);
             $this->getEntityManager()->flush();
 
+            $str = $this->getServerUrl() . "/password_reset?token=" . $token->getToken() . "&email=" . $user->getEmail();
+            $str = urlencode($str);
+            $str = str_replace('.', '%2E', $str);
+            $str = str_replace('-', '%2D', $str);
 
             //sending mail
             $mail = new Mail\Message();
-            $mail->setBody('Token: ' . $token->getToken());
+            $body = "\n\nJelszó megváltoztatása a következő linken keresztül lehetséges: " . $str;
+            $mail->setBody($body);
             $mail->setFrom('webmester@tilos.hu', 'Tilos gépház');
             $mail->addTo($user->getEmail());
             $mail->setSubject('[tilos.hu]Jelszó emlékeztető');
