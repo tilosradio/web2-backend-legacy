@@ -101,14 +101,12 @@ class Auth extends BaseController {
             $this->getEntityManager()->persist($token);
             $this->getEntityManager()->flush();
 
-            $str = $this->getServerUrl() . "/password_reset?token=" . $token->getToken() . "&email=" . $user->getEmail();
-            $str = urlencode($str);
-            $str = str_replace('.', '%2E', $str);
-            $str = str_replace('-', '%2D', $str);
+            $link = $this->getServerUrl() . "/password_reset?token=" . $this->encode($token->getToken()) . "&email=" . $this->encode($user->getEmail());
+
 
             //sending mail
             $mail = new Mail\Message();
-            $body = "\n\nJelszó megváltoztatása a következő linken keresztül lehetséges: " . $str;
+            $body = "\n\nJelszó megváltoztatása a következő linken keresztül lehetséges: " . $link;
             $mail->setBody($body);
             $mail->setFrom('webmester@tilos.hu', 'Tilos gépház');
             $mail->addTo($user->getEmail());
@@ -161,5 +159,12 @@ class Auth extends BaseController {
             return new JsonModel(array("success" => true, "message" => "password has been changed"));
             //check token and change the password
         }
+    }
+
+    public function encode($str) {
+        $str = urlencode($str);
+        $str = str_replace('.', '%2E', $str);
+        $str = str_replace('-', '%2D', $str);
+        return $str;
     }
 }
