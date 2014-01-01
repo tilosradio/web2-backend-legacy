@@ -39,7 +39,7 @@ class AuthTest extends TestBase {
         //shoud be ok
         $this->assertEquals(200, $response->getStatusCode());
         $this->assertContains("generated", $model['message']);
-        $this->assertTrue($model['status']);
+        $this->assertTrue($model['success']);
 
         $this->em->createQueryBuilder();
 
@@ -86,7 +86,7 @@ class AuthTest extends TestBase {
         //shoud be ok
         $this->assertEquals(200, $response->getStatusCode());
         $this->assertContains("generated", $model['message']);
-        $this->assertTrue($model['status']);
+        $this->assertTrue($model['success']);
 
         $this->em->createQueryBuilder();
 
