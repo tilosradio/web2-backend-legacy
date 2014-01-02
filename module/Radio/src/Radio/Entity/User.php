@@ -78,6 +78,9 @@ class User
     
     public function getSalt()
     {
+        if (empty($this->salt)) {
+            $this->createSalt();
+        }
         return $this->salt;
     }
     
