@@ -17,7 +17,7 @@ angular.module('tilosApp')
       $http.post(server + '/api/v0/auth/password_reset', $scope.newpassword).success(function (data) {
         if (data.success) {
           $scope.error = "";
-          $scope.message = data.message;
+          $scope.message = data.message + "<br/>Belépés a <a href=\"/login\">/login</a> címen";
         } else {
           $scope.error = "Password reset error";
         }
