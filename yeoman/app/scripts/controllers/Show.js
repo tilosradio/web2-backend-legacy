@@ -38,7 +38,7 @@ angular.module('tilosApp')
       $scope.newEpisode = function (episode) {
         $root.newEpisode = episode;
         $root.newEpisode.show = $scope.show;
-        $location.path('/edit/episode');
+        $location.path('/edit/episode/new');
       };
 
 

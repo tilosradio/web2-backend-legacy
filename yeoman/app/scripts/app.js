@@ -25,6 +25,9 @@ tilos.config(['$routeProvider', function ($routeProvider) {
   }).when('/edit/episode/:id', {
       templateUrl: 'partials/edit/episode.html',
       controller: 'EpisodeEditCtrl'
+    }).when('/edit/episode/new', {
+      templateUrl: 'partials/edit/episode.html',
+      controller: 'EpisodeNewCtrl'
     }).when('/edit/episode', {
       templateUrl: 'partials/edit/episode.html',
       controller: 'EpisodeEditCtrl'
