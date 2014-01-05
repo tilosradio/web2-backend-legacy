@@ -13,7 +13,9 @@ return array(
             'Radio\Controller\Text' => 'Radio\Controller\Text',
             'Radio\Controller\M3u' => 'Radio\Controller\M3u',
             'Radio\Controller\User' => 'Radio\Controller\User',
-            'Radio\Controller\Atom' => 'Radio\Controller\Atom'
+            'Radio\Controller\Atom' => 'Radio\Controller\Atom',
+            'Radio\Controller\Scheduling' => 'Radio\Controller\Scheduling'
+
         ),
     ),
     'router' => array(
@@ -139,6 +141,13 @@ return array(
                         'controller' => 'Radio\Controller\Atom',
                         'action' => 'showFeed'
                     )
+                )
+            ),
+            'scheduling-rest' => array(
+                'type' => 'Segment',
+                'options' => array(
+                    'route' => '/api/v0/show/:show/scheduling/:id',
+                    'defaults' => array('controller' => 'Radio\Controller\Scheduling',)
                 )
             ),
         )

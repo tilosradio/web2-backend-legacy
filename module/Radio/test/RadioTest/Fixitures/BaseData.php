@@ -142,7 +142,19 @@ class BaseData implements FixtureInterface {
         $s1->setMinFrom(30);
         $s1->setDuration(120);
         $s1->setShow($show);
+        $manager->persist($s1);
 
+        $s1 = new Scheduling();
+        $s1->setId(2);
+        $s1->setValidFrom(new DateTime("2012-01-01 00:00:00"));
+        $s1->setValidTo(new DateTime("2013-01-01 00:00:00"));
+        $s1->setBase(new DateTime("2013-01-01 00:00:00"));
+        $s1->setWeekDay(0);
+        $s1->setWeekType(1);
+        $s1->setHourFrom(11);
+        $s1->setMinFrom(30);
+        $s1->setDuration(120);
+        $s1->setShow($show);
         $manager->persist($s1);
 
         $epi = new Episode();

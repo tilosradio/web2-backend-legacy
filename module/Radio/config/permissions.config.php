@@ -50,6 +50,11 @@ return array(
                     'update'   => 'author',
                     'delete'   => 'admin',
                 ),
+                'Radio\Controller\Scheduling' => array(
+                    'get'      => 'guest',
+                    'getList'  => 'guest'
+
+                ),
             ),
         )
     )
