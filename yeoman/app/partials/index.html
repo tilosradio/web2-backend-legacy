@@ -4,14 +4,12 @@
     <div class="news-lead">
       <img src="{{feed.mediaGroups[0].contents[0].url}}" alt="{{feed.title}}" ng-show="{{feed.mediaGroups[0].contents[0].url}}">
       <span ng-bind-html="feed.content"></span>
+      <time datetime="{{feed.publishedDate}}">{{feed.publishedDate |  RssDate }}</time>
+      <small ng-repeat="category in feed.categories">{{category}}, &nbsp;</small>
     </div>
-  <footer class="article-info">
-    <time datetime="{{feed.publishedDate}}">{{feed.publishedDate |  RssDate }}</time>
-        <small ng-repeat="category in feed.categories">{{category}}, &nbsp;</small>
       <!--<div class="social">
                 <iframe ng-src="{{likeURL}}"  scrolling="no" frameborder="0" style="border:none; overflow:hidden; height:80px;" allowTransparency="true"></iframe>
             </div> -->
-   </footer>
   </article>
 </section> <!-- col-md-6 -->
 
