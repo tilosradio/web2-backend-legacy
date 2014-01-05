@@ -27,7 +27,7 @@
       $httpBackend = $injector.get('$httpBackend');
     }));
 
-    it('retrieve list of news', function () {
+    it('should retrieve list of news', function () {
       $httpBackend.expectGET('http://server/api/v0/text/news/list').respond([
         {id: 1, title: "asd", content: "asd"},
         {id: 2, title: "qwe", content: "asd"}
@@ -36,8 +36,8 @@
       ]);
       var controller = createController();
       $httpBackend.flush();
-      chai.expect(scope.news.length).to.equal(2);
-      chai.expect(scope.news[1].title).to.equal("qwe");
+      expect(scope.news.length).toEqual(2);
+      expect(scope.news[1].title).toEqual("qwe");
 
     });
   });

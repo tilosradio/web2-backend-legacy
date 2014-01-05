@@ -9,13 +9,15 @@ module.exports = function (config) {
 
 
     // frameworks to use
-    frameworks: ['mocha'],
+    frameworks: ['jasmine'],
 
 
     // list of files / patterns to load in the browser
     files: [
       'app/bower_components/angular/angular.js',
       'app/bower_components/angular-mocks/angular-mocks.js',
+      'app/bower_components/textAngular/textAngular.js',
+
 
       'app/bower_components/angular-route/angular-route.js',
       'app/bower_components/angular-sanitize/angular-sanitize.js',
@@ -27,8 +29,6 @@ module.exports = function (config) {
       'app/scripts/controllers/AllShow.js',
       'app/scripts/controllers/Index.js',
 
-      'test/lib/chai.js',
-      'test/lib/expect.js',
       'test/spec/controllers/AllShow.js' ,
       'test/spec/controllers/Index.js'
 

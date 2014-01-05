@@ -34,8 +34,8 @@
       ]);
       var controller = createController();
       $httpBackend.flush();
-      chai.expect(scope.shows.talk.length).to.equal(1);
-      chai.expect(scope.shows.sound.length).to.equal(2);
+      expect(scope.shows.talk.length).toEqual(1);
+      expect(scope.shows.sound.length).toEqual(2);
     });
   });
 })();
