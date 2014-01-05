@@ -4,7 +4,7 @@
     <div class="news-lead">
       <img src="{{feed.mediaGroups[0].contents[0].url}}" alt="{{feed.title}}" ng-show="{{feed.mediaGroups[0].contents[0].url}}">
       <span ng-bind-html="feed.content"></span></br>
-      <time datetime="{{feed.publishedDate}}">{{feed.publishedDate |  RssDate }}</time>
+      <time datetime="{{feed.publishedDate}}">{{feed.publishedDate |  RssDate }}</time></br>
       <small ng-repeat="category in feed.categories">{{category}}, &nbsp;</small>
     </div>
       <!--<div class="social">
