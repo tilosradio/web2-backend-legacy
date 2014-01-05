@@ -146,7 +146,7 @@ return array(
             'scheduling-rest' => array(
                 'type' => 'Segment',
                 'options' => array(
-                    'route' => '/api/v0/show/:show/scheduling/:id',
+                    'route' => '/api/v0/show/:show/scheduling[/:id]',
                     'defaults' => array('controller' => 'Radio\Controller\Scheduling',)
                 )
             ),
