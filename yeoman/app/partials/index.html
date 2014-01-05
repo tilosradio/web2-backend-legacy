@@ -3,7 +3,7 @@
     <h1><a href="{{feed.link}}" target="_blank">{{feed.title}}</a></h1>
     <div class="news-lead">
       <img src="{{feed.mediaGroups[0].contents[0].url}}" alt="{{feed.title}}" ng-show="{{feed.mediaGroups[0].contents[0].url}}">
-      <span ng-bind-html="feed.content"></span></div><div>
+      <span ng-bind-html="feed.content"></span></br>
       <time datetime="{{feed.publishedDate}}">{{feed.publishedDate |  RssDate }}</time>
       <small ng-repeat="category in feed.categories">{{category}}, &nbsp;</small>
     </div>
