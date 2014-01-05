@@ -21,9 +21,9 @@ class Field implements Mapper {
         $this->name = $name;
     }
 
-    public function map(&$from, &$to) {
+    public function map(&$from, &$to, $setter) {
         if (array_key_exists($this->name, $from)) {
-            $to[$this->name] = $from[$this->name];
+            $setter->set($to,$this->name,$from[$this->name]);
         }
     }
 }

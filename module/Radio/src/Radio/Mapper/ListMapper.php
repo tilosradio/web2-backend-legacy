@@ -9,27 +9,34 @@
 namespace Radio\Mapper;
 
 
-class ListMapper implements Mapper {
+class ListMapper implements Mapper
+{
 
     private $mappers = [];
 
-    function __construct() {
+    private $type;
+
+    function __construct($type = null)
+    {
+        $this->type = $type;
 
     }
 
-    public function map(&$from, &$to) {
+    public function map(&$from, &$to, $setter)
+    {
         foreach ($from as $item) {
-            $newValue = [];
+            $newValue = $setter->createEmptyChild($this->type);
             foreach ($this->mappers as $mapper) {
-                $mapper->map($item, $newValue);
+                $mapper->map($item, $newValue, $setter);
             }
             $to[] = $newValue;
         }
         return $to;
     }
 
-    public function addMapper($mapper) {
+    public function addMapper($mapper)
+    {
         $this->mappers[] = $mapper;
         return $mapper;
     }
-} 
+}

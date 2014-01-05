@@ -1,25 +1,26 @@
 <?php
-/**
- * Created by IntelliJ IDEA.
- * User: elek
- * Date: 12/12/13
- * Time: 7:58 PM
- */
+
 
 namespace Radio\Mapper;
 
 
-class ObjectMapper implements Mapper {
+class ObjectMapper {
 
     private $mappers = [];
+    private $setter;
 
-    function __construct() {
+    function __construct($setter = null) {
+        if ($setter == null || empty($setter)) {
+            $this->setter = new ArrayFieldSetter();
+        } else {
+            $this->setter = $setter;
+        }
 
     }
 
     public function map(&$from, &$to) {
         foreach ($this->mappers as $mapper) {
-            $mapper->map($from, $to);
+            $mapper->map($from, $to, $this->setter);
         }
     }
 

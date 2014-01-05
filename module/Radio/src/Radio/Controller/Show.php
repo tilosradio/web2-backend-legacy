@@ -2,6 +2,7 @@
 
 namespace Radio\Controller;
 
+use Radio\Mapper\ArrayFieldSetter;
 use Radio\Mapper\MapperFactory;
 use Zend\Db\Sql\Expression;
 use Zend\Mvc\Controller\AbstractRestfulController;
@@ -102,7 +103,7 @@ class Show extends BaseController {
 
         $result = [];
         $mapper = MapperFactory::shortEpisodeElementMapper(['baseUrl' => $this->getServerUrl()]);
-        $mapper->map($episodes,$result);
+        $mapper->map($episodes,$result, new ArrayFieldSetter());
 
         return new JsonModel($result);
     }

@@ -15,22 +15,26 @@ use Radio\Util\Formatter;
  *
  * @package Radio\Mapper
  */
-class FormattedTextField implements Mapper {
+class FormattedTextField implements Mapper
+{
 
     private $name;
     private $format;
     private $formatter;
 
-    function __construct($name, $format) {
+    function __construct($name, $format)
+    {
         $this->name = $name;
         $this->format = $format;
         $this->formatter = new Formatter();
     }
 
-    public function map(&$from, &$to) {
+    public function map(&$from, &$to, $setter)
+    {
         if (array_key_exists($this->name, $from)) {
-            $to[$this->name] = $from[$this->name];
-            $to[$this->name . '_formatted'] = $this->formatter->format($this->format, $from[$this->name]);
+            $setter->set($to, $this->name, $from[$this->name]);
+            $val = $this->formatter->format($this->format, $from[$this->name]);
+            $setter->set($to, $this->name . '_formatted', $val);
         }
     }
 }

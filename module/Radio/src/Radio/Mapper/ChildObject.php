@@ -1,35 +1,37 @@
 <?php
-/**
- * Created by IntelliJ IDEA.
- * User: elek
- * Date: 12/12/13
- * Time: 7:58 PM
- */
+
 
 namespace Radio\Mapper;
 
 
-class ChildObject implements Mapper {
+class ChildObject implements Mapper
+{
 
     private $mappers = [];
     private $name;
+    private $type;
 
-    function __construct($name) {
+    function __construct($name, $type = null)
+    {
         $this->name = $name;
+        $this->type = $type;
     }
 
-    public function map(&$from, &$to) {
+    public function map(&$from, &$to, $setter)
+    {
         if (array_key_exists($this->name, $from)) {
-            if (!array_key_exists($this->name, $to)) {
-                $to[$this->name] = [];
-            }
+
+            $newValue = $setter->ensureExists($to, $this->name, $this->type);
             foreach ($this->mappers as $mapper) {
-                $mapper->map($from[$this->name], $to[$this->name]);
+                $mapper->map($from[$this->name], $newValue, $setter);
             }
+            $setter->set($to, $this->name, $newValue);
+
         }
     }
 
-    public function addMapper($mapper) {
+    public function addMapper($mapper)
+    {
         $this->mappers[] = $mapper;
         return $mapper;
     }

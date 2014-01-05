@@ -11,15 +11,18 @@ use Zend\Mvc\MvcEvent;
 use Zend\Mvc\Router\RouteMatch;
 use PHPUnit_Framework_TestCase;
 
-class ShowTest extends TestBase {
+class ShowTest extends TestBase
+{
 
 
-    protected function setUp() {
+    protected function setUp()
+    {
         $this->initTest("Radio\Controller\Show", new \Radio\Controller\Show());
         $this->baseData();
     }
 
-    public function testShowGet() {
+    public function testShowGet()
+    {
         //when        
         $this->routeMatch->setParam('id', '1');
 
@@ -33,8 +36,29 @@ class ShowTest extends TestBase {
         $this->assertEquals(sizeof($show['urls']), 2);
 
     }
-    
-      public function testShowGetWithAlias() {
+
+
+    public function testListOfEpisodes()
+    {
+        //when
+        $this->routeMatch->setParam('id', '1');
+        $this->routeMatch->setParam('action', 'listOfEpisodes');
+
+
+        $result = $this->controller->dispatch($this->request);
+        $response = $this->controller->getResponse();
+        //then
+
+        $episodes = $result->getVariables();
+        //var_dump($show);
+        $this->assertTrue(is_array($episodes));
+
+
+    }
+
+
+    public function testShowGetWithAlias()
+    {
         //when        
         $this->routeMatch->setParam('id', 'goodshow');
 
@@ -43,10 +67,10 @@ class ShowTest extends TestBase {
         //then
 
         $show = $result->getVariables();
-        
+
         //var_dump($show);
         $this->assertEquals($show['id'], 1);
-        
+
     }
 
 }

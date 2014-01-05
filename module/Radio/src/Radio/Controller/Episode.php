@@ -3,6 +3,7 @@
 namespace Radio\Controller;
 
 use DoctrineORMModule\Proxy\__CG__\Radio\Entity\TextContent;
+use Radio\Mapper\ArrayFieldSetter;
 use Zend\View\Model\JsonModel;
 use Radio\Provider\EntityManager;
 use Radio\Mapper\MapperFactory;
@@ -30,7 +31,7 @@ class Episode extends BaseController {
             $end = $this->params()->fromQuery("end", $start + 60 * 60 * 5);
             $episodes = EpisodeUtil::getEpisodeTimes($this->getEntityManager(), $start, $end);
             $result = [];
-            MapperFactory::episodeElementMapper(['baseUrl' => $this->getServerUrl()])->map($episodes, $result);
+            MapperFactory::episodeElementMapper(['baseUrl' => $this->getServerUrl()])->map($episodes, $result, new ArrayFieldSetter());
 
             return new JsonModel($result);
         } catch (Exception $ex) {

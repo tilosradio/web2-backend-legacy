@@ -1,21 +1,23 @@
 <?php
-/**
- * Created by IntelliJ IDEA.
- * User: elek
- * Date: 12/12/13
- * Time: 8:02 PM
- */
+
 
 namespace RadioTest\Mapper;
 
 
 use Radio\Mapper\ChildCollection;
+use Radio\Mapper\DateField;
 use Radio\Mapper\Field;
 use Radio\Mapper\ChildObject;
+use Radio\Mapper\InternalLinkField;
+use Radio\Mapper\ObjectMapper;
+use Radio\Mapper\ResourceField;
+use Radio\Mapper\TextContent;
 
-class Mapper extends \PHPUnit_Framework_TestCase {
+class MapperTest extends \PHPUnit_Framework_TestCase
+{
 
-    public function testSimpleMapping() {
+    public function testSimpleMapping()
+    {
 
         $a = [];
         $a['id'] = 12;
@@ -24,9 +26,9 @@ class Mapper extends \PHPUnit_Framework_TestCase {
 
         $to = [];
 
-        $mapper = new \Radio\Mapper\ObjectMapper();
-        $mapper->addMapper(new FieldMapper("id"));
-        $mapper->addMapper(new FieldMapper("name"));
+        $mapper = new ObjectMapper();
+        $mapper->addMapper(new Field("id"));
+        $mapper->addMapper(new Field("name"));
 
         $result = $mapper->map($a, $to);
 
@@ -37,7 +39,45 @@ class Mapper extends \PHPUnit_Framework_TestCase {
 
     }
 
-    public function testChildMapping() {
+
+    public function testConverterMappings()
+    {
+
+        $a = [];
+        $a['image'] = "asd.jpg";
+        $a['link'] = "/qwe";
+        $a['volatile'] = "xx";
+        $a['date'] = new \DateTime();
+        $a['content'] = "<h1>asd</h1>";
+        $a['format'] = "html";
+        $baseUrl = "http://tilos.hu";
+
+        $to = [];
+
+        $mapper = new ObjectMapper();
+        $mapper->addMapper(new ResourceField("image", $baseUrl));
+        $mapper->addMapper(new InternalLinkField("link", $baseUrl));
+        $mapper->addMapper(new DateField("date"));
+        $mapper->addMapper(new TextContent());
+
+
+
+        $result = $mapper->map($a, $to);
+
+        $this->assertArrayHasKey("image", $to);
+        $this->assertArrayHasKey("link", $to);
+        $this->assertArrayNotHasKey("volatile", $to);
+        $this->assertEquals("http://tilos.hu/upload/asd.jpg", $to['image']);
+        $this->assertEquals("http://tilos.hu//qwe", $to['link']);
+        $this->assertEquals($a['date']->getTimestamp(), $to['date']);
+        $this->assertEquals("<h1>asd</h1>", $to['content']);
+        $this->assertEquals("<h1>asd</h1>", $to['formatted']);
+
+
+    }
+
+    public function testChildMapping()
+    {
 
         $a = [];
         $a['id'] = 12;
@@ -50,7 +90,7 @@ class Mapper extends \PHPUnit_Framework_TestCase {
 
         $to = [];
 
-        $mapper = new \Radio\Mapper\ObjectMapper();
+        $mapper = new ObjectMapper();
         $mapper->addMapper(new Field("id"));
         $mapper->addMapper(new Field("name"));
 
@@ -71,7 +111,8 @@ class Mapper extends \PHPUnit_Framework_TestCase {
 
     }
 
-    public function testChildCollection() {
+    public function testChildCollection()
+    {
 
         $a = [];
         $a['id'] = 12;
@@ -88,7 +129,7 @@ class Mapper extends \PHPUnit_Framework_TestCase {
 
         $to = [];
 
-        $mapper = new \Radio\Mapper\ObjectMapper();
+        $mapper = new ObjectMapper();
         $mapper->addMapper(new Field("id"));
         $mapper->addMapper(new Field("name"));
 

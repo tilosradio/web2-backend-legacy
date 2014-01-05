@@ -13,15 +13,11 @@ namespace Radio\Mapper;
  *
  * @package Radio\Mapper
  */
-class DateField implements Mapper {
+class DateField extends FieldConverter
+{
 
-    private $name;
-
-    function __construct($name) {
-        $this->name = $name;
-    }
-
-    public function map(&$from, &$to) {
-        $to[$this->name] = $from[$this->name]->getTimestamp();
+    protected function convert($from)
+    {
+        return $from->getTimestamp();
     }
 }

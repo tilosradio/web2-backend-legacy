@@ -7,20 +7,20 @@ namespace Radio\Mapper;
  *
  * @package Radio\Mapper
  */
-class InternalLinkField implements Mapper {
+class InternalLinkField extends FieldConverter
+{
 
     private $name;
-    private $baseUrl;
 
-    function __construct($name, $baseUrl) {
-        $this->name = $name;
+    function __construct($name, $baseUrl)
+    {
+        parent::__construct($name);
         $this->baseUrl = $baseUrl;
     }
 
-    public function map(&$from, &$to) {
-        if (array_key_exists($this->name, $from)) {
 
-            $to[$this->name] = $this->baseUrl . "/" . $from[$this->name];
-        }
+    protected function  convert($from)
+    {
+        return $this->baseUrl . "/" . $from;
     }
 }
