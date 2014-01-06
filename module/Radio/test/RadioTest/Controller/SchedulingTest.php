@@ -3,6 +3,7 @@
 namespace RadioTest\Controller;
 
 use RadioTest\Bootstrap;
+use Zend\Json\Json;
 use Zend\Mvc\Router\Http\TreeRouteStack as HttpRouter;
 use Application\Controller\IndexController;
 use Zend\Http\Request;
@@ -52,6 +53,64 @@ class SchedulingTest extends TestBase
         $scheduling = $result->getVariables();
         //var_dump($scheduling);
         $this->assertTrue(is_numeric($scheduling['validFrom']));
+
+
+    }
+
+    public function testUpdateScheduling()
+    {
+        $this->user = $this->createUser(1, "admin", "admin");
+        //given
+        $this->routeMatch->setParam('id', '1');
+        $this->request->setMethod("put");
+        $this->request->getHeaders()->addHeaderLine("content-type: application/json");
+        $this->request->setContent(Json::encode(
+            ['weekDay' => 5]));
+
+        //when
+        $result = $this->controller->dispatch($this->request);
+        $response = $this->controller->getResponse();
+        //then
+
+        $res = $result->getVariables();
+        // var_dump($res);
+        $this->assertTrue($res['success']);
+        $sched = $this->em->find("\Radio\Entity\Scheduling", 1);
+        $this->assertEquals(5, $sched->getWeekDay());
+
+
+    }
+
+    public function testCreateScheduling()
+    {
+        $this->user = $this->createUser(1, "admin", "admin");
+        //given
+        $this->routeMatch->setParam('show', '1');
+        $this->request->setMethod("post");
+        $this->request->getHeaders()->addHeaderLine("content-type: application/json");
+        $this->request->setContent(Json::encode(
+            [
+                'weekDay' => 5,
+                'weekType' => 1,
+                'hourFrom' => 1,
+                'minFrom' => 1,
+                'duration' => 1,
+                'weekType' => 1,
+                'validFrom' => mktime(10, 0, 0, 1, 1, 2012),
+                'validTo' => mktime(10, 0, 0, 1, 1, 2019),
+                'base' => mktime(10, 0, 0, 1, 1, 2012)]));
+
+        //when
+        $result = $this->controller->dispatch($this->request);
+        $response = $this->controller->getResponse();
+        //then
+
+        $res = $result->getVariables();
+        //var_dump($res);
+        $this->assertTrue($res['success']);
+        $sched = $this->em->find("\Radio\Entity\Scheduling", $res['data']['id']);
+        $this->assertEquals(5, $sched->getWeekDay());
+        $this->assertEquals(1, $sched->getMinFrom());
 
 
     }

@@ -6,7 +6,7 @@ class ObjectFieldSetter implements FieldSetter
 
     function set(&$container, $propertyName, &$value)
     {
-        $setter = "set" . $propertyName;
+        $setter = "set" . strtoupper(substr($propertyName, 0, 1)) . substr($propertyName, 1);
         $container->$setter($value);
     }
 

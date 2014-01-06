@@ -52,7 +52,11 @@ return array(
                 ),
                 'Radio\Controller\Scheduling' => array(
                     'get'      => 'guest',
-                    'getList'  => 'guest'
+                    'getList'  => 'guest',
+                    'update'  => 'admin',
+                    'create'  => 'admin'
+
+
 
                 ),
             ),

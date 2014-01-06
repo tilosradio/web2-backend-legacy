@@ -6,7 +6,9 @@ use Radio\Mapper\ArrayFieldSetter;
 use Radio\Mapper\DateField;
 use Radio\Mapper\Field;
 use Radio\Mapper\ListMapper;
+use Radio\Mapper\ObjectFieldSetter;
 use Radio\Mapper\ObjectMapper;
+use Radio\Mapper\TimestampField;
 use Zend\Mvc\Controller\AbstractRestfulController;
 use Zend\View\Model\JsonModel;
 use Radio\Provider\EntityManager;
@@ -82,6 +84,46 @@ class Scheduling extends BaseController
         $q = $qb->getQuery();
         $q->setParameter("id", $id);
         return $q->getArrayResult()[0];
+    }
+
+    public function update($id, $data)
+    {
+        $id = $this->params()->fromRoute("id");
+        $scheduling = $this->getEntityManager()->find("\Radio\Entity\Scheduling", $id);
+        $mapper = new ObjectMapper(new ObjectFieldSetter());
+        $mapper->addMapper(new Field("weekDay"));
+        $mapper->addMapper(new Field("weekType"));
+        $mapper->map($data, $scheduling);
+        $this->getEntityManager()->flush();
+        return new JsonModel(array("success" => true));
+    }
+
+    public function create($data)
+    {
+        $showId = $this->params()->fromRoute("show");
+        $show = $this->getEntityManager()->find("\Radio\Entity\Show", $showId);
+        if (empty($show)) {
+            $this->getResponse()->setStatusCode(400);
+            return new JsonModel(array("error" => "Show is missing."));
+        }
+
+        $scheduling = new \Radio\Entity\Scheduling();
+
+        $mapper = new ObjectMapper(new ObjectFieldSetter());
+        $mapper->addMapper(new Field("weekDay"));
+        $mapper->addMapper(new Field("weekType"));
+        $mapper->addMapper(new Field("hourFrom"));
+        $mapper->addMapper(new Field("minFrom"));
+        $mapper->addMapper(new Field("duration"));
+        $mapper->addMapper(new TimestampField("base"));
+        $mapper->addMapper(new TimestampField("validFrom"));
+        $mapper->addMapper(new TimestampField("validTo"));
+
+
+        $mapper->map($data, $scheduling);
+        $this->getEntityManager()->persist($scheduling);
+        $this->getEntityManager()->flush();
+        return new JsonModel(array("success" => true, "data" => array("id" => $scheduling->getId())));
     }
 
 

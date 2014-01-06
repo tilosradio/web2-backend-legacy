@@ -12,13 +12,15 @@ use Radio\Provider\EntityManager;
 /**
  * @SWG\Resource(resourcePath="/show",basePath="/api")
  */
-class Show extends BaseController {
+class Show extends BaseController
+{
 
     use EntityManager;
 
-    public function findEntityObject($type, $id) {
+    public function findEntityObject($type, $id)
+    {
         $qb = $this->getEntityManager()->createQueryBuilder();
-        $qb->select('a', 'sa', 's', 'u','c')->from('\Radio\Entity\Show', 's');
+        $qb->select('a', 'sa', 's', 'u', 'c')->from('\Radio\Entity\Show', 's');
         if (is_numeric($id)) {
             $qb->where('s.id = :id');
         } else {
@@ -27,7 +29,7 @@ class Show extends BaseController {
         $qb->leftJoin('s.contributors', 'sa')->leftJoin('sa.author', 'a');
         $qb->leftJoin('s.urls', 'u');
         $qb->leftJoin('s.schedulings', 'c', "WITH", "c.validFrom < :now and c.validTo > :now");
-        $qb->orderBy("c.weekDay","ASC");
+        $qb->orderBy("c.weekDay", "ASC");
 
 
         $q = $qb->getQuery();
@@ -36,7 +38,8 @@ class Show extends BaseController {
         return $q->getArrayResult()[0];
     }
 
-    public function mapEntity($result) {
+    public function mapEntity($result)
+    {
         $a = $result;
         $now = time();
         $episodes = EpisodeUtil::getEpisodeTimes($this->getEntityManager(), $now - 60 * 60 * 24 * 60, $now, $a['id'], true);
@@ -47,13 +50,15 @@ class Show extends BaseController {
 
     }
 
-    public function mapEntityListElement($result) {
+    public function mapEntityListElement($result)
+    {
         $r = [];
         MapperFactory::showElementMapper(['baseUrl' => $this->getServerUrl()])->map($result, $r);
         return $r;
     }
 
-    public function findEntityList($type) {
+    public function findEntityList($type)
+    {
         $qb = $this->getEntityManager()->createQueryBuilder();
         $qb->select('s')->from('\Radio\Entity\Show', 's')->where("s.status = 1")->orderBy("s.name", "ASC");
         $q = $qb->getQuery();
@@ -70,7 +75,8 @@ class Show extends BaseController {
      *   )
      * )
      */
-    public function getList() {
+    public function getList()
+    {
         return $this->getEntityList("\Radio\Entity\Show");
     }
 
@@ -91,11 +97,13 @@ class Show extends BaseController {
      *   )
      * )
      */
-    public function get($id) {
+    public function get($id)
+    {
         return $this->getEntity("\Radio\Entity\Show", $id);
     }
 
-    public function listOfEpisodesAction() {
+    public function listOfEpisodesAction()
+    {
         $id = $this->params()->fromRoute("id");
         $start = $this->params()->fromQuery("from", time() - 60 * 24 * 60 * 60);
         $end = $this->params()->fromQuery("to", time());
@@ -103,11 +111,10 @@ class Show extends BaseController {
 
         $result = [];
         $mapper = MapperFactory::shortEpisodeElementMapper(['baseUrl' => $this->getServerUrl()]);
-        $mapper->map($episodes,$result, new ArrayFieldSetter());
+        $mapper->map($episodes, $result, new ArrayFieldSetter());
 
         return new JsonModel($result);
     }
-
 
 
     /**
@@ -119,7 +126,8 @@ class Show extends BaseController {
      *   )
      * )
      */
-    public function delete($id) {
+    public function delete($id)
+    {
         // TODO: implementation
     }
 

@@ -1,0 +1,26 @@
+<form class="form-horizontal">
+    <fieldset>
+
+        <!-- Form Name -->
+        <legend>Beosztás</legend>
+        <!-- Text input-->
+        <div class="control-group">
+            <label class="control-label" for="validFrom">Érvényesség kezdete</label>
+
+            <div class="controls">
+                <input id="validFrom" name="validFrom" type="text" class="input-xlarge" ng-model="scheduling.validFrom">
+            </div>
+        </div>
+
+        <div class="control-group">
+            <label class="control-label" for="validFrom">Érvényesség vége</label>
+
+            <div class="controls">
+                <input id="validFrom" name="validFrom" type="text" class="input-xlarge" ng-model="scheduling.validTo">
+            </div>
+        </div>
+
+
+    </fieldset>
+    <input type="submit" ng-click="save()"/>
+</form>

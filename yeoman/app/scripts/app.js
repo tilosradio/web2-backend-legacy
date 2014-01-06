@@ -1,5 +1,5 @@
 'use strict';
-var tilos = angular.module('tilosApp', ['ngRoute', 'ngSanitize', 'configuration', 'ui.bootstrap', 'textAngular']);
+var tilos = angular.module('tilosApp', ['ngRoute', 'ngSanitize', 'configuration', 'ui.bootstrap', 'textAngular', 'ngResource']);
 
 tilos.config(function($locationProvider){
   $locationProvider.html5Mode(true);
