@@ -3,7 +3,8 @@
         <table class="table">
             <thead>
             <tr>
-                <td>id</td>
+                <td></td>
+                <td></td>
                 <td>érv kezdet</td>
                 <td>érv vége</td>
                 <td>nap</td>
@@ -14,19 +15,19 @@
             </thead>
             <tbody>
             <tr ng-repeat="scheduling in scheduling">
-                <td>{{scheduling.id}}</td>
-                <td>{{scheduling.validFrom  * 1000| date:yyy-MM-dd}}</td>
+                <td><a ng-href="/edit/show/{{showId}}/scheduling/{{scheduling.id}}">Szerlesztés</a></td>
+                <td><a ng-click="delete()">Törlés</a></td>
+                <td>{{scheduling.validFrom * 1000| date:yyy-MM-dd}}</td>
                 <td>{{scheduling.validTo * 1000 | date:yyyy-MM-dd}}</td>
                 <td>{{scheduling.weekDay | weekDayName}}</td>
                 <td>{{scheduling.hourFrom}}:{{scheduling.minFrom}}</td>
                 <td>{{scheduling.duration}}&nbsp;perc</td>
                 <td>{{scheduling.weekType}}&nbsp;hetente</td>
-
             </tr>
             </tbody>
-
         </table>
     </ul>
+    <td><a ng-href="/new/show/{{showId}}/scheduling">Új</a></td>
 
 </section>
 

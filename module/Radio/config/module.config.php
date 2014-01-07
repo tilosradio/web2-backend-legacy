@@ -64,7 +64,7 @@ return array(
                 'type' => 'Segment',
                 'options' => array(
                     'route' => '/api/v0/show[/:id]',
-                    'defaults' => array('controller' => 'Radio\Controller\Show',)
+                    'defaults' => array('controller' => 'Radio\Controller\Show',),
                 )
             ),
             'show-episodes' => array(

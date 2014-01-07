@@ -93,6 +93,12 @@ class Scheduling extends BaseController
         $mapper = new ObjectMapper(new ObjectFieldSetter());
         $mapper->addMapper(new Field("weekDay"));
         $mapper->addMapper(new Field("weekType"));
+        $mapper->addMapper(new Field("hourFrom"));
+        $mapper->addMapper(new Field("minFrom"));
+        $mapper->addMapper(new Field("duration"));
+        $mapper->addMapper(new TimestampField("base"));
+        $mapper->addMapper(new TimestampField("validFrom"));
+        $mapper->addMapper(new TimestampField("validTo"));
         $mapper->map($data, $scheduling);
         $this->getEntityManager()->flush();
         return new JsonModel(array("success" => true));
