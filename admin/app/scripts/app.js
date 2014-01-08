@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('tilosAdminApp', [
+angular.module('tilosAdmin', [
   'ngCookies',
   'ngResource',
   'ngSanitize',
