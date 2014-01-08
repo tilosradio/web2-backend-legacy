@@ -54,6 +54,7 @@ return array(
                     'get'      => 'guest',
                     'getList'  => 'guest',
                     'update'  => 'admin',
+                    'delete'  => 'admin',
                     'create'  => 'admin'
 
 

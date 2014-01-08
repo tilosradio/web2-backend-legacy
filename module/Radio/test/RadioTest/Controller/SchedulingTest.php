@@ -111,6 +111,30 @@ class SchedulingTest extends TestBase
         $sched = $this->em->find("\Radio\Entity\Scheduling", $res['data']['id']);
         $this->assertEquals(5, $sched->getWeekDay());
         $this->assertEquals(1, $sched->getMinFrom());
+        $this->assertNotNull($sched->getShow());
+
+
+    }
+
+    public function testDeleteScheduling()
+    {
+        $this->user = $this->createUser(1, "admin", "admin");
+        //given
+        $this->routeMatch->setParam('show', '1');
+        $this->routeMatch->setParam('id', '1');
+
+        $this->request->setMethod("delete");
+
+        //when
+        $result = $this->controller->dispatch($this->request);
+        $response = $this->controller->getResponse();
+        //then
+
+        $res = $result->getVariables();
+        //var_dump($res);
+        $this->assertTrue($res['success']);
+        $sched = $this->em->find("\Radio\Entity\Scheduling", 1);
+        $this->assertNull($sched);
 
 
     }

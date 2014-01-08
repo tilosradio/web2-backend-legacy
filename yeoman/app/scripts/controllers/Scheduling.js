@@ -115,9 +115,12 @@ angular.module('tilosApp')
 
 
 angular.module('tilosApp')
-    .controller('SchedulingListCtrl', ['$scope', 'schedulingList', '$routeParams', function ($scope, schedulingList, $routeParams) {
+    .controller('SchedulingListCtrl', ['$scope', 'schedulingList', '$routeParams', 'Schedulings', function ($scope, schedulingList, $routeParams, resource) {
         $scope.scheduling = schedulingList;
         $scope.showId = $routeParams.show;
+        $scope.remove = function (id) {
+            resource.remove({'id': id});
+        }
     }]);
 
 angular.module('tilosApp').filter('weekDayName', function () {

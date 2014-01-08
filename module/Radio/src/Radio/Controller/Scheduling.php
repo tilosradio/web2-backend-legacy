@@ -104,6 +104,15 @@ class Scheduling extends BaseController
         return new JsonModel(array("success" => true));
     }
 
+
+    public function delete($id)
+    {
+        $scheduling = $this->getEntityManager()->find("\Radio\Entity\Scheduling", $id);
+        $this->getEntityManager()->remove($scheduling);
+        $this->getEntityManager()->flush();
+        return new JsonModel(array("success" => true));
+    }
+
     public function create($data)
     {
         $showId = $this->params()->fromRoute("show");
@@ -127,6 +136,7 @@ class Scheduling extends BaseController
 
 
         $mapper->map($data, $scheduling);
+        $scheduling->setShow($show);
         $this->getEntityManager()->persist($scheduling);
         $this->getEntityManager()->flush();
         return new JsonModel(array("success" => true, "data" => array("id" => $scheduling->getId())));

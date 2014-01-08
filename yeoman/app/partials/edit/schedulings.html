@@ -16,7 +16,7 @@
             <tbody>
             <tr ng-repeat="scheduling in scheduling">
                 <td><a ng-href="/edit/show/{{showId}}/scheduling/{{scheduling.id}}">Szerlesztés</a></td>
-                <td><a ng-click="delete()">Törlés</a></td>
+                <td><a ng-click="delete(scheduling.id)">Törlés</a></td>
                 <td>{{scheduling.validFrom * 1000| date:yyy-MM-dd}}</td>
                 <td>{{scheduling.validTo * 1000 | date:yyyy-MM-dd}}</td>
                 <td>{{scheduling.weekDay | weekDayName}}</td>
