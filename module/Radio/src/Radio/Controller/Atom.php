@@ -33,7 +33,7 @@ class Atom extends AbstractActionController {
         $feed = new \Zend\Feed\Writer\Feed;
         $feed->setTitle($show->getName() . ' :: Tilos Rádió');
         $feed->setLink('http://tilos.hu/');
-        $feed->setFeedLink('http://tilos.hu/atom/' . $showId, 'atom');
+        $feed->setFeedLink('http://tilos.hu/feed/show/' . $showId, 'atom');
         $feed->setDateModified(time());
 
         $episodes = EpisodeUtil::getEpisodeTimes($this->getEntityManager(), \time() - 60 * 60 * 24 * 30 * 10, \time(), $show->getId());
