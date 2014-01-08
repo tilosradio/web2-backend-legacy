@@ -45,7 +45,7 @@ class MapperFactory {
 
     public static function authorMapper($context) {
         $m = MapperFactory::authorElementMapper($context);
-        $m->addMapper(new Field("introduction"));
+        $m->addMapper(new FormattedTextField("introduction","html"));
         $um = $m->addMapper(new ChildCollection("urls"));
         $um->addMapper(new Field('url'));
         return $m;

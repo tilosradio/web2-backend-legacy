@@ -1,6 +1,7 @@
 <div>
-<h1>{{author.name}}</h1>
+  <h1>{{author.name}}</h1>
 
-{{author.introduction}}
+  <div ng-bind-html="author.introduction"></div>
+
+  <a ng-href="/edit/author/{{author.id}}">SZERKESZTES</a>
 </div>
-<a ng-href="/edit/author/{{author.id}}">SZERKESZTES</a>

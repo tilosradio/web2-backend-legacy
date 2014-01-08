@@ -32,9 +32,8 @@ class FormattedTextField implements Mapper
     public function map(&$from, &$to, $setter)
     {
         if (array_key_exists($this->name, $from)) {
-            $setter->set($to, $this->name, $from[$this->name]);
             $val = $this->formatter->format($this->format, $from[$this->name]);
-            $setter->set($to, $this->name . '_formatted', $val);
+            $setter->set($to, $this->name, $val);
         }
     }
 }
