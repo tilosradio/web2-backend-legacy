@@ -12,7 +12,7 @@ class Module {
 
     public function onBootstrap(MvcEvent $event) {
         $em = $event->getApplication()->getEventManager();
-	$em->attach(MvcEvent::EVENT_DISPATCH, array($this, 'preDispatch'));
+	$em->attach(MvcEvent::EVENT_DISPATCH, array($this, 'preDispatch'), 20);
     }
 
     public function getAutoloaderConfig() {
@@ -40,10 +40,17 @@ class Module {
      * @param MvcEvent $event
      */
     public function preDispatch(MvcEvent $event) {
+        if (strtolower($event->getRequest()->getMethod())!='get') {
+            $event->getResponse()
+                ->setStatusCode(401)
+                ->sendHeaders();
+            die('unauthorized');
+        }
         $serviceManager = $event->getApplication()
                                 ->getServiceManager();
         $authService = $serviceManager->get('doctrine.authenticationservice.orm_default');
         // identify the user
+
         $user = $authService->hasIdentity() ? $authService->getIdentity() : null;
         $role = empty($user) ? Role::getDefault() : $user->getRole();
         // get requested resource
