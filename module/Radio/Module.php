@@ -45,7 +45,9 @@ class Module {
                 ->setStatusCode(401)
                 ->sendHeaders();
             die('unauthorized');
-        }
+        } else {
+	  return;
+	}
         $serviceManager = $event->getApplication()
                                 ->getServiceManager();
         $authService = $serviceManager->get('doctrine.authenticationservice.orm_default');
