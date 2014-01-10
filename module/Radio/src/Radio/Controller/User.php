@@ -1,4 +1,4 @@
-<?php
+!<?php
 
 namespace Radio\Controller;
 
@@ -63,6 +63,8 @@ class User extends BaseController {
         if ($id == 'me') {
             return $this->currentUserAction();
         }
+
+
         return $this->getEntity("\Radio\Entity\User", $id, $this->createConverter());
     }
 

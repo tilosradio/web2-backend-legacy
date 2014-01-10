@@ -1,28 +1,46 @@
 'use strict';
 
 angular.module('tilosAdmin', [
-        'ngCookies',
-        'ngResource',
-        'ngSanitize',
-        'ngRoute',
-        'configuration',
-        'textAngular'
+      'ngCookies',
+      'ngResource',
+      'ngSanitize',
+      'ngRoute',
+      'configuration',
+      'textAngular'
     ])
     .config(function ($routeProvider, $locationProvider) {
-        $locationProvider.html5Mode(true);
-        $routeProvider
-            .when('/', {
-                templateUrl: 'views/main.html',
-                controller: 'MainCtrl'
-            })
-            .otherwise({
-                redirectTo: '/'
-            });
+      $locationProvider.html5Mode(true);
+      $routeProvider
+          .when('/', {
+            templateUrl: 'views/main.html',
+            controller: 'MainCtrl'
+          })
+          .otherwise({
+            redirectTo: '/'
+          });
     });
 
+angular.module('tilosAdmin').run(function ($rootScope, $location, $http) {
+  $rootScope.$on('$routeChangeStart', function (evt) {
+    if (!$rootScope.user) {
+      $http.get(server + '/api/v0/user/me').success(function (data) {
+        if (data.length == 0) {
+          $location.url('/login');
+        } else {
+          $rootScope.user = data;
+        }
+      }).error(function (data) {
+            $location.url('/login');
+          });
+    }
+
+
+    evt.preventDefault();
+  });
+})
 var server = window.location.protocol + '//' + window.location.hostname;
 if (window.location.port && window.location.port !== '9000') {
-    server = server + ':' + window.location.port;
+  server = server + ':' + window.location.port;
 }
 
 var tilosHost = window.location.hostname;
