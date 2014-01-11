@@ -1,6 +1,21 @@
-
-
-<h1>Műsorok</h1>
+<div ng-show="user.author">
+  <h1>Saját műsorok</h1>
+  <table class="table">
+    <thead>
+    <tr>
+      <th>Műsor név</th>
+      <th>Művész név</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr ng-repeat="contribution in user.author.contributions">
+      <td><a ng-href="/show/{{contribution.show.id}}">{{contribution.show.name}}</a></td>
+      <td>{{contribution.nick}}</td>
+    </tr>
+    </tbody>
+  </table>
+</div>
+<h1>Összes műsor</h1>
 
 <table ng-show="user.role.name == 'admin'" class="table">
   <tr ng-repeat="show in shows">

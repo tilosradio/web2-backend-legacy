@@ -1,5 +1,6 @@
-<ul>
-    <li ng-repeat="author in authors">
-        <a ng-href="/author/{{author.id}}">{{author.name}}</a>
-    </li>
-</ul>
+<h1>Műsorkészítők</h1>
+<table class="table">
+  <tr ng-repeat="author in authors">
+    <td><a ng-href="/author/{{author.id}}">{{author.name}}</a></td>
+  </tr>
+</table>

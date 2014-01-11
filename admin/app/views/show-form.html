@@ -1,0 +1,26 @@
+<form class="form-horizontal">
+  <fieldset>
+
+    <!-- Form Name -->
+    <legend>Műsor szerkesztése</legend>
+    <!-- Text input-->
+    <div class="control-group">
+      <label class="control-label" for="Name">Name</label>
+
+      <div class="controls">
+        <input id="Name" name="Name" type="text" placeholder="placeholder" class="input-xlarge" ng-model="show.name">
+      </div>
+    </div>
+
+    <!-- Textarea -->
+    <div class="control-group">
+      <label class="control-label" for="description">Introduction</label>
+
+      <div id="description" text-angular="text-angular" ta-toolbar="[['h2','h3'],['bold','italics'],['ol','ul']]"
+           ng-model="show.descroption"></div>
+
+    </div>
+
+  </fieldset>
+  <input type="submit" ng-click="save()"/>
+</form>
