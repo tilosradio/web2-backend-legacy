@@ -27,7 +27,7 @@ angular.module('tilosAdmin').config(['$routeProvider', function ($routeProvider)
     }});
 }]);
 angular.module('tilosAdmin')
-    .controller('ShowCtrl', function ($scope, data, API_SERVER_ENDPOINT, $http) {
+    .controller('ShowCtrl', function ($scope, data, API_SERVER_ENDPOINT, $http, $rootScope, $location) {
       $scope.show = data;
       $scope.server = API_SERVER_ENDPOINT;
 
@@ -54,9 +54,9 @@ angular.module('tilosAdmin')
 
 
       $scope.newEpisode = function (episode) {
-        $root.newEpisode = episode;
-        $root.newEpisode.show = $scope.show;
-        $location.path('/edit/episode/new');
+        $rootScope.newEpisode = episode;
+        $rootScope.newEpisode.show = $scope.show;
+        $location.path('/new/episode');
       };
 
 
