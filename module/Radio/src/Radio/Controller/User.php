@@ -2,6 +2,11 @@
 
 namespace Radio\Controller;
 
+use Doctrine\Tests\Common\Persistence\Mapping\ChildEntity;
+use Radio\Mapper\ChildCollection;
+use Radio\Mapper\ChildObject;
+use Radio\Mapper\Field;
+use Radio\Mapper\ObjectMapper;
 use Zend\Mvc\Controller\AbstractRestfulController;
 use Zend\View\Model\JsonModel;
 use Radio\Provider\EntityManager;
@@ -12,11 +17,13 @@ use Zend\Mail;
 /**
  * @SWG\Resource(resourcePath="/user",basePath="/api")
  */
-class User extends BaseController {
+class User extends BaseController
+{
 
     use EntityManager;
 
-    public function createConverter() {
+    public function createConverter()
+    {
         return function ($result) {
             $user = $result;
             $retUser['id'] = $user->getId();
@@ -38,7 +45,8 @@ class User extends BaseController {
      *   )
      * )
      */
-    public function getList() {
+    public function getList()
+    {
         return $this->getEntityList("\Radio\Entity\User", $this->createConverter());
     }
 
@@ -59,31 +67,60 @@ class User extends BaseController {
      *   )
      * )
      */
-    public function get($id) {
+    public function get($id)
+    {
         if ($id == 'me') {
             return $this->currentUserAction();
         }
 
 
-        return $this->getEntity("\Radio\Entity\User", $id, $this->createConverter());
+        return $this->findUser($id);
     }
 
-    public function currentUserAction() {
+    public function findUser($id)
+    {
+        $qb = $this->getEntityManager()->createQueryBuilder();
+        $qb->select('u', 'a','c','s','r')->from('\Radio\Entity\User', 'u');
+        $qb->leftJoin('u.author', 'a');
+        $qb->leftJoin('a.contributions', 'c');
+        $qb->leftJoin('c.show', 's');
+        $qb->leftJoin('u.role', 'r');
+        $qb->where("u.id = :id");
+        $q = $qb->getQuery();
+        $q->setParameter("id", $id);
+
+        $m = new ObjectMapper();
+        $m->addMapper(new Field("id"));
+        $m->addMapper(new Field("username"));
+        $a = $m->addMapper(new ChildObject("author"));
+        $a->addMapper(new Field("id"));
+        $a->addMapper(new Field("name"));
+        $a->addMapper(new Field("alias"));
+        $c = $a->addMapper(new ChildCollection("contributions"));
+        $c->addMapper(new Field("nick"));
+        $s = $c->addMapper(new ChildObject("show"));
+        $s->addMapper(new Field("id"));
+        $s->addMapper(new Field("name"));
+        $s->addMapper(new Field("alias"));
+        $r = $m->addMapper(new ChildObject("role"));
+        $r->addMapper(new Field("name"));
+
+        $result = [];
+        $m->map($q->getArrayResult()[0],$result);
+        return new JsonModel($result);
+    }
+
+    public function currentUserAction()
+    {
         $authService = $this->getServiceLocator()->get('doctrine.authenticationservice.orm_default');
         // identify the user
         $user = $authService->hasIdentity() ? $authService->getIdentity() : null;
-        if ($user) {
-            $u = [];
-            $u['username'] = $user->getUsername();
-            $u['role'] = ['name' => $user->getRole()->getName()];
-            return new JsonModel($u);
-        } else {
-            return new JsonModel(array());
-        }
+        return $this->findUser($user->getId());
 
     }
 
-    public function create($data) {
+    public function create($data)
+    {
         try {
             // validation
             if (!isset($data['role_id']) || !isset($data['username']) ||
@@ -135,7 +172,8 @@ class User extends BaseController {
         }
     }
 
-    public function update($id, $data) {
+    public function update($id, $data)
+    {
         try {
             $user = $this->getEntityManager()->find('Radio\Entity\User', $id);
 
@@ -209,7 +247,8 @@ class User extends BaseController {
         }
     }
 
-    public function delete($id) {
+    public function delete($id)
+    {
         try {
             $user = $this->getEntityManager()->find('Radio\Entity\User', $id);
             if (is_null($user)) {

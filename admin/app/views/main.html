@@ -1,1 +1,16 @@
-Kezdőoldal
+<h1>{{user.username}}</h1>
+
+<ul>
+  <li>
+    <a ng-show="user.author" ng-href="/edit/author/{{user.author.id}}/">Publikus műsorkészítő profil szerkesztése</a>
+  </li>
+</ul>
+
+
+<h1 ng->Saját műsorok szerkesztése</h1>
+<ul>
+  <li ng-repeat="contribution in user.author.contributions">
+    <a ng-href="/show/{{contribution.show.id}}/">{{contribution.show.name}}</a>
+  </li>
+</ul>
+

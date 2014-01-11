@@ -43,6 +43,11 @@ class User
      * @ORM\JoinColumn(name="role_id", referencedColumnName="id")
      */
     private $role;
+
+    /**
+     * @ORM\OneToOne(targetEntity="Author",mappedBy="user", fetch="EAGER")
+     */
+    protected $author;
    
     public function getId()
     {
@@ -53,7 +58,24 @@ class User
     {
         return $this->username;
     }
-    
+
+    /**
+     * @param mixed $author
+     */
+    public function setAuthor($author)
+    {
+        $this->author = $author;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getAuthor()
+    {
+        return $this->author;
+    }
+
+
     public function setUsername($username) {
         $this->username = $username;
     }

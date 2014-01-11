@@ -14,9 +14,11 @@ use Radio\Entity\Url;
 use Radio\Entity\User;
 use Radio\Entity\Role;
 
-class BaseData implements FixtureInterface {
+class BaseData implements FixtureInterface
+{
 
-    public function load(ObjectManager $manager) {
+    public function load(ObjectManager $manager)
+    {
 
         foreach (['Radio\Entity\Role', 'Radio\Entity\Author', 'Radio\Entity\User', 'Radio\Entity\Url', 'Radio\Entity\TextContent', 'Radio\Entity\Show', 'Radio\Entity\Scheduling', 'Radio\Entity\Episode'] as $type) {
             $metadata = $manager->getClassMetaData($type);
@@ -67,9 +69,13 @@ class BaseData implements FixtureInterface {
         $author->setPhoto("photo.jpg");
         $author->setAvatar("avatar.jpg");
         $author->setIntroduction("uzginuver");
+        $author->setUser($manager->find("\Radio\Entity\User", 1));
 
 
         $manager->persist($author);
+
+        $user->setAuthor($author);
+        $manager->persist($user);
 
         $link = new Url();
         $link->setId(1);

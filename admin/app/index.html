@@ -16,7 +16,7 @@
   <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
   <!-- build:css styles/vendor.css -->
   <!-- bower:css -->
-  <link rel="stylesheet" href="bower_components/sass-bootstrap/dist/css/bootstrap.css"/>
+  <link rel="stylesheet" href="bower_components/sass-bootstrap/dist/css/bootstrap.css" />
   <!-- endbower -->
   <!-- endbuild -->
   <!-- build:css({.tmp,app}) styles/main.css -->
@@ -36,7 +36,7 @@
     <ul class="nav nav-pills pull-right">
       <li class="active"><a ng-href="/authors">Szerzők</a></li>
       <li><a ng-href="#">Műsorok</a></li>
-      <li><a ng-href="#">Profil</a></li>
+      <li ng-show="user.author"><a ng-href="/author/{{user.author.id}}">Műsorkészítő profil</a></li>
       <li><a ng-click="logout()">Logout</a></li>
     </ul>
     <h3 class="text-muted">{{user.username}}</h3>
