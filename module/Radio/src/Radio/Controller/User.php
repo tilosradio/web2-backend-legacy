@@ -80,7 +80,7 @@ class User extends BaseController
     public function findUser($id)
     {
         $qb = $this->getEntityManager()->createQueryBuilder();
-        $qb->select('u', 'a','c','s','r')->from('\Radio\Entity\User', 'u');
+        $qb->select('u', 'a', 'c', 's', 'r')->from('\Radio\Entity\User', 'u');
         $qb->leftJoin('u.author', 'a');
         $qb->leftJoin('a.contributions', 'c');
         $qb->leftJoin('c.show', 's');
@@ -106,7 +106,7 @@ class User extends BaseController
         $r->addMapper(new Field("name"));
 
         $result = [];
-        $m->map($q->getArrayResult()[0],$result);
+        $m->map($q->getArrayResult()[0], $result);
         return new JsonModel($result);
     }
 
@@ -115,6 +115,9 @@ class User extends BaseController
         $authService = $this->getServiceLocator()->get('doctrine.authenticationservice.orm_default');
         // identify the user
         $user = $authService->hasIdentity() ? $authService->getIdentity() : null;
+        if ($user == null) {
+            return new JsonModel(array());
+        }
         return $this->findUser($user->getId());
 
     }

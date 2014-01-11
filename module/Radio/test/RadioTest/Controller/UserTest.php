@@ -50,9 +50,9 @@ class UserTest extends TestBase
         //then
 
         $model = $this->event->getResult()->getVariables();
-        var_dump($model);
+        //var_dump($model);
         $this->assertEquals('test', $model['username']);
-        $this->assertEquals(1, count($model['authors']));
+        $this->assertNotEmpty($model['author']);
     }
 
 
@@ -68,8 +68,9 @@ class UserTest extends TestBase
         //then
 
         $model = $this->event->getResult()->getVariables();
+        //var_dump($model);
         $this->assertEquals('test', $model['username']);
-        $this->assertEquals(1, $model['user']['id']);
+        $this->assertEquals(300, $model['author']['id']);
 
     }
 

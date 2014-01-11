@@ -29,7 +29,7 @@ class AuthorTest extends TestBase {
         //then
 
         $author = $result->getVariables();
-        var_dump($author);
+        //var_dump($author);
         $this->assertContains("Sangeet Sanstan", $author['introduction']);
         $this->assertNotEmpty($author['photo']);
         $this->assertEquals(sizeof($author['urls']), 1);
