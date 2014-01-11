@@ -1,5 +1,9 @@
-<ul>
-  <li ng-repeat="show in shows">
-    <a ng-href="/show/{{show.id}}">{{show.name}}</a>
-  </li>
-</ul>
+
+
+<h1>Műsorok</h1>
+
+<table ng-show="user.role.name == 'admin'" class="table">
+  <tr ng-repeat="show in shows">
+    <td><a ng-href="/show/{{show.id}}">{{show.name}}</a></td>
+  </tr>
+</table>

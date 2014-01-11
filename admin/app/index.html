@@ -30,25 +30,34 @@
   to improve your experience.</p>
 <![endif]-->
 
-<div class="container">
-
-  <div class="header" ng-controller="AuthCtrl">
-    <ul class="nav nav-pills pull-right">
-      <li class="active"><a ng-href="/authors">Szerzők</a></li>
-      <li><a ng-href="#">Műsorok</a></li>
-      <li ng-show="user.author"><a ng-href="/author/{{user.author.id}}">Műsorkészítő profil</a></li>
-      <li><a ng-click="logout()">Logout</a></li>
-    </ul>
-    <h3 class="text-muted">{{user.username}}</h3>
+<div class="navbar navbar-inverse navbar-fixed-top" role="navigation" ng-controller="AuthCtrl">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="#">Tilos admin</a>
+    </div>
+    <div ng-show="user.username" class="collapse navbar-collapse">
+      <ul class="nav navbar-nav">
+        <li class="active"><a ng-href="/authors">Szerzők</a></li>
+        <li><a ng-href="/shows">Műsorok</a></li>
+        <li ng-show="user.author"><a ng-href="/author/{{user.author.id}}">Műsorkészítő profil</a></li>
+        <li><a  ng-click="logout()">Logout</a></li>
+      </ul>
+    </div><!-- /.nav-collapse -->
   </div>
+</div>
+<div class="container" id="content">
 
   <div ng-view>
 
   </div>
 
-  <div class="footer">
-    <p>♥ from the Yeoman team</p>
-  </div>
+
 </div>
 
 

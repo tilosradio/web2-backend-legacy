@@ -1,16 +1,32 @@
-<h1>{{user.username}}</h1>
+<div class="row">
+  <div class="col-6 col-sm-6 col-lg-4">
+    <h2>Műsorkészítő profil</h2>
 
-<ul>
-  <li>
-    <a ng-show="user.author" ng-href="/edit/author/{{user.author.id}}/">Publikus műsorkészítő profil szerkesztése</a>
-  </li>
-</ul>
+    <p>A felahasználóhoz tartozó műsorkészítő profil:</p>
+
+    <p><a class="btn btn-default" ng-href="/author/{{user.author.id}}" role="button">{{user.author.name}}</a></p>
+  </div>
+  <!--/span-->
+  <div class="col-6 col-sm-6 col-lg-4">
+    <h2>Műsorok</h2>
+
+    <p>A felhasználóhoz tartozó műsorok oldalai:</p>
+
+    <p ng-repeat="contribution in user.author.contributions" >
+
+      <a class="btn btn-default" ng-href="/show/{{contribution.show.id}}/"
+         role="button">{{contribution.show.name}}</a>
 
 
-<h1 ng->Saját műsorok szerkesztése</h1>
-<ul>
-  <li ng-repeat="contribution in user.author.contributions">
-    <a ng-href="/show/{{contribution.show.id}}/">{{contribution.show.name}}</a>
-  </li>
-</ul>
+    </p>
+  </div>
+  <!--/span-->
+  <div class="col-6 col-sm-6 col-lg-4">
+    <h2>Felhasználó</h2>
 
+    <p>Aktuális felhasználó: {{user.username}}</p>
+
+    <p><a class="btn btn-default" href="#" role="button">Szerkesztés</a></p>
+  </div>
+  <!--/span-->
+</div>
