@@ -19,25 +19,21 @@ angular.module('tilosAdmin', [
             redirectTo: '/'
           });
     });
-
+var k;
 angular.module('tilosAdmin').run(function ($rootScope, $location, $http) {
-  $rootScope.$on('$routeChangeStart', function (evt) {
+  $rootScope.$on('$locationChangeStart', function (evt, next) {
+    var endsWith = function (str, suffix) {
+      return str.indexOf(suffix, str.length - suffix.length) !== -1;
+    }
     if (!$rootScope.user) {
-      $http.get(server + '/api/v0/user/me').success(function (data) {
-        if (data.length == 0) {
-          $location.url('/login');
-        } else {
-          $rootScope.user = data;
-        }
-      }).error(function (data) {
-            $location.url('/login');
-          });
+      if (!/.*password_reset\?.*/g.exec(next) && !endsWith(next, '/password_reminder') && !endsWith(next, '/login') ) {
+        $location.url('/login');
+      }
     }
 
 
-    evt.preventDefault();
   });
-})
+});
 var server = window.location.protocol + '//' + window.location.hostname;
 if (window.location.port && window.location.port !== '9000') {
   server = server + ':' + window.location.port;
