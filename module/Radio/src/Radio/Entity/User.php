@@ -132,7 +132,7 @@ class User
 
     public static function testPassword(User $user, $passwordGiven)
     {
-        return sha1($passwordGiven . $user->getSalt()) === $user->getPassword();
+        return strlen($passwordGiven)>5 && sha1($passwordGiven . $user->getSalt()) === $user->getPassword();
     }
 
     public function toArray()
