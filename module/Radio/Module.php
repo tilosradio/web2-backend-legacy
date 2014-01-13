@@ -54,10 +54,10 @@ class Module {
         $serviceManager = $event->getApplication()->getServiceManager();
         $authService = $serviceManager->get('doctrine.authenticationservice.orm_default');
 
-        $user = $authService->hasIdentity() ? $authService->getIdentity()->getUsername() : "unknown";
 
         $method = $event->getRequest()->getMethod();
         if ($method != "GET") {
+            $user = $authService->hasIdentity() ? $authService->getIdentity()->getUsername() : "unknown";
             $url = $event->getRequest()->getRequestUri();
             $params = "";
             if ($method == "POST") {

@@ -27,10 +27,9 @@ angular.module('tilosAdmin').config(['$routeProvider', function ($routeProvider)
     }});
 }]);
 angular.module('tilosAdmin')
-    .controller('AuthorCtrl', ['$scope', 'data', function ($scope, data) {
+    .controller('AuthorCtrl', function ($scope, data) {
       $scope.author = data;
-
-    }]);
+    });
 
 angular.module('tilosAdmin')
     .controller('AuthorListCtrl', ['$scope', 'list', function ($scope, list) {

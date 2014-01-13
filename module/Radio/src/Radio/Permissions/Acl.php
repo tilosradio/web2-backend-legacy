@@ -37,7 +37,7 @@ class Acl extends ZendAcl {
                     if ($action == ':all')
                         $action = null;
                     if ($permission == 'allow')
-                        $this->allow($role, $controller, $action, $assertion);
+                        $this->allow($role, $controller, $action);
                     elseif ($permission == 'deny')
                         $this->deny($role, $controller, $action);
                     else

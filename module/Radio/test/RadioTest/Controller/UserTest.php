@@ -24,6 +24,15 @@ class UserTest extends TestBase
 
     }
 
+    public function testExamplePassword()
+    {
+        $u = new \Radio\Entity\User();
+        $u->setPassword("asdasdasdasd");
+        echo "\n";
+        echo $u->getSalt()."\n";
+        echo $u->getPassword()."\n";
+    }
+
     public function testCurrentUser()
     {
         //when

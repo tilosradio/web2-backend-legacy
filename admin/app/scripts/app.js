@@ -19,16 +19,24 @@ angular.module('tilosAdmin', [
             redirectTo: '/'
           });
     });
-var k;
-angular.module('tilosAdmin').run(function ($rootScope, $location, $http) {
+
+angular.module('tilosAdmin').run(function ($rootScope, $location, $http, API_SERVER_ENDPOINT) {
   $rootScope.$on('$locationChangeStart', function (evt, next) {
     var endsWith = function (str, suffix) {
       return str.indexOf(suffix, str.length - suffix.length) !== -1;
     }
-    if (!$rootScope.user) {
-      if (!/.*password_reset\?.*/g.exec(next) && !endsWith(next, '/password_reminder') && !endsWith(next, '/login') ) {
-        $location.url('/login');
-      }
+    if (!('user' in $rootScope)) {
+      $http.get(API_SERVER_ENDPOINT + '/api/v0/user/me').success(function (data) {
+        $rootScope.user = data;
+        if (!data) {
+          if (!/.*password_reset\?.*/g.exec(next) && !endsWith(next, '/password_reminder') && !endsWith(next, '/login')) {
+            $location.url('/login');
+          }
+        }
+      }).error(function (data) {
+            $location.path('/login');
+          });
+
     }
 
 

@@ -46,7 +46,7 @@ return array(
                 'Radio\Controller\Episode' => array(
                     'get'      => 'guest',
                     'getList'  => 'guest',
-                    'create'   => 'admin',
+                    'create'   => 'author',
                     'update'   => 'author',
                     'delete'   => 'admin',
                 ),

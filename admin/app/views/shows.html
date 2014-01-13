@@ -15,9 +15,9 @@
     </tbody>
   </table>
 </div>
-<h1>Összes műsor</h1>
+<h1 ifAdmin>Összes műsor</h1>
 
-<table ng-show="user.role.name == 'admin'" class="table">
+<table ifAdmin class="table">
   <tr ng-repeat="show in shows">
     <td><a ng-href="/show/{{show.id}}">{{show.name}}</a></td>
   </tr>
