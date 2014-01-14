@@ -94,7 +94,9 @@ class BaseController extends AbstractRestfulController {
 
         // Was an "action" requested?
         $action = $routeMatch->getParam('action', false);
-        if ($action) {
+        $method = strtolower($request->getMethod());
+        
+        if ($action && $method != "options") {
             // Handle arbitrary methods, ending in Action
             $method = static::getMethodFromAction($action);
             if (!method_exists($this, $method)) {
@@ -106,7 +108,7 @@ class BaseController extends AbstractRestfulController {
         }
 
         // RESTful methods
-        $method = strtolower($request->getMethod());
+
         switch ($method) {
             // Custom HTTP methods (or custom overrides for standard methods)
             case (isset($this->customHttpMethodsMap[$method])):
@@ -142,9 +144,10 @@ class BaseController extends AbstractRestfulController {
                 break;
             case 'options':
                 $routeMatch->setParam('action', 'option');;
-
                 $this->response->setContent("ok");
                 $return = $e->getResponse();
+                $return->setStatusCode(200);
+
                 break;
             // POST
             case 'post':

@@ -19,7 +19,7 @@ class Auth extends BaseController {
     public function loginAction() {
         if (!$this->getRequest()->isPost()) {
             $this->getResponse()->setStatusCode(400);
-            return new JsonModel(array("error" => "Bad request"));
+            return new JsonModel(array("error" => "Bad request: POST required"));
         }
         $data = Json::decode($this->getRequest()->getContent(), Json::TYPE_ARRAY);
         if (!array_key_exists('username', $data) || !array_key_exists('username', $data)) {
