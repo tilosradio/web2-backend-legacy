@@ -44,7 +44,7 @@ angular.module('tilosAdmin')
         var data = {};
         $http.post(server + '/api/v0/auth/sign_in', $scope.logindata).success(function (data) {
           if (data.success) {
-            $rootScope.user = data.data;
+            
             $scope.loginerror = "";
             $http.get(server + '/api/v0/user/me').success(function (data) {
               $rootScope.user = data;

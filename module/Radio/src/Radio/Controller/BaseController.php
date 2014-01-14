@@ -95,7 +95,7 @@ class BaseController extends AbstractRestfulController {
         // Was an "action" requested?
         $action = $routeMatch->getParam('action', false);
         $method = strtolower($request->getMethod());
-        
+
         if ($action && $method != "options") {
             // Handle arbitrary methods, ending in Action
             $method = static::getMethodFromAction($action);

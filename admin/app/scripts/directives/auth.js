@@ -24,10 +24,9 @@ angular.module("tilosAdmin").directive('ifAuthorAdmin', function ($rootScope, $q
       }
       scope.xxx.$promise.then(function(author){
         if ($rootScope.user.author && $rootScope.user.author.id != author.id) {
-          alert('hide');
           element.addClass('ng-hide');
         } else {
-          alert('show ' + author.id);
+
         }
       });
 

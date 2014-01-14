@@ -8,7 +8,9 @@ angular.module('tilosAdmin', [
       'configuration',
       'textAngular'
     ])
-    .config(function ($routeProvider, $locationProvider) {
+    .config(function ($routeProvider, $locationProvider, $httpProvider) {
+      $httpProvider.defaults.withCredentials = true;
+
       $locationProvider.html5Mode(true);
       $routeProvider
           .when('/', {
