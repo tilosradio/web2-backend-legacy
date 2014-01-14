@@ -46,6 +46,8 @@ var server = window.location.protocol + '//' + window.location.hostname;
 if (window.location.port && window.location.port !== '9000') {
   server = server + ':' + window.location.port;
 }
+//support admin deployment
+server = server.replace("-admin","-front");
 
 var tilosHost = window.location.hostname;
 
