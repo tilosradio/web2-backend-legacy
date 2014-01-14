@@ -28,7 +28,7 @@ angular.module('tilosAdmin').run(function ($rootScope, $location, $http, API_SER
     if (!('user' in $rootScope)) {
       $http.get(API_SERVER_ENDPOINT + '/api/v0/user/me').success(function (data) {
         $rootScope.user = data;
-        if (!data) {
+        if (!data.username) {
           if (!/.*password_reset\?.*/g.exec(next) && !endsWith(next, '/password_reminder') && !endsWith(next, '/login')) {
             $location.url('/login');
           }
