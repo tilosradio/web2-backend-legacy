@@ -109,7 +109,7 @@ class Auth extends BaseController
                     $user = new User();
                     $user->setEmail($author->getEmail());
                     $user->setUsername($author->getAlias());
-                    $user->setRole($this->getEntityManager()->find("\Radio\Entity\Role", 2));
+                    $user->setRole($this->getEntityManager()->find("\Radio\Entity\Role", 3));
                     $this->getEntityManager()->persist($user);
                     $this->getEntityManager()->flush();
                     $author->setUser($user);
