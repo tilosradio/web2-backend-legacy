@@ -2,6 +2,7 @@
 namespace Radio\Controller;
 
 use Radio\Entity\ChangePasswordToken;
+use Radio\Entity\User;
 use Radio\Provider\EntityManager;
 use Zend\Mvc\Controller\AbstractActionController,
     Zend\View\Model\JsonModel,
@@ -10,13 +11,15 @@ use Zend\Mvc\Controller\AbstractActionController,
 use Zend\Mail;
 
 
-class Auth extends BaseController {
+class Auth extends BaseController
+{
 
     use AuthService;
 
     use EntityManager;
 
-    public function loginAction() {
+    public function loginAction()
+    {
         if (!$this->getRequest()->isPost()) {
             $this->getResponse()->setStatusCode(400);
             return new JsonModel(array("error" => "Bad request: POST required"));
@@ -41,7 +44,8 @@ class Auth extends BaseController {
         return new JsonModel(array('success' => false, 'error' => "Authentication error"));
     }
 
-    public function logoutAction() {
+    public function logoutAction()
+    {
         if (!$this->getAuthService()->hasIdentity()) {
             $this->getResponse()->setStatusCode(400);
             return new JsonModel(array('success' => false, 'error' => "No valid session"));
@@ -50,7 +54,8 @@ class Auth extends BaseController {
         return $this->success();
     }
 
-    private function success() {
+    private function success()
+    {
         $identity = $this->getAuthService()->getIdentity();
         // identity shall never be null on success
         if (null !== $identity)
@@ -58,11 +63,13 @@ class Auth extends BaseController {
         return new JsonModel(array('success' => true, 'data' => $identity));
     }
 
-    private function failed($msg) {
+    private function failed($msg)
+    {
         return new JsonModel(array('success' => false, 'error' => $msg));
     }
 
-    public function passwordResetAction() {
+    public function passwordResetAction()
+    {
         //slow it down
         sleep(1);
         $data = Json::decode($this->getRequest()->getContent(), Json::TYPE_ARRAY);
@@ -84,10 +91,41 @@ class Auth extends BaseController {
         $q->setParameter("email", $data['email']);
         $user = $q->getResult();
         if (is_null($user) || count($user) != 1) {
-            $this->getResponse()->setStatusCode(400);
-            return new JsonModel(array("error" => "Email does not exist in DB."));
+            $qb = $this->getEntityManager()->createQueryBuilder();
+            //try to create new user based on author
+            $qb->select('a', 'u')->from('\Radio\Entity\Author', 'a');
+
+            $qb->leftJoin("a.user", "u");
+            $qb->where('a.email = :email');
+            $q = $qb->getQuery();
+            $q->setParameter("email", $data['email']);
+
+            $authors = $q->getResult();
+
+
+            if (count($authors) == 1) {
+                $author = $authors[0];
+                if (empty($author->getUser())) {
+                    $user = new User();
+                    $user->setEmail($author->getEmail());
+                    $user->setUsername($author->getAlias());
+                    $user->setRole($this->getEntityManager()->find("\Radio\Entity\Role", 2));
+                    $this->getEntityManager()->persist($user);
+                    $this->getEntityManager()->flush();
+                    $author->setUser($user);
+                    $this->getEntityManager()->persist($author);
+                    $this->getEntityManager()->flush();
+                }
+
+            }
+            if (empty($user)) {
+                $this->getResponse()->setStatusCode(400);
+                return new JsonModel(array("error" => "Email does not exist in DB."));
+
+            }
+        } else {
+            $user = $user[0];
         }
-        $user = $user[0];
         if (!array_key_exists('token', $data)) {
             $q = $this->getEntityManager()->createQueryBuilder()->delete('\Radio\Entity\ChangePasswordToken', 't')->where("t.user = :user")->getQuery();
             $q->setParameter("user", $user);
@@ -101,12 +139,14 @@ class Auth extends BaseController {
             $this->getEntityManager()->persist($token);
             $this->getEntityManager()->flush();
 
-            $link = $this->getServerUrl() . "/password_reset?token=" . $this->encode($token->getToken()) . "&email=" . $this->encode($user->getEmail());
 
+            $link = $this->getServerUrl() . "/password_reset?token=" . $this->encode($token->getToken()) . "&email=" . $this->encode($user->getEmail());
+            $link = str_replace("-front","-admin",$link);
 
             //sending mail
             $mail = new Mail\Message();
-            $body = "\n\nJelszó megváltoztatása a következő linken keresztül lehetséges: " . $link;
+            $body = "\n\nA " . $user->getUsername() . " user jelszavának megváltoztatása a következő linken keresztül lehetséges: " .
+                $link;
             $mail->setBody($body);
             $mail->setFrom('webmester@tilos.hu', 'Tilos gépház');
             $mail->addTo($user->getEmail());
@@ -161,7 +201,8 @@ class Auth extends BaseController {
         }
     }
 
-    public function encode($str) {
+    public function encode($str)
+    {
         $str = urlencode($str);
         $str = str_replace('.', '%2E', $str);
         $str = str_replace('-', '%2D', $str);

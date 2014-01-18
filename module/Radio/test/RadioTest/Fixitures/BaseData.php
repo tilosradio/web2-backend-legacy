@@ -70,12 +70,22 @@ class BaseData implements FixtureInterface
         $author->setAvatar("avatar.jpg");
         $author->setIntroduction("uzginuver");
         $author->setUser($manager->find("\Radio\Entity\User", 1));
-
-
         $manager->persist($author);
 
         $user->setAuthor($author);
         $manager->persist($user);
+
+
+        $a2 = new Author();
+        $a2->setId(301);
+        $a2->setAlias("a2");
+        $a2->setName("Author 2");
+        $a2->setPhoto("photo.jpg");
+        $a2->setAvatar("avatar.jpg");
+        $a2->setIntroduction("author 2 vagzok");
+        $a2->setEmail("author2@tilos.hu");
+        $manager->persist($a2);
+
 
         $link = new Url();
         $link->setId(1);

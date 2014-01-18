@@ -17,6 +17,7 @@ class AuthTest extends TestBase {
 
     protected function setUp() {
         $this->initTest("Radio\Controller\Auth", new Auth());
+        $this->baseData();
     }
 
     public function testPasswordReset() {
@@ -147,6 +148,29 @@ class AuthTest extends TestBase {
 
         $this->assertEquals(400, $response->getStatusCode());
         $this->assertContains("does not exist", $model['error']);
+    }
+
+
+    public function testPasswordResetNoUserButAuthor() {
+        //given
+        $this->routeMatch->setParam('action', 'passwordReset');
+        $this->request->setMethod("post");
+        $this->request->getHeaders()->addHeaderLine("content-type: application/json");
+        $this->request->setContent(Json::encode(
+            ['email' => 'author2@tilos.hu']));
+
+
+        //when
+        $result = $this->controller->dispatch($this->request);
+
+        //then
+        $response = $this->controller->getResponse();
+        $model = $this->event->getResult()->getVariables();
+
+        $this->assertEquals(200, $response->getStatusCode());
+
+        $author = $this->em->find("\Radio\Entity\Author",301);
+        $this->assertNotNull($author->getUser());
     }
 
 } 

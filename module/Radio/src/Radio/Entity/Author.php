@@ -21,6 +21,11 @@ class Author {
      * @ORM\Column(type="string") 
      * */
     protected $name;
+
+    /**
+     * @ORM\Column(type="string", nullable=true)
+     * */
+    protected $email;
     
     /**
      * @ORM\Column(type="string", length=60, nullable=true) 
@@ -156,8 +161,21 @@ class Author {
         $this->urls = $urls;
     }
 
+    /**
+     * @param mixed $email
+     */
+    public function setEmail($email)
+    {
+        $this->email = $email;
+    }
 
-
+    /**
+     * @return mixed
+     */
+    public function getEmail()
+    {
+        return $this->email;
+    }
 
 
 }
