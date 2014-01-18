@@ -12,9 +12,8 @@
 var modRewrite = require('connect-modrewrite');
 
 var mountFolder = function (connect, dir) {
-    return connect.static(require('path').resolve(dir));
+  return connect.static(require('path').resolve(dir));
 };
-
 
 
 module.exports = function (grunt) {
@@ -74,24 +73,24 @@ module.exports = function (grunt) {
         hostname: 'localhost',
         livereload: 35729
       },
-        livereload: {
-            options: {
-                open: true,
-                base: [
-                    '.tmp',
-                    '<%= yeoman.app %>'
-                ],
-                middleware: function (connect, options) {
-                    var middlewares = [];
+      livereload: {
+        options: {
+          open: true,
+          base: [
+            '.tmp',
+            '<%= yeoman.app %>'
+          ],
+          middleware: function (connect, options) {
+            var middlewares = [];
 
-                    middlewares.push(modRewrite(['^[^\\.]*$ /index.html [L]'])); //Matches everything that does not contain a '.' (period)
-                    options.base.forEach(function (base) {
-                        middlewares.push(connect.static(base));
-                    });
-                    return middlewares;
-                }
-            }
-        },
+            middlewares.push(modRewrite(['^[^\\.]*$ /index.html [L]'])); //Matches everything that does not contain a '.' (period)
+            options.base.forEach(function (base) {
+              middlewares.push(connect.static(base));
+            });
+            return middlewares;
+          }
+        }
+      },
       test: {
         options: {
           port: 9001,
@@ -130,15 +129,17 @@ module.exports = function (grunt) {
     // Empties folders to start fresh
     clean: {
       dist: {
-        files: [{
-          dot: true,
-          src: [
-            '.tmp',
-            'dist',
-            '<%= yeoman.dist %>/*',
-            '!<%= yeoman.dist %>/.git*'
-          ]
-        }]
+        files: [
+          {
+            dot: true,
+            src: [
+              '.tmp',
+              'dist',
+              '<%= yeoman.dist %>/*',
+              '!<%= yeoman.dist %>/.git*'
+            ]
+          }
+        ]
       },
       server: '.tmp'
     },
@@ -149,12 +150,14 @@ module.exports = function (grunt) {
         browsers: ['last 1 version']
       },
       dist: {
-        files: [{
-          expand: true,
-          cwd: '.tmp/styles/',
-          src: '{,*/}*.css',
-          dest: '.tmp/styles/'
-        }]
+        files: [
+          {
+            expand: true,
+            cwd: '.tmp/styles/',
+            src: '{,*/}*.css',
+            dest: '.tmp/styles/'
+          }
+        ]
       }
     },
 
@@ -165,8 +168,6 @@ module.exports = function (grunt) {
         ignorePath: '<%= yeoman.app %>/'
       }
     },
-
-
 
 
     // Compiles Sass to CSS and generates necessary files if requested
@@ -219,10 +220,10 @@ module.exports = function (grunt) {
       html: '<%= yeoman.app %>/index.html',
       options: {
         dest: '<%= yeoman.dist %>',
-           flow: {
-              html: {
-                 steps: {'js': ['concat'], 'css': ['concat', 'cssmin']},post: {}}
-              }
+        flow: {
+          html: {
+            steps: {'js': ['concat'], 'css': ['concat', 'cssmin']}, post: {}}
+        }
 
       }
     },
@@ -239,22 +240,26 @@ module.exports = function (grunt) {
     // The following *-min tasks produce minified files in the dist folder
     imagemin: {
       dist: {
-        files: [{
-          expand: true,
-          cwd: '<%= yeoman.app %>/images',
-          src: '{,*/}*.{png,jpg,jpeg,gif}',
-          dest: '<%= yeoman.dist %>/images'
-        }]
+        files: [
+          {
+            expand: true,
+            cwd: '<%= yeoman.app %>/images',
+            src: '{,*/}*.{png,jpg,jpeg,gif}',
+            dest: '<%= yeoman.dist %>/images'
+          }
+        ]
       }
     },
     svgmin: {
       dist: {
-        files: [{
-          expand: true,
-          cwd: '<%= yeoman.app %>/images',
-          src: '{,*/}*.svg',
-          dest: '<%= yeoman.dist %>/images'
-        }]
+        files: [
+          {
+            expand: true,
+            cwd: '<%= yeoman.app %>/images',
+            src: '{,*/}*.svg',
+            dest: '<%= yeoman.dist %>/images'
+          }
+        ]
       }
     },
     htmlmin: {
@@ -265,12 +270,14 @@ module.exports = function (grunt) {
           removeCommentsFromCDATA: true,
           removeOptionalTags: true
         },
-        files: [{
-          expand: true,
-          cwd: '<%= yeoman.dist %>',
-          src: ['*.html', 'views/{,*/}*.html'],
-          dest: '<%= yeoman.dist %>'
-        }]
+        files: [
+          {
+            expand: true,
+            cwd: '<%= yeoman.dist %>',
+            src: ['*.html', 'views/{,*/}*.html'],
+            dest: '<%= yeoman.dist %>'
+          }
+        ]
       }
     },
 
@@ -278,12 +285,14 @@ module.exports = function (grunt) {
     // minsafe compatible so Uglify does not destroy the ng references
     ngmin: {
       dist: {
-        files: [{
-          expand: true,
-          cwd: '.tmp/concat/scripts',
-          src: '*.js',
-          dest: '.tmp/concat/scripts'
-        }]
+        files: [
+          {
+            expand: true,
+            cwd: '.tmp/concat/scripts',
+            src: '*.js',
+            dest: '.tmp/concat/scripts'
+          }
+        ]
       }
     },
 
@@ -297,26 +306,29 @@ module.exports = function (grunt) {
     // Copies remaining files to places other tasks can use
     copy: {
       dist: {
-        files: [{
-          expand: true,
-          dot: true,
-          cwd: '<%= yeoman.app %>',
-          dest: '<%= yeoman.dist %>',
-          src: [
-            '*.{ico,png,txt}',
-            '.htaccess',
-            '*.html',
-            'views/{,*/}*.html',
-            'bower_components/**/*',
-            'images/{,*/}*.{webp}',
-            'styles/fonts/*'
-          ]
-        }, {
-          expand: true,
-          cwd: '.tmp/images',
-          dest: '<%= yeoman.dist %>/images',
-          src: ['generated/*']
-        }]
+        files: [
+          {
+            expand: true,
+            dot: true,
+            cwd: '<%= yeoman.app %>',
+            dest: '<%= yeoman.dist %>',
+            src: [
+              '*.{ico,png,txt}',
+              '.htaccess',
+              '*.html',
+              'views/{,*/}*.html',
+              'bower_components/**/*',
+              'images/{,*/}*.{webp}',
+              'styles/fonts/*'
+            ]
+          },
+          {
+            expand: true,
+            cwd: '.tmp/images',
+            dest: '<%= yeoman.dist %>/images',
+            src: ['generated/*']
+          }
+        ]
       },
       styles: {
         expand: true,
@@ -324,19 +336,19 @@ module.exports = function (grunt) {
         dest: '.tmp/styles/',
         src: '{,*/}*.css'
       },
-	php: {
-            expand: true,
-            cwd: "..",
-	    dest: 'dist',
-            src: [
-		'module/**/*',
-		'vendor/**/*',
-		'config/**/*',
-                'init_autoloader.php',
-                'composer.php',
-                'www/backend.php'
-            ] 
-	}
+      php: {
+        expand: true,
+        cwd: "..",
+        dest: 'dist',
+        src: [
+          'module/**/*',
+          'vendor/**/*',
+          'config/**/*',
+          'init_autoloader.php',
+          'composer.php',
+          'www/backend.php'
+        ]
+      }
     },
 
     // Run some tasks in parallel to speed up the build process
@@ -418,10 +430,9 @@ module.exports = function (grunt) {
     'karma'
   ]);
 
-  grunt.registerTask('createCacheDir',"Create cached dir for the doctrine",function(){
-     grunt.file.mkdir('dist/data/DoctrineORMModule/',511);
+  grunt.registerTask('createCacheDir', "Create cached dir for the doctrine", function () {
+    grunt.file.mkdir('dist/data/DoctrineORMModule/', 511);
   });
-
 
 
   grunt.registerTask('build', [
