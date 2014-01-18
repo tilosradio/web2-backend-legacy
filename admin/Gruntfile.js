@@ -1,4 +1,5 @@
 // Generated on 2014-01-08 using generator-angular 0.7.1
+// Generated on 2014-01-08 using generator-angular 0.7.1
 'use strict';
 
 // # Globbing
@@ -15,8 +16,8 @@ var mountFolder = function (connect, dir) {
 };
 
 
-module.exports = function (grunt) {
 
+module.exports = function (grunt) {
   // Load grunt tasks automatically
   require('load-grunt-tasks')(grunt);
 
@@ -131,6 +132,7 @@ module.exports = function (grunt) {
       dist: {
         files: [{
           dot: true,
+          force: true,
           src: [
             '.tmp',
             'dist',
@@ -417,6 +419,12 @@ module.exports = function (grunt) {
     'karma'
   ]);
 
+  grunt.registerTask('createCacheDir',"Create cached dir for the doctrine",function(){
+     grunt.file.mkdir('dist/data/DoctrineORMModule/',511);
+  });
+
+
+
   grunt.registerTask('build', [
     'clean:dist',
     'bower-install',
@@ -431,7 +439,9 @@ module.exports = function (grunt) {
 //    'uglify',
     'rev',
     'usemin',
-    'htmlmin'
+    'htmlmin',
+    'copy:php',
+    'createCacheDir'
   ]);
 
   grunt.registerTask('default', [
