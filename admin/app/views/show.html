@@ -16,7 +16,9 @@
       <span ng-hide="episode.id">
       <b>
         {{episode.plannedFrom * 1000| date: 'yyyy.MM.dd'}}&nbsp;&nbsp;
-        <a class="btn btn-danger" role="button" ng-click="newEpisode(episode)">Adásnapló létrehozás</a>
+        <if-show-admin show="show">
+          <a class="btn btn-danger" role="button" ng-click="newEpisode(episode)">Adásnapló létrehozás</a>
+        </if-show-admin>
       </b>
       </span>
 
