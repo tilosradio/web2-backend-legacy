@@ -24,7 +24,7 @@ module.exports = function (grunt) {
     // configurable paths
     yeoman: {
       app: 'app',
-      dist: '../dist'
+      dist: 'dist/www'
     },
     watch: {
       compass: {
@@ -306,14 +306,16 @@ module.exports = function (grunt) {
         ]
       },
       php: {
-        files: [
-          {
-            expand: true,
-            dot: true,
-            cwd: '../www',
-            dest: '<%= yeoman.dist %>',
-            src: ['*.php']
-          }
+        expand: true,
+        cwd: "..",
+        dest: 'dist',
+        src: [
+          'module/**/*',
+          'vendor/**/*',
+          'config/**/*',
+          'init_autoloader.php',
+          'composer.php',
+          'www/backend.php'
         ]
       },
       chat: {
@@ -403,6 +405,10 @@ module.exports = function (grunt) {
     'mocha'
   ]);
 
+  grunt.registerTask('createCacheDir', "Create cached dir for the doctrine", function () {
+    grunt.file.mkdir('dist/data/DoctrineORMModule/', 511);
+  });
+
   grunt.registerTask('build', [
     'clean:dist',
     'useminPrepare',
@@ -418,7 +424,10 @@ module.exports = function (grunt) {
     'copy:chat',
     'imagemin:dist',
 //    'rev',
-    'usemin'
+    'usemin',
+    'copy:php',
+    'createCacheDir'
+
   ]);
   grunt.registerTask('buildlive', [
     'clean:dist',
