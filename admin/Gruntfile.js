@@ -30,7 +30,7 @@ module.exports = function (grunt) {
     yeoman: {
       // configurable paths
       app: require('./bower.json').appPath || 'app',
-      dist: 'dist'
+      dist: 'dist/www'
     },
 
     // Watches files for changes and runs tasks based on the changed files
@@ -133,6 +133,7 @@ module.exports = function (grunt) {
           dot: true,
           src: [
             '.tmp',
+            'dist',
             '<%= yeoman.dist %>/*',
             '!<%= yeoman.dist %>/.git*'
           ]
@@ -321,7 +322,20 @@ module.exports = function (grunt) {
         cwd: '<%= yeoman.app %>/styles',
         dest: '.tmp/styles/',
         src: '{,*/}*.css'
-      }
+      },
+	php: {
+            expand: true,
+            cwd: "..",
+	    dest: 'dist',
+            src: [
+		'module/**/*',
+		'vendor/**/*',
+		'config/**/*',
+                'init_autoloader.php',
+                'composer.php',
+                'www/backend.php'
+            ] 
+	}
     },
 
     // Run some tasks in parallel to speed up the build process
