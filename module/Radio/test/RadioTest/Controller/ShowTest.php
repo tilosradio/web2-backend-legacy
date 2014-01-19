@@ -25,6 +25,9 @@ class ShowTest extends TestBase
     {
         //when        
         $this->routeMatch->setParam('id', '1');
+        $this->routeMatch->setParam('action', 'get');
+        $this->routeMatch->setParam("tilosRouter", true);
+
 
         $result = $this->controller->dispatch($this->request);
         $response = $this->controller->getResponse();
@@ -61,6 +64,8 @@ class ShowTest extends TestBase
     {
         //when        
         $this->routeMatch->setParam('id', 'goodshow');
+        $this->routeMatch->setParam('action', 'get');
+        $this->routeMatch->setParam("tilosRouter", true);
 
         $result = $this->controller->dispatch($this->request);
         $response = $this->controller->getResponse();

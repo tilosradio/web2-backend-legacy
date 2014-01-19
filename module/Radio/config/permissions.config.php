@@ -38,13 +38,11 @@ return array(
                 'Radio\Controller\Show' => array(
                     'get'      => 'guest',
                     'getList'  => 'guest',
-                    'listOfEpisodes' => 'guest',
-                    'create'   => 'admin',
-                    'update'   => 'author',
-                    'delete'   => 'admin',
+                    'listOfEpisodes' => 'guest'
+
                 ),
                 'RadioAdmin\Controller\Show' => array(
-                    'update'   => 'guest',
+                    'update'   => 'author',
                 ),
                 'Radio\Controller\Episode' => array(
                     'get'      => 'guest',

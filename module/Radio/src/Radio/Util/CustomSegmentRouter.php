@@ -38,6 +38,7 @@ class CustomSegmentRouter extends \Zend\Mvc\Router\Http\Segment
         $match = parent::match($request, $pathOffset, $options);
         if ($match != null) {
             $match->setParam("tilosRouter", true);
+            $match->setParam("action", $this->defaults['action']);
         }
         return $match;
     }
@@ -64,6 +65,10 @@ class CustomSegmentRouter extends \Zend\Mvc\Router\Http\Segment
 
         if (!isset($options['method'])) {
             throw new Exception\InvalidArgumentException('Missing "method" in options array');
+        }
+
+        if (!isset($options['defaults']['action'])) {
+            throw new Exception\InvalidArgumentException('Missing "action" in options array');
         }
 
         if (!isset($options['constraints'])) {
