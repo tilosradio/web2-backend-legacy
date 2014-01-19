@@ -43,6 +43,9 @@ return array(
                     'update'   => 'author',
                     'delete'   => 'admin',
                 ),
+                'RadioAdmin\Controller\Show' => array(
+                    'update'   => 'guest',
+                ),
                 'Radio\Controller\Episode' => array(
                     'get'      => 'guest',
                     'getList'  => 'guest',

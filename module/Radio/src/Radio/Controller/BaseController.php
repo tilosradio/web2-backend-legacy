@@ -2,6 +2,7 @@
 
 namespace Radio\Controller;
 
+use Zend\Json\Json;
 use Zend\Mvc\Controller\AbstractRestfulController;
 use Radio\Provider\EntityManager;
 use Zend\View\Model\JsonModel;
@@ -15,27 +16,33 @@ use Zend\Mvc\Exception;
 /**
  * Base class for all of the controllers.
  */
-class BaseController extends AbstractRestfulController {
+class BaseController extends AbstractRestfulController
+{
 
     use EntityManager;
 
-    public function findEntityObject($type, $id) {
+    public function findEntityObject($type, $id)
+    {
         return $this->getEntityManager()->find($type, $id);
     }
 
-    public function findEntityList($type) {
+    public function findEntityList($type)
+    {
         return $this->getEntityManager()->getRepository($type)->findAll();
     }
 
-    public function mapEntityListElement($result) {
+    public function mapEntityListElement($result)
+    {
         return $result;
     }
 
-    public function mapEntity($result) {
+    public function mapEntity($result)
+    {
         return $result;
     }
 
-    public function getEntity($type, $id) {
+    public function getEntity($type, $id)
+    {
         try {
             $result = $this->findEntityObject($type, $id);
             if ($result == null) {
@@ -51,7 +58,8 @@ class BaseController extends AbstractRestfulController {
         }
     }
 
-    public function getEntityList($type) {
+    public function getEntityList($type)
+    {
         try {
             // TODO: paging (limit/offset)
             $resultSet = $this->findEntityList($type);
@@ -68,7 +76,8 @@ class BaseController extends AbstractRestfulController {
         }
     }
 
-    public function getServerUrl() {
+    public function getServerUrl()
+    {
         return "http://" . $this->getRequest()->getServer('HTTP_HOST');
     }
 
@@ -80,7 +89,8 @@ class BaseController extends AbstractRestfulController {
      * @return mixed
      * @throws Exception\DomainException if no route matches in event or invalid HTTP method
      */
-    public function onDispatch(MvcEvent $e) {
+    public function onDispatch(MvcEvent $e)
+    {
         $routeMatch = $e->getRouteMatch();
         if (!$routeMatch) {
             /**
@@ -95,7 +105,20 @@ class BaseController extends AbstractRestfulController {
         // Was an "action" requested?
         $action = $routeMatch->getParam('action', false);
         $method = strtolower($request->getMethod());
+        $type = $routeMatch->getParam("tilosRouter", false);
 
+        if ($type) {
+            if ($method == "options") {
+                $e->setResult(new JsonModel(array("options" => "true")));
+                return $e->getResult();
+            } else {
+                // Handle arbitrary methods, ending in Action
+                $this->checkAccess($e);
+                $return = $this->$action($e);
+                $e->setResult($return);
+                return $return;
+            }
+        }
         if ($action && $method != "options") {
             // Handle arbitrary methods, ending in Action
             $method = static::getMethodFromAction($action);
@@ -178,7 +201,8 @@ class BaseController extends AbstractRestfulController {
         return $return;
     }
 
-    function checkAccess(MvcEvent $event) {
+    function checkAccess(MvcEvent $event)
+    {
         $serviceManager = $this->getServiceLocator();
         $authService = $serviceManager->get('doctrine.authenticationservice.orm_default');
         // identify the user
@@ -211,8 +235,14 @@ class BaseController extends AbstractRestfulController {
 
     }
 
-    private function getPermissionsConfig() {
+    private function getPermissionsConfig()
+    {
         return include __DIR__ . '/../../../config/permissions.config.php';
+    }
+
+    public function getRawData($e)
+    {
+        return Json::decode($e->getRequest()->getContent(), $this->jsonDecodeType);
     }
 }
 

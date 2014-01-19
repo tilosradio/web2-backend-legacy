@@ -79,6 +79,7 @@ angular.module('tilosAdmin')
           $http.put(server + '/api/v0/show/' + $routeParams.id, $scope.show).success(function (data) {
             var httpCache = $cacheFactory.get('$http');
             httpCache.remove(server + '/api/v0/show/' + $scope.show.id);
+            httpCache.remove(server + '/api/v0/show');
             $location.path('/show/' + $scope.show.id);
           });
 

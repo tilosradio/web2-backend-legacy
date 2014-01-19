@@ -5,22 +5,12 @@ namespace Radio;
 return array(
     'controllers' => array(
         'invokables' => array(
-            'Radio\Controller\Show' => 'Radio\Controller\Show',
-            'Radio\Controller\Index' => 'Radio\Controller\Index',
-            'Radio\Controller\Author' => 'Radio\Controller\Author',
-            'Radio\Controller\Episode' => 'Radio\Controller\Episode',
-            'Radio\Controller\Auth' => 'Radio\Controller\Auth',
-            'Radio\Controller\Text' => 'Radio\Controller\Text',
-            'Radio\Controller\M3u' => 'Radio\Controller\M3u',
-            'Radio\Controller\User' => 'Radio\Controller\User',
-            'Radio\Controller\Atom' => 'Radio\Controller\Atom',
-            'Radio\Controller\Scheduling' => 'Radio\Controller\Scheduling'
+            'RadioAdmin\Controller\Show' => 'RadioAdmin\Controller\Show',
 
         ),
     ),
     'router' => array(
         'routes' => array_merge(
-            require("route.other.php"),
             require("route.show.php")
         )
     ),

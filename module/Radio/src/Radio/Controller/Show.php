@@ -97,8 +97,9 @@ class Show extends BaseController
      *   )
      * )
      */
-    public function get($id)
+    public function get($e)
     {
+        $id = $this->getIdentifier($e->getRouteMatch(),$e->getRequest());
         return $this->getEntity("\Radio\Entity\Show", $id);
     }
 
@@ -117,19 +118,7 @@ class Show extends BaseController
     }
 
 
-    /**
-     * @SWG\Api(
-     *   path="/show/{id}",
-     * @SWG\Operation(
-     *     method="DELETE",
-     *     summary="Delete a radio show."
-     *   )
-     * )
-     */
-    public function delete($id)
-    {
-        // TODO: implementation
-    }
+
 
 }
 
