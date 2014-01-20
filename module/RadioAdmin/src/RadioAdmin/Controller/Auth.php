@@ -46,7 +46,7 @@ class Auth extends BaseController
         return new JsonModel(array('success' => false, 'error' => "Authentication error"));
     }
 
-    public function logoutAction()
+    public function logout()
     {
         if (!$this->getAuthService()->hasIdentity()) {
             $this->getResponse()->setStatusCode(400);

@@ -74,7 +74,7 @@ class User extends BaseController
         $id = $this->params()->fromRoute("id");
 
         if ($id == 'me') {
-            return $this->currentUserAction();
+            return $this->currentUserAction($e);
         }
 
 

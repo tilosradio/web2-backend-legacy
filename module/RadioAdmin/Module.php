@@ -10,16 +10,19 @@ use Zend\Mvc\MvcEvent,
     Radio\Permissions\RoleAssertion,
     Radio\Permissions\PermissionException;
 
-class Module {
+class Module
+{
 
-    public function onBootstrap(MvcEvent $event) {
+    public function onBootstrap(MvcEvent $event)
+    {
         $em = $event->getApplication()->getEventManager();
         //$em->attach(MvcEvent::EVENT_DISPATCH, array($this, 'preDispatch'), 10);
         $em->attach(MvcEvent::EVENT_DISPATCH, array($this, 'logger'), 20);
 
     }
 
-    public function getAutoloaderConfig() {
+    public function getAutoloaderConfig()
+    {
         return array(
             'Zend\Loader\ClassMapAutoloader' => array(
                 __DIR__ . '/autoload_classmap.php',
@@ -30,11 +33,13 @@ class Module {
         );
     }
 
-    public function getConfig() {
+    public function getConfig()
+    {
         return include __DIR__ . '/config/module.config.php';
     }
 
-    public function getServiceConfig() {
+    public function getServiceConfig()
+    {
         return array(
             'invokables' => array(
                 'ApiAuditLogger' => '\Radio\Util\ApiAuditLogger'
@@ -50,7 +55,8 @@ class Module {
      *
      * @param MvcEvent $event
      */
-    public function logger(MvcEvent $event) {
+    public function logger(MvcEvent $event)
+    {
         $serviceManager = $event->getApplication()->getServiceManager();
         $authService = $serviceManager->get('doctrine.authenticationservice.orm_default');
 
@@ -60,8 +66,8 @@ class Module {
             $user = $authService->hasIdentity() ? $authService->getIdentity()->getUsername() : "unknown";
             $url = $event->getRequest()->getRequestUri();
             $params = "";
-            if ($method == "POST") {
-                $params = $this->implode($event->getRequest()->getPost());
+            if ($method == "POST" || $method == "PUT") {
+                $params = $event->getRequest()->getContent();
             }
             $bl = $event->getApplication()->getServiceManager()->get("ApiAuditLogger");
             $bl->log($user, $url, $method, $params);
@@ -69,7 +75,8 @@ class Module {
 
     }
 
-    private function implode($arr) {
+    private function implode($arr)
+    {
         $res = "";
         if (isset($arr)) {
             $res .= json_encode($arr);
@@ -77,5 +84,5 @@ class Module {
         return $res;
     }
 
-    
+
 }

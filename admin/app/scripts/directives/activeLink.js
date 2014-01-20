@@ -1,12 +1,12 @@
 'use strict';
-angular.module('tilosApp')
+angular.module('tilosAdmin')
     .directive('activeLink', ['$location', function (location) {
       return {
         restrict: 'A',
         link: function (scope, element, attrs) {
           var clazz = attrs.activeLink;
           //TODO it shoud be more error prone
-          var path = element.children()[0].href;
+          var path = element.children()[0].attributes[0].value;
           path = path.substring(1 + path.indexOf('#'));
           if (path.charAt(0) !== '/') {
             path = '/' + path;

@@ -16,7 +16,7 @@
   <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
   <!-- build:css styles/vendor.css -->
   <!-- bower:css -->
-  <link rel="stylesheet" href="bower_components/sass-bootstrap/dist/css/bootstrap.css" />
+  <link rel="stylesheet" href="bower_components/sass-bootstrap/dist/css/bootstrap.css"/>
   <!-- endbower -->
   <!-- endbuild -->
   <!-- build:css({.tmp,app}) styles/main.css -->
@@ -43,12 +43,12 @@
     </div>
     <div class="collapse navbar-collapse">
       <ul ng-show="user" class="nav navbar-nav">
-        <li class="active"><a ng-href="/authors">Szerzők</a></li>
-        <li><a ng-href="/shows">Műsorok</a></li>
-        <li><a ng-href="/author/{{user.author.id}}">Műsorkészítő profil</a></li>
-        <li><a  ng-click="logout()">Logout</a></li>
+        <li active-link="active"><a ng-href="/authors">Szerzők</a></li>
+        <li active-link="active"><a ng-href="/shows">Műsorok</a></li>
+        <li active-link="active"><a ng-click="logout()">Logout</a></li>
       </ul>
-    </div><!-- /.nav-collapse -->
+    </div>
+    <!-- /.nav-collapse -->
   </div>
 </div>
 <div class="container" id="content">
@@ -87,7 +87,11 @@
 <script src="scripts/controllers/Author.js"></script>
 <script src="scripts/controllers/Show.js"></script>
 <script src="scripts/controllers/Episode.js"></script>
+<script src="scripts/controllers/User.js"></script>
+
 <script src="scripts/directives/auth.js"></script>
+<script src="scripts/directives/activeLink.js"></script>
+
 
 
 <script src="scripts/controllers/Auth.js"></script>
