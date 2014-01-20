@@ -1,15 +1,9 @@
 <?php
-/**
- * Created by IntelliJ IDEA.
- * User: elek
- * Date: 1/1/14
- * Time: 1:57 PM
- */
 
-namespace RadioTest\Controller;
+namespace RadioAdminTest\Controller;
 
 
-use Radio\Controller\Auth;
+use RadioAdmin\Controller\Auth;
 use Radio\Entity\User;
 use Zend\Json\Json;
 
@@ -23,6 +17,7 @@ class AuthTest extends TestBase {
     public function testPasswordReset() {
         //given
         $this->routeMatch->setParam('action', 'passwordReset');
+
         $this->request->setMethod("post");
         $this->request->getHeaders()->addHeaderLine("content-type: application/json");
         $this->request->setContent(Json::encode(

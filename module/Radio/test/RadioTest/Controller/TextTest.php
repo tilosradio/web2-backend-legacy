@@ -20,7 +20,7 @@ class TextTest extends TestBase {
 
     public function testListOfType() {
         //when        
-        $this->routeMatch->setParam('action', 'listOfType');
+        $this->routeMatch->setParam('action', 'listOfTypeAction');
 
         $result = $this->controller->dispatch($this->request);
         $response = $this->controller->getResponse();

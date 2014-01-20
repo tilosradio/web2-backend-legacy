@@ -103,7 +103,7 @@ class Show extends BaseController
         return $this->getEntity("\Radio\Entity\Show", $id);
     }
 
-    public function listOfEpisodesAction()
+    public function listOfEpisodes()
     {
         $id = $this->params()->fromRoute("id");
         $start = $this->params()->fromQuery("from", time() - 60 * 24 * 60 * 60);

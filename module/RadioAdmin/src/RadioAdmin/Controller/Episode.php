@@ -16,10 +16,9 @@ class Episode extends \Radio\Controller\BaseController {
 
     use EntityManager;
 
-
-
     public function create($e) {
         try {
+            $id = $this->params()->fromRoute("id");
             $data = $this->getRawData($e);
 
             $authService = $this->getServiceLocator()->get('doctrine.authenticationservice.orm_default');

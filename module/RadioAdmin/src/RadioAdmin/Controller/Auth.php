@@ -70,7 +70,7 @@ class Auth extends BaseController
         return new JsonModel(array('success' => false, 'error' => $msg));
     }
 
-    public function passwordResetAction()
+    public function passwordReset()
     {
         //slow it down
         sleep(1);

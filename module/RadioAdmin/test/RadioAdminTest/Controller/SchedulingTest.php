@@ -1,11 +1,10 @@
 <?php
 
-namespace RadioTest\Controller;
+namespace RadioAdminTest\Controller;
 
 use RadioTest\Bootstrap;
 use Zend\Json\Json;
 use Zend\Mvc\Router\Http\TreeRouteStack as HttpRouter;
-use Application\Controller\IndexController;
 use Zend\Http\Request;
 use Zend\Http\Response;
 use Zend\Mvc\MvcEvent;
@@ -18,7 +17,7 @@ class SchedulingTest extends TestBase
 
     protected function setUp()
     {
-        $this->initTest("Radio\Controller\Scheduling", new \Radio\Controller\Scheduling());
+        $this->initTest("Radio\Controller\Scheduling", new \RadioAdmin\Controller\Scheduling());
         $this->baseData();
     }
 
@@ -26,6 +25,8 @@ class SchedulingTest extends TestBase
     {
         //when        
         $this->routeMatch->setParam('show', '1');
+        $this->routeMatch->setParam('action', 'getList');
+
 
         $result = $this->controller->dispatch($this->request);
         $response = $this->controller->getResponse();
@@ -45,6 +46,7 @@ class SchedulingTest extends TestBase
     {
         //when
         $this->routeMatch->setParam('id', '1');
+        $this->routeMatch->setParam('action', 'get');
 
         $result = $this->controller->dispatch($this->request);
         $response = $this->controller->getResponse();
@@ -62,6 +64,7 @@ class SchedulingTest extends TestBase
         $this->user = $this->createUser(1, "admin", "admin");
         //given
         $this->routeMatch->setParam('id', '1');
+        $this->routeMatch->setParam('action', 'update');
         $this->request->setMethod("put");
         $this->request->getHeaders()->addHeaderLine("content-type: application/json");
         $this->request->setContent(Json::encode(
@@ -86,6 +89,7 @@ class SchedulingTest extends TestBase
         $this->user = $this->createUser(1, "admin", "admin");
         //given
         $this->routeMatch->setParam('show', '1');
+        $this->routeMatch->setParam('action', 'create');
         $this->request->setMethod("post");
         $this->request->getHeaders()->addHeaderLine("content-type: application/json");
         $this->request->setContent(Json::encode(
@@ -122,7 +126,7 @@ class SchedulingTest extends TestBase
         //given
         $this->routeMatch->setParam('show', '1');
         $this->routeMatch->setParam('id', '1');
-
+        $this->routeMatch->setParam('action', 'delete');
         $this->request->setMethod("delete");
 
         //when

@@ -21,6 +21,8 @@ class PageTest extends TestBase {
     public function testPageGet() {
         //when        
         $this->routeMatch->setParam('id', '1');
+        $this->routeMatch->setParam('action', 'get');
+
 
         $result = $this->controller->dispatch($this->request);
         $response = $this->controller->getResponse();
@@ -34,6 +36,7 @@ class PageTest extends TestBase {
     public function testPageGetWithAlias() {
         //when        
         $this->routeMatch->setParam('id', 'info');
+        $this->routeMatch->setParam('action', 'get');
 
         $result = $this->controller->dispatch($this->request);
         $response = $this->controller->getResponse();

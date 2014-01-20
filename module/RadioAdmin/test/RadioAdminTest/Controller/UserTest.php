@@ -1,17 +1,17 @@
 <?php
 
-namespace RadioTest\Controller;
+namespace RadioAdminTest\Controller;
 
 use Doctrine\Common\DataFixtures\Executor\ORMExecutor;
 use Doctrine\Common\DataFixtures\Loader;
 use Doctrine\Common\DataFixtures\Purger\ORMPurger;
 use Radio\Controller\Atom;
-use Radio\Controller\User;
+use RadioAdmin\Controller\User;
 use RadioTest\Bootstrap;
 use RadioTest\Fixitures\BaseData;
-use Zend\Mvc\Router\Http\TreeRouteStack as HttpRouter;
 use Zend\Http\Request;
 use Zend\Mvc\MvcEvent;
+use Zend\Mvc\Router\Http\TreeRouteStack as HttpRouter;
 use Zend\Mvc\Router\RouteMatch;
 
 class UserTest extends TestBase
@@ -37,7 +37,7 @@ class UserTest extends TestBase
     {
         //when
         $this->user = null;
-        $this->routeMatch->setParam('action', 'currentUser');
+        $this->routeMatch->setParam('action', 'currentUserAction');
 
         $result = $this->controller->dispatch($this->request);
         $response = $this->controller->getResponse();
@@ -52,6 +52,7 @@ class UserTest extends TestBase
         //when
 
         $this->routeMatch->setParam('id', '1');
+        $this->routeMatch->setParam('action', 'get');
 
 
         $result = $this->controller->dispatch($this->request);
@@ -70,7 +71,7 @@ class UserTest extends TestBase
         //when
         $this->user = $this->createUser(1, "admin", "admin");
 
-        $this->routeMatch->setParam('action', 'currentUser');
+        $this->routeMatch->setParam('action', 'currentUserAction');
 
         $result = $this->controller->dispatch($this->request);
         $response = $this->controller->getResponse();

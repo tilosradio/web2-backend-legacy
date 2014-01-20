@@ -32,7 +32,7 @@ return array(
             'permission' => 'guest',
             'defaults' => array(
                 'controller' => 'Radio\Controller\Show',
-                'action' => 'listOfEpisodesAction'
+                'action' => 'listOfEpisodes'
             )
         )
     ),

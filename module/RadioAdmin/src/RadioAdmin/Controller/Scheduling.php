@@ -1,7 +1,8 @@
 <?php
 
-namespace Radio\Controller;
+namespace RadioAdmin\Controller;
 
+use Radio\Controller\BaseController;
 use Radio\Mapper\ArrayFieldSetter;
 use Radio\Mapper\DateField;
 use Radio\Mapper\Field;
@@ -27,8 +28,10 @@ class Scheduling extends BaseController
     }
 
 
-    public function get($id)
+    public function get($e)
     {
+
+        $id = $this->params()->fromRoute("id");
         return $this->getEntity("\Radio\Entity\Scheduling", $id);
 
     }
@@ -86,9 +89,12 @@ class Scheduling extends BaseController
         return $q->getArrayResult()[0];
     }
 
-    public function update($id, $data)
+    public function update($e)
     {
+
         $id = $this->params()->fromRoute("id");
+        $data = $this->getRawData($e);
+
         $scheduling = $this->getEntityManager()->find("\Radio\Entity\Scheduling", $id);
         $mapper = new ObjectMapper(new ObjectFieldSetter());
         $mapper->addMapper(new Field("weekDay"));
@@ -105,16 +111,22 @@ class Scheduling extends BaseController
     }
 
 
-    public function delete($id)
+    public function delete($e)
     {
+
+        $id = $this->params()->fromRoute("id");
+        $data = $this->getRawData($e);
         $scheduling = $this->getEntityManager()->find("\Radio\Entity\Scheduling", $id);
         $this->getEntityManager()->remove($scheduling);
         $this->getEntityManager()->flush();
         return new JsonModel(array("success" => true));
     }
 
-    public function create($data)
+    public function create($e)
     {
+
+        $id = $this->params()->fromRoute("id");
+        $data = $this->getRawData($e);
         $showId = $this->params()->fromRoute("show");
         $show = $this->getEntityManager()->find("\Radio\Entity\Show", $showId);
         if (empty($show)) {

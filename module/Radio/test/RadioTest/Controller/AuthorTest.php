@@ -23,6 +23,8 @@ class AuthorTest extends TestBase {
     public function testGetAuthor() {
         //when        
         $this->routeMatch->setParam('id', '763');
+        $this->routeMatch->setParam('action', 'get');
+        $this->routeMatch->setParam('tilosRouter', true);
 
         $result = $this->controller->dispatch($this->request);
         $response = $this->controller->getResponse();
@@ -41,6 +43,8 @@ class AuthorTest extends TestBase {
     public function testGetWithAlias() {
         //when        
         $this->routeMatch->setParam('id', 'sztyepp');
+        $this->routeMatch->setParam('action', 'get');
+        $this->routeMatch->setParam('tilosRouter', true);
 
         $result = $this->controller->dispatch($this->request);
         $response = $this->controller->getResponse();

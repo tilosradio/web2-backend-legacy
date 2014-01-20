@@ -3,6 +3,7 @@
 namespace Radio\Controller;
 
 use Zend\Json\Json;
+use Zend\Mvc\Controller\AbstractController;
 use Zend\Mvc\Controller\AbstractRestfulController;
 use Radio\Provider\EntityManager;
 use Zend\View\Model\JsonModel;
@@ -16,10 +17,23 @@ use Zend\Mvc\Exception;
 /**
  * Base class for all of the controllers.
  */
-class BaseController extends AbstractRestfulController
+class BaseController extends AbstractController
 {
 
     use EntityManager;
+
+    /**
+     * @var int From Zend\Json\Json
+     */
+    protected $jsonDecodeType = Json::TYPE_ARRAY;
+
+    /**
+     * Name of request or query parameter containing identifier
+     *
+     * @var string
+     */
+    protected $identifierName = 'id';
+
 
     public function findEntityObject($type, $id)
     {
@@ -107,98 +121,22 @@ class BaseController extends AbstractRestfulController
         $method = strtolower($request->getMethod());
         $type = $routeMatch->getParam("tilosRouter", false);
 
-        if ($type) {
-            if ($method == "options") {
-                $e->setResult(new JsonModel(array("options" => "true")));
-                return $e->getResult();
+        if ($method == "options") {
+            $e->setResult(new JsonModel(array("options" => "true")));
+            return $e->getResult();
+        } else {
+            // Handle arbitrary methods, ending in Action
+            $this->checkRouteAccess($e);
+            if (!method_exists($this, $action)) {
+                $e->getResponse()->setStatusCode(500)->sendHeaders();
+                die("Method is missing " . get_class($this) . ":" . $action);
             } else {
-                // Handle arbitrary methods, ending in Action
-                $this->checkRouteAccess($e);
                 $return = $this->$action($e);
                 $e->setResult($return);
                 return $return;
             }
         }
-        if ($action && $method != "options") {
-            // Handle arbitrary methods, ending in Action
-            $method = static::getMethodFromAction($action);
-            if (!method_exists($this, $method)) {
-                $method = 'notFoundAction';
-            }
-            $return = $this->$method();
-            $e->setResult($return);
-            return $return;
-        }
 
-        // RESTful methods
-
-        switch ($method) {
-            // Custom HTTP methods (or custom overrides for standard methods)
-            case (isset($this->customHttpMethodsMap[$method])):
-                $callable = $this->customHttpMethodsMap[$method];
-                $routeMatch->setParam('action', $method);;
-                $this->checkAccess($e);
-                $return = call_user_func($callable, $e);
-                break;
-            // DELETE
-            case 'delete':
-                $id = $this->getIdentifier($routeMatch, $request);
-                if ($id !== false) {
-                    $routeMatch->setParam('action', 'delete');;
-                    $this->checkAccess($e);
-                    $return = $this->delete($id);
-                    break;
-                }
-
-                throw new Exception\DomainException('Missing route matches; unsure how to retrieve action');
-                break;
-            // GET
-            case 'get':
-                $id = $this->getIdentifier($routeMatch, $request);
-                if ($id !== false) {
-                    $routeMatch->setParam('action', 'get');;
-                    $this->checkAccess($e);
-                    $return = $this->get($id);
-                    break;
-                }
-                $routeMatch->setParam('action', 'getList');
-                $this->checkAccess($e);
-                $return = $this->getList();
-                break;
-            case 'options':
-                $routeMatch->setParam('action', 'option');;
-                $this->response->setContent("ok");
-                $return = $e->getResponse();
-                $return->setStatusCode(200);
-
-                break;
-            // POST
-            case 'post':
-                $routeMatch->setParam('action', 'create');;
-                $this->checkAccess($e);
-                $return = $this->processPostData($request);
-                break;
-            // PUT
-            case 'put':
-                $id = $this->getIdentifier($routeMatch, $request);
-                $data = $this->processBodyContent($request);
-
-                if ($id !== false) {
-                    $routeMatch->setParam('action', 'update');;
-                    $this->checkAccess($e);
-                    $return = $this->update($id, $data);
-                    break;
-                }
-                throw new Exception\DomainException('Missing route matches; unsure how to retrieve action');
-                break;
-            // All others...
-            default:
-                $response = $e->getResponse();
-                $response->setStatusCode(405);
-                return $response;
-        }
-        $e->setResult($return);
-        return $return;
     }
 
     function checkAccess(MvcEvent $event)
@@ -254,6 +192,41 @@ class BaseController extends AbstractRestfulController
     {
         return Json::decode($e->getRequest()->getContent(), $this->jsonDecodeType);
     }
+
+    /**
+     * Retrieve the identifier, if any
+     *
+     * Attempts to see if an identifier was passed in either the URI or the
+     * query string, returning it if found. Otherwise, returns a boolean false.
+     *
+     * @param  \Zend\Mvc\Router\RouteMatch $routeMatch
+     * @param  Request $request
+     * @return false|mixed
+     */
+    protected function getIdentifier($routeMatch, $request)
+    {
+        $identifier = $this->getIdentifierName();
+        $id = $routeMatch->getParam($identifier, false);
+        if ($id !== false) {
+            return $id;
+        }
+
+        $id = $request->getQuery()->get($identifier, false);
+        if ($id !== false) {
+            return $id;
+        }
+
+        return false;
+    }
+
+    /**
+     * @return string
+     */
+    public function getIdentifierName()
+    {
+        return $this->identifierName;
+    }
+
 }
 
 ?>
