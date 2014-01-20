@@ -1,6 +1,6 @@
 <?php
 
-namespace Radio\Controller;
+namespace RadioAdmin\Controller;
 
 use Doctrine\Tests\Common\Persistence\Mapping\ChildEntity;
 use Radio\Mapper\ChildCollection;
@@ -13,6 +13,8 @@ use Radio\Provider\EntityManager;
 use Radio\Entity\ChangePasswordToken;
 use Zend\XmlRpc\Value\DateTime;
 use Zend\Mail;
+use Radio\Controller\BaseController;
+
 
 /**
  * @SWG\Resource(resourcePath="/user",basePath="/api")
@@ -67,8 +69,10 @@ class User extends BaseController
      *   )
      * )
      */
-    public function get($id)
+    public function get($e)
     {
+        $id = $this->params()->fromRoute("id");
+
         if ($id == 'me') {
             return $this->currentUserAction();
         }
@@ -110,7 +114,7 @@ class User extends BaseController
         return new JsonModel($result);
     }
 
-    public function currentUserAction()
+    public function currentUserAction($e)
     {
         $authService = $this->getServiceLocator()->get('doctrine.authenticationservice.orm_default');
         // identify the user

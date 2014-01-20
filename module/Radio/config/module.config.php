@@ -21,7 +21,13 @@ return array(
     'router' => array(
         'routes' => array_merge(
             require("route.other.php"),
-            require("route.show.php")
+            require("route.show.php"),
+            require("route.author.php"),
+            require("route.episode.php"),
+            require("route.text.php")
+
+
+
         )
     ),
     'view_manager' => array(

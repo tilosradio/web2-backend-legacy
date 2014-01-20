@@ -52,7 +52,8 @@ class Text extends BaseController {
         return new JsonModel($return);
     }
 
-    public function get($id) {
+    public function get($e) {
+        $id = $this->getIdentifier($e->getRouteMatch(),$e->getRequest());
         return $this->getEntity("\Radio\Entity\TextContent", $id);
     }
 }

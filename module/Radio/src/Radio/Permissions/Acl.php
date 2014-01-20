@@ -8,12 +8,14 @@ use Zend\Permissions\Acl\Acl as ZendAcl,
     Radio\Permissions\RoleAssertion,
     Radio\Permissions\PermissionException as Exception;
 
-class Acl extends ZendAcl {
+class Acl extends ZendAcl
+{
     const DEFAULT_ROLE = 'guest';
 
-    public function __construct($config, RoleAssertion $assertion) {
+    public function __construct($config, $role, $controller, $action)
+    {
         // validate config
-        if (!isset($config['acl']['roles']) || !isset($config['acl']['resources']))
+        if (!isset($config['acl']['roles']))
             throw new Exception('Invalid ACL config found');
 
         // load roles
@@ -26,24 +28,9 @@ class Acl extends ZendAcl {
                 $this->addRole(new Role($name), $parent);
             }
 
-        // load resources
-        foreach ($config['acl']['resources'] as $permission => $controllers) {
-            foreach ($controllers as $controller => $actions) {
-                if ($controller == ':all')
-                    $controller = null;
-                else if (!$this->hasResource($controller))
-                    $this->addResource(new Resource($controller));
-                foreach ($actions as $action => $role) {
-                    if ($action == ':all')
-                        $action = null;
-                    if ($permission == 'allow')
-                        $this->allow($role, $controller, $action);
-                    elseif ($permission == 'deny')
-                        $this->deny($role, $controller, $action);
-                    else
-                        throw new Exception('Invalid permission: ' . $permission);
-                }
-            }
-        }
+        if (!$this->hasResource($controller))
+            $this->addResource(new Resource($controller));
+        $this->allow($role, $controller, $action);
+
     }
 }

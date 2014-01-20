@@ -113,7 +113,7 @@ class BaseController extends AbstractRestfulController
                 return $e->getResult();
             } else {
                 // Handle arbitrary methods, ending in Action
-                $this->checkAccess($e);
+                $this->checkRouteAccess($e);
                 $return = $this->$action($e);
                 $e->setResult($return);
                 return $return;
@@ -203,6 +203,15 @@ class BaseController extends AbstractRestfulController
 
     function checkAccess(MvcEvent $event)
     {
+
+        $event->getResponse()->setStatusCode(500)->sendHeaders();
+        die("Legacy permission system");
+
+
+    }
+
+    function checkRouteAccess(MvcEvent $event)
+    {
         $serviceManager = $this->getServiceLocator();
         $authService = $serviceManager->get('doctrine.authenticationservice.orm_default');
         // identify the user
@@ -210,6 +219,7 @@ class BaseController extends AbstractRestfulController
         $role = empty($user) ? Role::getDefault() : $user->getRole();
         // get requested resource
         $routeMatch = $event->getRouteMatch();
+        $permission = $routeMatch->getParam("permission");
         $controller = $routeMatch->getParam('controller');
         $action = $routeMatch->getParam('action');
         $recordId = $routeMatch->getParam('id');
@@ -217,7 +227,7 @@ class BaseController extends AbstractRestfulController
         $assertion = new RoleAssertion($user, $recordId);
         $assertion->setServiceLocator($serviceManager);
         try {
-            $acl = new Acl($this->getPermissionsConfig(), $assertion);
+            $acl = new Acl($this->getPermissionsConfig(), $permission, $controller, $action);
             // check user permissions
             if (!$acl->hasResource($controller) || !$acl->isAllowed($role->getName(), $controller, $action)) {
                 // respond with 401 Unauthorized

@@ -1,5 +1,5 @@
 <?php
-namespace Radio\Controller;
+namespace RadioAdmin\Controller;
 
 use Radio\Entity\ChangePasswordToken;
 use Radio\Entity\User;
@@ -9,6 +9,8 @@ use Zend\Mvc\Controller\AbstractActionController,
     Radio\Provider\AuthService,
     Zend\Json\Json;
 use Zend\Mail;
+use Radio\Controller\BaseController;
+
 
 
 class Auth extends BaseController
@@ -18,7 +20,7 @@ class Auth extends BaseController
 
     use EntityManager;
 
-    public function loginAction()
+    public function login()
     {
         if (!$this->getRequest()->isPost()) {
             $this->getResponse()->setStatusCode(400);

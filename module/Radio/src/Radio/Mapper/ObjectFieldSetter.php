@@ -10,6 +10,12 @@ class ObjectFieldSetter implements FieldSetter
         $container->$setter($value);
     }
 
+    function set(&$container, $propertyName, &$value)
+    {
+        $getter = "get" . strtoupper(substr($propertyName, 0, 1)) . substr($propertyName, 1);
+        return $container->$getter();
+    }
+
     function ensureExists(&$container, $propertyName, $type)
     {
         $getter = "get" . $propertyName;

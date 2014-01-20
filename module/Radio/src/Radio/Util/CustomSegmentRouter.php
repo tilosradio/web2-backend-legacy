@@ -12,6 +12,7 @@ use Zend\Mvc\Router\Exception;
 class CustomSegmentRouter extends \Zend\Mvc\Router\Http\Segment
 {
     private $method;
+    private $permission;
 
 
     /**
@@ -21,12 +22,13 @@ class CustomSegmentRouter extends \Zend\Mvc\Router\Http\Segment
      * @param  array $constraints
      * @param  array $defaults
      */
-    public function __construct($route, array $constraints = array(), array $defaults = array(), $method = "get")
+    public function __construct($route, array $constraints = array(), array $defaults = array(), $method = "get", $permission)
     {
         $this->defaults = $defaults;
         $this->parts = $this->parseRouteDefinition($route);
         $this->regex = $this->buildRegex($this->parts, $constraints);
         $this->method = strtolower($method);
+        $this->permission = $permission;
     }
 
     public function match(Request $request, $pathOffset = null, array $options = array())
@@ -39,6 +41,7 @@ class CustomSegmentRouter extends \Zend\Mvc\Router\Http\Segment
         if ($match != null) {
             $match->setParam("tilosRouter", true);
             $match->setParam("action", $this->defaults['action']);
+            $match->setParam("permission", $this->permission);
         }
         return $match;
     }
@@ -64,11 +67,15 @@ class CustomSegmentRouter extends \Zend\Mvc\Router\Http\Segment
         }
 
         if (!isset($options['method'])) {
-            throw new Exception\InvalidArgumentException('Missing "method" in options array');
+            throw new Exception\InvalidArgumentException('Missing "method" in options array ' . $options['route']);
+        }
+
+        if (!isset($options['permission'])) {
+            throw new Exception\InvalidArgumentException('Missing "permission" in options array ' . $options['route']);
         }
 
         if (!isset($options['defaults']['action'])) {
-            throw new Exception\InvalidArgumentException('Missing "action" in options array');
+            throw new Exception\InvalidArgumentException('Missing "action" in options array' . $options['route']);
         }
 
         if (!isset($options['constraints'])) {
@@ -79,7 +86,7 @@ class CustomSegmentRouter extends \Zend\Mvc\Router\Http\Segment
             $options['defaults'] = array();
         }
 
-        return new static($options['route'], $options['constraints'], $options['defaults'], $options['method']);
+        return new static($options['route'], $options['constraints'], $options['defaults'], $options['method'], $options['permission']);
     }
 
 } 

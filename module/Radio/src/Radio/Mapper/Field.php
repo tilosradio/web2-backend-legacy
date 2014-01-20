@@ -13,17 +13,32 @@ namespace Radio\Mapper;
  *
  * @package Radio\Mapper
  */
-class Field implements Mapper {
+class Field implements Mapper
+{
 
     private $name;
 
-    function __construct($name) {
+    private $required = false;
+
+    function __construct($name)
+    {
         $this->name = $name;
     }
 
-    public function map(&$from, &$to, $setter) {
+    public function map(&$from, &$to, $setter)
+    {
+
         if (array_key_exists($this->name, $from)) {
-            $setter->set($to,$this->name,$from[$this->name]);
+            $setter->set($to, $this->name, $from[$this->name]);
         }
+        if ($this->required && $setter->get($to, $this->name)) {
+            throw new \Exception("Missing required field: " . $this->name);
+        }
+    }
+
+    public function required()
+    {
+        $this->required = true;
+        return $this;
     }
 }

@@ -6,20 +6,31 @@ return array(
     'controllers' => array(
         'invokables' => array(
             'RadioAdmin\Controller\Show' => 'RadioAdmin\Controller\Show',
+            'RadioAdmin\Controller\Auth' => 'RadioAdmin\Controller\Auth',
+            'RadioAdmin\Controller\User' => 'RadioAdmin\Controller\User',
+            'RadioAdmin\Controller\Author' => 'RadioAdmin\Controller\Author',
+            'RadioAdmin\Controller\Episode' => 'RadioAdmin\Controller\Episode',
+
 
         ),
     ),
     'router' => array(
         'routes' => array_merge(
-            require("route.show.php")
+            require("route.show.php"),
+            require("route.auth.php"),
+            require("route.user.php"),
+            require("route.author.php"),
+            require("route.episode.php")
+
+
         )
     ),
     'view_manager' => array(
         'display_exceptions' => true,
         'exception_template' => 'error/index',
         'template_map' => array(
-            'error/index' => __DIR__ . '/../view/error/index.phtml',
-            '404' => __DIR__ . '/../view/error/404.phtml'
+            'error/index' => __DIR__ . '/../../Radio/view/error/index.phtml',
+            '404' => __DIR__ . '/../../Radio/view/error/404.phtml'
         ),
         'template_path_stack' => array(__DIR__ . '/../view',),
         'strategies' => array('ViewJsonStrategy'),
