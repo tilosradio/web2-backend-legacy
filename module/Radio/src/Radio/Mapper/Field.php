@@ -31,8 +31,12 @@ class Field implements Mapper
         if (array_key_exists($this->name, $from)) {
             $setter->set($to, $this->name, $from[$this->name]);
         }
-        if ($this->required && $setter->get($to, $this->name)) {
-            throw new \Exception("Missing required field: " . $this->name);
+
+        if ($this->required) {
+            $val = $setter->get($to, $this->name);
+            if (empty($val)) {
+                throw new \Exception("Missing required field: " . $this->name);
+            }
         }
     }
 

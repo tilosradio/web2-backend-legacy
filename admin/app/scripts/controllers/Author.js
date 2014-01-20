@@ -49,7 +49,14 @@ angular.module('tilosAdmin')
             var httpCache = $cacheFactory.get('$http');
             httpCache.remove(server + '/api/v0/author/' + $scope.author.id);
             $location.path('/author/' + $scope.author.id);
-          });
+            $scope.error = "";
+          }).error(function (data) {
+                if (data.error) {
+                  $scope.error = data.error;
+                } else {
+                  $scope.error = "Unknown server error";
+                }
+              });
 
         }
       }
