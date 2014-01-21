@@ -307,10 +307,10 @@ module.exports = function (grunt) {
       },
       php: {
         expand: true,
-        cwd: "..",
+        cwd: "../backend",
         dest: 'dist',
         src: [
-          'module/**/*',
+          'module/Radio/**/*',
           'vendor/**/*',
           'config/**/*',
           'init_autoloader.php',

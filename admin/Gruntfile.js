@@ -338,7 +338,7 @@ module.exports = function (grunt) {
       },
       php: {
         expand: true,
-        cwd: "..",
+        cwd: "../backend",
         dest: 'dist',
         src: [
           'module/**/*',
@@ -346,7 +346,7 @@ module.exports = function (grunt) {
           'config/**/*',
           'init_autoloader.php',
           'composer.php',
-          'www/backend.php'
+          'www/admin.php'
         ]
       }
     },
