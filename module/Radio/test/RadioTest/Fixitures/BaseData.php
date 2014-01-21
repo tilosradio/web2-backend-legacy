@@ -59,7 +59,7 @@ class BaseData implements FixtureInterface
         $user->setSalt("salto");
         $user->setPassword("NOHASHX");
         $user->setEmail("test@test.hu");
-        $user->setRole($r4);
+        $user->setRole($r3);
         $manager->persist($user);
 
         $author = new Author();

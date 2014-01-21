@@ -21,6 +21,7 @@ class UserTest extends TestBase
     {
         $this->initTest("Radio\Controller\User", new User());
         $this->baseData();
+        $this->routeMatch->setParam("permission","guest");
 
     }
 

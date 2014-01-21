@@ -162,25 +162,30 @@ class BaseController extends AbstractController
         $action = $routeMatch->getParam('action');
         $recordId = $routeMatch->getParam('id');
         // initialize permission check
-        $assertion = new RoleAssertion($user, $recordId);
-        $assertion->setServiceLocator($serviceManager);
-        try {
-            $acl = new Acl($this->getPermissionsConfig(), $permission, $controller, $action);
-            // check user permissions
-            if (!$acl->hasResource($controller) || !$acl->isAllowed($role->getName(), $controller, $action)) {
-                // respond with 401 Unauthorized
-                $event->getResponse()->setStatusCode(401)->sendHeaders();
-                if (!$acl->hasResource($controller))
-                    die("ERROR: No permission rule for controller $controller");
-                else if (!$acl->isAllowed($role->getName(), $controller, $action))
-                    die('ERROR: Unauthorized');
-            }
-        } catch (PermissionException $pe) {
-            // configuration error
-            $event->getResponse()->setStatusCode(500)->sendHeaders();
-            die($pe->getMessage());
-        }
 
+        if ($role->getName() == "admin") {
+            return;
+        } else if (strpos($permission, '::') !== false) {
+            $result = call_user_func($permission, $event);
+            if ($result) {
+                return;
+            }
+        }
+        $actualRole = $role;
+        while ($actualRole != null) {
+            if ($permission === $actualRole->getName()) {
+                return;
+            }
+            $actualRole = $actualRole->getParent();
+        }
+        $this->accessDenied($event);
+
+    }
+
+    public function accessDenied($event)
+    {
+        $event->getResponse()->setStatusCode(401)->sendHeaders();
+        die("Access denied");
     }
 
     private function getPermissionsConfig()

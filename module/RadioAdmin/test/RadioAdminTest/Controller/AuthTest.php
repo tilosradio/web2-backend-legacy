@@ -12,6 +12,7 @@ class AuthTest extends TestBase {
     protected function setUp() {
         $this->initTest("Radio\Controller\Auth", new Auth());
         $this->baseData();
+        $this->routeMatch->setParam("permission","guest");
     }
 
     public function testPasswordReset() {

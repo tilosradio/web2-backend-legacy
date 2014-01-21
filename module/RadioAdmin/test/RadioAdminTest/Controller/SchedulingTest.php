@@ -19,6 +19,7 @@ class SchedulingTest extends TestBase
     {
         $this->initTest("Radio\Controller\Scheduling", new \RadioAdmin\Controller\Scheduling());
         $this->baseData();
+        $this->routeMatch->setParam("permission","guest");
     }
 
     public function testSchedulingList()

@@ -35,6 +35,7 @@ class TestBase extends \PHPUnit_Framework_TestCase {
         $this->controller = $controller;;
         $this->request = new \Zend\Http\PhpEnvironment\Request();
         $this->routeMatch = new RouteMatch(array('controller' => $controllerName));
+        $this->routeMatch->setParam("permission","guest");
         $this->event = new MvcEvent();
 
         $config = $serviceManager->get('Config');

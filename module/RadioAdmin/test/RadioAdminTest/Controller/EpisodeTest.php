@@ -21,6 +21,7 @@ class EpisodeTest extends TestBase {
         $this->initTest("Radio\Controller\Episode", new Episode());
         $this->baseData();
         $this->user = $this->createUser(1, "admin", "admin");
+        $this->routeMatch->setParam("permission","guest");
     }
 
 

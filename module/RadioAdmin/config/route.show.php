@@ -5,7 +5,7 @@ return array(
         'options' => array(
             'method' => 'PUT',
             'route' => '/api/v0/show/:id',
-            'permission' => 'author',
+            'permission' => '\Radio\Util\AccessControlUtil::showOwner',
             'defaults' => array(
                 'controller' => 'RadioAdmin\Controller\Show',
                 'action' => 'update'
