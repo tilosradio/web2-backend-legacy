@@ -16,8 +16,12 @@ class Atom extends AbstractActionController
     public function showFeedAction()
     {
 
-
-        $serverRoot = "http://" . $this->getRequest()->getServer('HTTP_HOST');
+        $host = $this->getRequest()->getServer('HTTP_HOST');
+        if ($host != null) {
+            $serverRoot = "http://" . $this->getRequest()->getServer('HTTP_HOST');
+        } else {
+            $serverRoot = "http://tilos.hu";
+        }
 
 
         $showId = $this->params()->fromRoute("id");
