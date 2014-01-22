@@ -43,7 +43,7 @@ class Atom extends AbstractActionController
 
         $feed = new \Zend\Feed\Writer\Feed;
         $feed->setTitle($show->getName() . ' :: Tilos Rádió');
-        $feed->setLink($serverRoot);
+        $feed->setLink($serverRoot . "/");
         $feed->setFeedLink($serverRoot . '/feed/show/' . $showId, 'atom');
         $feed->setDateModified(time());
 
