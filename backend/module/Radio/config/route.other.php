@@ -22,6 +22,15 @@ return array(
                 'action' => 'download'),
         )
     ),
+    'mp3-combiner' => array(
+        'type' => 'Segment',
+        'options' => array(
+            'route' => '/m3u/mp3/[:from]-[:duration].mp3',
+            'defaults' => array(
+                'controller' => 'Radio\Controller\M3u',
+                'action' => 'combinedMp3'),
+        )
+    ),
     'show-rss' => array(
         'type' => 'Segment',
         'options' => array(

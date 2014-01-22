@@ -66,7 +66,7 @@ class Module
             $user = $authService->hasIdentity() ? $authService->getIdentity()->getUsername() : "unknown";
             $url = $event->getRequest()->getRequestUri();
             $params = "";
-            if ($method == "POST" || $method == "PUT") {
+            if (($method == "POST" || $method == "PUT") && (strpos($url, '/api/v0/auth') !== 0)) {
                 $params = $event->getRequest()->getContent();
             }
             $bl = $event->getApplication()->getServiceManager()->get("ApiAuditLogger");
