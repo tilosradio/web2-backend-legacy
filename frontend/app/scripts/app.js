@@ -19,21 +19,6 @@ tilos.config(['$routeProvider', function ($routeProvider) {
   }).when('/', {
     templateUrl: 'partials/index.html',
     controller: 'RssNewsCtrl'
-  }).when('/edit/author/:id', {
-      templateUrl: 'partials/edit/author.html',
-      controller: 'AuthorEditCtrl'
-  }).when('/edit/episode/:id', {
-      templateUrl: 'partials/edit/episode.html',
-      controller: 'EpisodeEditCtrl'
-    }).when('/edit/episode/new', {
-      templateUrl: 'partials/edit/episode.html',
-      controller: 'EpisodeNewCtrl'
-    }).when('/edit/episode', {
-      templateUrl: 'partials/edit/episode.html',
-      controller: 'EpisodeEditCtrl'
-    }).when('/login', {
-      templateUrl: 'partials/edit/login.html',
-      controller: 'LoginCtrl'
   }).when('/archive', {
     templateUrl: 'partials/program.html',
     controller: 'ProgramCtrl'
