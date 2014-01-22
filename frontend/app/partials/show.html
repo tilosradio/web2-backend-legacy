@@ -34,14 +34,6 @@
             	<i class="icon-volume-up"></i> Meghallgat
             </a>
             {{episode.persistent}}
-            <span ng-show="user && user.role.name == 'admin'">
-                <a ng-show="episode.id" class="pull-right" ng-href="/edit/episode/{{episode.id}}">
-                    Szerkeszt
-                </a>
-                <a ng-hide="episode.id" class="pull-right" ng-click="newEpisode(episode)">
-                    Létrehoz
-                </a>
-                </span>
         </div>
         <div ng-if="episode.text" class="panel-body">
             <span ng-bind-html="episode.text.formatted"></span>
