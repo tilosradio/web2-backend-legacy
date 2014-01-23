@@ -11,5 +11,17 @@ return array(
                 'action' => 'update'
             ),
         )
+    ),
+    'author-create' => array(
+        'type' => 'Radio\Util\CustomSegmentRouter',
+        'options' => array(
+            'method' => 'POST',
+            'route' => '/api/v0/author',
+            'permission' => 'admin',
+            'defaults' => array(
+                'controller' => 'RadioAdmin\Controller\Author',
+                'action' => 'create'
+            ),
+        )
     )
 );

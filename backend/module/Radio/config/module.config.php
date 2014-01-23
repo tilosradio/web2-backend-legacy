@@ -13,9 +13,7 @@ return array(
             'Radio\Controller\Text' => 'Radio\Controller\Text',
             'Radio\Controller\M3u' => 'Radio\Controller\M3u',
             'Radio\Controller\User' => 'Radio\Controller\User',
-            'Radio\Controller\Atom' => 'Radio\Controller\Atom',
-            'Radio\Controller\Scheduling' => 'Radio\Controller\Scheduling'
-
+            'Radio\Controller\Atom' => 'Radio\Controller\Atom'
         ),
     ),
     'router' => array(

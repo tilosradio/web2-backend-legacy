@@ -14,9 +14,9 @@
             </tr>
             </thead>
             <tbody>
-            <tr ng-repeat="scheduling in scheduling">
-                <td><a ng-href="/edit/show/{{showId}}/scheduling/{{scheduling.id}}">Szerlesztés</a></td>
-                <td><a ng-click="delete(scheduling.id)">Törlés</a></td>
+            <tr ng-repeat="scheduling in schedulings">
+                <td><a class="btn btn-danger" ng-href="/edit/scheduling/{{showId}}/{{scheduling.id}}">Szerkesztés</a></td>
+                <td><a class="btn btn-danger" ng-click="delete(scheduling.id)">Törlés</a></td>
                 <td>{{scheduling.validFrom * 1000| date:yyy-MM-dd}}</td>
                 <td>{{scheduling.validTo * 1000 | date:yyyy-MM-dd}}</td>
                 <td>{{scheduling.weekDay | weekDayName}}</td>
@@ -27,10 +27,6 @@
             </tbody>
         </table>
     </ul>
-    <td><a ng-href="/new/show/{{showId}}/scheduling">Új</a></td>
+    <td><a class="btn btn-warning" ng-href="/new/scheduling/{{showId}}">Új</a></td>
 
 </section>
-
-<aside class="col-md-3">
-    <div ng-include src="'partials/sidebar_right.html'"></div>
-</aside>

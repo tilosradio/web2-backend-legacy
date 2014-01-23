@@ -89,6 +89,7 @@ class Author extends BaseController {
         $qb = $this->getEntityManager()->createQueryBuilder();
         $qb->select('a','c','s')->from('\Radio\Entity\Author', 'a');
         $qb->leftJoin('a.contributions', 'c')->leftJoin('c.show', 's');
+        $qb->orderBy("a.name");
         $q = $qb->getQuery();
         return $q->getArrayResult();
     }

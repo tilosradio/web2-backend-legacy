@@ -22,7 +22,7 @@ class Scheduling extends BaseController
     use EntityManager;
 
 
-    public function getList()
+    public function getList($e)
     {
         return $this->getEntityList("\Radio\Entity\Scheduling");
     }
@@ -125,9 +125,8 @@ class Scheduling extends BaseController
     public function create($e)
     {
 
-        $id = $this->params()->fromRoute("id");
         $data = $this->getRawData($e);
-        $showId = $this->params()->fromRoute("show");
+        $showId = $data['showId'];
         $show = $this->getEntityManager()->find("\Radio\Entity\Show", $showId);
         if (empty($show)) {
             $this->getResponse()->setStatusCode(400);

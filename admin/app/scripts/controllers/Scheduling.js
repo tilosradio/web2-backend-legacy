@@ -1,16 +1,8 @@
 'use strict';
 
-angular.module('tilosAdmin').config(['$routeProvider', function ($routeProvider) {
-  $routeProvider.when('/show/:show/scheduling', {
-    templateUrl: 'partials/edit/schedulings.html',
-    controller: 'SchedulingListCtrl',
-    resolve: {
-      schedulingList: function ($route, Schedulings) {
-        return Schedulings.query({show: $route.current.params.show});
-      },
-    }});
-  $routeProvider.when('/show/:show/scheduling/:id', {
-    templateUrl: 'partials/scheduling.html',
+angular.module('tilosAdmin').config(function ($routeProvider) {
+  $routeProvider.when('/scheduling/:id', {
+    templateUrl: 'views/scheduling.html',
     controller: 'SchedulingCtrl',
     resolve: {
       scheduling: function ($route, Schedulings) {
@@ -18,19 +10,19 @@ angular.module('tilosAdmin').config(['$routeProvider', function ($routeProvider)
 
       }
     }});
-  $routeProvider.when('/edit/show/:show/scheduling/:id', {
-    templateUrl: 'partials/edit/scheduling.html',
+  $routeProvider.when('/edit/scheduling/:show/:id', {
+    templateUrl: 'views/scheduling-form.html',
     controller: 'SchedulingEditCtrl',
     resolve: {
       data: function ($route, Schedulings) {
-        return Schedulings.get({show: $route.current.params.show, id: $route.current.params.id});
+        return Schedulings.get({id: $route.current.params.id});
       }
     }});
-  $routeProvider.when('/new/show/:show/scheduling', {
-    templateUrl: 'partials/edit/scheduling.html',
+  $routeProvider.when('/new/scheduling/:show', {
+    templateUrl: 'views/scheduling-form.html',
     controller: 'SchedulingNewCtrl',
   });
-}]);
+});
 angular.module('tilosAdmin')
     .controller('SchedulingCtrl', ['$scope', 'scheduling', function ($scope, scheduling) {
       $scope.scheduling = scheduling;
@@ -71,7 +63,7 @@ angular.module('tilosAdmin')
 
       $scope.save = function () {
         resource.update({show: $routeParams.show, id: $scope.scheduling.id}, $scope.scheduling, function (data) {
-          $location.path('/show/' + $routeParams.show + '/scheduling/');
+          $location.path('/show/' + $routeParams.show);
         });
       }
     }]);
@@ -107,21 +99,13 @@ angular.module('tilosAdmin')
       });
 
       $scope.save = function () {
+        $scope.scheduling.showId = $routeParams.show;
         resource.save({show: $routeParams.show}, $scope.scheduling, function (data) {
-          $location.path('/show/' + $routeParams.show + '/scheduling/');
+          $location.path('/show/' + $routeParams.show);
         });
       }
     }]);
 
-
-angular.module('tilosAdmin')
-    .controller('SchedulingListCtrl', ['$scope', 'schedulingList', '$routeParams', 'Schedulings', function ($scope, schedulingList, $routeParams, resource) {
-      $scope.scheduling = schedulingList;
-      $scope.showId = $routeParams.show;
-      $scope.remove = function (id) {
-        resource.remove({'id': id});
-      }
-    }]);
 
 angular.module('tilosAdmin').filter('weekDayName', function () {
   return function (input) {
@@ -129,7 +113,7 @@ angular.module('tilosAdmin').filter('weekDayName', function () {
   };
 });
 angular.module('tilosAdmin').factory('Schedulings', ['API_SERVER_ENDPOINT', '$resource', function (server, $resource) {
-  return $resource(server + '/api/v0/show/:show/scheduling/:id', null, {
+  return $resource(server + '/api/v0/scheduling/:id', null, {
     'update': { method: 'PUT'}
   });
 }]);

@@ -8,6 +8,9 @@ angular.module('tilosAdmin').config(['$routeProvider', function ($routeProvider)
       data: function ($route, Shows) {
         return Shows.get({id: $route.current.params.id});
       },
+      schedulingList: function ($route, Schedulings, API_SERVER_ENDPOINT, $http) {
+        return $http.get(API_SERVER_ENDPOINT + "/api/v0/show/" + $route.current.params.id + "/schedulings");
+      },
     }});
   $routeProvider.when('/shows', {
     templateUrl: 'views/shows.html',
@@ -27,13 +30,19 @@ angular.module('tilosAdmin').config(['$routeProvider', function ($routeProvider)
     }});
 }]);
 angular.module('tilosAdmin')
-    .controller('ShowCtrl', function ($scope, data, API_SERVER_ENDPOINT, $http, $rootScope, $location) {
+    .controller('ShowCtrl', function ($scope, data, API_SERVER_ENDPOINT, $http, $rootScope, $location, schedulingList, Schedulings) {
       $scope.show = data;
       $scope.server = API_SERVER_ENDPOINT;
+      $scope.schedulings = schedulingList.data;
 
 
       $scope.currentShowPage = 0;
-
+      $scope.deleteScheduling = function (id) {
+        Schedulings.remove({'id': id});
+        $http.get(API_SERVER_ENDPOINT + "/api/v0/show/" + $scope.show.id + "/schedulings").success(function (data){
+          $scope.schedulings = data;
+        });
+      }
       $scope.prev = function () {
         $scope.currentShowPage--;
         var to = $scope.show.episodes[$scope.show.episodes.length - 1].plannedFrom - 60;

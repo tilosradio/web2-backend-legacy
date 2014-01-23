@@ -25,7 +25,13 @@ angular.module('tilosAdmin').config(['$routeProvider', function ($routeProvider)
         return Authors.get({id: $route.current.params.id});
       },
     }});
+  $routeProvider.when('/new/author', {
+    templateUrl: 'views/author-form.html',
+    controller: 'AuthorNewCtrl',
+
+  });
 }]);
+
 angular.module('tilosAdmin')
     .controller('AuthorCtrl', function ($scope, data) {
       $scope.author = data;
@@ -40,11 +46,26 @@ angular.module('tilosAdmin')
 'use strict';
 
 angular.module('tilosAdmin')
+    .controller('AuthorNewCtrl', function ($location, $scope, $routeParams, $http, $cacheFactory, Authors, API_SERVER_ENDPOINT) {
+      $scope.author = {};
+      $scope.author.introduction = "";
+      $scope.save = function () {
+
+        Authors.save($scope.author, function (data) {
+          var id = data.data.id;
+          var httpCache = $cacheFactory.get('$http');
+          httpCache.remove(API_SERVER_ENDPOINT + '/api/v0/author/' + id);
+          $location.path('/author/' + id);
+        });
+
+      };
+    });
+
+angular.module('tilosAdmin')
     .controller('AuthorEditCtrl', ['$location', '$scope', '$routeParams', 'API_SERVER_ENDPOINT', '$http', '$cacheFactory', 'data',
       function ($location, $scope, $routeParams, server, $http, $cacheFactory, data) {
         $scope.author = data;
         $scope.save = function () {
-
           $http.put(server + '/api/v0/author/' + $routeParams.id, $scope.author).success(function (data) {
             var httpCache = $cacheFactory.get('$http');
             httpCache.remove(server + '/api/v0/author/' + $scope.author.id);
