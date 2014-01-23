@@ -95,6 +95,7 @@ class SchedulingTest extends TestBase
         $this->request->getHeaders()->addHeaderLine("content-type: application/json");
         $this->request->setContent(Json::encode(
             [
+                'showId' => 1,
                 'weekDay' => 5,
                 'weekType' => 1,
                 'hourFrom' => 1,
