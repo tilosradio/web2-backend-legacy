@@ -21,19 +21,10 @@ return array(
                 'action' => 'download'),
         )
     ),
-    'mp3-combiner' => array(
-        'type' => 'Segment',
-        'options' => array(
-            'route' => '/m3u/mp3/[:from]-[:duration].mp3',
-            'defaults' => array(
-                'controller' => 'Radio\Controller\M3u',
-                'action' => 'combinedMp3'),
-        )
-    ),
     'show-rss' => array(
         'type' => 'Segment',
         'options' => array(
-            'route' => '/feed/show/:id',
+            'route' => '/oldfeed/show/:id',
             'defaults' => array(
                 'controller' => 'Radio\Controller\Atom',
                 'action' => 'showFeed'
@@ -43,7 +34,7 @@ return array(
     'show-super-rss' => array(
         'type' => 'Segment',
         'options' => array(
-            'route' => '/feed2/show/:id',
+            'route' => '/feed/show/:id',
             'defaults' => array(
                 'controller' => 'Radio\Controller\Atom',
                 'action' => 'showSuperFeed'

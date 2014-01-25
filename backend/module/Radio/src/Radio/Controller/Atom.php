@@ -181,7 +181,7 @@ class Atom extends AbstractActionController
             $duration = ($episode['plannedTo']->getTimestamp() - $episode['plannedFrom']->getTimestamp()) / 60;
             $entry->setEnclosure(array(
                 'type' => 'audio/mpeg',
-                'uri' => sprintf($serverRoot . "/m3u/mp3/%d-%d.mp3", $from, $duration + 10),
+                'uri' => sprintf($serverRoot . "/mp3/%d-%d.mp3", $from, $duration + 10),
                 'length' => '1337'
             ));
             $feed->addEntry($entry);
