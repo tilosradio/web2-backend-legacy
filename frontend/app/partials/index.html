@@ -1,6 +1,6 @@
 <section class="col-md-9 main" role="main" >
     <article ng-repeat="feed in feeds">
-    <div class="news-lead">
+    <div class="news-lead"><br />
       <img src="{{feed.mediaGroups[0].contents[0].url}}" alt="{{feed.title}}" ng-show="{{feed.mediaGroups[0].contents[0].url}}">
       <h2><a href="{{feed.link}}" target="_blank">{{feed.title}}</a></h2>
       <span ng-bind-html="feed.content"></span>
