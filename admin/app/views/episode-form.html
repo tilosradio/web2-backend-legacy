@@ -1,44 +1,35 @@
-<form class="form-horizontal">
-    <div class="alert alert-danger" ng-show="error">{{error}}</div>
+<form class="form-horizontal" role="form">
+  <div class="alert alert-danger" ng-show="error">{{error}}</div>
 
-    <fieldset>
+  <fieldset>
 
-        <!-- Form Name -->
-        <!-- Text input-->
-        <div class="control-group">
-            <label class="control-label" for="plannedFrom">Kezdet</label>
+    <!-- Form Name -->
+    <!-- Text input-->
+    <div class="form-group">
+      <label for="plannedFrom">Kezdet</label>
 
-            <div class="controls">
-                <span id="plannedFrom">{{episode.plannedFrom * 1000 | date:'yyyy-MM-dd HH:ss'}}</span>
-            </div>
-        </div>
-        <!-- Text input-->
-        <div class="control-group">
-            <label class="control-label" for="plannedTo">Vég</label>
+      <p id="plannedFrom">{{episode.plannedFrom * 1000 | date:'yyyy-MM-dd HH:ss'}}</p>
 
-            <div class="controls">
-                <span id="plannedTo">{{episode.plannedTo * 1000 | date:'yyyy-MM-dd HH:ss'}}</span>
-            </div>
-        </div>
-        <!-- Text input-->
-        <div class="control-group">
-            <label class="control-label" for="title">Cím</label>
+    </div>
+    <!-- Text input-->
+    <div class="form-group">
+      <label for="plannedTo">Vég</label>
+      <p id="plannedTo">{{episode.plannedTo * 1000 | date:'yyyy-MM-dd HH:ss'}}</p>
+    </div>
+    <!-- Text input-->
+    <div class="form-group">
+      <label for="title">Cím</label>
+      <input class="form-control" id="title" name="title" type="text" class="" ng-model="episode.title" width="" style="width: 50ch;">
 
-            <div class="controls">
-                <input id="title" name="title" type="text" class="input-xlarge"
-                       ng-model="episode.title">
-            </div>
-        </div>
+    </div>
 
-        <!-- Textarea -->
-        <div class="control-group">
-            <label class="control-label" for="content">Leírás</label>
+    <!-- Textarea -->
+    <div class="form-group">
+      <label class="control-label" for="content">Leírás</label>
 
-            <div class="controls">
-                <div id="content" text-angular="text-angular" ng-model="episode.content"></div>
-            </div>
-        </div>
+      <div text-angular="text-angular" ng-model="episode.content"></div>
+    </div>
 
-    </fieldset>
-    <input value="Mentés" type="submit" ng-click="save()"/>
+  </fieldset>
+  <input value="Mentés" class="btn" type="submit" ng-click="save()"/>
 </form>
