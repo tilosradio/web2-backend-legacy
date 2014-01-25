@@ -34,7 +34,8 @@ class M3u extends AbstractActionController
             $timestr = sprintf("%02d%02d", $d['hours'], $d['minutes']);
             $filename = sprintf("/%02d/%02d/%02d/tilosradio-%02d%02d%02d-%s.mp3", $d['year'], $d['mon'], $d['mday'], $d['year'],
                 $d['mon'], $d['mday'], $timestr);
-            $res[] = array("filename" => $filename, "file" => "http://archive.tilos.hu/online" . $file, 'epoch' => $i, 'datearray' => $d);
+            $res[] = array("filename" => $filename, "file" => "http://archive.tilos.hu/online" . $filename, 'epoch' => $i,
+                'datearray' => $d);
             if ($curr % 100 < 25) {
                 $curr += 30;
             } else {
