@@ -108,7 +108,7 @@ class M3u extends AbstractActionController
                 die("Archive is missing: " . $fn);
 
             } else {
-                $filesize = filesize($fn);
+                $filesize += filesize($fn);
             }
 
         }
