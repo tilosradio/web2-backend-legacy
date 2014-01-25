@@ -50,3 +50,5 @@ vagrant_ansible_inventory_default
 
 # Ignore our own composer.lock files
 composer.lock
+
+archive

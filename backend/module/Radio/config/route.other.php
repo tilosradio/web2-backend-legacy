@@ -40,4 +40,14 @@ return array(
             )
         )
     ),
+    'show-super-rss' => array(
+        'type' => 'Segment',
+        'options' => array(
+            'route' => '/feed2/show/:id',
+            'defaults' => array(
+                'controller' => 'Radio\Controller\Atom',
+                'action' => 'showSuperFeed'
+            )
+        )
+    ),
 );

@@ -32,8 +32,9 @@ class M3u extends AbstractActionController
         for ($i = $from; $i < $end; $i += 30 * 60) {
             $d = getdate($i);
             $timestr = sprintf("%02d%02d", $d['hours'], $d['minutes']);
-            $file = sprintf("http://archive.tilos.hu/online/%02d/%02d/%02d/tilosradio-%02d%02d%02d-%s.mp3", $d['year'], $d['mon'], $d['mday'], $d['year'], $d['mon'], $d['mday'], $timestr);
-            $res[] = array("file" => $file, 'epoch' => $i, 'datearray' => $d);
+            $filename = sprintf("/%02d/%02d/%02d/tilosradio-%02d%02d%02d-%s.mp3", $d['year'], $d['mon'], $d['mday'], $d['year'],
+                $d['mon'], $d['mday'], $timestr);
+            $res[] = array("filename" => $filename, "file" => "http://archive.tilos.hu/online" . $file, 'epoch' => $i, 'datearray' => $d);
             if ($curr % 100 < 25) {
                 $curr += 30;
             } else {
@@ -86,7 +87,7 @@ class M3u extends AbstractActionController
         fclose($fin);
     }
 
-    public function combinedMp3Action()
+    public function combinedMp3Action($e)
     {
 
         $start = (int)$this->params()->fromRoute("from");
@@ -99,7 +100,18 @@ class M3u extends AbstractActionController
 
         foreach ($this->getMp3Links($start, $duration) as $resource) {
             //passthru($resource['file']);
-            $this->chunked_copy($resource['file']);
+            $fn = "../archive" . $resource['filename'];
+            if (!file_exists($fn)) {
+                header('HTTP/1.0 404 Not Found');
+                die("Archive is missing: " . $fn);
+
+            }
+
+        }
+
+        foreach ($this->getMp3Links($start, $duration) as $resource) {
+            //passthru($resource['file']);
+            $this->chunked_copy("../archive" . $resource['filename']);
         }
 
         die("");
