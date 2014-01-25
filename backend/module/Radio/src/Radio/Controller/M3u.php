@@ -80,7 +80,7 @@ class M3u extends AbstractActionController
         $fin = fopen($from, "rb");
         if ($fin == false) {
             echo "--$from--";
-            die();
+            die("file open error");
         }
         while (!feof($fin)) {
             echo fread($fin, $buffer_size);
@@ -99,6 +99,7 @@ class M3u extends AbstractActionController
         header("Content-Disposition: attachment; filename=\"$filename.mp3\"");
 
 
+        $filesize = 0;
         foreach ($this->getMp3Links($start, $duration) as $resource) {
             //passthru($resource['file']);
             $fn = "../archive" . $resource['filename'];
@@ -106,10 +107,12 @@ class M3u extends AbstractActionController
                 header('HTTP/1.0 404 Not Found');
                 die("Archive is missing: " . $fn);
 
+            } else {
+                $filesize = filesize($fn);
             }
 
         }
-
+        header("Content-Length: " . $filesize);
         foreach ($this->getMp3Links($start, $duration) as $resource) {
             //passthru($resource['file']);
             $this->chunked_copy("../archive" . $resource['filename']);
