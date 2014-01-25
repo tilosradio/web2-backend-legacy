@@ -31,3 +31,11 @@
 .fa-list-ul:before {
   @extend .icon-list-ul:before;
 }
+
+.fa-link:before {
+  @extend .icon-link:before;
+}
+
+.fa-picture-o:before {
+  @extend .icon-picture:before;
+}

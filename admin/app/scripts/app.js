@@ -23,9 +23,33 @@ angular.module('tilosAdmin', [
     });
 
 angular.module('tilosAdmin').run(function ($rootScope, $location, $http, API_SERVER_ENDPOINT) {
+
+  $rootScope.textAngularOpts = {
+    toolbar: [
+      ['h2', 'h3','p'],
+      ['bold', 'italics'],
+      ['ol', 'ul'],
+      ['insertLink','insertImage'],
+      ['html']
+
+    ]
+  };
+  $rootScope.textAngularTools = {
+    h2: {
+      display: "<button type='button' ng-click='action()' ng-class='displayActiveToolClass(active)'>cím</button>"
+    },
+    h3: {
+      display: "<button type='button' ng-click='action()' ng-class='displayActiveToolClass(active)'>alcím</button>"
+    },
+    p: {
+      display: "<button type='button' ng-click='action()' ng-class='displayActiveToolClass(active)'>sima</button>"
+    }
+  };
+
+
   var endsWith = function (str, suffix) {
     return str.indexOf(suffix, str.length - suffix.length) !== -1;
-  }
+  };
   var freeAccess = function (url) {
     return (/.*password_reset(\?.*)?/g.exec(url) || endsWith(url, '/password_reminder') || endsWith(url, '/login'));
   }

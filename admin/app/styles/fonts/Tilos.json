@@ -1,7 +1,7 @@
 {
 	"metadata": {
-		"name": "Tilos 1 1 1",
-		"lastOpened": 1388510267018,
+		"name": "Tilos 1 1 1 1",
+		"lastOpened": 1390667008034,
 		"created": 1382198342365
 	},
 	"iconSets": [
@@ -50788,8 +50788,8 @@
 					"id": 7,
 					"prevSize": 20,
 					"code": 58899,
-					"name": "pencil",
-					"tempChar": "",
+					"name": "pencil2",
+					"tempChar": "",
 					"ligatures": ""
 				},
 				{
@@ -60732,8 +60732,13 @@
 					"id": 59
 				},
 				{
-					"order": 0,
-					"id": 60
+					"order": 31,
+					"id": 60,
+					"prevSize": 28,
+					"code": 58910,
+					"name": "picture",
+					"tempChar": "",
+					"ligatures": ""
 				},
 				{
 					"order": 26,
@@ -61178,8 +61183,13 @@
 					"id": 163
 				},
 				{
-					"order": 0,
-					"id": 164
+					"order": 33,
+					"id": 164,
+					"prevSize": 28,
+					"code": 58912,
+					"name": "wrench",
+					"tempChar": "",
+					"ligatures": ""
 				},
 				{
 					"order": 0,
@@ -61202,8 +61212,13 @@
 					"id": 169
 				},
 				{
-					"order": 0,
-					"id": 170
+					"order": 32,
+					"id": 170,
+					"prevSize": 28,
+					"code": 58911,
+					"name": "link",
+					"tempChar": "",
+					"ligatures": ""
 				},
 				{
 					"order": 0,
