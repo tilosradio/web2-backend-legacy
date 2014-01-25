@@ -315,7 +315,8 @@ module.exports = function (grunt) {
           'config/**/*',
           'init_autoloader.php',
           'composer.php',
-          'www/backend.php'
+          'www/backend.php',
+	  'www/stream.php'
         ]
       },
       chat: {
