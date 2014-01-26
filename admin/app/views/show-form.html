@@ -3,14 +3,24 @@
 
     <!-- Form Name -->
     <legend>Műsor szerkesztése</legend>
-    <!-- Text input-->
+
+
     <div class="control-group">
       <label class="control-label" for="Name">Name</label>
 
       <div class="controls">
-        <input id="Name" name="Name" type="text" placeholder="placeholder" class="input-xlarge" ng-model="show.name">
+        <input id="Name" name="Name" type="text" class="input-xlarge" ng-model="show.name">
       </div>
     </div>
+
+    <div class="control-group" ng-show="user.role.name == 'admin">
+      <label class="control-label" for="Alias">Alias</label>
+
+      <div class="controls">
+        <input id="Alias" name="Alias" type="text" class="input-xlarge" ng-model="show.alias">
+      </div>
+    </div>
+
 
     <!-- Textarea -->
     <div class="control-group">

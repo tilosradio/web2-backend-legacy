@@ -14,7 +14,7 @@ angular.module('tilosAdmin').config(['$routeProvider', function ($routeProvider)
     controller: 'AuthorListCtrl',
     resolve: {
       list: function ($route, Authors) {
-        return Authors.query({id: $route.current.params.id});
+        return Authors.query();
       },
     }});
   $routeProvider.when('/edit/author/:id', {

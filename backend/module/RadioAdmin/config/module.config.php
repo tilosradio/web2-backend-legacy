@@ -11,6 +11,8 @@ return array(
             'RadioAdmin\Controller\Author' => 'RadioAdmin\Controller\Author',
             'RadioAdmin\Controller\Episode' => 'RadioAdmin\Controller\Episode',
             'RadioAdmin\Controller\Scheduling' => 'RadioAdmin\Controller\Scheduling',
+            'RadioAdmin\Controller\Contribution' => 'RadioAdmin\Controller\Contribution',
+
 
 
 
@@ -23,7 +25,9 @@ return array(
             require("route.user.php"),
             require("route.author.php"),
             require("route.episode.php"),
-            require("route.scheduling.php")
+            require("route.scheduling.php"),
+            require("route.contribution.php")
+
 
 
 

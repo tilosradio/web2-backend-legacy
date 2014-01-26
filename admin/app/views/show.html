@@ -13,7 +13,6 @@
   <table class="table">
     <thead>
     <tr>
-
       <td>érv kezdet</td>
       <td>érv vége</td>
       <td>nap</td>
@@ -32,12 +31,26 @@
       <td>{{scheduling.hourFrom}}:{{scheduling.minFrom}}</td>
       <td>{{scheduling.duration}}&nbsp;perc</td>
       <td>{{scheduling.weekType}}&nbsp;hetente</td>
-      <td ng-show="user.role.name == 'admin'"><a class="btn btn-danger" ng-href="/edit/scheduling/{{show.id}}/{{scheduling.id}}">Szerkesztés</a></td>
+      <td ng-show="user.role.name == 'admin'"><a class="btn btn-danger"
+                                                 ng-href="/edit/scheduling/{{show.id}}/{{scheduling.id}}">Szerkesztés</a></td>
       <td ng-show="user.role.name == 'admin'"><a class="btn btn-danger" ng-click="deleteScheduling(scheduling.id)">Törlés</a></td>
     </tr>
     </tbody>
   </table>
   <a ng-show="user.role.name == 'admin'" class="btn btn-warning" ng-href="/new/scheduling/{{show.id}}">Új</a>
+
+</section>
+
+<section>
+  <h2>Műsorkészítők</h2>
+
+  <p>
+  <ul ng-repeat="contributor in show.contributors">
+    <li>{{contributor.nick}} (<a ng-href="/author/{{contributor.author.id}}">{{contributor.author.name}}</a>) <a
+            ng-show="user.role.name == 'admin'" class="btn btn-danger" ng-click="deleteContribution(contributor.id)">Törlés</a></li>
+  </ul>
+  </p>
+  <a ng-show="user.role.name == 'admin'" class="btn btn-warning" ng-href="/new/contribution">Új</a>
 
 </section>
 
@@ -74,6 +87,6 @@
   </div>
   <ul class="pager">
     <li class="cursorPointer"><a ng-click="prev()">&larr; Korábbi adások</a></li>
-    <li class="cursorPointer" ng-if="currentShowPage != 0"><a ng-click="next()">Későbbi adások &rarr;</a></li>
+    <li class="cursorPointer"><a ng-click="next()">Későbbi adások &rarr;</a></li>
   </ul>
 </section>

@@ -68,6 +68,8 @@ class MapperFactory {
         MapperFactory::shortShow($m, $context);
         $cm = $m->addMapper(new ChildCollection("contributors"));
         $cm->addMapper(new Field("nick"));
+        $cm->addMapper(new Field("id"));
+
         $am = $cm->addMapper(new ChildObject("author"));
         MapperFactory::shortAuthor($am, $context);
 

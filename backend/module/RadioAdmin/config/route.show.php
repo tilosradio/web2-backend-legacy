@@ -11,5 +11,17 @@ return array(
                 'action' => 'update'
             ),
         )
+    ),
+    'show-new' => array(
+        'type' => 'Radio\Util\CustomSegmentRouter',
+        'options' => array(
+            'method' => 'POST',
+            'route' => '/api/v0/show',
+            'permission' => 'admin',
+            'defaults' => array(
+                'controller' => 'RadioAdmin\Controller\Show',
+                'action' => 'create'
+            ),
+        )
     )
 );

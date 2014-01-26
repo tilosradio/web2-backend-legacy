@@ -9,7 +9,7 @@ interface FieldSetter
 
     public function get(&$container, $propertyName);
 
-    public function ensureExists(&$container, $propertyName, $type);
+    public function ensureExists(&$container, $propertyName, $type, $originalChild);
 
     public function add(&$container, $propertyName, &$value);
 

@@ -40,5 +40,30 @@ class Show extends BaseController
 
     }
 
+
+    public function create($e)
+    {
+        try {
+            $data = $this->getRawData($e);
+
+            $mapper = new ObjectMapper(new ObjectFieldSetter());
+            $mapper->addMapper(new Field("name"));
+            $mapper->addMapper(new Field("description"));
+
+
+            $show = new \Radio\Entity\Show();
+            $show->setType(0);
+            $show->setStatus(0);
+            $mapper->map($data, $show);
+
+            $this->getEntityManager()->persist($show);
+            $this->getEntityManager()->flush();
+            return new JsonModel(array("success" => true, "data" => array("id" => $show->getId())));
+        } catch (\Exception $ex) {
+            $this->getResponse()->setStatusCode(500);
+            return new JsonModel(array("error" => $ex->getMessage()));
+        }
+    }
+
 }
 

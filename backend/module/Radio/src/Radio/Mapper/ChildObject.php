@@ -21,7 +21,7 @@ class ChildObject implements Mapper
     {
         if (array_key_exists($this->name, $from)) {
 
-            $newValue = $setter->ensureExists($to, $this->name, $this->type);
+            $newValue = $setter->ensureExists($to, $this->name, $this->type, $from[$this->name]);
             foreach ($this->mappers as $mapper) {
                 $mapper->map($from[$this->name], $newValue, $setter);
             }

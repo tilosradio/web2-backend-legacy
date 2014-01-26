@@ -28,9 +28,13 @@ angular.module('tilosAdmin').config(['$routeProvider', function ($routeProvider)
         return Shows.get({id: $route.current.params.id});
       },
     }});
+  $routeProvider.when('/new/show', {
+    templateUrl: 'views/show-form.html',
+    controller: 'ShowNewCtrl',
+  });
 }]);
 angular.module('tilosAdmin')
-    .controller('ShowCtrl', function ($scope, data, API_SERVER_ENDPOINT, $http, $rootScope, $location, schedulingList, Schedulings) {
+    .controller('ShowCtrl', function ($scope, data, API_SERVER_ENDPOINT, $http, $rootScope, $location, schedulingList, Schedulings, Contributions, Shows) {
       $scope.show = data;
       $scope.server = API_SERVER_ENDPOINT;
       $scope.schedulings = schedulingList.data;
@@ -39,7 +43,7 @@ angular.module('tilosAdmin')
       $scope.currentShowPage = 0;
       $scope.deleteScheduling = function (id) {
         Schedulings.remove({'id': id});
-        $http.get(API_SERVER_ENDPOINT + "/api/v0/show/" + $scope.show.id + "/schedulings").success(function (data){
+        $http.get(API_SERVER_ENDPOINT + "/api/v0/show/" + $scope.show.id + "/schedulings").success(function (data) {
           $scope.schedulings = data;
         });
       }
@@ -68,6 +72,12 @@ angular.module('tilosAdmin')
         $location.path('/new/episode');
       };
 
+      $scope.deleteContribution = function (id) {
+        Contributions.remove({id: id}, function () {
+          $scope.show = Shows.get({id: $scope.show.id});
+
+        });
+      };
 
     });
 
@@ -78,6 +88,19 @@ angular.module('tilosAdmin')
     }]);
 
 'use strict';
+
+angular.module('tilosAdmin')
+    .controller('ShowNewCtrl', function ($location, $scope, $routeParams, $http, $cacheFactory, Shows, API_SERVER_ENDPOINT) {
+      $scope.show = {};
+      $scope.save = function () {
+
+        Shows.save($scope.show, function (data) {
+          var id = data.data.id;
+          $location.path('/show/' + id);
+        });
+
+      };
+    });
 
 angular.module('tilosAdmin')
     .controller('ShowEditCtrl', ['$location', '$scope', '$routeParams', 'API_SERVER_ENDPOINT', '$http', '$cacheFactory', 'data',

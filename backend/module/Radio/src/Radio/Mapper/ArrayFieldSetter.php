@@ -13,7 +13,7 @@ class ArrayFieldSetter implements FieldSetter
         return $container[$propertyName];
     }
 
-    public function ensureExists(&$container, $propertyName, $type)
+    public function ensureExists(&$container, $propertyName, $type, $originalChild)
     {
         if (!array_key_exists($propertyName, $container)) {
             $container[$propertyName] = array();
