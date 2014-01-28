@@ -42,7 +42,7 @@ angular.module('tilosAdmin').run(function ($rootScope, $location, $http, API_SER
       display: "<button type='button' ng-click='action()' ng-class='displayActiveToolClass(active)'>alcím</button>"
     },
     p: {
-      display: "<button type='button' ng-click='action()' ng-class='displayActiveToolClass(active)'>sima</button>"
+      display: "<button type='button' ng-click='action()' ng-class='displayActiveToolClass(active)'>normál</button>"
     }
   };
 
