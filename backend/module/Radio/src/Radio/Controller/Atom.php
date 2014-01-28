@@ -169,7 +169,7 @@ class Atom extends AbstractActionController
             }
             $entry->setDateModified($episode['plannedTo']);
             $entry->setDateCreated($episode['plannedFrom']);
-            if (array_key_exists("text", $episode)) {
+            if (array_key_exists("text", $episode) && !empty($episode['text']['content'])) {
                 $entry->setDescription($episode['text']['content']);
             } else {
                 $entry->setDescription("Adásnapló");
