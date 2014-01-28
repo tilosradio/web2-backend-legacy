@@ -23,5 +23,17 @@ return array(
                 'action' => 'create'
             ),
         )
-    )
+    ),
+    'author-get-extended' => array(
+        'type' => 'Radio\Util\CustomSegmentRouter',
+        'options' => array(
+            'method' => 'GET',
+            'route' => '/api/v0/author/:id',
+            'permission' => 'guest',
+            'defaults' => array(
+                'controller' => 'RadioAdmin\Controller\Author',
+                'action' => 'get'
+            ),
+        )
+    ),
 );

@@ -28,7 +28,7 @@ class Author {
     protected $email;
     
     /**
-     * @ORM\Column(type="string", length=60, nullable=true) 
+     * @ORM\Column(type="string", length=60, nullable=true)
      * */
     protected $alias;
     

@@ -18,6 +18,35 @@ class Author extends \Radio\Controller\BaseController
 
     use EntityManager;
 
+
+    public function get($e)
+    {
+        $id = $this->getIdentifier($e->getRouteMatch(), $e->getRequest());
+
+        $qb = $this->getEntityManager()->createQueryBuilder();
+        $qb->select('a', 'sa', 's', 'u')->from('\Radio\Entity\Author', 'a');
+        if (is_numeric($id)) {
+            $qb->where('a.id = :id');
+        } else {
+            $qb->where('a.alias = :id');
+        }
+        $qb->leftJoin('a.contributions', 'sa')->leftJoin('sa.show', 's')->leftJoin('a.urls', 'u');
+
+        $q = $qb->getQuery();
+        $q->setParameter("id", $id);
+        $result = $q->getArrayResult()[0];
+
+        $r = [];
+        $mapper = MapperFactory::authorElementMapper(['baseUrl' => $this->getServerUrl()]);
+        if ($this->isAdmin()) {
+            $mapper->addMapper(new Field("email"));
+        }
+        $mapper->map($result, $r);
+        return new JsonModel($r);
+
+
+    }
+
     public function create($e)
     {
         try {
@@ -27,13 +56,19 @@ class Author extends \Radio\Controller\BaseController
 
             $author = new \Radio\Entity\Author();
             $author->setPhoto("");
-            $author->setEmail("");
-            $author->setAlias("");
             $author->setAvatar("");
 
             $mapper = new ObjectMapper(new ObjectFieldSetter());
+
             $f = new Field("name");
             $mapper->addMapper($f->required());
+
+            $f = new Field("alias");
+            $mapper->addMapper($f->required());
+
+            $f = new Field("email");
+            $mapper->addMapper($f->required());
+
             $mapper->addMapper(new Field("introduction"));
 
             $mapper->map($data, $author);
@@ -58,6 +93,13 @@ class Author extends \Radio\Controller\BaseController
             $f = new Field("name");
             $mapper->addMapper($f->required());
             $mapper->addMapper(new Field("description"));
+            if ($this->isAdmin()) {
+                $f = new Field("alias");
+                $mapper->addMapper($f->required());
+
+                $f = new Field("email");
+                $mapper->addMapper($f->required());
+            }
             $mapper->map($data, $author);
 
             $this->getEntityManager()->flush();

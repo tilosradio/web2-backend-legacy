@@ -148,6 +148,25 @@ class BaseController extends AbstractController
 
     }
 
+    function getCurrentRole()
+    {
+        $user = $this->getCurrentUser();
+        return empty($user) ? Role::getDefault() : $user->getRole();
+    }
+
+    function getCurrentUser()
+    {
+        $serviceManager = $this->getServiceLocator();
+        $authService = $serviceManager->get('doctrine.authenticationservice.orm_default');
+        // identify the user
+        return $authService->hasIdentity() ? $authService->getIdentity() : null;
+    }
+
+    function isAdmin()
+    {
+        return $this->getCurrentRole()->getName() == "admin";
+    }
+
     function checkRouteAccess(MvcEvent $event)
     {
         $serviceManager = $this->getServiceLocator();
