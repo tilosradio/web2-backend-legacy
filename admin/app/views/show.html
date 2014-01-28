@@ -33,7 +33,10 @@
       <td>{{scheduling.weekType}}&nbsp;hetente</td>
       <td ng-show="user.role.name == 'admin'"><a class="btn btn-danger"
                                                  ng-href="/edit/scheduling/{{show.id}}/{{scheduling.id}}">Szerkesztés</a></td>
-      <td ng-show="user.role.name == 'admin'"><a class="btn btn-danger" ng-click="deleteScheduling(scheduling.id)">Törlés</a></td>
+      <td
+              ng-show="user.role.name == 'admin'"><a class="btn btn-danger"
+              ng-confirm-click
+              ng-click="deleteScheduling(scheduling.id)">Törlés</a></td>
     </tr>
     </tbody>
   </table>
@@ -47,7 +50,8 @@
   <p>
   <ul ng-repeat="contributor in show.contributors">
     <li>{{contributor.nick}} (<a ng-href="/author/{{contributor.author.id}}">{{contributor.author.name}}</a>) <a
-            ng-show="user.role.name == 'admin'" class="btn btn-danger" ng-click="deleteContribution(contributor.id)">Törlés</a></li>
+            ng-confirm-click ng-show="user.role.name == 'admin'" class="btn btn-danger" ng-click="deleteContribution(contributor.id)">Törl
+      és</a></li>
   </ul>
   </p>
   <a ng-show="user.role.name == 'admin'" class="btn btn-warning" ng-href="/new/contribution">Új</a>
