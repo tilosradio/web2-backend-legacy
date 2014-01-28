@@ -442,7 +442,7 @@ module.exports = function (grunt) {
     'uglify',
     'copy:php',
     'copy:dist',
-    'imagemin:dist',
+//    'imagemin:dist',
     //   'rev',
     'usemin1',
     'connect:livereload',
