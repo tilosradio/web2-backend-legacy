@@ -423,7 +423,7 @@ module.exports = function (grunt) {
     'copy:php',
     'copy:dist',
     'copy:chat',
-    'imagemin:dist',
+//    'imagemin:dist',
 //    'rev',
     'usemin',
     'copy:php',
