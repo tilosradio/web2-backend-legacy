@@ -5,11 +5,14 @@ angular.module('tilosApp').config(function ($routeProvider) {
   $routeProvider.when('/index', {
     templateUrl: 'partials/index.html',
     controller: 'MainCtrl'
-  })
+  });
+  $routeProvider.when('/', {
+    templateUrl: 'partials/index.html',
+    controller: 'MainCtrl'
+  });
 });
 
-angular.module('tilosApp')
-    .controller('MainCtrl', function ($scope, FeedService, $http, API_SERVER_ENDPOINT) {
+angular.module('tilosApp').controller('MainCtrl', function ($scope, FeedService, $http, API_SERVER_ENDPOINT) {
       FeedService.parseFeed('http://hirek.tilos.hu/?feed=rss2').then(function (res) {
         $scope.feeds = res.data.responseData.feed.entries;
       });
