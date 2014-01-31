@@ -33,10 +33,24 @@ class EpisodeTest extends TestBase {
 
         $result = $this->controller->dispatch($this->request);
         $response = $this->controller->getResponse();
-        //then                      e
+        //then
         $episodes = $result->getVariables();
         //var_dump($episodes);
         $this->assertTrue(count($episodes) > 0);
+    }
+
+    public function testEpisodeNext() {
+        $this->em->getConfiguration()->setSQLLogger(new \Doctrine\DBAL\Logging\EchoSQLLogger());
+        //when
+        $this->request->setUri("/api/episode/next");
+        $this->routeMatch->setParam('action', 'next');
+
+        $result = $this->controller->dispatch($this->request);
+        $response = $this->controller->getResponse();
+        //then                      e
+        $episodes = $result->getVariables();
+        var_dump($episodes);
+        $this->assertEquals(0,count($episodes));
     }
 
 

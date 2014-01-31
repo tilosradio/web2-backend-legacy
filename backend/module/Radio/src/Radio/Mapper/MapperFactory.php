@@ -132,6 +132,7 @@ class MapperFactory {
         $m->addMapper(new InternalLinkField("m3uUrl", $context['baseUrl']));
         $em = $m->addMapper(new ChildObject("text"));
         $em->addMapper(new Field("title"));
+        $em->addMapper(new DateField("created"));
         $em->addMapper(new TextContent());
         return $m;
     }

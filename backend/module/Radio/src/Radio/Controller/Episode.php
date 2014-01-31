@@ -4,6 +4,11 @@ namespace Radio\Controller;
 
 use DoctrineORMModule\Proxy\__CG__\Radio\Entity\TextContent;
 use Radio\Mapper\ArrayFieldSetter;
+use Radio\Mapper\ChildObject;
+use Radio\Mapper\DateField;
+use Radio\Mapper\Field;
+use Radio\Mapper\InternalLinkField;
+use Radio\Mapper\ListMapper;
 use Zend\View\Model\JsonModel;
 use Radio\Provider\EntityManager;
 use Radio\Mapper\MapperFactory;
@@ -12,20 +17,14 @@ use Radio\Mapper\MapperFactory;
 /**
  * @SWG\Resource(resourcePath="/episode",basePath="/api")
  */
-class Episode extends BaseController {
+class Episode extends BaseController
+{
 
     use EntityManager;
 
-    /**
-     * @SWG\Api(
-     *   path="/episode",
-     *   description="List of the exact episodes for a specific time range",
-     * @SWG\Operation(
-     *     method="GET"
-     *   )
-     * )
-     */
-    public function getList() {
+
+    public function getList()
+    {
         try {
             $start = $this->params()->fromQuery("start", time());
             $end = $this->params()->fromQuery("end", $start + 60 * 60 * 5);
@@ -40,9 +39,87 @@ class Episode extends BaseController {
         }
     }
 
-    public function get($e) {
+
+    public function next()
+    {
         try {
-            $id = $this->getIdentifier($e->getRouteMatch(),$e->getRequest());
+            $start = time();
+            $end = $this->params()->fromQuery("end", $start + 60 * 60 * 5);
+
+            $qb = $this->getEntityManager()->createQueryBuilder();
+            $qb->select('e', 't','s')
+                ->from('\Radio\Entity\Episode', 'e')
+                ->join('e.text', 't')
+                ->join('e.show', 's')
+                ->where('e.realTo > current_timestamp()')
+                ->add('orderBy', 'e.realFrom ASC')
+                ->setFirstResult(0)
+                ->setMaxResults(5);
+
+            $q = $qb->getQuery();
+
+
+            $episodes = $q->getArrayResult();
+            $result = [];
+
+            $this->episodeSuggestionMapper()->map($episodes, $result, new ArrayFieldSetter());
+
+            return new JsonModel($result);
+        } catch (Exception $ex) {
+            $this->getResponse()->setStatusCode(500);
+            return new JsonModel(array("error" => $ex->getMessage()));
+        }
+    }
+
+    public function episodeSuggestionMapper(){
+        $m = new ListMapper();
+        $m->addMapper(new Field("id"));
+        $m->addMapper(new DateField("plannedFrom"));
+        $m->addMapper(new DateField("plannedTo"));
+        $m->addMapper(new InternalLinkField("m3uUrl", $this->getServerUrl()));
+        $em = $m->addMapper(new ChildObject("text"));
+        $em->addMapper(new Field("title"));
+        $em->addMapper(new DateField("created"));
+        $sm = $m->addMapper(new ChildObject("show"));
+        $sm->addMapper(new Field("name"));
+        $sm->addMapper(new Field("id"));
+        $sm->addMapper(new Field("alias"));
+        return $m;
+    }
+    public function last()
+    {
+        try {
+            $start = time();
+            $end = $this->params()->fromQuery("end", $start + 60 * 60 * 5);
+
+            $qb = $this->getEntityManager()->createQueryBuilder();
+            $qb->select('e', 't','s')
+                ->from('\Radio\Entity\Episode', 'e')
+                ->join('e.text', 't')
+                ->join('e.show', 's')
+                ->add('orderBy', 't.created DESC')
+                ->setFirstResult(0)
+                ->setMaxResults(5);
+
+            $q = $qb->getQuery();
+
+
+            $episodes = $q->getArrayResult();
+            $result = [];
+
+            $this->episodeSuggestionMapper()->map($episodes, $result, new ArrayFieldSetter());
+
+            return new JsonModel($result);
+        } catch (Exception $ex) {
+            $this->getResponse()->setStatusCode(500);
+            return new JsonModel(array("error" => $ex->getMessage()));
+        }
+    }
+
+    public function get($e)
+    {
+        try {
+            $id = $this->getIdentifier($e->getRouteMatch(), $e->getRequest());
 
             $result = $this->getEntityManager()->find("\Radio\Entity\Episode", $id);
             if ($result == null) {
@@ -61,7 +138,6 @@ class Episode extends BaseController {
             return new JsonModel(array("error" => $ex->getMessage()));
         }
     }
-
 
 
 }

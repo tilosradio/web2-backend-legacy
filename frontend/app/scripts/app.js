@@ -13,13 +13,7 @@ tilos.weekStart = function (date) {
 };
 
 tilos.config(['$routeProvider', function ($routeProvider) {
-  $routeProvider.when('/index', {
-    templateUrl: 'partials/index.html',
-    controller: 'RssNewsCtrl'
-  }).when('/', {
-    templateUrl: 'partials/index.html',
-    controller: 'RssNewsCtrl'
-  }).when('/archive', {
+  $routeProvider.when('/archive', {
     templateUrl: 'partials/program.html',
     controller: 'ProgramCtrl'
   }).when('/show/:id', {
