@@ -1,20 +1,19 @@
 <section class="col-md-6 main" role="main">
   <h2>Közelgő műsorok</h2>
   <table class="table">
-    <tr data-ng-repeat="episode in next">
-      <td>{{episode.plannedFrom * 1000 | date:'MMM dd HH:ss'}}: <a ng-href="/show/{{episode.show.alias}}">{{episode.show.name}}</a></td>
-      <td><a ng-href="/episode/{{episode.id}}">{{episode.text.title}}</a></td>
-    </tr>
+    <div class="episode-next episode-list" data-ng-repeat="episode in next">
+      <h3><a ng-href="/episode/{{episode.id}}">{{episode.text.title}}</a></h3>
+      <p><a ng-href="/show/{{episode.show.alias}}">{{episode.show.name}}</a>: {{episode.plannedFrom * 1000 | date:'MMMM dd -- HH:ss'}}</p>
+    </div>
   </table>
 
   <h2>Legfrissebb adásnaplók</h2>
   <table class="table">
-    <tr data-ng-repeat="episode in last">
-      <td></td>
-      <td><a ng-href="/episode/{{episode.id}}">{{episode.text.title}}</a></td>
-      <td><a ng-href="/show/{{episode.show.alias}}">{{episode.show.name}}</a> ({{episode.plannedFrom * 1000 | date:'yyyy-MM-dd'}})</td>
-      <td>Meghallgat</td>
-    </tr>
+    <div class="episode-last episode-list" data-ng-repeat="episode in last">
+        <h3><a ng-href="/episode/{{episode.id}}">{{episode.text.title}}</a></h3>
+        <p>{{episode.plannedFrom * 1000 | date:'yyyy. MMMM dd'}} <a ng-href="/show/{{episode.show.alias}}">{{episode.show.name}}</a>
+          Meghallgat</p>
+    </div>
   </table>
 </section> <!-- col-md-6 -->
 
