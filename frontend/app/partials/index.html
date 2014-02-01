@@ -11,7 +11,7 @@
   <table class="table">
     <div class="episode-last episode-list" data-ng-repeat="episode in last">
         <h3><a ng-href="/episode/{{episode.id}}">{{episode.text.title}}</a></h3>
-        <p>{{episode.plannedFrom * 1000 | date:'yyyy. MMMM dd'}} <a ng-href="/show/{{episode.show.alias}}">{{episode.show.name}}</a>
+        <p>{{episode.plannedFrom * 1000 | date:'yyyy. MMMM dd.'}} <a ng-href="/show/{{episode.show.alias}}">{{episode.show.name}}</a>
           Meghallgat</p>
     </div>
   </table>
@@ -23,11 +23,8 @@
   <h2>Hírek</h2>
   <article ng-repeat="feed in feeds">
     <div class="news-lead"><br/>
-
-      <p><img src="{{feed.mediaGroups[0].contents[0].url}}" alt="{{feed.title}}" ng-show="{{feed.mediaGroups[0].contents[0].url}}"></p>
-
-
       <a href="{{feed.link}}" target="_blank">{{feed.title}}</a>
+      <p><img src="{{feed.mediaGroups[0].contents[0].url}}" alt="{{feed.title}}" ng-show="{{feed.mediaGroups[0].contents[0].url}}"></p>
 
     </div>
 
