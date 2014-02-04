@@ -1,5 +1,5 @@
 <section class="col-md-6 main" role="main">
-  <h2>Közelgő műsorok</h2>
+  <h2>Műsorajánlók</h2>
   <table class="table">
     <div class="episode-next episode-list" data-ng-repeat="episode in next">
       <h3><a ng-href="/episode/{{episode.id}}">{{episode.text.title}}</a></h3>
@@ -24,7 +24,7 @@
   <article ng-repeat="feed in feeds">
     <div class="news-lead"><br/>
       <a href="{{feed.link}}" target="_blank">{{feed.title}}
-      <p><img src="{{feed.mediaGroups[0].contents[0].url}}" alt="{{feed.title}}" ng-show="{{feed.mediaGroups[0].contents[0].url}}"></a></p>
+      <p><img src="{{feed.mediaGroups[0].contents[0].url}}" alt="{{feed.title}}" ng-show="{{feed.mediaGroups[0].contents[0].url}}"></a><span ng-bind-html="feed.content"></span></p>
 
     </div>
 
