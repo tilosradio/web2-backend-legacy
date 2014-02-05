@@ -948,14 +948,14 @@ input.datepicker {
     margin-right: 10px;
     margin-bottom: 10px;
     @media all and (max-width: 700px) {
-      max-width: 100%;  
+      max-width: 100%;
     }
     @media all and (max-width: 450px) {
       float: none;
       display: block;   
     }
   }
-
+  border-bottom: 1px solid $gray-darken;
 }
 
 .newsLink{
