@@ -941,7 +941,10 @@ input.datepicker {
 //News extra
 
 
-.news-lead{
+.news-lead{	
+border-bottom:1px solid #201f1f;
+line-height:1.4em;
+    padding-bottom: 0.75em;
   @include clearfix();
   img{
     float: left;
