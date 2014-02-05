@@ -947,6 +947,7 @@ input.datepicker {
     float: left;
     margin-right: 10px;
     margin-bottom: 10px;
+    border-bottom: 1px solid $primary-color;
     @media all and (max-width: 700px) {
       max-width: 100%;  
     }
