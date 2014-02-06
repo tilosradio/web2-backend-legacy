@@ -5,7 +5,7 @@ Műsorajánló
   <table class="table">
     <div class="episode-next episode-list" data-ng-repeat="episode in next">
       <h3><a ng-href="/episode/{{episode.id}}">{{episode.text.title}}</a></h3>
-      <p><a ng-href="/show/{{episode.show.alias}}">{{episode.show.name}}</a>: {{episode.plannedFrom * 1000 | date:'MMMM dd -- HH:ss'}}</p>
+      <p><a ng-href="/show/{{episode.show.alias}}">{{episode.show.name}}</a>: {{episode.plannedFrom * 1000 | date:'MMMM dd. - HH:ss'}}</p>
     </div>
   </table>
 
