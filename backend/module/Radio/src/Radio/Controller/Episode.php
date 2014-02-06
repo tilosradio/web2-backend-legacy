@@ -89,14 +89,12 @@ class Episode extends BaseController
     public function last()
     {
         try {
-            $start = time();
-            $end = $this->params()->fromQuery("end", $start + 60 * 60 * 5);
-
             $qb = $this->getEntityManager()->createQueryBuilder();
-            $qb->select('e', 't','s')
+            $qb->select('e','t','s')
                 ->from('\Radio\Entity\Episode', 'e')
                 ->join('e.text', 't')
                 ->join('e.show', 's')
+                ->where('e.realTo < current_timestamp()')
                 ->add('orderBy', 't.created DESC')
                 ->setFirstResult(0)
                 ->setMaxResults(5);

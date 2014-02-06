@@ -38,7 +38,7 @@ angular.module('tilosAdmin')
       $scope.show = data;
       $scope.server = API_SERVER_ENDPOINT;
       $scope.schedulings = schedulingList.data;
-
+      $scope.now = new Date().getTime();
 
       $scope.currentShowPage = 0;
       $scope.deleteScheduling = function (id) {
@@ -104,10 +104,10 @@ angular.module('tilosAdmin')
 
 angular.module('tilosAdmin')
     .controller('ShowEditCtrl', ['$location', '$scope', '$routeParams', 'API_SERVER_ENDPOINT', '$http', '$cacheFactory', 'data',
+
       function ($location, $scope, $routeParams, server, $http, $cacheFactory, data) {
         $scope.show = data;
         $scope.save = function () {
-
           $http.put(server + '/api/v0/show/' + $routeParams.id, $scope.show).success(function (data) {
             var httpCache = $cacheFactory.get('$http');
             httpCache.remove(server + '/api/v0/show/' + $scope.show.id);

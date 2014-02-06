@@ -23,6 +23,7 @@ angular.module('tilosAdmin')
 angular.module('tilosAdmin')
     .controller('EpisodeEditCtrl', ['$location', '$scope', '$routeParams', 'API_SERVER_ENDPOINT', '$http', '$cacheFactory', '$rootScope', function ($location, $scope, $routeParams, server, $http, $cacheFactory, $rootScope) {
       var id = $routeParams.id;
+      $scope.now = new Date().getTime();
       $http.get(server + '/api/v0/episode/' + id).success(function (data) {
         $scope.episode = data;
         $scope.episode.id = id;
@@ -63,6 +64,7 @@ angular.module('tilosAdmin')
       $scope.episode.radioshow_id = $scope.episode.show.id;
       $scope.show = $scope.episode.show;
       $scope.episode.show = null;
+      $scope.now = new Date().getTime();
 
 
       $scope.save = function () {
