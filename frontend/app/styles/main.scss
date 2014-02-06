@@ -40,6 +40,11 @@ h3{
   }
 }
 
+
+hr{
+  margin: 10px 0;
+}
+
 .ubuntu{
 	font-family: "Ubuntu Condensed",sans-serif;
 }
@@ -476,6 +481,18 @@ img{
 		line-height:1.4em;
     padding-bottom: 0.75em;
 	}
+}
+
+.program-guides{
+  margin-bottom: 5em;
+  h3{
+    margin-bottom: 1em;
+  }
+}
+.recent-broadcast-schedule{
+  h3{
+    margin-bottom: 1em;
+  }
 }
 
 .article-info{
@@ -1041,6 +1058,20 @@ input.datepicker {
   font-size: 100%;
 }
 
-hr{
-  margin: 10px 0;
+.shows-page{
+  .instant-search{
+  margin-top: 20px;
+  }
+  h2{
+    margin-top: 10px;
+
+  }
 }
+
+
+// future feature
+
+// put mixcloud icon
+// a[href*="mixcloud.com/"]{
+//   color: blue;
+// }
