@@ -126,58 +126,6 @@ class User extends BaseController
 
     }
 
-    public function create($data)
-    {
-        try {
-            // validation
-            if (!isset($data['role_id']) || !isset($data['username']) ||
-                !isset($data['password']) || !isset($data['email'])
-            ) {
-                $this->getResponse()->setStatusCode(400);
-                return new JsonModel(array("error" => "Mandatory fields: role_id, username, password, email."));
-            }
-
-            // validate fields via DB
-            // check if role exist
-            $role = $this->getEntityManager()->find('Radio\Entity\Role', $data['role_id']);
-            if (is_null($role)) {
-                $this->getResponse()->setStatusCode(400);
-                return new JsonModel(array("error" => "No such existing role."));
-            }
-            // check if username taken
-            $check_user = $this->getEntityManager()
-                ->getRepository('Radio\Entity\User')
-                ->findOneBy(array('username' => $data['username']));
-            if (!is_null($check_user)) {
-                $this->getResponse()->setStatusCode(400);
-                return new JsonModel(array("error" => "Username already taken."));
-            }
-            // check if email taken
-            $check_user = $this->getEntityManager()
-                ->getRepository('Radio\Entity\User')
-                ->findOneBy(array('email' => $data['email']));
-            if (!is_null($check_user)) {
-                $this->getResponse()->setStatusCode(400);
-                return new JsonModel(array("error" => "Email already taken."));
-            }
-
-            $user = new \Radio\Entity\User();
-
-            $user->setUsername($data['username']);
-            $user->setEmail($data['email']);
-            $user->createSalt();
-            $user->setPassword($data['password']);
-            $user->setRole($role);
-
-            $this->getEntityManager()->persist($user);
-            $this->getEntityManager()->flush();
-
-            return new JsonModel(array("create" => "success"));
-        } catch (\Exception $ex) {
-            $this->getResponse()->setStatusCode(500);
-            return new JsonModel(array("error" => $ex->getMessage()));
-        }
-    }
 
     public function update($id, $data)
     {
