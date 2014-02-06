@@ -29,6 +29,15 @@ h1{
 h2{
 	font-family: "Open Sans",sans-serif;
     font-size: 20px;
+    a{
+      color: inherit;
+    }
+}
+
+h3{
+  a{
+    color: inherit;
+  }
 }
 
 .ubuntu{
@@ -942,7 +951,21 @@ input.datepicker {
 
 
 .news-lead{	
+  margin-bottom: 1em;
   @include clearfix();
+  h3{
+    border-bottom: 1px solid $primary-color;
+    color: $primary-color;
+    margin-top: 0;
+    margin-bottom: 1em;
+    padding-bottom: 0.5em;
+    text-transform: none;
+    a{
+      &:hover{
+        text-decoration: none;
+      }
+    }
+  }
   img{
     float: left;
     margin-right: 10px;
