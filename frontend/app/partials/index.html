@@ -1,28 +1,25 @@
 <section class="col-md-6 main" role="main">
-  	<div class="btn btn-danger btn-block btn-lg">
-Műsorajánló
-</div>
-  <table class="table">
+  <div class="program-guides">
+    <h2 class="blue">Műsorajánló</h2>
     <div class="episode-next episode-list" data-ng-repeat="episode in next">
       <h3><a ng-href="/episode/{{episode.id}}">{{episode.text.title}}</a></h3>
-      <p><a style="float: right" class="label label-default" ng-href="/show/{{episode.show.alias}}">{{episode.show.name}}</a>:
-        {{episode.plannedFrom * 1000 | date:'MMMM dd. - HH:ss'}}</p>
+      <p>
+        {{episode.plannedFrom * 1000 | date:'MMMM dd. - HH:ss'}}
+        <a style="float: right" class="label label-default" ng-href="/show/{{episode.show.alias}}">{{episode.show.name}}</a>
+       </p>
     </div>
-  </table>
-
-<div class="btn-default btn btn-lg btn-block rss">
-Legfrissebb adásnaplók
-</div>
-  <table class="table">
+  </div>
+  <div class="recent-broadcast-schedule">
+    <h2 class="blue">Legfrissebb adásnaplók</h2>
     <div class="episode-last episode-list" data-ng-repeat="episode in last">
         <h3><a ng-href="/episode/{{episode.id}}">{{episode.text.title}}</a></h3>
         <p>
           {{episode.plannedFrom * 1000 | date:'yyyy. MMMM dd.'}}
-          <a style="float: right" class="label label-default" ng-href="/show/{{episode.show.alias}}">{{episode.show.name}}</a>
+          <a class="label label-default pull-right" ng-href="/show/{{episode.show.alias}}">{{episode.show.name}}</a>
           <a ng-href="{{episode.m3uUrl}}" target="_self">Meghallgat</a>
         </p>
     </div>
-  </table>
+  </div>
 </section> <!-- col-md-6 -->
 
 </aside> <!-- col-md-3 -->
