@@ -659,10 +659,17 @@ aside{
   }
 }
 
+.actual-shows-box{
+  h2{
+    margin-bottom: 0;
+  }
+}
 .actual-shows{
   font-size: 15px;
   td{
-    padding: 0.5em 0.7em 0.5em 0.7em !important;
+    border-top: none !important;
+    border-bottom: 1px solid $table-border-color;
+    padding: 0.94em  0.7em !important;
   }
   a{
     color: $primary-color;
@@ -1032,4 +1039,8 @@ input.datepicker {
   overflow: auto;
   font-family: inherit;
   font-size: 100%;
+}
+
+hr{
+  margin: 10px 0;
 }
