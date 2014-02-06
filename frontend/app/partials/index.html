@@ -16,7 +16,7 @@ Legfrissebb adásnaplók
     <div class="episode-last episode-list" data-ng-repeat="episode in last">
         <h3><a ng-href="/episode/{{episode.id}}">{{episode.text.title}}</a></h3>
         <p>{{episode.plannedFrom * 1000 | date:'yyyy. MMMM dd.'}} <a ng-href="/show/{{episode.show.alias}}">{{episode.show.name}}</a>
-          <a ng-show="episode.m3uUrl" ng-href="{{episode.m3uUrl}}" target="_self"><i class="icon-volume-up"></i> Meghallgat</a></p>
+           Meghallgat</p>
     </div>
   </table>
 </section> <!-- col-md-6 -->
