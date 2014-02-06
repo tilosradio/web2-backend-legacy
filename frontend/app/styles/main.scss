@@ -664,9 +664,15 @@ aside{
   td{
     padding: 0.5em 0.7em 0.5em 0.7em !important;
   }
+  a{
+    color: $primary-color;
+  }
   .actual{
     color: $actual-color;
     font-weight: bold;
+    a{
+      color: $link-color;
+    }
     td{
       background: $gray-lighten;
       border-color: $gray-lighten-border;
