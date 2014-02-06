@@ -5,7 +5,8 @@ Műsorajánló
   <table class="table">
     <div class="episode-next episode-list" data-ng-repeat="episode in next">
       <h3><a ng-href="/episode/{{episode.id}}">{{episode.text.title}}</a></h3>
-      <p><a ng-href="/show/{{episode.show.alias}}">{{episode.show.name}}</a>: {{episode.plannedFrom * 1000 | date:'MMMM dd. - HH:ss'}}</p>
+      <p><a style="float: right" class="label label-default" ng-href="/show/{{episode.show.alias}}">{{episode.show.name}}</a>:
+        {{episode.plannedFrom * 1000 | date:'MMMM dd. - HH:ss'}}</p>
     </div>
   </table>
 
@@ -15,8 +16,11 @@ Legfrissebb adásnaplók
   <table class="table">
     <div class="episode-last episode-list" data-ng-repeat="episode in last">
         <h3><a ng-href="/episode/{{episode.id}}">{{episode.text.title}}</a></h3>
-        <p>{{episode.plannedFrom * 1000 | date:'yyyy. MMMM dd.'}} <a ng-href="/show/{{episode.show.alias}}">{{episode.show.name}}</a>
-           Meghallgat</p>
+        <p>
+          {{episode.plannedFrom * 1000 | date:'yyyy. MMMM dd.'}}
+          <a style="float: right" class="label label-default" ng-href="/show/{{episode.show.alias}}">{{episode.show.name}}</a>
+          <a ng-href="{{episode.m3uUrl}}" target="_self">Meghallgat</a>
+        </p>
     </div>
   </table>
 </section> <!-- col-md-6 -->

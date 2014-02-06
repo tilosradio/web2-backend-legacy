@@ -96,11 +96,15 @@ class EpisodeUtil {
         foreach ($episodes as &$episode) {
             $episode['persistent'] = true;
             if ($now->getTimestamp() > $episode['plannedTo']->getTimestamp()) {
-                $episode['m3uUrl'] = sprintf('m3u/%d/%d.m3u', $episode['plannedFrom']->getTimestamp(),
-                    ($episode['plannedTo']->getTimestamp() - $episode['plannedFrom']->getTimestamp()) / 60);
+                $episode['m3uUrl'] = EpisodeUtil::m3uUrlLink($episode);
             }
         }
         return $episodes;
+     }
+
+    static function m3uUrlLink($episode) {
+        return sprintf('m3u/%d/%d.m3u', $episode['plannedFrom']->getTimestamp(),
+            ($episode['plannedTo']->getTimestamp() - $episode['plannedFrom']->getTimestamp()) / 60);
     }
 
     static function merge($episodes, $scheduled) {

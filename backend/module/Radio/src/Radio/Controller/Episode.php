@@ -82,6 +82,7 @@ class Episode extends BaseController
         $em->addMapper(new DateField("created"));
         $sm = $m->addMapper(new ChildObject("show"));
         $sm->addMapper(new Field("name"));
+        $m->addMapper(new InternalLinkField("m3uUrl", $this->getServerUrl()));
         $sm->addMapper(new Field("id"));
         $sm->addMapper(new Field("alias"));
         return $m;
@@ -104,7 +105,9 @@ class Episode extends BaseController
 
             $episodes = $q->getArrayResult();
             $result = [];
-
+            foreach ($episodes as &$episode) {
+                $episode['m3uUrl'] = EpisodeUtil::m3uUrlLink($episode);
+            }
             $this->episodeSuggestionMapper()->map($episodes, $result, new ArrayFieldSetter());
 
             return new JsonModel($result);
