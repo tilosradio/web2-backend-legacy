@@ -158,7 +158,12 @@ class Atom extends AbstractActionController
             $timestr = sprintf("%02d%02d", $d['hours'], $d['minutes']);
 
             $entry = $feed->createEntry();
-            $entry->setTitle($show->getName() . " " . $episode['plannedFrom']->format("Y-m-d"));
+            if (array_key_exists("text", $episode) && !empty($episode['text']['title'])) {
+                $entry->setTitle($episode['text']['title']);
+            } else {
+                $entry->setTitle($episode['plannedFrom']->format("Y-m-d"));
+            }
+
             $entry->setId(sprintf("http://tilos.hu/feed/%s/%02d/%02d/%02d/%s", $showId, $d['year'], $d['mon'], $d['mday'], $timestr));
             $entry->setLink($serverRoot . '/show/' . $showId);
             foreach ($show->getContributors() as $participation) {
