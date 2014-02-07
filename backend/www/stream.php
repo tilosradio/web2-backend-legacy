@@ -102,7 +102,7 @@ class Mp3Streamer
         //stream the content to the browser
         header("Content-Length: " . $filesize);
         foreach ($this->getMp3Links($start, $duration) as $resource) {
-            $this->chunked_copy("../archive" . $resource['filename']);
+            $this->chunked_copy("../archive-files/online" . $resource['filename']);
         }
 
         die("");
