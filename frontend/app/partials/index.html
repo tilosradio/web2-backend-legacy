@@ -4,7 +4,7 @@
     <div class="episode-next episode-list" data-ng-repeat="episode in next">
       <h3><a ng-href="/episode/{{episode.id}}">{{episode.text.title}}</a></h3>
       <p>
-        {{episode.plannedFrom * 1000 | date:'MMMM dd. - HH:ss'}}
+        {{episode.plannedFrom * 1000 | date:'MMMM dd. - HH:mm'}}
         <a class="label label-default pull-right" ng-href="/show/{{episode.show.alias}}">{{episode.show.name}}</a>
        </p>
     </div>
