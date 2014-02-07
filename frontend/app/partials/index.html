@@ -5,7 +5,7 @@
       <h3><a ng-href="/episode/{{episode.id}}">{{episode.text.title}}</a></h3>
       <p>
         {{episode.plannedFrom * 1000 | date:'MMMM dd. - HH:mm'}}
-        <a class="label label-default pull-right" ng-href="/show/{{episode.show.alias}}">{{episode.show.name}}</a>
+        <a class="label label-episode label-default pull-right" ng-href="/show/{{episode.show.alias}}">{{episode.show.name}}</a>
        </p>
     </div>
   </div>
@@ -15,7 +15,7 @@
         <h3><a ng-href="/episode/{{episode.id}}">{{episode.text.title}}</a></h3>
         <p>
           {{episode.plannedFrom * 1000 | date:'yyyy. MMMM dd.'}}
-          <a class="label label-default pull-right" ng-href="/show/{{episode.show.alias}}">{{episode.show.name}}</a>
+          <a class="label label-episode label-default pull-right" ng-href="/show/{{episode.show.alias}}">{{episode.show.name}}</a>
           <a ng-href="{{episode.m3uUrl}}" target="_self">Meghallgat</a>
         </p>
     </div>
