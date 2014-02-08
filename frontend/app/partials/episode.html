@@ -1,0 +1,13 @@
+<section class="col-md-9 main" role="main">
+  <h2 class="bordered blue">Adásnapló / <a ng-href="/show/{{episode.show.id}}">{{episode.show.name}}</a> / {{episode.plannedFrom * 1000|
+    date:yyyy.MM.dd}}</h2>
+
+  <h1 class="ubuntu">{{episode.text.title}}</h1>
+
+  <span ng-bind-html="episode.text.content"></span>
+</section>
+<aside class="col-md-3">
+
+    
+  <div ng-include src="'partials/sidebar_right.html'"></div>
+</aside>

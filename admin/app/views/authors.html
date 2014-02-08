@@ -1,0 +1,18 @@
+<h1>Műsorkészítők
+  <a ng-show="user.role.name == 'admin'" class="btn btn-danger" role="btn" ng-href="/new/author">Új</a></h1>
+<table class="table">
+  <thead>
+  <tr>
+    <th>Név</th>
+    <th>Műsorok</th>
+  </tr>
+  </thead>
+  <tr ng-repeat="author in authors">
+    <td><a ng-href="/author/{{author.id}}">{{author.name}}</a></td>
+    <td>
+      <span ng-repeat="contribution in author.contributions">
+        <a ng-href="/show/{{contribution.show.id}}">{{contribution.show.name}}</a> ({{contribution.nick}})
+      </span>
+    </td>
+  </tr>
+</table>

@@ -1,0 +1,25 @@
+<div ng-show="user.author">
+  <h1>Saját műsorok</h1>
+  <table class="table">
+    <thead>
+    <tr>
+      <th>Műsor név</th>
+      <th>Művész név</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr ng-repeat="contribution in user.author.contributions">
+      <td><a ng-href="/show/{{contribution.show.id}}">{{contribution.show.name}}</a></td>
+      <td>{{contribution.nick}}</td>
+    </tr>
+    </tbody>
+  </table>
+</div>
+<h1 ifAdmin>Összes műsor
+  <a ng-show="user.role.name == 'admin'" class="btn btn-danger" role="btn" ng-href="/new/show">Új műsor</a></h1></h1>
+
+<table ifAdmin class="table">
+  <tr ng-repeat="show in shows">
+    <td><a ng-href="/show/{{show.id}}">{{show.name}}</a></td>
+  </tr>
+</table>
