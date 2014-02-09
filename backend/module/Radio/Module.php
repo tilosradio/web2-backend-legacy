@@ -3,7 +3,8 @@
 namespace Radio;
 
 use Radio\Util\BusinessLogger;
-use Zend\Mail\Transport\Sendmail;
+use Zend\Mail\Transport\Smtp as SmtpTransport;
+use Zend\Mail\Transport\SmtpOptions;
 use Zend\Mvc\MvcEvent,
     Radio\Entity\Role,
     Radio\Permissions\Acl,
@@ -33,12 +34,19 @@ class Module
 
     public function getServiceConfig()
     {
-        return array(
+        $mailTransport = new SmtpTransport();
+	$options = new SmtpOptions(array(
+                'name' => 'localhost',
+                'host' => '127.0.0.1',
+                'port' => 25,
+        ));
+        $mailTransport->setOptions($options);
+	return array(
             'invokables' => array(
                 'ApiAuditLogger' => '\Radio\Util\ApiAuditLogger'
             ),
             'services' => array(
-                '\Radio\Mail\Transport' => new Sendmail()
+                '\Radio\Mail\Transport' => $mailTransport
             )
         );
     }
