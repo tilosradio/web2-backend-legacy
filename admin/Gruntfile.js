@@ -361,7 +361,7 @@ module.exports = function (grunt) {
       ],
       dist: [
         'compass:dist',
-        'imagemin',
+        // 'imagemin',
         'svgmin'
       ]
     },
@@ -440,7 +440,7 @@ module.exports = function (grunt) {
     'bower-install',
     'useminPrepare',
     'compass:dist',
-    'imagemin',
+    // 'imagemin',
     'svgmin',
     'autoprefixer',
     'concat',
