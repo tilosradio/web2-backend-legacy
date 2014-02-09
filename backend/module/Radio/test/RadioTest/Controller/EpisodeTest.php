@@ -40,7 +40,7 @@ class EpisodeTest extends TestBase {
     }
 
     public function testEpisodeNext() {
-        $this->em->getConfiguration()->setSQLLogger(new \Doctrine\DBAL\Logging\EchoSQLLogger());
+//        $this->em->getConfiguration()->setSQLLogger(new \Doctrine\DBAL\Logging\EchoSQLLogger());
         //when
         $this->request->setUri("/api/episode/next");
         $this->routeMatch->setParam('action', 'next');
@@ -49,7 +49,7 @@ class EpisodeTest extends TestBase {
         $response = $this->controller->getResponse();
         //then                      e
         $episodes = $result->getVariables();
-        var_dump($episodes);
+        //var_dump($episodes);
         $this->assertEquals(0,count($episodes));
     }
 

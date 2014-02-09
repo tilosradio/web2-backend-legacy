@@ -75,4 +75,23 @@ class AccessControlUtil
 
     }
 
+    public static function currentUser($e)
+    {
+        $serviceManager = $e->getApplication()->getServiceManager();
+        $authService = $serviceManager->get('doctrine.authenticationservice.orm_default');
+        // identify the user
+        $user = $authService->hasIdentity() ? $authService->getIdentity() : null;
+        if ($user == null) {
+            return false;
+        }
+        $role = $user->getRole();
+        if ($role->getName() == "admin") {
+            return true;
+        }
+        $id = $e->getRouteMatch()->getParam("id");
+        return $user->getId() == $id;
+
+
+    }
+
 } 

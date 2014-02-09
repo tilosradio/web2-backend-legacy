@@ -20,15 +20,28 @@ class Field implements Mapper
 
     private $required = false;
 
+    private $validator;
+
     function __construct($name)
     {
         $this->name = $name;
+    }
+
+    public static function of($name)
+    {
+        return new Field($name);
     }
 
     public function map(&$from, &$to, $setter)
     {
 
         if (array_key_exists($this->name, $from)) {
+            if (!empty($this->validator)) {
+                $result = $this->validator->validate($from[$this->name]);
+                if ($result !== true) {
+                    throw new \Exception("Hiba a $this->name mezőben: " . $result);
+                }
+            }
             $setter->set($to, $this->name, $from[$this->name]);
         }
 
@@ -38,6 +51,12 @@ class Field implements Mapper
                 throw new \Exception("Missing required field: " . $this->name);
             }
         }
+    }
+
+    public function valid($validator)
+    {
+        $this->validator = $validator;
+        return $this;
     }
 
     public function required()
