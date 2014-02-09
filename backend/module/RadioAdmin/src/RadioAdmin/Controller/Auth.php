@@ -107,7 +107,9 @@ class Auth extends BaseController
 
             if (count($authors) == 1) {
                 $author = $authors[0];
-                if (empty($author->getUser())) {
+		// PHP <5.5 workaround
+		$authorObj = $author->getUser();
+                if (empty($authorObj)) {
                     $user = new User();
                     $user->setEmail($author->getEmail());
                     $user->setUsername($author->getAlias());
@@ -152,8 +154,7 @@ class Auth extends BaseController
             $mail->setBody($body);
             $mail->setFrom('webmester@tilos.hu', 'Tilos gépház');
             $mail->addTo($user->getEmail());
-            $mail->setSubject('[tilos.hu]Jelszó emlékeztető');
-
+            $mail->setSubject('[tilos.hu] Jelszó emlékeztető');
 
             $transport = $this->getServiceLocator()->get('Radio\Mail\Transport');
             $transport->send($mail);
