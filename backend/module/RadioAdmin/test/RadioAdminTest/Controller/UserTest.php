@@ -10,6 +10,7 @@ use RadioAdmin\Controller\User;
 use RadioTest\Bootstrap;
 use RadioTest\Fixitures\BaseData;
 use Zend\Http\Request;
+use Zend\Json\Json;
 use Zend\Mvc\MvcEvent;
 use Zend\Mvc\Router\Http\TreeRouteStack as HttpRouter;
 use Zend\Mvc\Router\RouteMatch;
@@ -19,9 +20,9 @@ class UserTest extends TestBase
 
     protected function setUp()
     {
-        $this->initTest("Radio\Controller\User", new User());
+        $this->initTest("RadioAdmin\Controller\User", new User());
         $this->baseData();
-        $this->routeMatch->setParam("permission","guest");
+        $this->routeMatch->setParam("permission", "guest");
 
     }
 
@@ -30,8 +31,7 @@ class UserTest extends TestBase
         $u = new \Radio\Entity\User();
         $u->setPassword("asdasdasdasd");
         echo "\n";
-        echo $u->getSalt()."\n";
-        echo $u->getPassword()."\n";
+        echo "UPDATE user SET salt='" . $u->getSalt() . "',password='". $u->getPassword() . "' WHERE id =";
     }
 
     public function testCurrentUser()
@@ -50,6 +50,8 @@ class UserTest extends TestBase
 
     public function testGetUser()
     {
+        $this->user = $this->createUser(1, "admin", "admin");
+
         //when
 
         $this->routeMatch->setParam('id', '1');
@@ -85,6 +87,31 @@ class UserTest extends TestBase
 
     }
 
+    public function testUpdateUser()
+    {
+        $this->user = $this->createUser(1, "admin", "admin");
+        //given
+        $this->routeMatch->setParam('id', '1');
+        $this->routeMatch->setParam('action', 'update');
+        $this->request->setMethod("put");
+        $this->request->getHeaders()->addHeaderLine("content-type: application/json");
+        $this->request->setContent(Json::encode(
+            ['email' => 'asd@asd.hu', 'role' => ['id' => 2]]));
+
+        //when
+        $result = $this->controller->dispatch($this->request);
+        $response = $this->controller->getResponse();
+        //then
+
+        $res = $result->getVariables();
+        var_dump($res);
+        $this->assertTrue($res['success']);
+        $user = $this->em->find("\Radio\Entity\User", 1);
+        $this->assertEquals("asd@asd.hu", $user->getEmail());
+        $this->assertEquals(2, $user->getRole()->getId());
+
+
+    }
 
 }
 

@@ -25,5 +25,17 @@ return array(
                 'action' => 'get'),
 
         )
+    ),
+    'user-update' => array(
+        'type' => 'Radio\Util\CustomSegmentRouter',
+        'options' => array(
+            'method' => 'PUT',
+            'permission' => '\Radio\Util\AccessControlUtil::currentUser',
+            'route' => '/api/v0/user/[:id]',
+            'defaults' => array(
+                'controller' => 'RadioAdmin\Controller\User',
+                'action' => 'update'),
+
+        )
     )
 );
