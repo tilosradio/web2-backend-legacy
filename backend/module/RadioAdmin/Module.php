@@ -75,7 +75,7 @@ class Module
             $url = $event->getRequest()->getRequestUri();
             $params = "";
             if (($method == "POST" || $method == "PUT") && (strpos($url, '/api/v0/auth') !== 0)) {
-                $params = $event->getRequest()->getContent();
+  //              $params = $event->getRequest()->getContent();
             }
             $bl = $event->getApplication()->getServiceManager()->get("ApiAuditLogger");
             $bl->log($user, $url, $method, $params);
