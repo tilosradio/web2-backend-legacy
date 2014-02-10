@@ -1,5 +1,6 @@
 <?php
 
+
 class Mp3Streamer
 {
     static public function getPrevHalfHour($time)
@@ -88,7 +89,7 @@ class Mp3Streamer
         $filesize = 0;
         foreach ($this->getMp3Links($start, $duration) as $resource) {
             //passthru($resource['file']);
-            $fn = "../archive" . $resource['filename'];
+            $fn = "../archive-files/online" . $resource['filename'];
             if (!file_exists($fn)) {
                 header('HTTP/1.0 404 Not Found');
                 die("Archive is missing: " . $fn);
