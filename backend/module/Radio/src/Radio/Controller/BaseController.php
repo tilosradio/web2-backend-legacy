@@ -92,7 +92,9 @@ class BaseController extends AbstractController
 
     public function getServerUrl()
     {
-        return "http://" . $this->getRequest()->getServer('HTTP_HOST');
+        $uri = $this->getRequest()->getUri();
+        $scheme = $uri->getScheme();
+        return $scheme . "://" . $this->getRequest()->getServer('HTTP_HOST');
     }
 
     /**
