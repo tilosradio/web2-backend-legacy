@@ -92,13 +92,13 @@ class Author extends \Radio\Controller\BaseController
             $mapper = new ObjectMapper(new ObjectFieldSetter());
             $f = new Field("name");
             $mapper->addMapper($f->required());
-            $mapper->addMapper(new Field("description"));
+            $mapper->addMapper(new Field("introduction"));
             if ($this->isAdmin()) {
                 $f = new Field("alias");
                 $mapper->addMapper($f->required());
 
-                $f = new Field("email");
-                $mapper->addMapper($f->required());
+                /*$f = new Field("email");
+                $mapper->addMapper($f->required());*/
             }
             $mapper->map($data, $author);
 
