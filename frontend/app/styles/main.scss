@@ -193,7 +193,10 @@ img{
   }
 }
 .navbar-collapse{
-    overflow-y: auto;
+  overflow-y: auto;
+  @media all and (min-width: $screen-sm){
+    overflow-y: visible;
+  }
 }
 .navbar-collapse.ng-hide{
    @media all and (min-width: $screen-sm){
@@ -202,28 +205,94 @@ img{
 }
 
 .navbar-nav {
-    > li{
-        font-size: 19px;
-        border-left: 1px solid rgba($navbar-separator, 0.6);
-        &:first-child{
-            border-left: none;
+  > li{
+      font-size: 19px;
+      border-left: 1px solid rgba($navbar-separator, 0.6);
+      &:first-child{
+          border-left: none;
 
-            a:first-child{
-              @media all and (min-width: $screen-sm){
-			         	padding-left:0;
-              }
-            }
-        }
-        .scrolled &{
-          @media all and (min-width: $screen-sm){
-            font-size: 14px;
-            > a{
-              padding-bottom: 5px;
-              padding-top: 5px;
+          a:first-child{
+            @media all and (min-width: $screen-sm){
+		         	padding-left:0;
             }
           }
       }
+      .scrolled &{
+        @media all and (min-width: $screen-sm){
+          font-size: 14px;
+          > a{
+            padding-bottom: 5px;
+            padding-top: 5px;
+          }
+        }
     }
+  }
+  .more-button{
+    display: none;
+      @media all and (min-width: $screen-sm){
+        display: inline-block;
+        border: 1px solid white;
+        border-radius: 100%;
+        font-size: 36px;
+        padding: 7px;
+      }
+    .scrolled &{
+      font-size: 21px;
+      padding: 1px 5px;
+    }
+  }
+  .dropdown-toggle{
+    display: none;
+    @media all and (min-width: $screen-sm){
+      display: block;
+    }
+  }
+  .extra-menu{
+    position: relative;
+    &:hover, &.open{
+      .extra-menu-content{
+        display: inline-block;
+      }
+    }
+    > a{
+      padding-top: 10px;
+      padding-bottom: 13px;
+    }
+   .extra-menu-content{
+      background: $navbar-color;
+      display: inline-block;
+      list-style-type: none;
+      z-index: 1;
+      padding: 0 0 10px 0;
+      font-size: 18px;
+      line-height: 30px;
+      &:hover{
+        display: inline-block;
+
+      }
+      @media all and (min-width: $screen-sm){
+        display: none;
+        position: absolute;
+      }
+      a{
+        color: white;
+        display: block;
+        font-size: 19px;
+        padding: 10px 30px;
+        line-height: 20px;
+        .scrolled &{
+          @media all and (min-width: $screen-sm){
+            font-size: 14px;
+            padding: 5px 30px;
+          }
+        }
+        &:hover{
+          color: $navbar-default-link-hover-color;
+          text-decoration: none;
+        }
+      }
+    } 
+  }
 }
 
 .navbar-form{
