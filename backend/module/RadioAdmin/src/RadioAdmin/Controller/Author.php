@@ -37,7 +37,7 @@ class Author extends \Radio\Controller\BaseController
         $result = $q->getArrayResult()[0];
 
         $r = [];
-        $mapper = MapperFactory::authorElementMapper(['baseUrl' => $this->getServerUrl()]);
+        $mapper = MapperFactory::authorMapper(['baseUrl' => $this->getServerUrl()]);
         if ($this->isAdmin()) {
             $mapper->addMapper(new Field("email"));
         }
