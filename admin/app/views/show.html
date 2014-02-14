@@ -50,8 +50,7 @@
   <p>
   <ul ng-repeat="contributor in show.contributors">
     <li>{{contributor.nick}} (<a ng-href="/author/{{contributor.author.id}}">{{contributor.author.name}}</a>) <a
-            ng-confirm-click ng-show="user.role.name == 'admin'" class="btn btn-danger" ng-click="deleteContribution(contributor.id)">Törl
-      és</a></li>
+            ng-confirm-click ng-show="user.role.name == 'admin'" class="btn btn-danger" ng-click="deleteContribution(contributor.id)">Törlés</a></li>
   </ul>
   </p>
   <a ng-show="user.role.name == 'admin'" class="btn btn-warning" ng-href="/new/contribution">Új</a>
