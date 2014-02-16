@@ -27,6 +27,7 @@ class ObjectFieldSetter implements FieldSetter
     function ensureExists(&$container, $propertyName, $type, $originalChild)
     {
         $getter = "get" . $propertyName;
+
         if (!empty($originalChild)) {
             $t = new $type();
             $idGetter = "getId";
