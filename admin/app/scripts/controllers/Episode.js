@@ -4,6 +4,11 @@ angular.module('tilosAdmin').config(['$routeProvider', function ($routeProvider)
   $routeProvider.when('/episode/:id', {
     templateUrl: 'views/episode.html',
     controller: 'EpisodeCtrl',
+      resolve: {
+          data: function ($routeParams, Episodes) {
+              return Episodes.get({id: $routeParams.id});
+          },
+      }
 
   });
   $routeProvider.when('/new/episode', {
@@ -16,8 +21,8 @@ angular.module('tilosAdmin').config(['$routeProvider', function ($routeProvider)
   });
 }]);
 angular.module('tilosAdmin')
-    .controller('EpisodeCtrl', function ($scope, Episodes, $routeParams) {
-      $scope.episode = Episodes.get({id: $routeParams.id});
+    .controller('EpisodeCtrl', function ($scope, Episodes, $routeParams, data) {
+      $scope.episode = data;
     });
 
 angular.module('tilosAdmin')

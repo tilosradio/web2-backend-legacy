@@ -9,6 +9,7 @@ use Radio\Mapper\DateField;
 use Radio\Mapper\Field;
 use Radio\Mapper\InternalLinkField;
 use Radio\Mapper\ListMapper;
+use Radio\Mapper\ObjectMapper;
 use Zend\View\Model\JsonModel;
 use Radio\Provider\EntityManager;
 use Radio\Mapper\MapperFactory;
@@ -47,7 +48,7 @@ class Episode extends BaseController
             $end = $this->params()->fromQuery("end", $start + 60 * 60 * 5);
 
             $qb = $this->getEntityManager()->createQueryBuilder();
-            $qb->select('e', 't','s')
+            $qb->select('e', 't', 's')
                 ->from('\Radio\Entity\Episode', 'e')
                 ->join('e.text', 't')
                 ->join('e.show', 's')
@@ -71,27 +72,47 @@ class Episode extends BaseController
         }
     }
 
-    public function episodeSuggestionMapper(){
+    public function episodeSuggestionMapper()
+    {
         $m = new ListMapper();
+        $this->simpleEpisodeElementMapper($m);
+        $em = $m->addMapper(new ChildObject("text"));
+        $em->addMapper(new Field("title"));
+        $em->addMapper(new DateField("created"));
+        return $m;
+    }
+
+    public function episodeMapper()
+    {
+        $m = new ObjectMapper();
+        $this->simpleEpisodeElementMapper($m);
+        $em = $m->addMapper(new ChildObject("text"));
+        $em->addMapper(new Field("title"));
+        $em->addMapper(new \Radio\Mapper\TextContent());
+        $em->addMapper(new DateField("created"));
+        return $m;
+    }
+
+    public function simpleEpisodeElementMapper(&$m)
+    {
         $m->addMapper(new Field("id"));
         $m->addMapper(new DateField("plannedFrom"));
         $m->addMapper(new DateField("plannedTo"));
         $m->addMapper(new InternalLinkField("m3uUrl", $this->getServerUrl()));
-        $em = $m->addMapper(new ChildObject("text"));
-        $em->addMapper(new Field("title"));
-        $em->addMapper(new DateField("created"));
+
         $sm = $m->addMapper(new ChildObject("show"));
         $sm->addMapper(new Field("name"));
         $m->addMapper(new InternalLinkField("m3uUrl", $this->getServerUrl()));
         $sm->addMapper(new Field("id"));
         $sm->addMapper(new Field("alias"));
-        return $m;
+
     }
+
     public function last()
     {
         try {
             $qb = $this->getEntityManager()->createQueryBuilder();
-            $qb->select('e','t','s')
+            $qb->select('e', 't', 's')
                 ->from('\Radio\Entity\Episode', 'e')
                 ->join('e.text', 't')
                 ->join('e.show', 's')
@@ -122,23 +143,30 @@ class Episode extends BaseController
         try {
             $id = $this->getIdentifier($e->getRouteMatch(), $e->getRequest());
 
-            $result = $this->getEntityManager()->find("\Radio\Entity\Episode", $id);
+            $qb = $this->getEntityManager()->createQueryBuilder();
+            $qb->select('e', 't', 's')
+                ->from('\Radio\Entity\Episode', 'e')
+                ->join('e.text', 't')
+                ->join('e.show', 's')
+                ->where('e.id = :id');
+
+            $q = $qb->getQuery();
+            $q->setParameter("id", $id);
+            $result = $q->getArrayResult();
+
             if ($result == null) {
                 $this->getResponse()->setStatusCode(404);
                 return new JsonModel(array("error" => "Not found"));
-            } else {
-                $a = $result->toArray();
-                $a['shows'] = array();
-//                foreach ($result->getShows() as $show) {
-//                    $a['shows'][] = $show->getShow()->toArrayShort();
-//                }
-                return new JsonModel($a);
             }
-        } catch (\Exception $ex) {
+
+            $a = [];
+            $mapper = $this->episodeMapper();
+            $mapper->map($result[0], $a);
+            return new JsonModel($a);
+        } catch (Exception $ex) {
             $this->getResponse()->setStatusCode(500);
             return new JsonModel(array("error" => $ex->getMessage()));
         }
     }
-
 
 }
