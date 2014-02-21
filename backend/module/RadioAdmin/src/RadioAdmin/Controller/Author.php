@@ -56,7 +56,6 @@ class Author extends \Radio\Controller\BaseController
 
             $author = new \Radio\Entity\Author();
             $author->setPhoto("");
-            $author->setAvatar("");
 
             $mapper = new ObjectMapper(new ObjectFieldSetter());
 

@@ -40,7 +40,7 @@ class Author {
     /**
      * @ORM\Column(type="string",length=20) 
      * */
-    protected $avatar;
+    protected $avatar = 'avatar/noimage.jpg';
     
     /**
      * @ORM\Column(type="text") 
