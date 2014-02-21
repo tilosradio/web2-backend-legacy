@@ -32,6 +32,11 @@ class Show extends BaseController
         $mapper->addMapper(new Field("name"));
         $mapper->addMapper(new Field("description"));
 
+        if ($this->isAdmin()) {
+          $mapper->addMapper(new Field("status"));
+          $mapper->addMapper(new Field("type"));
+        }
+
         $mapper->map($data, $show);
 
         $this->getEntityManager()->persist($show);
@@ -49,7 +54,10 @@ class Show extends BaseController
             $mapper = new ObjectMapper(new ObjectFieldSetter());
             $mapper->addMapper(new Field("name"));
             $mapper->addMapper(new Field("description"));
-
+            if ($this->isAdmin()) {
+                $mapper->addMapper(new Field("status"));
+                $mapper->addMapper(new Field("type"));
+            }
 
             $show = new \Radio\Entity\Show();
             $show->setType(0);

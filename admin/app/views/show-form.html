@@ -13,7 +13,7 @@
       </div>
     </div>
 
-    <div class="control-group" ng-show="user.role.name == 'admin">
+    <div class="control-group" ng-show="user.role.name == 'admin'">
       <label class="control-label" for="Alias">Alias</label>
 
       <div class="controls">
@@ -21,8 +21,26 @@
       </div>
     </div>
 
+    <div class="control-group" ng-show="user.role.name == 'admin'">
+          <label class="control-label" for="Status">Status</label>
 
-    <!-- Textarea -->
+          <div class="controls">
+              <select id="Status" name="Status" type="text" class="input-xlarge" ng-model="show.status" ng-options="c.id as c.name for c in statuses"/>
+          </div>
+      </div>
+
+
+      <div class="control-group" ng-show="user.role.name == 'admin'">
+          <label class="control-label" for="Type">Típus</label>
+
+          <div class="controls">
+              <select id="Type" name="Type" type="text" class="input-xlarge" ng-model="show.type" ng-options="c.id as c.name for c in types"/>
+          </div>
+      </div>
+
+
+
+      <!-- Textarea -->
     <div class="control-group">
       <label class="control-label" for="description">Introduction</label>
 

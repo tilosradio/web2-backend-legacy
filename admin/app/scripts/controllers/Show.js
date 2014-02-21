@@ -91,6 +91,8 @@ angular.module('tilosAdmin')
 
 angular.module('tilosAdmin')
     .controller('ShowNewCtrl', function ($location, $scope, $routeParams, $http, $cacheFactory, Shows, API_SERVER_ENDPOINT) {
+      $scope.types = [{id:1,'name':"Beszélgetős"}, {id:0,'name':"Zenés"}]
+      $scope.statuses = [{id:0,'name':"Tervezett"}, {id:1,'name':"Aktív"}, {id:2,'name':"Archív"}]
       $scope.show = {};
       $scope.save = function () {
 
@@ -104,8 +106,9 @@ angular.module('tilosAdmin')
 
 angular.module('tilosAdmin')
     .controller('ShowEditCtrl', ['$location', '$scope', '$routeParams', 'API_SERVER_ENDPOINT', '$http', '$cacheFactory', 'data',
-
       function ($location, $scope, $routeParams, server, $http, $cacheFactory, data) {
+        $scope.types = [{id:1,'name':"Beszélgetős"}, {id:0,'name':"Zenés"}]
+        $scope.statuses = [{id:0,'name':"Tervezett"}, {id:1,'name':"Aktív"}, {id:2,'name':"Archív"}]
         $scope.show = data;
         $scope.save = function () {
           $http.put(server + '/api/v0/show/' + $routeParams.id, $scope.show).success(function (data) {

@@ -71,8 +71,7 @@
         {{episode.plannedFrom * 1000| date: 'yyyy.MM.dd'}}&nbsp;&nbsp;
         <if-show-admin show="show">
 
-          <a ng-hide="episode.plannedFrom * 1000 > now" class="btn btn-danger" role="button" ng-click="newEpisode(episode)">Adásnapló
-            létrehozás</a>
+          <a ng-hide="episode.plannedFrom * 1000 > now" class="btn btn-danger" role="button" ng-click="newEpisode(episode)">Adásnapló létrehozás</a>
           <a ng-show="episode.plannedFrom * 1000 > now" class="btn btn-danger" role="button" ng-click="newEpisode(episode)">Műsorajánló létrehozása</a>
         </if-show-admin>
       </b>
