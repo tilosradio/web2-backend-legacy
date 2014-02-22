@@ -1,6 +1,6 @@
 <section class="col-md-9 main" role="main">
   <div class="panel panel-default episode-box"><div class="panel-heading">
-            <b><a ng-href="/show/{{episode.show.alias}}">{{episode.show.name}}</a>{ / Adásnapló / {episode.plannedFrom * 1000|
+            <b><a ng-href="/show/{{episode.show.alias}}">{{episode.show.name}}</a> / Adásnapló / {{episode.plannedFrom * 1000|
     date:yyyy.MM.dd}}
             </b>
             <a ng-show="episode.m3uUrl" class="pull-right listen-show" ng-href="{{episode.m3uUrl}}" target="_self">
