@@ -39,7 +39,7 @@ class AuthorTest extends TestBase
 
         $this->request->getHeaders()->addHeaderLine("content-type: application/json");
         $this->request->setContent(Json::encode(
-            ['name' => 'xxx', 'introduction' => 'blabla', 'email' => 'qwe']));
+            ['name' => 'xxx', 'introduction' => 'blabla', 'email' => 'qwe','email'=>"asd@asd.hu"]));
 
         //when
         $result = $this->controller->dispatch($this->request);
@@ -52,6 +52,7 @@ class AuthorTest extends TestBase
         $user = $this->em->find("\Radio\Entity\Author", 300);
         $this->assertEquals("xxx", $user->getName());
         $this->assertEquals("blabla", $user->getIntroduction());
+        $this->assertEquals("asd@asd.hu", $user->getEmail());
 
 
     }

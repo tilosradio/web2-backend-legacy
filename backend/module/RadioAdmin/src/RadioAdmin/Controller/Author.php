@@ -59,15 +59,9 @@ class Author extends \Radio\Controller\BaseController
 
             $mapper = new ObjectMapper(new ObjectFieldSetter());
 
-            $f = new Field("name");
-            $mapper->addMapper($f->required());
-
-            $f = new Field("alias");
-            $mapper->addMapper($f->required());
-
-            $f = new Field("email");
-            $mapper->addMapper($f->required());
-
+            $mapper->addMapper(Field::of("name")->required());
+            $mapper->addMapper(Field::of("alias")->required());
+            $mapper->addMapper(Field::of("email")->required());
             $mapper->addMapper(new Field("introduction"));
 
             $mapper->map($data, $author);
@@ -93,11 +87,8 @@ class Author extends \Radio\Controller\BaseController
             $mapper->addMapper($f->required());
             $mapper->addMapper(new Field("introduction"));
             if ($this->isAdmin()) {
-                $f = new Field("alias");
-                $mapper->addMapper($f->required());
-
-                /*$f = new Field("email");
-                $mapper->addMapper($f->required());*/
+                $mapper->addMapper(Field::of("alias")->required());
+                $mapper->addMapper(Field::of("email")->required());
             }
             $mapper->map($data, $author);
 
