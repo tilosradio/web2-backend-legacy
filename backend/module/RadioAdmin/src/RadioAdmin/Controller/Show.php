@@ -35,6 +35,8 @@ class Show extends BaseController
         if ($this->isAdmin()) {
           $mapper->addMapper(new Field("status"));
           $mapper->addMapper(new Field("type"));
+          $mapper->addMapper(Field::of("alias")->required());
+
         }
 
         $mapper->map($data, $show);
@@ -57,6 +59,7 @@ class Show extends BaseController
             if ($this->isAdmin()) {
                 $mapper->addMapper(new Field("status"));
                 $mapper->addMapper(new Field("type"));
+                $mapper->addMapper(Field::of("alias")->required());
             }
 
             $show = new \Radio\Entity\Show();
