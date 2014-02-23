@@ -1,13 +1,10 @@
 <section class="col-md-9 main" role="main">
-  <div class="panel panel-default episode-box"><div class="panel-heading">
             <h2><b><a ng-href="/show/{{episode.show.alias}}">{{episode.show.name}}</a> adásnapló - {{episode.plannedFrom * 1000|
     date:yyyy.MM.dd}}
             </b>
-            <a ng-show="episode.m3uUrl" class="pull-right listen-show" ng-href="{{episode.m3uUrl}}" target="_self">
+            <a ng-show="episode.m3uUrl" g-href="{{episode.m3uUrl}}" target="_self">
              <i class="icon-volume-up"></i> Meghallgat
             </a></h2>
-        </div>
-        </div>
   <h1 class="ubuntu">{{episode.text.title}}</h1>
 
   <span ng-bind-html="episode.text.formatted"></span>
