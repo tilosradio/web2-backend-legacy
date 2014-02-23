@@ -31,10 +31,13 @@
             </b>
 
             <a ng-show="episode.m3uUrl" class="pull-right listen-show" ng-href="{{episode.m3uUrl}}" target="_self">
-            	<i class="icon-volume-up"></i> Meghallgat
+            	<i class="icon-volume-up"></i> Meghallgat.
             </a>
             {{episode.persistent}}
         </div>
+<!--<div ng-if="episode.text" class="panel-body">
+<span ng-bind-html="episode.text.formatted"></span>
+</div>-->
     </div>
     <ul class="pager">
         <li class="cursorPointer"><a ng-click="prev()">&larr; Korábbi adások</a></li>
