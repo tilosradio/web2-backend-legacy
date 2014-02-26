@@ -31,7 +31,7 @@
             </td>
             <td class="archiveTime">{{episode.plannedFrom * 1000| date: 'HH:mm'}}</td>
             <td class="archiveShowName"><a href="/show/{{episode.show.alias}}">{{episode.show.name}}</a></td>
-            <td class="archiveItalic archiveDesc"><a ng-href="/episode/{{episode.id}}">{{episode.text.title}}</a></td>
+            <td class="archiveItalic archiveDesc"><a ng-href="{{episode.url}}">{{episode.text.title}}</a></td>
             <td class="archiveAuth">
                 Műsorvezető:
 				<span ng-repeat="contributor in episode.show.contributors">

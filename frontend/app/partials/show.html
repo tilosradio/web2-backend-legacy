@@ -27,7 +27,7 @@
         <div class="panel-heading">
             <b>
                 {{episode.plannedFrom * 1000| date: 'yyyy.MM.dd'}}
-                <span ng-if="episode.text"><a ng-href="/episode/{{episode.id}}">{{episode.text.title}}</a></span>
+                <span ng-if="episode.text"><a ng-href="{{episode.url}}">{{episode.text.title}}</a></span>
             </b>
 
             <a ng-show="episode.m3uUrl" class="pull-right listen-show" ng-href="{{episode.m3uUrl}}" target="_self">
