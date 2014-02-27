@@ -36,7 +36,7 @@ return array(
             )
         )
     ),
-    'show-episodes' => array(
+    'show-episode-by-alias' => array(
         'type' => 'Radio\Util\CustomSegmentRouter',
         'options' => array(
             'method' => 'GET',
