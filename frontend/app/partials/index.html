@@ -1,5 +1,5 @@
 <section class="col-md-6 main" role="main">
-  <div class="program-guides">
+  <div ng-show="next.length" class="program-guides">
     <h2 class="blue">Műsorajánló</h2>
     <div class="episode-next episode-list" data-ng-repeat="episode in next">
       <h3><a ng-href="{{episode.url}}">{{episode.text.title}}</a></h3>
