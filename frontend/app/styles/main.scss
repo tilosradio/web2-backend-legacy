@@ -291,7 +291,7 @@ img{
           text-decoration: none;
         }
       }
-    } 
+    }
   }
 }
 
@@ -324,6 +324,15 @@ img{
             display: block;
         }
     }
+}
+
+.englishLink{
+	background-color:$gray-darken;
+}
+
+.englishLink a{
+	color:#797979;
+	font-size:13px;
 }
 
 // header navigation end
@@ -511,7 +520,7 @@ img{
             display: block;
            .scrolled &{
             font-size: 20px;
-           } 
+           }
         }
         &:hover{
             text-decoration: none;
@@ -1049,7 +1058,7 @@ input.datepicker {
 //News extra
 
 
-.news-lead{	
+.news-lead{
   margin-bottom: 1em;
   @include clearfix();
   h3{
@@ -1074,7 +1083,7 @@ input.datepicker {
     }
     @media all and (max-width: 450px) {
       float: none;
-      display: block;   
+      display: block;
     }
   }
 }
