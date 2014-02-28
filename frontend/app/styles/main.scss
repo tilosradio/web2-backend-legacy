@@ -949,15 +949,16 @@ a.icon-star, a.icon-star2{
 	.archiveShowName{
 			width:15%;
 	}
+  .archiveAuth{
+      width:30%;
+  }
 	.archiveDesc{
-			width:55%;
+			width:45%;
 	}
 	.archiveTime{
 			width:10%;
 	}
-	.archiveAuth{
-			width:20%;
-	}
+
 }
 
 
@@ -1115,6 +1116,9 @@ input.datepicker {
       position: absolute;
       right: 15px;
       top: 10px;
+    }
+    a{
+      color: $primary-color;
     }
   }
 }
