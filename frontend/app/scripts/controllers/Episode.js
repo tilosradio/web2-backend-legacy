@@ -10,6 +10,9 @@ angular.module('tilosApp').config(['$routeProvider', function ($routeProvider) {
             data: function ($route, $http, API_SERVER_ENDPOINT) {
                 return $http.get(API_SERVER_ENDPOINT + '/api/v0/episode/' + $route.current.params.id, {cache: true});
             },
+            show: function ($route, $http, API_SERVER_ENDPOINT) {
+                return $http.get(API_SERVER_ENDPOINT + "/api/v0/show/" + $route.current.params.show);
+            },
       }
   });
   $routeProvider.when('/episode/:show/:year/:month/:day', {
@@ -19,13 +22,18 @@ angular.module('tilosApp').config(['$routeProvider', function ($routeProvider) {
             data: function ($route, $http, API_SERVER_ENDPOINT) {
                 return $http.get(API_SERVER_ENDPOINT + "/api/v0/show/" + $route.current.params.show + "/episode/" + $route.current.params.year+ "/" + $route.current.params.month + "/" + $route.current.params.day);
             },
+            show: function ($route, $http, API_SERVER_ENDPOINT) {
+                return $http.get(API_SERVER_ENDPOINT + "/api/v0/show/" + $route.current.params.show);
+            },
         }
     });
 
 }]);
+
 /*global angular*/
 angular.module('tilosApp')
-  .controller('EpisodeCtrl', function ($scope, data) {
-      $scope.episode = data.data;
-    }
-  );
+	.controller('EpisodeCtrl', function ($scope, data, show) {
+			$scope.episode = data.data;
+			$scope.currentShow = show.data;
+		}
+	);
