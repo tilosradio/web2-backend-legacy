@@ -1,6 +1,6 @@
 'use strict';
 angular.module('tilosApp')
-  .controller('ShowCtrl', ['$scope', '$routeParams', 'API_SERVER_ENDPOINT', '$http', 'validateUrl', '$rootScope', '$location', function ($scope, $routeParams, $server, $http, validateUrl, $root, $location) {
+  .controller('ShowCtrl', ['$scope', '$routeParams', 'API_SERVER_ENDPOINT', '$http', 'validateUrl', '$rootScope', '$location','$anchorScroll', function ($scope, $routeParams, $server, $http, validateUrl, $root, $location, $anchorScroll) {
     $http.get($server + '/api/v0/show/' + $routeParams.id, {cache: true}).success(function (data) {
       $scope.show = data;
       $scope.server = $server;
@@ -35,6 +35,19 @@ angular.module('tilosApp')
         }
       });
 
+		$scope.gotoTop = function (){
+			$location.hash('top');
+			$anchorScroll();
+		};
+
+		setTimeout(function(){
+			$scope.windowHeight = document.getElementById('show').offsetHeight;
+			if($scope.windowHeight > 1000){
+				$scope.showLink = true;
+			}else{
+				$scope.showLink = false;
+			}
+		});
 
 
 

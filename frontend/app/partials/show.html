@@ -1,5 +1,5 @@
-<section class="col-md-6 main" role="main">
-    <h2 class="bordered blue">Műsor:</h2>
+<section class="col-md-6 main" id="show" role="main">
+    <h2 class="bordered blue top">Műsor:</h2>
 
     <h1 class="ubuntu">{{show.name}}</h1>
 
@@ -21,6 +21,10 @@
         </div>
     </footer>
 
+    <h2 class="bordered blue" ng-show="showLink">
+		<a ng-click="gotoTop()">Vissza a lap tetejére</a>
+	</h2>
+
     <h2>Legutóbbi adások</h2>
 
     <div class="panel panel-default episode-box" ng-repeat="episode in show.episodes">
@@ -38,6 +42,7 @@
 <!--<div ng-if="episode.text" class="panel-body">
 <span ng-bind-html="episode.text.formatted"></span>
 </div>-->
+
     </div>
     <ul class="pager episode-box-pager">
         <li class="cursorPointer prev-link"><a ng-click="prev()">&larr; Korábbi adások</a></li>
