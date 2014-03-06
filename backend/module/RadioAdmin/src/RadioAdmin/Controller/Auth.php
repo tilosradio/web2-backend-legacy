@@ -149,7 +149,7 @@ class Auth extends BaseController
 
             //sending mail
             $mail = new Mail\Message();
-            $body = A Te user-neved: "\n\nA " . $user->getUsername() . "! Jelszavad megadhatod ezen a linken: " .
+            $body = "A Te user-neved: \n\nA " . $user->getUsername() . "! Jelszavad megadhatod ezen a linken: " .
                 $link;
             $mail->setBody($body);
             $mail->setFrom('webmester@tilos.hu', 'Tilos gépház');

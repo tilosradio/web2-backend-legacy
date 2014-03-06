@@ -32,8 +32,13 @@ angular.module('tilosApp').config(['$routeProvider', function ($routeProvider) {
 
 /*global angular*/
 angular.module('tilosApp')
-	.controller('EpisodeCtrl', function ($scope, data, show, $location, $anchorScroll) {
+	.controller('EpisodeCtrl', function ($scope, data, show, $location, $anchorScroll,$sce) {
 			$scope.episode = data.data;
+
+                $scope.episode.text.formatted = $sce.trustAsHtml(data.data.text.formatted);
+
+
+
 			$scope.currentShow = show.data;
 			$scope.gotoTop = function (){
 				$location.hash('top');
