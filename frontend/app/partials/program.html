@@ -1,6 +1,6 @@
-<section class="col-md-12 main" role="main">
+<section class="col-md-12 main" role="main" id="program">
 
-  <h2>Archívum
+  <h2 class="top">Archívum
     <ul class="pager">
       <li class="cursorPointer"><a ng-click="prev()">&larr; Előző nap</a></li>
       <li class="cursorPointer"><a ng-click="next()">Következő nap &rarr;</a></li>
@@ -45,4 +45,8 @@
       <td class="archiveItalic archiveDesc"><a ng-href="{{episode.url}}">{{episode.text.title}}</a></td>
     </tr>
   </table>
+
+   <h2 class="bordered blue" ng-show="showLink">
+		<a ng-click="gotoTop()">Vissza a lap tetejére</a>
+	</h2>
 </section>

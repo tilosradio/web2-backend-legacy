@@ -39,5 +39,15 @@ angular.module('tilosApp')
 				$location.hash('top');
 				$anchorScroll();
 			};
+
+			setTimeout(function(){
+				$scope.windowHeight = document.getElementById('episode').offsetHeight;
+				if($scope.windowHeight > 1000){
+					$scope.showLink = true;
+				}else{
+					$scope.showLink = false;
+				}
+			});
+
 		}
 	);

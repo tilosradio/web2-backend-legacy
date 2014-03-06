@@ -1,7 +1,11 @@
-<section class="col-md-9 main" role="main" >
-    <h1>{{page.title}}</h1>
+<section class="col-md-9 main" role="main" id="page">
+    <h1 class="top">{{page.title}}</h1>
 
     <span ng-bind-html="page.formatted"/>
+
+    <h2 class="bordered blue" ng-show="showLink">
+		<a ng-click="gotoTop()">Vissza a lap tetejére</a>
+	</h2>
 </section>
 <aside class="col-md-3">
 	<div ng-include src="'partials/sidebar_right.html'"></div>

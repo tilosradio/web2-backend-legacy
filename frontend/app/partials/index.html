@@ -1,4 +1,4 @@
-<section class="col-md-6 main" role="main">
+<section class="col-md-6 main" role="main" id="main">
   <div ng-show="next.length" class="program-guides">
     <h2 class="blue">Műsorajánló</h2>
     <div class="episode-next episode-list" data-ng-repeat="episode in next">
@@ -10,7 +10,7 @@
     </div>
   </div>
   <div class="recent-broadcast-schedule">
-    <h2 class="blue">Legfrissebb adásnaplók</h2>
+    <h2 class="blue top">Legfrissebb adásnaplók</h2>
     <div class="episode-last episode-list" data-ng-repeat="episode in last">
         <h3><a ng-href="{{episode.url}}">{{episode.text.title}}</a></h3>
         <p>
@@ -20,6 +20,9 @@
         </p>
     </div>
   </div>
+	<h2 class="bordered blue" ng-show="showLink">
+		<a ng-click="gotoTop()">Vissza a lap tetejére</a>
+	</h2>
 </section> <!-- col-md-6 -->
 
 </aside> <!-- col-md-3 -->

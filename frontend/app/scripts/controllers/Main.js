@@ -12,7 +12,7 @@ angular.module('tilosApp').config(function ($routeProvider) {
   });
 });
 
-angular.module('tilosApp').controller('MainCtrl', function ($scope, FeedService, $http, API_SERVER_ENDPOINT) {
+angular.module('tilosApp').controller('MainCtrl', function ($scope, FeedService, $http, API_SERVER_ENDPOINT, $location, $anchorScroll) {
       FeedService.parseFeed('http://hirek.tilos.hu/?feed=rss2').then(function (res) {
         $scope.feeds = res.data.responseData.feed.entries;
       });
@@ -21,5 +21,14 @@ angular.module('tilosApp').controller('MainCtrl', function ($scope, FeedService,
       });
       $http.get(API_SERVER_ENDPOINT + "/api/v0/episode/last").success(function (data) {
         $scope.last = data;
+         setTimeout(function(){
+			$scope.windowHeight = document.getElementById('main').offsetHeight;
+			if($scope.windowHeight > 1000){
+				$scope.showLink = true;
+			}else{
+				$scope.showLink = false;
+			}
+		});
       });
+
     });
