@@ -80,23 +80,6 @@ class Show extends BaseController
         return $this->getEntityList("\Radio\Entity\Show");
     }
 
-    /**
-     * @SWG\Api(
-     *   path="/show/{id}",
-     * @SWG\Operation(
-     *     method="GET",
-     *     summary="Return information about a specific radioshow",
-     * @SWG\Parameters(
-     * @SWG\Parameter(
-     *           name= "id",
-     *           description="Id of the show",
-     *           paramType="path",
-     *           type="string"
-     *        )
-     *     )
-     *   )
-     * )
-     */
     public function get($e)
     {
         $id = $this->getIdentifier($e->getRouteMatch(),$e->getRequest());

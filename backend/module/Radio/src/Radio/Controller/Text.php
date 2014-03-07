@@ -37,14 +37,15 @@ class Text extends BaseController {
     public function listOfTypeAction() {
         $formatter = new \Radio\Formatter\Formatter();
         $query = $this->getEntityManager()->createQuery('SELECT t FROM \Radio\Entity\TextContent t where t.type = :type ORDER BY t.created');
-        $query->setParameter("type", 'news');
+        $query->setParameter("type",$this->params()->fromRoute("type"));
         $resultSet = $query->getArrayResult();
         if (empty($resultSet))
             return new JsonModel(array());
         $return = array();
         foreach ($resultSet as $result) {
             $res = $result;
-            $res['formatted'] = $formatter->format($res['format'], $res['content']);
+//            $res['formatted'] = $formatter->format($res['format'], $res['content']);
+            unset($res['content']);
             $res['created'] = $res['created']->getTimestamp();
             $res['modified'] = $res['modified']->getTimestamp();
             $return[] = $res;
