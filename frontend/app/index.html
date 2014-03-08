@@ -159,8 +159,8 @@
             </ng-view>
 		</div><!-- /container -->
 
-		<div class="container" ng-controller="RenderCtrl">
-			<h2 class="bordered blue" ng-show="showLink">
+		<div class="container backtoTopLink" ng-class="{showedLink:showLink}" ng-controller="RenderCtrl">
+			<h2 class="bordered blue">
 				<a ng-click="gotoTop()">Vissza a lap tetejére</a>
 			</h2>
 		</div>
