@@ -2,8 +2,8 @@
 var debug;
 
 angular.module('tilosApp')
-  .controller('ProgramCtrl', ['$scope', '$routeParams', 'API_SERVER_ENDPOINT', '$http','datepickerPopupConfig','$timeout','$location','$anchorScroll',
-    function ($scope, $routeParams, $server, $http, $popupconfig, $timeout,$location, $anchorScroll) {
+  .controller('ProgramCtrl', ['$scope', '$routeParams', 'API_SERVER_ENDPOINT', '$http','datepickerPopupConfig','$timeout',
+    function ($scope, $routeParams, $server, $http, $popupconfig, $timeout) {
       $popupconfig.closeText = "Bezár";
       $popupconfig.toggleWeeksText = 'Hetek száma';
       $popupconfig.currentText = 'Ma';
@@ -99,16 +99,6 @@ angular.module('tilosApp')
         to.setToDayEnd();
         $http.get($server + '/api/v0/episode?start=' + from.getTimestamp() + '&end=' + to.getTimestamp(), {cache: true}).success(function (data) {
           $scope.episodes = data;
-
-			setTimeout(function(){
-				$scope.windowHeight = document.getElementById('program').offsetHeight;
-				if($scope.windowHeight > 1000){
-					$scope.showLink = true;
-				}else{
-					$scope.showLink = false;
-				}
-			});
-
         });
       };
 
@@ -145,11 +135,5 @@ angular.module('tilosApp')
         'year-format': "'yy'",
         'starting-day': 1
       };
-
-      	$scope.gotoTop = function (){
-			$location.hash('top');
-			$anchorScroll();
-		};
-
     }
   ]);

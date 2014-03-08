@@ -1,4 +1,4 @@
-<section class="col-md-9 main" role="main" id="episode">
+<section class="col-md-9 main" role="main">
             <h2 class="bordered blue top"><a ng-href="/show/{{currentShow.alias}}">{{currentShow.name}}</a> - adásnapló - {{episode.plannedFrom * 1000|
     date:yyyy.MM.dd}}
             <a ng-show="episode.m3uUrl" class="pull-right listen-show" ng-href="{{episode.m3uUrl}}" target="_self">
@@ -7,10 +7,6 @@
   <h1 class="ubuntu">{{episode.text.title}}</h1>
 
   <span ng-bind-html="episode.text.formatted"></span>
-
-	<h2 class="bordered blue" ng-show="showLink">
-		<a ng-click="gotoTop()">Vissza a lap tetejére</a>
-	</h2>
 
 </section>
 <aside class="col-md-3">
