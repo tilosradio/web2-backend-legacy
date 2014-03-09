@@ -189,7 +189,13 @@ class EpisodeUtil {
         }
         $days = ["hétfő", "kedd", "szerda", "csütörtök", "péntek", "szombat", "vasárnap"];
         $str .= $days[$scheduling['weekDay']];
-        $str.= " " . sprintf("%d:%02d",$scheduling['hourFrom'],$scheduling['minFrom']);
+        $to = $scheduling['hourFrom'] * 60 + $scheduling['minFrom'] + $scheduling['duration'];
+        $toMin = $to % 60;
+        $toHour = ($to - $toMin) / 60;
+        if ($toHour >= 24) {
+            $toHour -= 24;
+        }
+        $str.= " " . sprintf("%d:%02d-%d:%02d",$scheduling['hourFrom'],$scheduling['minFrom'],$toHour,$toMin);
         return $str;
     }
 
