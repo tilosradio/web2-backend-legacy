@@ -60,17 +60,15 @@ class M3u extends AbstractActionController
 	public function anotherlinkAction()
 	{
 		$date = (int)$this->params()->fromRoute("date");
-		$from = (int)$this->params()->fromRoute("from");
-		$to = (int)$this->params()->fromRoute("to");
+		$from = $this->params()->fromRoute("from");
+		$to = $this->params()->fromRoute("to");
 
-		//Set the timezone to GMT, just in case.
-		date_default_timezone_set('GMT');
 
 		$start = (strtotime($date." ".$from));
 		$end = (strtotime($date." ".$to));
 		$duration = round(abs($end - $start) / 60,2);
 
-		$response = $this->getM3Ufile($start, $duration);
+		$response = $this->getM3Ufile($start, $duration+1);
 		return $response;
 	}
 
