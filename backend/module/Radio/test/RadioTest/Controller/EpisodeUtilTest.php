@@ -85,11 +85,14 @@ class EpisodeUtilTest extends \RadioTest\Controller\TestBase {
 
     public function testM3uLink(){
         $date = new \DateTime();
+        $end = new \DateTime();
         $date->setTimestamp(mktime(12,30,0,10,23,2004));
-        $this->assertEquals('m3u/20041023/1230/1400/tilos.m3u',EpisodeUtil::m3uUrlLinkFromDate($date,90));
+        $end->setTimestamp(mktime(14,00,0,10,23,2004));
+        $this->assertEquals('m3u/20041023/1230/1400/tilos.m3u',EpisodeUtil::m3uUrlLinkFromDate($date,$end));
 
         $date->setTimestamp(mktime(3,4,0,1,2,2004));
-        $this->assertEquals('m3u/20040102/0304/0435/tilos.m3u',EpisodeUtil::m3uUrlLinkFromDate($date,91));
+        $end->setTimestamp(mktime(4,35,0,1,2,2004));
+        $this->assertEquals('m3u/20040102/0304/0435/tilos.m3u',EpisodeUtil::m3uUrlLinkFromDate($date,$end));
     }
 
 }

@@ -74,6 +74,7 @@ class M3u extends AbstractActionController
 
 	public function getM3Ufile($start, $duration)
 	{
+        $out="";
 		$from = M3u::getPrevHalfHour($start);
 		foreach ($this->getMp3Links($start, $duration) as $resource) {
 			$d = $resource['datearray'];
