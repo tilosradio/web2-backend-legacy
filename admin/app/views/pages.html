@@ -1,5 +1,5 @@
 <section class="col-md-9 main" role="main" >
-    <h1>Oldal lista</h1>
+    <h1>Oldal lista <a ng-show="user.role.name == 'admin'" class="btn btn-danger" role="btn" ng-href="/new/page">Új oldal</a></h1>
     <table class="tbl">
         <tr data-ng-repeat="page in pages">
             <td><a ng-href="/page/{{page.id}}">{{page.title}}</a></td>
