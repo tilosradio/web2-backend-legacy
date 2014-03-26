@@ -32,7 +32,7 @@ angular.module('tilosApp')
       };
 
         $scope.play = function(episode) {
-            Player.play();
+            Player.play(episode, $scope.show.name);
         }
 
       $http.get('https://graph.facebook.com/fql?q=SELECT%20url,%20normalized_url,%20share_count,%20like_count,%20comment_count,%20total_count,commentsbox_count,%20comments_fbid,%20click_count%20FROM%20link_stat%20WHERE%20url=%27http%3A%2F%2F' + API_SERVER_ENDPOINT + "2Fshow%2F" + $scope.show.alias + "%27", {cache: true}).success(function (data) {

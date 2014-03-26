@@ -61,6 +61,7 @@
     <script src="scripts/controllers/News.js"></script>
     <script src="scripts/controllers/Main.js"></script>
     <script src="scripts/controllers/Render.js"></script>
+      <script src="scripts/controllers/Player.js"></script>
     <script src="scripts/services/FeedService.js"></script>
       <script src="scripts/services/Player.js"></script>
     <script src="scripts/filters/RssDate.js"></script>
@@ -135,7 +136,7 @@
 							</a>
 						</div>
 						<div class="col-md-6 radio-holder" ng-controller="EpisodesCtrl">
-							<div class="radio-player">
+							<div ng-hide="playing" class="radio-player">
 								<div class="col-md-6 radio-info">
 									<h3>
 										<a href="#/show/{{current.show.alias}}" ng-bind="current.show.name"></a>
@@ -154,6 +155,24 @@
 									</ul>
 								</div>
 							</div>
+
+                            <div ng-show="playing" class="radio-player" ng-controller="PlayerCtrl">
+                                <div class="col-md-6 radio-info">
+                                    <h3>
+                                        <a ng-bind="player.title()"></a>
+										<span class="radio-fromTo" ng-show="current.show.episodes">
+                                            {{player.position() | date:'yyyy-MM-dd HH:mm:ss'}}
+										</span>
+                                    </h3>
+                                </div>
+                                <div class="col-md-6">
+                                    <img ng-click="player.prev()" class="playerimg" src="/images/rewind.png" alt="Rewind Stream">
+                                    <img ng-clic="player.pause()" class="playerimg" src="/images/play.png" alt="Play Stream">
+                                    <img ng-click="player.next()" class="playerimg" src="/images/forward.png" alt="Forward Stream">
+                                    <img ng-click="player.stop()" class="playerimg" src="/images/stop.png" alt="Stop Stream">
+                                </div>
+                            </div>
+
 						</div>
 					</div> <!-- row -->
 				</div> <!--container -->
@@ -161,6 +180,10 @@
 		</div> <!-- navbar-fixed-top -->
 
 
+
+
+
+    <div >
 		<div class="container" id="mainIndex">
             <ng-view autoscroll="true">
 			   <div class="row">
