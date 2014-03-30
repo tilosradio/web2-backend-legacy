@@ -36,7 +36,7 @@
 
     <script src="bower_components/angular-sanitize/angular-sanitize.js"></script>
     <script src="bower_components/textAngular/textAngular.js"></script>
-    <script src="bower_components/angular-ui-bootstrap-bower/ui-bootstrap.js"></script>
+    <script src="bower_components/angular-ui-bootstrap-bower/ui-bootstrap-tpls.js"></script>
     <script src="bower_components/audio5js/audio5.js"></script>
     <!-- endbower -->
     <!-- endbuild -->
@@ -155,14 +155,15 @@
 									</ul>
 								</div>
 							</div>
-
                             <div ng-show="playing" class="radio-player" ng-controller="PlayerCtrl">
                                 <div class="col-md-6 radio-info">
                                     <h3>
                                         <a ng-bind="player.title()"></a>
 										<span class="radio-fromTo" ng-show="current.show.episodes">
-                                            {{player.position() | date:'yyyy-MM-dd HH:mm:ss'}}
+
 										</span>
+                                        <progressbar value="positionInSecond" animate="false" max="100">{{positionInSecond}}</progressbar>
+
                                     </h3>
                                 </div>
                                 <div class="col-md-6">
@@ -171,6 +172,9 @@
                                     <img ng-click="player.next()" class="playerimg" src="/images/forward.png" alt="Forward Stream">
                                     <img ng-click="player.stop()" class="playerimg" src="/images/stop.png" alt="Stop Stream">
                                 </div>
+                                <div class="row col-md-6">
+
+                                </div>
                             </div>
 
 						</div>
@@ -178,8 +182,6 @@
 				</div> <!--container -->
 			</header>
 		</div> <!-- navbar-fixed-top -->
-
-
 
 
 

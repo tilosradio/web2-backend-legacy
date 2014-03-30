@@ -24,19 +24,28 @@
     <h2>Legutóbbi adások</h2>
 
     <div class="panel panel-default episode-box" ng-repeat="episode in show.episodes">
-        <div class="panel-heading">
-            <b><a ng-href="{{episode.url}}">
-                {{episode.plannedFrom * 1000| date: 'yyyy.MM.dd.'}}
-                <span ng-if="episode.text">{{episode.text.title}}</a></span>
-            </b>
+        <div class="panel-heading clearfix">
 
-            <a ng-show="episode.m3uUrl" class="pull-right listen-show" ng-href="{{episode.m3uUrl}}" target="_self">
-            	<i class="icon-volume-up"></i> Meghallgat
+            <span class="pull-left panel-title"></h4><b>
+                <a ng-href="{{episode.url}}">
+                {{episode.plannedFrom * 1000| date: 'yyyy.MM.dd.'}}
+                <span ng-if="episode.text">{{episode.text.title}}</span>
+                </a>
+            </b></span>
+
+
+            <!--a ng-show="episode.m3uUrl" class="pull-right listen-show" ng-href="{{episode.m3uUrl}}" target="_self">
+            	<i class="icon-modem" style="width: 30px;"></i> Meghallgat
             </a>
             <a ng-show="episode.m3uUrl" ng-click="play(episode)" target="_self">
                 <i class="icon-volume-up"></i> Lejátszás
-            </a>
+            </a-->
             {{episode.persistent}}
+            <div ng-show="episode.m3uUrl" class="btn-group pull-right">
+                <a title="Letölt" ng-href="{{episode.m3uUrl}}" class="icon-modem btn btn-small"></a>
+                <a title="Lejátszik" ng-click="play(episode)" class="icon-volume btn btn-small"></a>
+            </div>
+
         </div>
 <!--<div ng-if="episode.text" class="panel-body">
 <span ng-bind-html="episode.text.formatted"></span>

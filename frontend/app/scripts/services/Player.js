@@ -81,12 +81,13 @@ angular.module('tilosApp')
                 audio5js.playPause();
             },
             duration: function () {
-                return 30 * episode.resources.stream.length;
+                return (30  * 60  + 5) * episode.resources.stream.length;
             },
             position: function () {
                 return (episode.resources.stream[idx].start + audio5js.position) * 1000
-
-
+            },
+            positionInSecond: function () {
+                return Math.round(100 * (audio5js.position + idx * 1805) / (episode.resources.stream.length * 1805));
             }
         };
 
