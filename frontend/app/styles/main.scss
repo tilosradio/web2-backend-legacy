@@ -1129,12 +1129,20 @@ input.datepicker {
 
 .episode-box{
   .panel-heading{
+    .panel-title {
+      padding-top: 3px;
+      margin-right: 100px;
+      text-overflow: ellipsis;
+      overflow: hidden;
+      position: relative;
+      white-space: nowrap;
+    }
     border-bottom: 0;
-    overflow: hidden;
-    padding-right: 120px;
-    position: relative;
-    text-overflow: ellipsis;
-    white-space: nowrap;
+
+    padding-right: 10px;
+
+
+
     .listen-show{
       position: absolute;
       right: 15px;
@@ -1143,6 +1151,7 @@ input.datepicker {
     a{
       color: $primary-color;
     }
+
   }
 }
 
