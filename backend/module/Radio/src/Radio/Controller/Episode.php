@@ -62,7 +62,7 @@ class Episode extends BaseController
             $q = $qb->getQuery();
 
             $result = [];
-
+            $episodes = $q->getArrayResult();
             $this->episodeSuggestionMapper()->map($episodes, $result, new ArrayFieldSetter());
 
             return new JsonModel($result);

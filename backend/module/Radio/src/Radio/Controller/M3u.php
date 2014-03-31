@@ -41,7 +41,7 @@ class M3u extends AbstractActionController
 	{
         $out="";
 		$from = EpisodeUtil::getPrevHalfHour($start);
-		foreach (EpisodeUtil::getMp3Links($start, $duration) as $resource) {
+		foreach (EpisodeUtil::getMp3StreamLinks($start, $duration) as $resource) {
 			$d = $resource['datearray'];
 			$timestr = sprintf("%02d%02d", $d['hours'], $d['minutes']);
 			$out .= sprintf("#EXTINF:1805,Tilos %02d.%02d.%02d %s\n", $d['year'], $d['mon'], $d['mday'], $timestr);
@@ -87,7 +87,7 @@ class M3u extends AbstractActionController
 
 
         $filesize = 0;
-        foreach (EpisodeUtil::getMp3Links($start, $duration) as $resource) {
+        foreach (EpisodeUtil::getMp3StreamLinks($start, $duration) as $resource) {
             //passthru($resource['file']);
             $fn = "../archive" . $resource['filename'];
             if (!file_exists($fn)) {
@@ -100,7 +100,7 @@ class M3u extends AbstractActionController
 
         }
         header("Content-Length: " . $filesize);
-        foreach (EpisodeUtil::getMp3Links($start, $duration) as $resource) {
+        foreach (EpisodeUtil::getMp3StreamLinks($start, $duration) as $resource) {
             //passthru($resource['file']);
             $this->chunked_copy("../archive" . $resource['filename']);
         }
