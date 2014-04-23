@@ -707,11 +707,16 @@ aside{
   }
 }
 
+.centered{
+	text-align:center;
+}
+
 .tel{
   color: $primary-color;
   cursor: default;
   display: inline-block;
-  font-size: 27px;
+  font-size: 25px !important;
+  text-align: center;
   margin-bottom: 1em;
   &:hover{
     color: $primary-color;
@@ -771,9 +776,17 @@ aside{
   h2{
     margin-bottom: 0;
   }
+  border-bottom:none !important;
 }
 .actual-shows{
   font-size: 15px;
+  border-bottom: 1px solid $primary-color;
+  margin-bottom:0px;
+  tr{
+  	&:last-child td{
+    	border-bottom:none;
+	}
+  }
   td{
     border-top: none !important;
     border-bottom: 1px solid $table-border-color;
@@ -811,6 +824,7 @@ aside{
     }
   }
 }
+
 a.icon-star, a.icon-star2{
   &:hover{
     text-decoration: none;
