@@ -99,7 +99,7 @@ class EpisodeUtilTest extends \RadioTest\Controller\TestBase {
 
     public function testgetPrevHalfHour() {
         $start = new \DateTime("2013-10-25 10:22:00");
-        $res = M3u::getPrevHalfHour($start->getTimestamp());
+        $res = EpisodeUtil::getPrevHalfHour($start->getTimestamp());
         $expected_end = new \DateTime("2013-10-25 10:00:00");
         $expected = $expected_end->getTimestamp();
         $this->assertEquals($expected, $res);
