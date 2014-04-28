@@ -2,11 +2,11 @@
 
 @import "color";
 @import "bootstrap-settings";
-@import 'sass-bootstrap/lib/bootstrap';
+@import "sass-bootstrap/lib/bootstrap";
 @import "mixin";
 @import "fonts";
 @import "icons";
-
+@import "jplayer_custom";
 
 
 body{
@@ -751,6 +751,10 @@ aside{
       box-shadow: 0 0 0 3px white, 0 0 3px 5px  rgba($primary-color, 0.5);
     }
   }
+}
+
+.stream-link {
+  cursor: pointer;
 }
 
 .archive-little{
