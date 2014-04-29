@@ -16,7 +16,8 @@ angular.module('tilosApp').controller('AudioTestCtrl', ['$scope', function ($sco
                 mp3: "http://archive.tilos.hu/online/2014/04/03/tilosradio-20140403-1000.mp3"
             });
         },
-        swfPath: "/js",
+        swfPath: "/jplayer/Jplayer.swf",
+        solution: "flash, html",
         supplied: "mp3"
     });
 }]);
