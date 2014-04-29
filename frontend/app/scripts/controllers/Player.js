@@ -9,7 +9,9 @@ angular.module('tilosApp').factory("Player", function ($rootScope) {
         },
         swfPath: "/jplayer/Jplayer.swf",
         nativeSupport: false,
-        solution: "flash, html"
+        solution: "flash, html",
+        errorAlerts: true,
+        warningAlerts: true
     });
     var player = {};
 
