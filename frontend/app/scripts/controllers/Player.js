@@ -7,7 +7,7 @@ angular.module('tilosApp').factory("Player", function ($rootScope) {
         ready: function () {
 
         },
-        swfPath: "/jplayer",
+        swfPath: "/jplayer/Jplayer.swf",
         nativeSupport: false,
         solution: "flash, html"
     });
