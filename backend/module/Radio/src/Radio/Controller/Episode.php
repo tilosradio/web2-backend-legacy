@@ -4,6 +4,7 @@ namespace Radio\Controller;
 
 use DoctrineORMModule\Proxy\__CG__\Radio\Entity\TextContent;
 use Radio\Mapper\ArrayFieldSetter;
+use Radio\Mapper\ChildCollection;
 use Radio\Mapper\ChildObject;
 use Radio\Mapper\DateField;
 use Radio\Mapper\EpisodeResourceURLField;
@@ -93,6 +94,8 @@ class Episode extends BaseController
         $em->addMapper(new Field("title"));
         $em->addMapper(new \Radio\Mapper\TextContent());
         $em->addMapper(new DateField("created"));
+        $tm = $em->addMapper(new ChildCollection("tags"));
+        $tm->addMapper(Field::of("name"));
         return $m;
     }
 
@@ -147,9 +150,10 @@ class Episode extends BaseController
             $id = $this->getIdentifier($e->getRouteMatch(), $e->getRequest());
 
             $qb = $this->getEntityManager()->createQueryBuilder();
-            $qb->select('e', 't', 's')
+            $qb->select('e', 't', 's', 'tg')
                 ->from('\Radio\Entity\Episode', 'e')
                 ->leftJoin('e.text', 't')
+                ->leftJoin('t.tags', 'tg')
                 ->join('e.show', 's')
                 ->where('e.id = :id');
 

@@ -147,6 +147,7 @@ class BaseData implements FixtureInterface
         $page->setType('page');
         $page->setFormat('legacy');
         $page->setAuthor("szabi");
+        $page->setTags([$tag]);
         $manager->persist($page);
 
 

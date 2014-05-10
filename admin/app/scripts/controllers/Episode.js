@@ -37,10 +37,6 @@ angular.module('tilosAdmin')
         $scope.episode.id = id;
         $scope.show = data['show'];
         $scope.episode.show = null;
-        if ($scope.episode.text) {
-          $scope.episode.content = $scope.episode.text.content;
-          $scope.episode.title = $scope.episode.text.title;
-        }
       });
 
       $scope.save = function () {
@@ -69,9 +65,9 @@ angular.module('tilosAdmin')
     .controller('EpisodeNewCtrl', ['$location', '$scope', 'API_SERVER_ENDPOINT', '$http', '$cacheFactory', '$rootScope', function ($location, $scope, server, $http, $cacheFactory, $rootScope) {
 
       $scope.episode = $rootScope.newEpisode;
-      $scope.episode.radioshow_id = $scope.episode.show.id;
       $scope.show = $scope.episode.show;
-      $scope.episode.show = null;
+      $scope.episode.text = {};
+      $scope.episode.show = {id:$scope.episode.show.id}
       $scope.now = new Date().getTime();
 
 
@@ -80,7 +76,7 @@ angular.module('tilosAdmin')
           var httpCache = $cacheFactory.get('$http');
           httpCache.remove(server + '/api/v0/show/' + $scope.show.id);
           $location.path('/episode/' + data.data.id);
-          $location.path('/show/' + scope.show.id);
+          $location.path('/show/' + $scope.show.id);
         }).error(function (data) {
               if (data.error) {
                 $scope.error = data.error;

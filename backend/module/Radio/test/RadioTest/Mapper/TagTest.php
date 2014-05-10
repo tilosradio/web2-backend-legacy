@@ -60,5 +60,4 @@ class TagTest extends TestBase
 
 
     }
-
 }
