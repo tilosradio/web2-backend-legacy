@@ -10,7 +10,7 @@ class Formatter
     {
         $default = new CompositeFormatter();
         $default->addFormatter(new RestrictedHtmlTransformer());
-//        $default->addFormatter(new TagFormatter());
+        $default->addFormatter(new TagFormatter());
         $this->transformers = [
             'legacy' => $default,
             'normal' => $default,
