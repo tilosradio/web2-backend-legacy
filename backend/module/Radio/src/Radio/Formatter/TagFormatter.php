@@ -19,9 +19,9 @@ class TagFormatter
     {
         $w = "[\w&;]";
 
-        $content = preg_replace("/(?<!&)#(" . $w . "+)/", "<span class=\"label label-primary\">$1</span>", $content);
-        $content = preg_replace("/\#\{(.+?)\}/", "<span class=\"label label-primary\">$1</span>", $content);
-        $content = preg_replace("/\@(" . $w . "+)/", "<span class=\"label label-success\">$1</span>", $content);
+        $content = preg_replace("/(?<!&)#(" . $w . "+)/", "<a href=\"/tag/$1\"><span class=\"label label-primary\">$1</span></a>", $content);
+        $content = preg_replace("/\#\{(.+?)\}/", "<a href=\"/tag/$1\"><span class=\"label label-primary\">$1</span></a>", $content);
+        $content = preg_replace("/\@(" . $w . "+)/", "<a href=\"/tag/$1\"><span class=\"label label-success\">$1</span></a>", $content);
         $content = preg_replace("/\@\{(.+?)\}/", "<a href=\"/tag/$1\"><span class=\"label label-primary\">$1</span></a>", $content);
 
         return $content;
