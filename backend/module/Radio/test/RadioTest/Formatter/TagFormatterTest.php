@@ -12,7 +12,11 @@ class TagFormatterTest extends \PHPUnit_Framework_TestCase
 
     public function testSimple()
     {
+
         $t = new TagFormatter();
-        $this->assertEquals("asd <span>tag</span> qwe",$t->format("asd #tag qwe"));
+        $this->assertEquals("őz asd egy&#337; qwe",$t->format("őz asd egy&#337; qwe"));
+        $this->assertEquals("asd <span class=\"label label-primary\">tag</span> qwe",$t->format("asd #tag qwe"));
+        $this->assertEquals("asd <span class=\"label label-primary\">tag barmi</span> qwe",$t->format("asd #{tag barmi} qwe"));
+        $this->assertEquals("asd <span class=\"label label-success\">tag</span> qwe",$t->format("asd @tag qwe"));
     }
 }

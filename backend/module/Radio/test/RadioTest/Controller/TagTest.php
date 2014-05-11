@@ -35,8 +35,9 @@ class TagTest extends TestBase
         $response = $this->controller->getResponse();
         $tags = $result->getVariables();
         //var_dump($tags);
-        $this->assertEquals(1, sizeof($tags));
+        $this->assertEquals(2, sizeof($tags));
         $this->assertEquals("txag", $tags[0]['name']);
+        $this->assertEquals(1, $tags[0]['count']);
 
 
     }
@@ -57,8 +58,6 @@ class TagTest extends TestBase
         //var_dump($tags);
         $this->assertEquals("tag2", $tag['name']);
         $this->assertEquals("Episode log", $tag['episodes'][0]['text']['title']);
-
-
     }
 
 }

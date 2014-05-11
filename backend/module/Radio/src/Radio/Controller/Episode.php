@@ -92,6 +92,7 @@ class Episode extends BaseController
         $this->simpleEpisodeElementMapper($m);
         $em = $m->addMapper(new ChildObject("text"));
         $em->addMapper(new Field("title"));
+        $em->addMapper(new Field("id"));
         $em->addMapper(new \Radio\Mapper\TextContent());
         $em->addMapper(new DateField("created"));
         $tm = $em->addMapper(new ChildCollection("tags"));
@@ -108,6 +109,7 @@ class Episode extends BaseController
 
         $sm = $m->addMapper(new ChildObject("show"));
         $sm->addMapper(new Field("name"));
+        $sm->addMapper(new Field("alias"));
         $m->addMapper(new InternalLinkField("m3uUrl", $this->getServerUrl()));
         $sm->addMapper(new Field("id"));
         $sm->addMapper(new Field("alias"));

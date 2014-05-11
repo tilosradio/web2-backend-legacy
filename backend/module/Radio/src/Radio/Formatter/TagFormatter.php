@@ -17,7 +17,14 @@ class TagFormatter
 
     public function format($content)
     {
-        return preg_replace("/#(\w+)/", "<span class=\"label label-primary\">$1</span>", $content);
+        $w = "[\w&;]";
+
+        $content = preg_replace("/(?<!&)#(" . $w . "+)/", "<span class=\"label label-primary\">$1</span>", $content);
+        $content = preg_replace("/\#\{(.+?)\}/", "<span class=\"label label-primary\">$1</span>", $content);
+        $content = preg_replace("/\@(" . $w . "+)/", "<span class=\"label label-success\">$1</span>", $content);
+        $content = preg_replace("/\@\{(.+?)\}/", "<a href=\"/tag/$1\"><span class=\"label label-primary\">$1</span></a>", $content);
+
+        return $content;
     }
 
 
