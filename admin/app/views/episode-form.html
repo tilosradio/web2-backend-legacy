@@ -6,16 +6,30 @@
     <!-- Form Name -->
     <!-- Text input-->
     <div class="form-group">
-      <label for="plannedFrom">Kezdet</label>
+      <label for="plannedFrom">Tervezett kezdet</label>
 
       <p id="plannedFrom">{{episode.plannedFrom * 1000 | date:'yyyy-MM-dd HH:ss'}}</p>
 
     </div>
     <!-- Text input-->
     <div class="form-group">
-      <label for="plannedTo">Vég</label>
+      <label for="plannedTo">Tervezett vég</label>
       <p id="plannedTo">{{episode.plannedTo * 1000 | date:'yyyy-MM-dd HH:ss'}}</p>
     </div>
+
+      <!-- Text input-->
+      <div class="form-group">
+          <label for="plannedFrom">Valós kezdet</label>
+          <input class="form-control" id="realFrom" name="realFrom" type="time" ng-model="realFrom">
+
+      </div>
+      <!-- Text input-->
+      <div class="form-group">
+          <label for="realTo">Valós vég</label>
+          <input class="form-control" id="realTo" name="realTo" type="time" ng-model="realTo">
+      </div>
+
+
     <!-- Text input-->
     <div class="form-group">
       <label for="title">Cím</label>

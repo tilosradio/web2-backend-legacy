@@ -105,6 +105,9 @@ class Episode extends BaseController
         $m->addMapper(new Field("id"));
         $m->addMapper(new DateField("plannedFrom"));
         $m->addMapper(new DateField("plannedTo"));
+        $m->addMapper(new DateField("realFrom"));
+        $m->addMapper(new DateField("realTo"));
+
         $m->addMapper(new InternalLinkField("m3uUrl", $this->getServerUrl()));
 
         $sm = $m->addMapper(new ChildObject("show"));

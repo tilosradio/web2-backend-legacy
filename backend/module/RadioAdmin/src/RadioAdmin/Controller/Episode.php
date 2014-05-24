@@ -87,7 +87,12 @@ class Episode extends \Radio\Controller\BaseController
         }
 
         $mapper = new ObjectMapper(new ObjectFieldSetter($this->getEntityManager()));
+        $mapper->addMapper(new TimestampField("realFrom"));
+        $mapper->addMapper(new TimestampField("realTo"));
+
         $tm = $mapper->addMapper(new ChildObject("text", "\Radio\Entity\TextContent"));
+        $mapper->addMapper(new TimestampField("realFrom"));
+        $mapper->addMapper(new TimestampField("realTo"));
         $tm->addMapper(new Field("title"));
         $tm->addMapper(new Field("content"));
         $tm->addMapper(StaticField::of("type", "episode"));

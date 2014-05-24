@@ -70,12 +70,15 @@ class EpisodeTest extends TestBase
     {
         $start = mktime(10, 0, 0, 10, 28, 2013);
         $end = mktime(12, 0, 0, 10, 28, 2013);
+
+
         //when
         $this->request->setUri("/api/episode/1");
         $this->request->setMethod("put");
         $this->request->getHeaders()->addHeaderLine("content-type: application/json");
         $this->request->setContent(Json::encode(
-            ['text' => [
+            [   'realTo' => 1400952100,
+                'text' => [
                 'id' => 2,
                 'content' => 'new content #tag',
                 'title' => 'ccc'
@@ -101,6 +104,11 @@ class EpisodeTest extends TestBase
         $this->assertEquals("ccc", $persisted->getText()->getTitle());
         $this->assertEquals("new content #tag", $persisted->getText()->getContent());
         $this->assertEquals(1, sizeof($persisted->getText()->getTags()));
+
+        $expected = new \DateTime();
+        $expected->setTimestamp(mktime(19, 21, 40, 5, 24, 2014));
+        $this->assertEquals($expected, $persisted->getRealTo());
+
         $this->assertNotNull($persisted->getShow());
 
 
