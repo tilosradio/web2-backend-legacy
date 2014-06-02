@@ -581,3 +581,15 @@ a.jp-shuffle-off:hover {
 }
 
 /* @end */
+
+
+
+.speaker {
+  width:48px;
+  height:48px;
+  float: left;
+  background: green;
+}
+.speaker.pause {
+  background: red;
+}
