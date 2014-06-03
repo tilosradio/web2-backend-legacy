@@ -31,16 +31,6 @@ return array(
 		)
 	),
 
-    'show-rss' => array(
-        'type' => 'Segment',
-        'options' => array(
-            'route' => '/oldfeed/show/:id',
-            'defaults' => array(
-                'controller' => 'Radio\Controller\Atom',
-                'action' => 'showFeed'
-            )
-        )
-    ),
     'show-super-rss' => array(
         'type' => 'Segment',
         'options' => array(

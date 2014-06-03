@@ -87,7 +87,7 @@ class Mp3Streamer
         $duration = (int)$matches[2][0];
 
         //requried headers
-        $filename = sprintf("tilos-%d-%d", $start, $duration);
+        $filename = sprintf("tilos-%s-%d", date("Y-m-d-Hi",$start), $duration);
         header("Content-Type: audio/mpeg");
         header("Content-Disposition: attachment; filename=\"$filename.mp3\"");
 

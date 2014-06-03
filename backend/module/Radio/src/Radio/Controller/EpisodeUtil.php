@@ -54,6 +54,8 @@ class EpisodeUtil {
                     $realEnd = $real->getTimestamp() + $scheduling['duration'] * 60;
                     $e['plannedFrom'] = $real;
                     $e['plannedTo'] = EpisodeUtil::toDateTime($realEnd);
+                    $e['realFrom'] = $e['plannedFrom'];
+                    $e['realTo'] = $e['plannedTo'];
                     if ($now->getTimestamp() > $realEnd) {
                         $e['m3uUrl'] = EpisodeUtil::m3uUrlLinkFromDate($real,$e['plannedTo']);
                     }
