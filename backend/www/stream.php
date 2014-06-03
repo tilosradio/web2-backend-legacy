@@ -73,7 +73,7 @@ class Mp3Streamer
     public function combinedMp3Action()
     {
 
-        $archiveLocation = "/home/elek/projects/tilos/backend/archive-files/online";
+        $archiveLocation = "../archive-files/online";
 
         $uri = $_SERVER['REQUEST_URI'];
         $matches = [];
