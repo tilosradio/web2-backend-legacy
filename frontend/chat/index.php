@@ -29,7 +29,7 @@ background-color:{$lyt_color};
 <p><a href="http://hirek.tilos.hu/?p=49" target="_blank">::&nbsp;Nyílt&nbsp;levél&nbsp;a&nbsp;chat&nbsp;használóihoz&nbsp;::</a><br /><a href="http://www.ustream.tv/channel/tilos-radio-studio" target="_blank">::&nbsp;Tilos&nbsp;Rádió&nbsp;-&nbsp;webkamera&nbsp;::</a><br /><a href="http://stream.tilos.hu/tilos.m3u" target="_blank">::&nbsp;Tilos&nbsp;Rádió&nbsp;-&nbsp;élő adás&nbsp;::</a></p>
 <p><input type="button" onclick="msg(0)" value="? -> !" /> <input type="button" onclick="msg(1)" value="Névcsere" /> <input type="button" onclick="msg(2)" value="Név regisztrálása" /> <input type="button" onclick="msg(3)" value="Csoport használata" /> <input type="button" onclick="msg(4)" value="Privát üzenet" /> <input type="button" onclick="msg(5)" value="Nyelv váltás" /> <input type="button" onclick="msg(6)" value="IRC kliens" /> <input type="button" onclick="msg(7)" value="TrollKontroll" /></p>
 <iframe src="http://chat.tilos.hu:8080/?nick=Hallgato_...&channels=tilos&prompt=1&uio=Mj10cnVlJjQ9dHJ1ZSY5PXRydWUmMTA9dHJ1ZSYxMT0xMDMe5" name="chat" id="chat" width="100%" height="500" scrolling="no" frameborder="0"></iframe>
-<p><i>&copy; 1991-2012. tilos.hu CHAT - Tilos Kulturális Alapítvány - Minden jog fenntartva! - IP címed:&nbsp;{$_SERVER['REMOTE_ADDR']}</i></p>
+<p><i>&copy; 1991-2014. tilos.hu CHAT - Tilos Kulturális Alapítvány - Minden jog fenntartva! - IP címed:&nbsp;{$_SERVER['REMOTE_ADDR']}</i></p>
 </body>
 </html>
 EOD99;
