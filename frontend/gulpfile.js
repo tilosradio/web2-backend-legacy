@@ -1,4 +1,4 @@
-var distDir = 'dist2';
+var distDir = 'dist';
 var gulp =    require('gulp');
 var clean =   require('gulp-clean');
 var sass =    require('gulp-ruby-sass');
