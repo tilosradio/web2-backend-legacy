@@ -77,7 +77,9 @@ gulp.task('clean', function() {
 });
 
 
-gulp.task('build', ['clean','default'], function() {});
+gulp.task('build', ['clean'], function() {
+    gulp.start('default');
+});
 
 gulp.task('default', function() {
     gulp.start('sass', 'scripts', 'assets','php', 'bower_components','views');
