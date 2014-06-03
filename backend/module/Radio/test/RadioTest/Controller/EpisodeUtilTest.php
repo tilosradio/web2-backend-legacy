@@ -1,6 +1,6 @@
 <?php
 
-use RadioTest\Bootstrap;
+use BackendTest\Bootstrap;
 use Radio\Controller\EpisodeUtil;
 use Radio\Controller\M3u;
 

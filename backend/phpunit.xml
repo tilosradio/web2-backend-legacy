@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<phpunit bootstrap="phpunit-bootstrap.php">
+    <testsuites>
+        <testsuite name="test-admin">
+            <directory>module/RadioAdmin/test/RadioAdminTest</directory>
+        </testsuite>
+        <testsuite name="test-normal">
+            <directory>module/Radio/test/RadioTest</directory>
+        </testsuite>
+    </testsuites>
+</phpunit>

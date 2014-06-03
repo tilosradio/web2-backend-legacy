@@ -18,7 +18,7 @@ use Zend\Http\Response;
 use Zend\Mvc\MvcEvent;
 use Zend\Mvc\Router\RouteMatch;
 use PHPUnit_Framework_TestCase;
-use RadioAdminTest\Bootstrap;
+use BackendTest\Bootstrap;
 
 class TestBase extends \PHPUnit_Framework_TestCase {
 

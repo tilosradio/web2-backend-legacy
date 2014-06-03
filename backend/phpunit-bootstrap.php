@@ -1,6 +1,6 @@
 <?php
 
-namespace RadioAdminTest;
+namespace BackendTest;
 
 use Doctrine\ORM\Tools\SchemaTool;
 use Zend\Loader\AutoloaderFactory;
@@ -94,8 +94,9 @@ class Bootstrap
             'Zend\Loader\StandardAutoloader' => array(
                 'autoregister_zf' => true,
                 'namespaces' => array(
-                    __NAMESPACE__ => __DIR__ . '/' . __NAMESPACE__,
-                    "RadioTest" => "../../Radio/test/RadioTest"
+                    "RadioTest" => "module/Radio/test/RadioTest",
+                    "RadioAdminTest" => "module/RadioAdmin/test/RadioAdminTest"
+
                 ),
             ),
         ));
