@@ -45,6 +45,11 @@ gulp.task('assets', function() {
   .pipe(gulp.dest(distDir + '/www'));    
 });
 
+gulp.task('chat', function() {
+  gulp.src(['chat/**/*'],{base : '.'})
+  .pipe(gulp.dest(distDir + '/www'));    
+});
+
 
 gulp.task('php', function() {
   gulp.src([
@@ -82,7 +87,7 @@ gulp.task('build', ['clean'], function() {
 });
 
 gulp.task('default', function() {
-    gulp.start('sass', 'scripts', 'assets','php', 'bower_components','views');
+    gulp.start('sass', 'scripts', 'assets','chat', 'php', 'bower_components','views');
 });
 
 
