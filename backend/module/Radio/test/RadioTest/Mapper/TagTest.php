@@ -38,6 +38,35 @@ class TagTest extends TestBase
         $this->assertEquals("nagyon", $tags[0]->getName());
     }
 
+    public function testAtInEmail()
+    {
+        //given
+        $content = "asd\nlajos #okos asd@asd.hu asd";
+        $t = new Tag("content", $this->em);
+
+        //when
+        $tags = $t->extractTags($content);
+
+        //then
+        $this->assertEquals(1, sizeof($tags));
+        $this->assertEquals("okos", $tags[0]->getName());
+    }
+
+    public function testExtractSpecialChars()
+    {
+        //given
+        $content = "asd\nlajos #útka-parÓ #{Kovácsolt Vas} #okos";
+        $t = new Tag("content", $this->em);
+
+        //when
+        $tags = $t->extractTags($content);
+
+        //then
+        $this->assertEquals(3, sizeof($tags));
+        $this->assertEquals("útka-parÓ", $tags[0]->getName());
+        $this->assertEquals("Kovácsolt Vas", $tags[2]->getName());
+    }
+
     public function testMap()
     {
 

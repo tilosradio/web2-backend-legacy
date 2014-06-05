@@ -9,6 +9,7 @@
 namespace Radio\Mapper;
 
 use Radio\Formatter\Formatter;
+use Radio\Util\TagPattern;
 
 /**
  * Find tags from a content field.
@@ -43,16 +44,16 @@ class Tag implements Mapper
         $matches = [];
         $result = [];
         $w = "[\w+&;]";
-        preg_match_all("/#(" . $w . "+)/", $content, $matches);
+        preg_match_all(TagPattern::$GENERIC_SIMPLE, $content, $matches);
         $this->addMatches($matches, \Radio\Entity\Tag::$GENERIC, $result);
 
-        preg_match_all("/\#\{(.+?)\}/", $content, $matches);
+        preg_match_all(TagPattern::$GENERIC_COMPLEX, $content, $matches);
         $this->addMatches($matches, \Radio\Entity\Tag::$GENERIC, $result);
 
-        preg_match_all("/@(" . $w . "+)/", $content, $matches);
+        preg_match_all(TagPattern::$PERSON_SIMPLE, $content, $matches);
         $this->addMatches($matches, \Radio\Entity\Tag::$PERSON, $result);
 
-        preg_match_all("/\@\{(.+?)\}/", $content, $matches);
+        preg_match_all(TagPattern::$PERSON_COMPLEX, $content, $matches);
         $this->addMatches($matches, \Radio\Entity\Tag::$PERSON, $result);
 
         return $result;
