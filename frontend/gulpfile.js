@@ -103,8 +103,9 @@ gulp.task('watch', function(){
         return gulp.src(event.path)
             .pipe(connect.reload());
    });
-
+ 
   gulp.watch(["app/**/*"], ['default']);
+  gulp.watch(["../backend/**/*"], ['php']);
 });
 
 gulp.task('connect', function() {
