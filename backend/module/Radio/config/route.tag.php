@@ -1,6 +1,6 @@
 <?php
 return array(
-    'author-get' => array(
+    'tag-get' => array(
         'type' => 'Radio\Util\CustomSegmentRouter',
         'options' => array(
             'method' => 'GET',
@@ -12,7 +12,7 @@ return array(
             ),
         )
     ),
-    'author-list' => array(
+    'tag-list' => array(
         'type' => 'Radio\Util\CustomSegmentRouter',
         'options' => array(
             'method' => 'GET',
