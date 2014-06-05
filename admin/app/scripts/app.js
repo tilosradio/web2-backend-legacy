@@ -49,10 +49,12 @@ angular.module('tilosAdmin').run(function ($rootScope, $location, $http, API_SER
 
   var endsWith = function (str, suffix) {
     return str.indexOf(suffix, str.length - suffix.length) !== -1;
-  };-
+  };
+    
   var freeAccess = function (url) {
     return (/.*password_reset(\?.*)?/g.exec(url) || endsWith(url, '/password_reminder') || endsWith(url, '/login'));
-  }
+  };
+
   $rootScope.$on('$locationChangeStart', function (evt, next) {
     if (!('user' in $rootScope)) {
       if (!freeAccess(next)) {
