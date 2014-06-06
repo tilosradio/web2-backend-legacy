@@ -36,6 +36,8 @@ class RestrictedHtmlTransformer
         $this->allowedTags['h1'] = [];
         $this->allowedTags['h2'] = [];
         $this->allowedTags['h3'] = [];
+        $this->allowedTags['code'] = [];
+        $this->allowedTags['blockquote'] = [];
         $this->allowedTags['strong'] = [];
         $this->allowedTags['img'] = ['src'];
         $this->allowedTags['a'] = ['href','target'];
