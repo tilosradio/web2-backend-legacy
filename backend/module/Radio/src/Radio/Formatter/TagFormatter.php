@@ -24,7 +24,8 @@ class TagFormatter
         $content = preg_replace(TagPattern::$GENERIC_COMPLEX, "<a href=\"/tag/$1\"><span class=\"label label-primary\">$1</span></a>", $content);
         $content = preg_replace(TagPattern::$PERSON_SIMPLE, "<a href=\"/tag/$1\"><span class=\"label label-success\">$1</span></a>", $content);
         $content = preg_replace(TagPattern::$PERSON_COMPLEX, "<a href=\"/tag/$1\"><span class=\"label label-primary\">$1</span></a>", $content);
-
+        $content = str_replace("##", "#", $content);
+        $content = str_replace("@@", "@", $content);
         return $content;
     }
 

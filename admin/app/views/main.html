@@ -1,47 +1,35 @@
 <div class="row">
-  <div class="col-6 col-sm-6 col-lg-4">
-    <h2>Műsorkészítő profil</h2>
-
-    <p>A felahasználóhoz tartozó műsorkészítő profil:</p>
-
-    <p><a class="btn btn-default" ng-href="/author/{{user.author.id}}" role="button">{{user.author.name}}</a></p>
-  </div>
-  <!--/span-->
-  <div class="col-6 col-sm-6 col-lg-4">
-    <h2>Műsorok</h2>
-
-    <p>A felhasználóhoz tartozó műsorok oldalai:</p>
-
-    <p ng-repeat="contribution in user.author.contributions">
-
-      <a class="btn btn-default" ng-href="/show/{{contribution.show.id}}/"
-         role="button">{{contribution.show.name}}</a>
+    <div class="col-8">
 
 
-    </p>
-  </div>
-  <!--/span-->
-  <div class="row">
-    <div class="col-6 col-sm-6 col-lg-4">
-      <h2>Felhasználó</h2>
 
-      <p>Aktuális felhasználó: {{user.username}}</p>
+        <h2>Admin hírek</h2>
 
-      <p><a class="btn btn-default" href="/user/me" role="button">Felhasználó</a></p>
+        <p>Elérhetővé vállt a cimkék (tegek) használata az adásnaplókon belül. Az alábbi szintakszisok
+            használhatóak: <code>#cimke</code> vagy <code>@szemelynev</code> <a ng-href="/page/admin-tags">További részletek itt</a></p>
+
+        <h2>Hasznos linkek!</h2>
+
+        <p>
+            <a class="btn btn-primary btn-lg" role="button" href="/page/ujoldal">Új oldal GYIK</a>
+            <a class="btn btn-primary btn-lg" role="button" href="/page/face">Tilos Facebook szabályat</a>
+            <a class="btn btn-primary btn-lg" role="button" href="/page/szerkesztes">Szerkesztési segédlet</a>
+            <a class="btn btn-primary btn-lg" role="button" href="/page/78">Tilos Dokumentumok</a>
+
+        </p>
+
+        <h2>Saját műsorok</h2>
+
+        <p ng-repeat="contribution in user.author.contributions">
+
+            <a class="btn btn-default" ng-href="/show/{{contribution.show.id}}/"
+               role="button">{{contribution.show.name}}</a>
+
+
+        </p>
+
+
+
+
     </div>
-  </div>
-
-  <div class="jumbotron row">
-    <h2>Hasznos linkek!</h2>
-
-    <p>
-      <a class="btn btn-primary btn-lg" role="button" href="/page/ujoldal">Új oldal GYIK</a>
-      <a class="btn btn-primary btn-lg" role="button" href="/page/face">Tilos Facebook szabályat</a>
-      <a class="btn btn-primary btn-lg" role="button" href="/page/szerkesztes">Szerkesztési segédlet</a>
-      <a class="btn btn-primary btn-lg" role="button" href="/page/78">Tilos Dokumentumok</a>
-
-    </p>
-  </div>
-
-  <!--/span-->
 </div>

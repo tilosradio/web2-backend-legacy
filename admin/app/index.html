@@ -30,7 +30,6 @@
     your browser</a>
     to improve your experience.</p>
 <![endif]-->
-
 <div class="navbar navbar-inverse navbar-fixed-top" role="navigation" ng-controller="AuthCtrl">
     <div class="container">
         <div class="navbar-header">
@@ -47,7 +46,8 @@
                 <li ng-show="user.role.name == 'admin'" active-link="active"><a ng-href="/authors">Szerzők</a></li>
                 <li ng-show="user.role.name == 'admin'" active-link="active"><a ng-href="/shows">Műsorok</a></li>
                 <li ng-show="user.role.name == 'admin'" active-link="active"><a ng-href="/pages">Oldalak</a></li>
-                <li ng-show="user" active-link="active"><a ng-href="/user/me">[[{{user.username}}]]</a></li>
+                <li ng-show="user" active-link="active"><a ng-href="/user/me">Felhasználó: <b>{{user.username}}</b></a></li>
+                <li ng-show="user" active-link="active"><a ng-href="/author/{{user.author.id}}">Műsorkészítő profil: <b>{{user.author.name}}</b></a></li>
                 <li active-link="active"><a ng-click="logout()">Logout</a></li>
             </ul>
         </div>
@@ -66,45 +66,12 @@
 
 <!--[if lt IE 9]>
 <script src="bower_components/es5-shim/es5-shim.js"></script>
-<script src="bower_components/json3/lib/json3.min.js"></script>
+<!--script src="bower_components/json3/lib/json3.min.js"></script-->
 <![endif]-->
 
-<!-- build:js scripts/vendor.js -->
-<!-- bower:js -->
-<script src="bower_components/jquery/jquery.js"></script>
-<script src="bower_components/angular/angular.js"></script>
-<script src="bower_components/sass-bootstrap/dist/js/bootstrap.js"></script>
-<script src="bower_components/angular-resource/angular-resource.js"></script>
-<script src="bower_components/angular-cookies/angular-cookies.js"></script>
-<script src="bower_components/angular-sanitize/angular-sanitize.js"></script>
-<script src="bower_components/angular-route/angular-route.js"></script>
-<script src="bower_components/textAngular/textAngular.js"></script>
-<!-- endbower -->
-<!-- endbuild -->
 
-<!-- build:js({.tmp,app}) scripts/scripts.js -->
-<script src="scripts/app.js"></script>
-<script src="scripts/controllers/main.js"></script>
-<script src="scripts/controllers/Login.js"></script>
-<script src="scripts/controllers/ChangePassword.js"></script>
-<script src="scripts/controllers/Author.js"></script>
-<script src="scripts/controllers/Show.js"></script>
-<script src="scripts/controllers/Episode.js"></script>
-<script src="scripts/controllers/User.js"></script>
-<script src="scripts/controllers/Scheduling.js"></script>
-<script src="scripts/controllers/Contribution.js"></script>
-<script src="scripts/controllers/Page.js"></script>
-<script src="scripts/controllers/Url.js"></script>
+<script src="/scripts/angular.js"></script>
+<script src="/scripts/tilos.js"></script>
 
-
-<script src="scripts/directives/auth.js"></script>
-<script src="scripts/directives/common.js"></script>
-<script src="scripts/directives/compiledText.js"></script>
-
-
-<script src="scripts/controllers/Auth.js"></script>
-
-
-<!-- endbuild -->
 </body>
 </html>

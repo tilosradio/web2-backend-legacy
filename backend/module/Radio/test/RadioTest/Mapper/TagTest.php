@@ -52,6 +52,21 @@ class TagTest extends TestBase
         $this->assertEquals("okos", $tags[0]->getName());
     }
 
+    public function testNoTagl()
+    {
+        //given
+        $content = "asd\nlajos #okos asd@asd.hu ##nemtag";
+        $t = new Tag("content", $this->em);
+
+        //when
+        $tags = $t->extractTags($content);
+
+        //then
+        $this->assertEquals(1, sizeof($tags));
+        $this->assertEquals("okos", $tags[0]->getName());
+    }
+
+
     public function testExtractSpecialChars()
     {
         //given
