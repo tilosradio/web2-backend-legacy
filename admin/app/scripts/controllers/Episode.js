@@ -28,23 +28,29 @@ angular.module('tilosAdmin')
         });
     });
 
-angular.module('tilosAdmin')
-    .controller('EpisodeEditCtrl', ['$location', '$scope', '$routeParams', 'API_SERVER_ENDPOINT', '$http', '$cacheFactory', '$rootScope', function ($location, $scope, $routeParams, server, $http, $cacheFactory, $rootScope) {
-        var toHourMin = function (epoch) {
+angular.module('tilosAdmin').factory('dateUtil', function () {
+    return {
+        toHourMin: function (epoch) {
             var d = new Date();
             d.setTime(epoch * 1000);
-            var result = d.getHours() + ':' + (d.getMinutes() < 10 ? "0" : "") + d.getMinutes();
+            var result = "" + (d.getHours() < 10 ? "0" : "" ) + d.getHours() + ':' + (d.getMinutes() < 10 ? "0" : "") + d.getMinutes() + ":" + (d.getSeconds() < 10 ? "0" : "") + d.getSeconds();
             return result;
-        };
-
-        var setDate = function (dateEpoch, dateStr) {
+        },
+        setDate: function (dateEpoch, dateStr) {
             var date = new Date();
             date.setTime(dateEpoch * 1000);
             var parts = dateStr.split(':');
             date.setHours(parseInt(parts[0], 10));
             date.setMinutes(parseInt(parts[1], 10));
+            date.setSeconds(parseInt(parts[2], 10));
             return date.getTime() / 1000;
         }
+    };
+})
+
+angular.module('tilosAdmin')
+    .controller('EpisodeEditCtrl', function ($location, $scope, $routeParams, API_SERVER_ENDPOINT, $http, $cacheFactory, $rootScope, dateUtil) {
+
 
         var id = $routeParams.id;
         $scope.now = new Date().getTime();
@@ -54,15 +60,15 @@ angular.module('tilosAdmin')
             $scope.show = data['show'];
             $scope.episode.show = null;
 
-            $scope.realTo = toHourMin($scope.episode.realTo);
-            $scope.realFrom = toHourMin($scope.episode.realFrom);
+            $scope.realTo = dateUtil.toHourMin($scope.episode.realTo);
+            $scope.realFrom = dateUtil.toHourMin($scope.episode.realFrom);
 
         });
 
         $scope.save = function () {
-            $scope.episode.realFrom = setDate($scope.episode.realFrom, $scope.realFrom);
-            $scope.episode.realTo = setDate($scope.episode.realTo, $scope.realTo);
-            $http.put(server + '/api/v0/episode/' + $scope.episode.id, $scope.episode).success(function (data) {
+            $scope.episode.realFrom = dateUtil.setDate($scope.episode.realFrom, $scope.realFrom);
+            $scope.episode.realTo = dateUtil.setDate($scope.episode.realTo, $scope.realTo);
+            $http.put(API_SERVER_ENDPOINT + '/api/v0/episode/' + $scope.episode.id, $scope.episode).success(function (data) {
 
                 var httpCache = $cacheFactory.get('$http');
                 httpCache.remove(server + '/api/v0/episode/' + $scope.episode.id);
@@ -80,27 +86,11 @@ angular.module('tilosAdmin')
         };
 
 
-    }])
+    })
 ;
 
 angular.module('tilosAdmin')
-    .controller('EpisodeNewCtrl', ['$location', '$scope', 'API_SERVER_ENDPOINT', '$http', '$cacheFactory', '$rootScope', function ($location, $scope, server, $http, $cacheFactory, $rootScope) {
-
-        var toHourMin = function (epoch) {
-            var d = new Date();
-            d.setTime(epoch * 1000);
-            var result = d.getHours() + ':' + (d.getMinutes() < 10 ? "0" : "") + d.getMinutes();
-            return result;
-        };
-
-        var setDate = function (dateEpoch, dateStr) {
-            var date = new Date();
-            date.setTime(dateEpoch * 1000);
-            var parts = dateStr.split(':');
-            date.setHours(parseInt(parts[0], 10));
-            date.setMinutes(parseInt(parts[1], 10));
-            return date.getTime() / 1000;
-        }
+    .controller('EpisodeNewCtrl', function ($location, $scope, API_SERVER_ENDPOINT, $http, $cacheFactory, $rootScope, dateUtil) {
 
         $scope.episode = $rootScope.newEpisode;
         $scope.show = $scope.episode.show;
@@ -108,12 +98,12 @@ angular.module('tilosAdmin')
         $scope.episode.show = {id: $scope.episode.show.id}
         $scope.now = new Date().getTime();
 
-        $scope.realTo = toHourMin($scope.episode.plannedTo);
-        $scope.realFrom = toHourMin($scope.episode.plannedFrom)
+        $scope.realTo = dateUtil.toHourMin($scope.episode.plannedTo);
+        $scope.realFrom = dateUtil.toHourMin($scope.episode.plannedFrom)
         $scope.save = function () {
-            $scope.episode.realFrom = setDate($scope.episode.plannedFrom, $scope.realFrom);
-            $scope.episode.realTo = setDate($scope.episode.plannedTo, $scope.realTo);
-            $http.post(server + '/api/v0/episode', $scope.episode).success(function (data) {
+            $scope.episode.realFrom = dateUtil.setDate($scope.episode.plannedFrom, $scope.realFrom);
+            $scope.episode.realTo = dateUtil.setDate($scope.episode.plannedTo, $scope.realTo);
+            $http.post(API_SERVER_ENDPOINT + '/api/v0/episode', $scope.episode).success(function (data) {
                 var httpCache = $cacheFactory.get('$http');
                 httpCache.remove(server + '/api/v0/show/' + $scope.show.id);
                 $location.path('/episode/' + data.data.id);
@@ -129,7 +119,7 @@ angular.module('tilosAdmin')
         };
 
 
-    }])
+    });
 ;
 
 angular.module('tilosAdmin').factory('Episodes', ['API_SERVER_ENDPOINT', '$resource', function (server, $resource) {
