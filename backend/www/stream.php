@@ -1,10 +1,52 @@
 <?php
 
 
+class Mp3File
+{
+    public $root = "../archive_files/";
+    public $file;
+    public $url;
+    public $date;
+    public $size;
+    public $epoch;
+
+    function __construct($file, $url, $epoch, $date)
+    {
+        $this->epoch = $epoch;
+        $this->date = $date;
+        $this->file = $this->root . $file;
+        $this->url = $url;
+        if (!file_exists($this->file)) {
+            header('HTTP/1.0 500 Internal server error');
+            die("File is missing: " . getcwd() . " " . $this->file);
+        }
+        $this->size = filesize($this->file);
+    }
+
+
+}
+
+class ResourceCollection
+{
+    public $collection = [];
+    public $startOffset = 0;
+    public $size = 0;
+
+    public function addResource($a)
+    {
+        $this->collection[] = $a;
+        $this->size += $a->size;
+    }
+
+    public function getSize()
+    {
+        return $this->size - $this->startOffset;
+    }
+
+}
+
 class Mp3Streamer
 {
-
-
     static public function getPrevHalfHour($time)
     {
         $processed = getdate($time);
@@ -26,10 +68,10 @@ class Mp3Streamer
      */
     public function getMp3Links($start, $duration)
     {
-        $res = [];
+        $result = new ResourceCollection();
         $from = Mp3Streamer::getPrevHalfHour($start);
-        $end = $start + $duration * 60;
 
+        $end = $start + $duration * 60;
         $curr = $from;
 
         for ($i = $from; $i < $end; $i += 30 * 60) {
@@ -37,8 +79,7 @@ class Mp3Streamer
             $timestr = sprintf("%02d%02d", $d['hours'], $d['minutes']);
             $filename = sprintf("/%02d/%02d/%02d/tilosradio-%02d%02d%02d-%s.mp3", $d['year'], $d['mon'], $d['mday'], $d['year'],
                 $d['mon'], $d['mday'], $timestr);
-            $res[] = array("filename" => $filename, "file" => "http://archive.tilos.hu/online" . $filename, 'epoch' => $i,
-                'datearray' => $d);
+            $result->addResource(new Mp3File($filename, "http://archive.tilos.hu/online" . $filename, $i, $d));
             if ($curr % 100 < 25) {
                 $curr += 30;
             } else {
@@ -47,7 +88,8 @@ class Mp3Streamer
         }
 
 
-        return [$start - $from, $res];
+        $result->startOffset = (int)(($start - $from) * 38.28125 * 836);
+        return $result;
     }
 
 
@@ -70,6 +112,36 @@ class Mp3Streamer
         fclose($fin);
     }
 
+    function chunked_copy_sum($from, $offset)
+    {
+        echo "Copy file $from from $offset\n";
+    }
+
+    public function stream($from, $to, $resource)
+    {
+        $realStart = $from + $resource->startOffset;
+        $realEnd = $realStart + $to;
+
+        $current = 0;
+        $fileIndex = 0;
+        while ($current < $realEnd) {
+            $currentFile = $resource->collection[$fileIndex];
+            if ($current + $currentFile->size < $realStart) {
+
+            } else if ($realStart < $current) {
+                $this->chunked_copy($currentFile->file, 0);
+            } else {
+                $localOffset = $realStart - $current;
+                $this->chunked_copy($currentFile->file, $localOffset);
+            }
+            $fileIndex++;
+            $current += $currentFile->size;
+            if ($fileIndex >= sizeof($resource->collection)) {
+                break;
+            }
+        }
+    }
+
     public function combinedMp3Action()
     {
 
@@ -86,37 +158,53 @@ class Mp3Streamer
         $start = (int)$matches[1][0];
         $duration = (int)$matches[2][0];
 
-        //requried headers
-        $filename = sprintf("tilos-%s-%d", date("Y-m-d-Hi",$start), $duration);
-        header("Content-Type: audio/mpeg");
-        header("Content-Disposition: attachment; filename=\"$filename.mp3\"");
-
         $origin = $this->getMp3Links($start, $duration);
-        //skip the first $offset seconds.
-        $offset = $origin[0];
-        $files = $origin[1];
-        //convert to byte
-        $offset = (int)($offset * 38.28125 * 836);
+//        print_r($origin);
 
-        //check the files and caclucate the sizes
-        $filesize = 0;
-        foreach ($files as $resource) {
-            $fn = $archiveLocation . $resource['filename'];
-            if (!file_exists($fn)) {
-                header('HTTP/1.0 404 Not Found');
-                die("Archive is missing: " . $fn);
 
-            } else {
-                $filesize += filesize($fn);
+        if (isset($_SERVER['HTTP_RANGE'])) {
+
+            $ranges = array_map(
+                'intval',
+                explode(
+                    '-',
+                    substr($_SERVER['HTTP_RANGE'], 6) // Skip the `bytes=` part of the header
+                )
+            );
+
+            // If the last range param is empty, it means the EOF (End of File)
+            if (!$ranges[1]) {
+                $ranges[1] = $origin->getSize() - 1;
             }
 
+            // Send the appropriate headers
+            header('HTTP/1.1 206 Partial Content');
+            header('Accept-Ranges: bytes');
+            header('Content-Length: ' . ($ranges[1] - $ranges[0])); // The size of the range
+
+            // Send the ranges we offered
+            header(
+                sprintf(
+                    'Content-Range: bytes %d-%d/%d', // The header format
+                    $ranges[0], // The start range
+                    $ranges[1], // The end range
+                    $origin->getSize() // Total size of the file
+                )
+            );
+            $this->stream($ranges[0], $ranges[1], $origin);
+        } else {
+            $filename = sprintf("tilos-%s-%d", date("Y-m-d-Hi", $start), $duration);
+            header("Content-Length: " . $origin->getSize());
+            header("Content-Type: audio/mpeg");
+            header("Content-Disposition: attachment; filename=\"$filename.mp3\"");
+            header('Accept-Ranges: bytes');
+            $this->stream(0, $origin->getSize(), $origin);
+
         }
-        $filesize -= $offset;
+
+
         //stream the content to the browser
-        header("Content-Length: " . $filesize);
-        for ($i = 0; $i < sizeof($files); $i++) {
-            $this->chunked_copy($archiveLocation . $files[$i]['filename'], $i == 0 ? $offset: 0);
-        }
+
 
         die("");
     }
