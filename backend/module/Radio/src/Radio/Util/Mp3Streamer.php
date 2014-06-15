@@ -4,15 +4,16 @@ namespace Radio\Util;
 
 class Mp3File
 {
-    public $root = "../archive_files/";
+    public $root;
     public $file;
     public $url;
     public $date;
     public $size = 0;
     public $epoch;
 
-    function __construct($file, $url, $epoch, $date)
+    function __construct($root, $file, $url, $epoch, $date)
     {
+        $this->root = $root;
         $this->epoch = $epoch;
         $this->date = $date;
         $this->file = $this->root . $file;
@@ -26,7 +27,7 @@ class Mp3File
     {
         if (!file_exists($this->file)) {
             header('HTTP/1.0 500 Internal server error');
-            die("File is missing: " . getcwd() . " " . $this->file);
+            die("File is missing: " . getcwd() . "/" . $this->file);
         }
     }
 
@@ -54,6 +55,13 @@ class ResourceCollection
 
 class Mp3Streamer
 {
+    public $root = "../archive_files/";
+
+    function __construct($root)
+    {
+        $this->root = $root;
+    }
+
     static public function getPrevHalfHour($time)
     {
         $processed = getdate($time);
@@ -86,7 +94,7 @@ class Mp3Streamer
             $timestr = sprintf("%02d%02d", $d['hours'], $d['minutes']);
             $filename = sprintf("/%02d/%02d/%02d/tilosradio-%02d%02d%02d-%s.mp3", $d['year'], $d['mon'], $d['mday'], $d['year'],
                 $d['mon'], $d['mday'], $timestr);
-            $result->addResource(new Mp3File($filename, "http://archive.tilos.hu/online" . $filename, $i, $d));
+            $result->addResource(new Mp3File($this->root, $filename, "http://archive.tilos.hu/online" . $filename, $i, $d));
             if ($curr % 100 < 25) {
                 $curr += 30;
             } else {
@@ -153,7 +161,7 @@ class Mp3Streamer
     public function combinedMp3Action()
     {
 
-        $archiveLocation = "../archive-files/online";
+
 
         $uri = $_SERVER['REQUEST_URI'];
         $matches = [];
@@ -201,14 +209,15 @@ class Mp3Streamer
             $this->stream($ranges[0], $ranges[1], $origin);
         } else {
             $filename = sprintf("tilos-%s-%d", date("Y-m-d-Hi", $start), $duration);
-            if ($origin->getSize()<1){
-                header('HTTP/1.0 500 Internal server error');
-                die("Some file is missing from the server.");
+            if ($origin->getSize() < 1){
+//                header('HTTP/1.0 500 Internal server error');
+ //               die("Some file is missing from the server.");
+            } else {
+                header("Content-Length: " . $origin->getSize());
+                header("Content-Type: audio/mpeg");
+                header("Content-Disposition: attachment; filename=\"$filename.mp3\"");
+                header('Accept-Ranges: bytes');
             }
-            header("Content-Length: " . $origin->getSize());
-            header("Content-Type: audio/mpeg");
-            header("Content-Disposition: attachment; filename=\"$filename.mp3\"");
-            header('Accept-Ranges: bytes');
             $this->stream(0, $origin->getSize(), $origin);
 
         }
