@@ -5,6 +5,7 @@ namespace Radio\Controller;
 use Zend\I18n\Validator\DateTime;
 use Zend\Mvc\Controller\AbstractActionController;
 use Radio\Provider\EntityManager;
+use Radio\Util\Mp3Streamer;
 
 /**
  * Generate atom feeds.
@@ -88,10 +89,12 @@ class Atom extends AbstractActionController
             $entry->setItunesExplicit('no');
 
             $duration = ($episode['plannedTo']->getTimestamp() - $episode['plannedFrom']->getTimestamp()) / 60;
+            $mp3 = new Mp3Streamer();
+            $origin = $mp3->getMp3Links($from, $duration + 10);
             $entry->setEnclosure(array(
                 'type' => 'audio/mpeg',
                 'uri' => sprintf($serverRoot . "/mp3/%d-%d.mp3", $from, $duration + 10),
-                'length' => '1337'
+                'length' => $origin->getSize()
             ));
             $feed->addEntry($entry);
             $limit--;
