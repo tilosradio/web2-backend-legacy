@@ -55,7 +55,7 @@ class ResourceCollection
 
 class Mp3Streamer
 {
-    public $root = "../archive_files/";
+    public $root = "../archive-files/";
 
     function __construct($root)
     {
@@ -66,10 +66,11 @@ class Mp3Streamer
     {
         $processed = getdate($time);
         $min = $processed['minutes'];
+        $seconds = $processed['seconds'];
         if ($min >= 30) {
             $min -= 30;
         }
-        return $time - $min * 60;
+        return $time - $min * 60 - $seconds;
     }
 
 
@@ -162,20 +163,40 @@ class Mp3Streamer
     {
 
 
-
         $uri = $_SERVER['REQUEST_URI'];
         $matches = [];
-        if (!preg_match('/^\/mp3\/(\d+)-(\d+).mp3$/', $uri, $matches, PREG_OFFSET_CAPTURE)) {
+        if (preg_match('/^\/mp3\/(\d+)-(\d+).(mp3|m3u)$/', $uri, $matches, PREG_OFFSET_CAPTURE)) {
+            $start = (int)$matches[1][0];
+            $duration = (int)$matches[2][0];
+        } else if (preg_match('/^\/mp3\/(\d+)\/(\d+)\/(\d+).*$/', $uri, $matches, PREG_OFFSET_CAPTURE)) {
+            $start = mktime(
+                (int)substr($matches[2][0], 0, 2),
+                (int)substr($matches[2][0], 2, 2),
+                (int)substr($matches[2][0], 4, 2),
+                (int)substr($matches[1][0], 4, 2),
+                (int)substr($matches[1][0], 6, 2),
+                (int)substr($matches[1][0], 0, 4));
+            $end = mktime(
+                (int)substr($matches[3][0], 0, 2),
+                (int)substr($matches[3][0], 2, 2),
+                (int)substr($matches[3][0], 4, 2),
+                (int)substr($matches[1][0], 4, 2),
+                (int)substr($matches[1][0], 6, 2),
+                (int)substr($matches[1][0], 0, 4));
+            $duration = ($end - $start) / 60;
+        } else {
             header('HTTP/1.0 500 Internal server error');
             die("Unparsable parameter");
         }
 
         //ok we have the parameters
-        $start = (int)$matches[1][0];
-        $duration = (int)$matches[2][0];
 
         $origin = $this->getMp3Links($start, $duration);
 //        print_r($origin);
+
+        if (substr($uri, -strlen(".m3u")) === ".m3u") {
+            return $this->m3uGenerator($start, $duration, $origin, $uri);
+        }
 
         if (isset($_SERVER['HTTP_RANGE'])) {
 
@@ -209,9 +230,9 @@ class Mp3Streamer
             $this->stream($ranges[0], $ranges[1], $origin);
         } else {
             $filename = sprintf("tilos-%s-%d", date("Y-m-d-Hi", $start), $duration);
-            if ($origin->getSize() < 1){
+            if ($origin->getSize() < 1) {
 //                header('HTTP/1.0 500 Internal server error');
- //               die("Some file is missing from the server.");
+                //               die("Some file is missing from the server.");
             } else {
                 header("Content-Length: " . $origin->getSize());
                 header("Content-Type: audio/mpeg");
@@ -223,10 +244,23 @@ class Mp3Streamer
         }
 
 
-        //stream the content to the browser
+//stream the content to the browser
 
 
         die("");
+    }
+
+    private
+    function m3uGenerator($start, $duration, $origin, $uri)
+    {
+        $filename = sprintf("tilos-%s-%d", date("Y-m-d-Hi", $start), $duration);
+        header("Content-Type: audio/x-mpegurl; charset=utf-8");
+        header("Content-Disposition: attachment; filename=\"$filename.m3u\"");
+        echo "#EXTM3U\n";
+        echo "#EXTINF:" . $origin->getSize() . ", Tilos Rádió - " . date("Y-m-d-Hi", $start) . "\n";
+        echo "http://" . $_SERVER['SERVER_NAME'] . str_replace(".m3u", ".mp3", $uri);
+        die();
+
     }
 }
 
