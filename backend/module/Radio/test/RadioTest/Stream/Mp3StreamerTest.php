@@ -6,23 +6,22 @@ class Mp3StreamerTest extends \PHPUnit_Framework_TestCase
 
     public function testStreamer()
     {
-        $backend = new \Radio\Stream\FileBackend();
-        echo getcwd();
-        $streamer = new TestMp3Stream("/home/elek/projects/tilos/archive-files/online/", $backend);
-        $_SERVER['REQUEST_URI'] = "/mp3/20140604/073400/074200.mp3";
+        $backend = new \Radio\Stream\SoutBackend();
+        $streamer = new TestMp3Stream(".", $backend);
+        $_SERVER['REQUEST_URI'] = "/mp3/20140618/101500/112000.mp3";
         $_SERVER['SERVER_NAME'] = "localhost";
         $streamer->combinedMp3Action();
 
-//        $this->assertEquals(3, sizeof($backend->printed));
-//
-//        $this->assertEquals(28802812, $backend->printed[0][1]);
-//        $this->assertEquals(0, $backend->printed[1][1]);
-//        $this->assertEquals(0, $backend->printed[2][1]);
-//
-//
-//        $this->assertEquals(57605625, $backend->printed[0][2]);
-//        $this->assertEquals(57605625, $backend->printed[1][2]);
-//        $this->assertEquals(38403750, $backend->printed[2][2]);
+        $this->assertEquals(3, sizeof($backend->printed));
+
+        $this->assertEquals(28802812, $backend->printed[0][1]);
+        $this->assertEquals(0, $backend->printed[1][1]);
+        $this->assertEquals(0, $backend->printed[2][1]);
+
+
+        $this->assertEquals(57605625, $backend->printed[0][2]);
+        $this->assertEquals(57605625, $backend->printed[1][2]);
+        $this->assertEquals(38403750, $backend->printed[2][2]);
     }
 
     public function testStreamerWithRange()
@@ -94,14 +93,14 @@ class Mp3StreamerTest extends \PHPUnit_Framework_TestCase
         $_SERVER['HTTP_RANGE'] = "bytes=10-100000000";
         $streamer->combinedMp3Action();
 
-        $this->assertEquals(2, sizeof($backend->printed));
+        $this->assertEquals(3, sizeof($backend->printed));
 
-        $this->assertEquals(28802820, $backend->printed[0][1]);
+        $this->assertEquals(28802822, $backend->printed[0][1]);
         $this->assertEquals(0, $backend->printed[1][1]);
 
 
         $this->assertEquals(57605625, $backend->printed[0][2]);
-        $this->assertEquals(1, $backend->printed[1][2]);
+        $this->assertEquals(57605625, $backend->printed[1][2]);
     }
 
 
