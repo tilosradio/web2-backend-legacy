@@ -5,7 +5,7 @@ namespace Radio\Controller;
 use Zend\I18n\Validator\DateTime;
 use Zend\Mvc\Controller\AbstractActionController;
 use Radio\Provider\EntityManager;
-use Radio\Util\Mp3Streamer;
+use Radio\Stream\Mp3Streamer;
 
 /**
  * Generate atom feeds.
