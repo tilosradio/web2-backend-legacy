@@ -1,52 +1,49 @@
 <section class="col-md-6 main" role="main">
-    <h2 class="bordered blue top">Műsor:</h2>
+    <tabset>
+        <tab heading="Legutóbbi adások">
+            <div class="episode-tab">
+            <div class="panel panel-default episode-box" ng-repeat="episode in show.episodes">
+                <div class="panel-heading">
+                    <b>
+                        <a ng-show="episode.text" ng-href="{{episode.url}}">{{episode.plannedFrom * 1000| date: 'yyyy.MM.dd.'}} {{episode.text.title}}</a></span>
+                        <span ng-hide="episode.text">{{episode.plannedFrom * 1000| date: 'yyyy.MM.dd.'}}</span>
+                    </b>
 
-    <h1 class="ubuntu">{{show.name}}</h1>
+                    <a ng-show="experimental" class="stream-link pull-right" ng-click="play(episode.resources.stream)" target="_self">
+                        <i class="icon-volume-up"></i> online
+                    </a>
+                    <a ng-show="episode.m3uUrl" class="pull-right listen-show" ng-href="{{episode.m3uUrl}}" target="_self">
+                        <i class="icon-volume-up"></i> Meghallgat
+                    </a>
+                    {{episode.persistent}}
+                </div>
+            </div>
 
-    <p><i>{{show.definition}}</i></p>
-    <span ng-bind-html="show.description"></span></br>
-    <footer>
-        <div class="social" ng-controller="SocialCtrl">
-            <iframe ng-src="{{likeURL}}" scrolling="no" frameborder="0"
-                    style="border:none; overflow:hidden; height:80px;" allowTransparency="true"></iframe>
-            <!--<div class="facebook-share">
-                <span class="icon-facebook"></span>
-                <span class="cursorPointer" ng-click="share(show.name, show.definition, show.alias)">Megosztom</span>
-                <span class="share-numb">{{show.sharecount}}</span>
-            </div>-->
-            <!--
-            <a href="#" class="google-share"><span class=" icon-google-plus"></span>Megosztom <span class="share-numb">5k</span></a>
-            <a href="#" class="edit-this icon-pencil"></a>
-            <a href="#" class="archive-this icon-box-add"></a>-->
-        </div>
-    </footer>
+            </div>
+            <ul class="pager episode-box-pager">
+                <li class="cursorPointer prev-link"><a ng-click="prev()">&larr; Korábbi adások</a></li>
+                <li class="cursorPointer next-link" ng-if="currentShowPage != 0"><a ng-click="next()">Későbbi adások &rarr;</a></li>
+            </ul>
+        </tab>
+        <tab heading="Műsor bemutatkozás">
+            <h1 class="ubuntu">{{show.name}}</h1>
 
-    <h2>Legutóbbi adások</h2>
+            <p><i>{{show.definition}}</i></p>
+            <span ng-bind-html="show.description"></span></br>
+            <footer>
+                <div class="social" ng-controller="SocialCtrl">
+                    <iframe ng-src="{{likeURL}}" scrolling="no" frameborder="0"
+                            style="border:none; overflow:hidden; height:80px;" allowTransparency="true"></iframe>
+                </div>
+            </footer>
+        </tab>
 
-    <div class="panel panel-default episode-box" ng-repeat="episode in show.episodes">
-        <div class="panel-heading">
-            <b>
-                <a ng-show="episode.text" ng-href="{{episode.url}}">{{episode.plannedFrom * 1000| date: 'yyyy.MM.dd.'}} {{episode.text.title}}</a></span>
-                <span ng-hide="episode.text">{{episode.plannedFrom * 1000| date: 'yyyy.MM.dd.'}}</span>
-            </b>
+    </tabset>
 
-            <a ng-show="experimental" class="stream-link pull-right" ng-click="play(episode.resources.stream)" target="_self">
-                <i class="icon-volume-up"></i> online
-            </a>
-            <a ng-show="episode.m3uUrl" class="pull-right listen-show" ng-href="{{episode.m3uUrl}}" target="_self">
-            	<i class="icon-volume-up"></i> Meghallgat
-            </a>
-            {{episode.persistent}}
-        </div>
-<!--<div ng-if="episode.text" class="panel-body">
-<span ng-bind-html="episode.text.formatted"></span>
-</div>-->
 
-    </div>
-    <ul class="pager episode-box-pager">
-        <li class="cursorPointer prev-link"><a ng-click="prev()">&larr; Korábbi adások</a></li>
-        <li class="cursorPointer next-link" ng-if="currentShowPage != 0"><a ng-click="next()">Későbbi adások &rarr;</a></li>
-    </ul>
+
+
+
 </section>
 
 <aside class="col-md-3">
