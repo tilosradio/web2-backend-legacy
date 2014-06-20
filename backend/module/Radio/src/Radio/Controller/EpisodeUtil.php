@@ -57,9 +57,10 @@ class EpisodeUtil
                     $e['plannedFrom'] = $real;
                     $e['plannedTo'] = EpisodeUtil::toDateTime($realEnd);
                     $e['realFrom'] = $e['plannedFrom'];
-                    $e['realTo'] = $e['plannedTo'];
+                    $e['realTo'] = new \DateTime();
+                    $e['realTo']->setTimestamp($e['plannedTo']->getTimestamp() + 60 * 15);
                     if ($now->getTimestamp() > $realEnd) {
-                        $e['m3uUrl'] = EpisodeUtil::m3uUrlLinkFromDate($real, $e['plannedTo']);
+                        $e['m3uUrl'] = EpisodeUtil::m3uUrlLinkFromDate($real, $e['realTo']);
                     }
                     $e['persistent'] = false;
                     $e['show'] = $scheduling['show'];
@@ -120,7 +121,13 @@ class EpisodeUtil
 
     static function m3uUrlLink($episode)
     {
-        return EpisodeUtil::m3uUrlLinkFromDate($episode['realFrom'], $episode['realTo']);
+        $to = new \DateTime();;
+        if ($episode['realTo'] == $episode['plannedTo']) {
+            $to->setTimestamp($episode['realTo']->getTimestamp() + 60 * 15);
+        } else {
+            $to = $episode['realTo'];
+        }
+        return EpisodeUtil::m3uUrlLinkFromDate($episode['realFrom'], $to);
     }
 
     static function merge($episodes, $scheduled)
