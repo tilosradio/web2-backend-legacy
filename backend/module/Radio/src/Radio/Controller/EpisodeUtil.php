@@ -6,11 +6,13 @@ namespace Radio\Controller;
  * Utility class to return with episodes.
  *
  */
-class EpisodeUtil {
+class EpisodeUtil
+{
 
-    static function getScheduled($em, $from, $to, $show) {
+    static function getScheduled($em, $from, $to, $show)
+    {
         $qb = $em->createQueryBuilder();
-        $qb->select('e', 's', 'c','a')->from('\Radio\Entity\Scheduling', 'e');
+        $qb->select('e', 's', 'c', 'a')->from('\Radio\Entity\Scheduling', 'e');
         $qb->leftJoin("e.show", "s");
         $qb->leftJoin('s.contributors', 'c');
         $qb->leftJoin('c.author', 'a');
@@ -18,7 +20,7 @@ class EpisodeUtil {
         if ($show != null) {
             $qb->where('e.show = :showId');
         } else {
-           // $qb->where('s.status = 1');
+            // $qb->where('s.status = 1');
         }
         $qb->orderBy("e.weekDay,e.hourFrom,e.minFrom");
         $query = $qb->getQuery();
@@ -57,7 +59,7 @@ class EpisodeUtil {
                     $e['realFrom'] = $e['plannedFrom'];
                     $e['realTo'] = $e['plannedTo'];
                     if ($now->getTimestamp() > $realEnd) {
-                        $e['m3uUrl'] = EpisodeUtil::m3uUrlLinkFromDate($real,$e['plannedTo']);
+                        $e['m3uUrl'] = EpisodeUtil::m3uUrlLinkFromDate($real, $e['plannedTo']);
                     }
                     $e['persistent'] = false;
                     $e['show'] = $scheduling['show'];
@@ -69,12 +71,13 @@ class EpisodeUtil {
         return $scheduled;
     }
 
-    static function getEpisodes($em, $from, $to, $show = null) {
+    static function getEpisodes($em, $from, $to, $show = null)
+    {
         $current = new \DateTime();
         $now = new \DateTime();
 
         $qb = $em->createQueryBuilder();
-        $qb->select('e', 's', 'c', 't','a')->from('\Radio\Entity\Episode', 'e');
+        $qb->select('e', 's', 'c', 't', 'a')->from('\Radio\Entity\Episode', 'e');
         if ($show != null) {
             $qb->where("e.show = :showId AND e.plannedTo > :start AND e.plannedFrom < :end AND s.status = 1");
         } else {
@@ -102,28 +105,26 @@ class EpisodeUtil {
             }
         }
         return $episodes;
-     }
+    }
 
-    static function m3uUrlLinkFromDate($date, $end) {
+    static function m3uUrlLinkFromDate($date, $end)
+    {
         $d = getdate($date->getTimestamp());
-        $duration = ($end->getTimestamp()-$date->getTimestamp())/60;
-        $from = sprintf('%02d%02d',$d['hours'],$d['minutes']);
-        $tohour = $d['hours'];
-        $duration += $d['minutes'];
-        while ($duration >= 60) {
-            $tohour++;
-            $duration -=60;
-        }
-        $to = sprintf('%02d%02d',$tohour,$duration);
-        return sprintf('m3u/%02d%02d%02d/%s/%s/tilos.m3u', $d['year'],$d['mon'],$d['mday'],
-            $from,$to);
+        $from = sprintf('%02d%02d%02d', $d['hours'], $d['minutes'], $d['seconds']);
+        $endd = getdate($end->getTimestamp());
+        $to = sprintf('%02d%02d%02d', $endd['hours'], $endd['minutes'], $endd['seconds']);
+
+        return sprintf('mp3/tilos-%02d%02d%02d-%s-%s.mp3', $d['year'], $d['mon'], $d['mday'],
+            $from, $to);
     }
 
-    static function m3uUrlLink($episode) {
-        return EpisodeUtil::m3uUrlLinkFromDate($episode['plannedFrom'], $episode['plannedTo']);
+    static function m3uUrlLink($episode)
+    {
+        return EpisodeUtil::m3uUrlLinkFromDate($episode['realFrom'], $episode['realTo']);
     }
 
-    static function merge($episodes, $scheduled) {
+    static function merge($episodes, $scheduled)
+    {
         $result = [];
         $si = 0; //scheduled index
         $ei = 0; //episode index;
@@ -153,7 +154,8 @@ class EpisodeUtil {
         return $result;
     }
 
-    static function getEpisodeTimes($em, $from, $to, $show = null, $reverse = false) {
+    static function getEpisodeTimes($em, $from, $to, $show = null, $reverse = false)
+    {
         //$em->getConfiguration()->setSQLLogger(new \Doctrine\DBAL\Logging\EchoSQLLogger());
         //retrieve active rules
         $scheduled = EpisodeUtil::getScheduled($em, $from, $to, $show);
@@ -170,35 +172,41 @@ class EpisodeUtil {
         return $result;
     }
 
-    static function reverseComparator($a, $b) {
+    static function reverseComparator($a, $b)
+    {
         if ($a['plannedFrom']->getTimestamp() > $b['plannedFrom']->getTimestamp()) {
             return -1;
         }
         return 1;
     }
 
-    static function comparator($a, $b) {
+    static function comparator($a, $b)
+    {
         if ($a['plannedFrom']->getTimestamp() > $b['plannedFrom']->getTimestamp()) {
             return 1;
         }
         return -1;
     }
 
-    static function toDateTime($timestamp) {
+    static function toDateTime($timestamp)
+    {
         $d = new \DateTime();
         $d->setTimestamp($timestamp);
         return $d;
     }
 
-    static function timeInWeek($firstWeekStart, $scheduling) {
+    static function timeInWeek($firstWeekStart, $scheduling)
+    {
         return $firstWeekStart + $scheduling['weekDay'] * 60 * 60 * 24 + 60 * 60 * $scheduling['hourFrom'] + 60 * $scheduling['minFrom'];
     }
 
-    static function weekStart($time) {
+    static function weekStart($time)
+    {
         return strtotime('Last Monday', $time);
     }
 
-    static function schedulingMessage($scheduling){
+    static function schedulingMessage($scheduling)
+    {
         $str = "minden ";
         if ($scheduling['weekType'] == 2) {
             $str .= "második ";
@@ -211,12 +219,12 @@ class EpisodeUtil {
         if ($toHour >= 24) {
             $toHour -= 24;
         }
-        $str.= " " . sprintf("%d:%02d-%d:%02d",$scheduling['hourFrom'],$scheduling['minFrom'],$toHour,$toMin);
+        $str .= " " . sprintf("%d:%02d-%d:%02d", $scheduling['hourFrom'], $scheduling['minFrom'], $toHour, $toMin);
         return $str;
     }
 
     static function getMp3StreamLinks($start, $duration)
-        {
+    {
         $res = [];
         $from = EpisodeUtil::getPrevHalfHour($start);
         $end = $from + $duration * 60;
@@ -237,16 +245,18 @@ class EpisodeUtil {
             }
         }
         return $res;
-     }
+    }
 
-    static function getPrevHalfHour($time){
-            $processed = getdate($time);
-            $min = $processed['minutes'];
-            if ($min >= 30) {
-                $min -= 30;
-            }
-            return $time - $min * 60;
+    static function getPrevHalfHour($time)
+    {
+        $processed = getdate($time);
+        $min = $processed['minutes'];
+        if ($min >= 30) {
+            $min -= 30;
         }
+        return $time - $min * 60;
+    }
 
 }
+
 ?>

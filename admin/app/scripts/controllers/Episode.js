@@ -54,11 +54,16 @@ angular.module('tilosAdmin')
 
         var id = $routeParams.id;
         $scope.now = new Date().getTime();
+
+
         $http.get(server + '/api/v0/episode/' + id).success(function (data) {
             $scope.episode = data;
             $scope.episode.id = id;
             $scope.show = data['show'];
             $scope.episode.show = null;
+            if (!$scope.episode.text) {
+               $scope.episode.text = {};
+            }
 
             $scope.realTo = dateUtil.toHourMin($scope.episode.realTo);
             $scope.realFrom = dateUtil.toHourMin($scope.episode.realFrom);

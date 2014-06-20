@@ -30,7 +30,7 @@
       <!--
       <a ng-show="episode.newUrl" ng-href="{{episode.newUrl}}" target="_self"><i class="icon-volume-up"></i> Meghallgat</a>
 	  -->
-        <a ng-show="episode.m3uUrl" ng-href="{{episode.m3uUrl}}" target="_self"><i class="icon-volume-up"></i> Meghallgat</a>
+        <a ng-show="episode.m3uUrl" ng-href="{{episode.m3uUrl}}" target="_self" class="label label-episode label-warning"><i class="icon-volume-up"></i> Meghallgat</a>
       </td>
       <td class="archiveTime">{{episode.plannedFrom * 1000| date: 'HH:mm'}}</td>
       <td class="archiveShowName"><a href="/show/{{episode.show.alias}}">{{episode.show.name}}</a></td>

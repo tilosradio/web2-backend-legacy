@@ -1,8 +1,8 @@
 <section class="col-md-9 main" role="main">
             <h2 class="bordered blue top"><a ng-href="/show/{{currentShow.alias}}">{{currentShow.name}}</a> - adásnapló - {{episode.plannedFrom * 1000|
     date:yyyy.MM.dd}}
-            <a ng-show="episode.m3uUrl" class="pull-right listen-show" ng-href="{{episode.m3uUrl}}" target="_self">
-            Meghallgat
+            <a ng-show="episode.m3uUrl" class="pull-right listen-show btn btn-warning" ng-href="{{episode.m3uUrl}}" target="_self">
+                <i class="icon-volume-up"></i> Meghallgat
             </a></h2>
   <h1 class="ubuntu">{{episode.text.title}}</h1>
 

@@ -67,6 +67,24 @@ class Mp3Streamer
             $start = (int)$matches[1][0];
             $duration = (int)$matches[2][0];
         } else if (preg_match('/^\/mp3\/(\d+)\/(\d+)\/(\d+).*$/', $uri, $matches, PREG_OFFSET_CAPTURE)) {
+            //mp3/20140505/120300/140400.mp3
+            $start = mktime(
+                (int)substr($matches[2][0], 0, 2),
+                (int)substr($matches[2][0], 2, 2),
+                (int)substr($matches[2][0], 4, 2),
+                (int)substr($matches[1][0], 4, 2),
+                (int)substr($matches[1][0], 6, 2),
+                (int)substr($matches[1][0], 0, 4));
+            $end = mktime(
+                (int)substr($matches[3][0], 0, 2),
+                (int)substr($matches[3][0], 2, 2),
+                (int)substr($matches[3][0], 4, 2),
+                (int)substr($matches[1][0], 4, 2),
+                (int)substr($matches[1][0], 6, 2),
+                (int)substr($matches[1][0], 0, 4));
+            $duration = ($end - $start) / 60;
+        } else if (preg_match('/^\/mp3\/tilos-(\d+)-(\d+)-(\d+).*$/', $uri, $matches, PREG_OFFSET_CAPTURE)) {
+            //mp3/tilos-20140505-120300-140400.mp3
             $start = mktime(
                 (int)substr($matches[2][0], 0, 2),
                 (int)substr($matches[2][0], 2, 2),
@@ -134,7 +152,7 @@ class Mp3Streamer
             } else {
                 $this->header("Content-Length: " . $origin->getSize());
                 $this->header("Content-Type: audio/mpeg");
-                $this->header("Content-Disposition: attachment; filename=\"$filename.mp3\"");
+                $this->header("Content-Disposition: inline; filename=\"$filename.mp3\"");
                 $this->header('Accept-Ranges: bytes');
             }
             $this->stream(0, $origin->getSize(), $origin);

@@ -118,7 +118,7 @@ gulp.task('connect', function() {
 });
 
 gulp.task('cachedir', shell.task([
-    'mkdir dist/data/DoctrineORMModule/Proxy',
+    'mkdir -p dist/data/DoctrineORMModule/Proxy',
     'chmod o+w dist/data/DoctrineORMModule/Proxy'
 ]))
 
