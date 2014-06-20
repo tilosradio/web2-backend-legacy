@@ -2,6 +2,7 @@
 
 namespace Radio\Controller;
 
+use Radio\Stream\FileBackend;
 use Zend\I18n\Validator\DateTime;
 use Zend\Mvc\Controller\AbstractActionController;
 use Radio\Provider\EntityManager;
@@ -89,7 +90,7 @@ class Atom extends AbstractActionController
             $entry->setItunesExplicit('no');
 
             $duration = ($episode['plannedTo']->getTimestamp() - $episode['plannedFrom']->getTimestamp()) / 60;
-            $mp3 = new Mp3Streamer("archive-files/online");
+            $mp3 = new Mp3Streamer("archive-files/online", new FileBackend());
             $origin = $mp3->getMp3Links($from, $duration + 10);
             $entry->setEnclosure(array(
                 'type' => 'audio/mpeg',
