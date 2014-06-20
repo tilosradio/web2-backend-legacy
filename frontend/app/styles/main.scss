@@ -843,15 +843,6 @@ a.icon-star, a.icon-star2{
   }
 }
 
-.label.episode, #archiveTable a.episode{
-  background: $rss;
-  border-color: $rss;
-  &:hover{
-    background: darken($rss, 5%);
-    color: white;
-  }
-}
-
 
 .social-box{
   .collapse-row {
@@ -1241,4 +1232,14 @@ input.datepicker {
 }
 #maraton img{
 
+}
+
+.label.episode, #archiveTable a.episode {
+  color:white;
+  background: $rss;
+  border-color: $rss;
+  &:hover{
+    background: darken($rss, 5%);
+    color: white;
+  }
 }
