@@ -115,7 +115,7 @@ class EpisodeUtil
         $endd = getdate($end->getTimestamp());
         $to = sprintf('%02d%02d%02d', $endd['hours'], $endd['minutes'], $endd['seconds']);
 
-        return sprintf('mp3/tilos-%02d%02d%02d-%s-%s.mp3', $d['year'], $d['mon'], $d['mday'],
+        return sprintf('mp3/tilos-%02d%02d%02d-%s-%s.m3u', $d['year'], $d['mon'], $d['mday'],
             $from, $to);
     }
 

@@ -105,6 +105,10 @@ class Mp3Streamer
             die("Unparsable parameter");
         }
 
+        if ($duration > 360) {
+            $this->header('HTTP/1.0 500 Internal server error');
+            die("Duration is too long.");
+        }
         //ok we have the parameters
 
         $origin = $this->getMp3Links($start, $duration);
