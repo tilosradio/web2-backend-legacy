@@ -89,12 +89,15 @@ class Atom extends AbstractActionController
             //$entry->setContent('content');
             $entry->setItunesExplicit('no');
 
-            $duration = ($episode['plannedTo']->getTimestamp() - $episode['plannedFrom']->getTimestamp()) / 60;
+            $duration = (int)(($episode['realTo']->getTimestamp() - $episode['realFrom']->getTimestamp()) / 60);
+            if ($episode['realTo'] == $episode['realFrom']) {
+                $duration += 10;
+            }
             $mp3 = new Mp3Streamer("archive-files/online", new FileBackend());
-            $origin = $mp3->getMp3Links($from, $duration + 10);
+            $origin = $mp3->getMp3Links($from, $duration);
             $entry->setEnclosure(array(
                 'type' => 'audio/mpeg',
-                'uri' => sprintf($serverRoot . "/mp3/%d-%d.mp3", $from, $duration + 10),
+                'uri' => sprintf($serverRoot . "/mp3/%d-%d.mp3", $from, $duration),
                 'length' => $origin->getSize()
             ));
             $feed->addEntry($entry);
