@@ -56,7 +56,6 @@ class Mp3Streamer
     }
 
 
-
     public function combinedMp3Action()
     {
 
@@ -82,6 +81,11 @@ class Mp3Streamer
                 (int)substr($matches[1][0], 4, 2),
                 (int)substr($matches[1][0], 6, 2),
                 (int)substr($matches[1][0], 0, 4));
+            $hourTo = (int) substr($matches[3][0], 0, 2);
+            $hourFrom = (int) substr($matches[2][0], 0, 2);
+            if ($hourTo < $hourFrom) {
+                $end += 60 * 60 * 24;
+            }
             $duration = ($end - $start) / 60;
         } else if (preg_match('/^\/mp3\/tilos-(\d+)-(\d+)-(\d+).*$/', $uri, $matches, PREG_OFFSET_CAPTURE)) {
             //mp3/tilos-20140505-120300-140400.mp3
@@ -99,7 +103,14 @@ class Mp3Streamer
                 (int)substr($matches[1][0], 4, 2),
                 (int)substr($matches[1][0], 6, 2),
                 (int)substr($matches[1][0], 0, 4));
+
+            $hourTo = (int) substr($matches[3][0], 0, 2);
+            $hourFrom = (int) substr($matches[2][0], 0, 2);
+            if ($hourTo < $hourFrom) {
+                $end += 60 * 60 * 24;
+            }
             $duration = ($end - $start) / 60;
+
         } else {
             $this->header('HTTP/1.0 500 Internal server error');
             die("Unparsable parameter");
@@ -143,7 +154,7 @@ class Mp3Streamer
                     'Content-Range: bytes %d-%d/%d', // The header format
                     $ranges[0], // The start range
                     $ranges[1], // The end range
-                    $origin->getSize() // Total size of the file
+                    $ranges[1] - $ranges[0] // Total size of the file
                 )
             );
             $this->stream($ranges[0], $ranges[1], $origin);
