@@ -41,8 +41,11 @@ class FileBackend
 
         while (!feof($fin)) {
             if ($out + $buffer_size > $to) {
-                echo fread($fin, $to - $out);
+                if ($to != $out) {
+                    echo fread($fin, $to - $out);
+                }
                 break;
+
             }
             $res = fread($fin, $buffer_size);
             echo $res;
